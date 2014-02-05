@@ -35,7 +35,7 @@ public class OAuthDataController implements IAuthDataController {
     private volatile OAuthTokenState mTokenState = OAuthTokenState.PRE_CREATION;
     private boolean mAutoRefresh;
     private int mWaitTimeOut = WAIT_TIME_OUT;
-
+    private Exception refreshFailException;
     private volatile boolean locked = false;
 
     private OAuthRefreshListener refreshListener;
@@ -154,10 +154,27 @@ public class OAuthDataController implements IAuthDataController {
     }
 
     /**
+     * @return the refreshFailException
+     */
+    public Exception getRefreshFailException() {
+        return refreshFailException;
+    }
+
+    /**
+     * @param refreshFailException
+     *            the refreshFailException to set
+     */
+    public void setRefreshFail(Exception refreshFailException) {
+        this.refreshFailException = refreshFailException;
+        setTokenState(OAuthTokenState.FAIL);
+    }
+
+    /**
      * Initialize the controller.
      */
     public void initialize() {
         setTokenState(OAuthTokenState.AVAILABLE);
+        setRefreshFail(null);
         unlock();
     }
 
@@ -179,7 +196,7 @@ public class OAuthDataController implements IAuthDataController {
                 num++;
             }
         }
-        throw new AuthFatalFailureException();
+        throw new AuthFatalFailureException(getRefreshFailException());
     }
 
     /**
@@ -196,7 +213,7 @@ public class OAuthDataController implements IAuthDataController {
         else {
             if (getTokenState() == OAuthTokenState.FAIL || !mAutoRefresh) {
                 setTokenState(OAuthTokenState.FAIL);
-                throw new AuthFatalFailureException(true);
+                throw new AuthFatalFailureException(getRefreshFailException());
             }
             else {
                 doRefresh();
@@ -253,14 +270,15 @@ public class OAuthDataController implements IAuthDataController {
             requestObj.put("device_name", mDeviceName);
             mOAuthToken = mClient.getOAuthManager().refreshOAuth(requestObj);
             setTokenState(OAuthTokenState.AVAILABLE);
+            setRefreshFail(null);
             if (refreshListener != null) {
                 refreshListener.onRefresh(mOAuthToken);
             }
 
         }
         catch (Exception e) {
-            setTokenState(OAuthTokenState.FAIL);
-            throw new AuthFatalFailureException(true);
+            setRefreshFail(e);
+            throw new AuthFatalFailureException(getRefreshFailException());
         }
         finally {
             unlock();
