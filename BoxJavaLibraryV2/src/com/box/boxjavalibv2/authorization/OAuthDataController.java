@@ -196,7 +196,7 @@ public class OAuthDataController implements IAuthDataController {
                 num++;
             }
         }
-        throw new AuthFatalFailureException();
+        throw new AuthFatalFailureException(getRefreshFailException());
     }
 
     /**
