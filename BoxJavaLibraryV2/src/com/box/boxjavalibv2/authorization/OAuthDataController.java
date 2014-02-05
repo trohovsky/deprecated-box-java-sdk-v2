@@ -174,6 +174,7 @@ public class OAuthDataController implements IAuthDataController {
      */
     public void initialize() {
         setTokenState(OAuthTokenState.AVAILABLE);
+        setRefreshFail(null);
         unlock();
     }
 
@@ -269,6 +270,7 @@ public class OAuthDataController implements IAuthDataController {
             requestObj.put("device_name", mDeviceName);
             mOAuthToken = mClient.getOAuthManager().refreshOAuth(requestObj);
             setTokenState(OAuthTokenState.AVAILABLE);
+            setRefreshFail(null);
             if (refreshListener != null) {
                 refreshListener.onRefresh(mOAuthToken);
             }
