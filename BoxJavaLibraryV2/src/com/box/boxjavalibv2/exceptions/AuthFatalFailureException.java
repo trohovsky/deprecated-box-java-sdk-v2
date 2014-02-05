@@ -17,9 +17,14 @@ public class AuthFatalFailureException extends BoxSDKException {
         super();
     }
 
+    @Deprecated
     public AuthFatalFailureException(boolean callerResponsibleForFix) {
         this();
         this.callerResponsibleForFix = callerResponsibleForFix;
+    }
+
+    public AuthFatalFailureException(Exception e) {
+        super(e);
     }
 
     /**
@@ -32,6 +37,7 @@ public class AuthFatalFailureException extends BoxSDKException {
     /**
      * @return whether the caller is responsible to fix this issue.
      */
+    @Deprecated
     public boolean isCallerResponsibleForFix() {
         return callerResponsibleForFix;
     }
