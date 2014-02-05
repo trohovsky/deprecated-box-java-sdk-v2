@@ -25,6 +25,7 @@ public class BoxItem extends BoxTypedObject {
     public static final String FIELD_PARENT = "parent";
     public static final String FIELD_PATH_COLLECTION = "path_collection";
     public static final String FIELD_TAGS = "tags";
+    public static final String FIELD_ALLOWED_SHARED_LINK_ACCESS_LEVELS = "allowed_shared_link_access_levels";
 
     public BoxItem() {
     }
@@ -70,7 +71,7 @@ public class BoxItem extends BoxTypedObject {
 
     /**
      * Get the tags that are set on this item.
-     *
+     * 
      * @return the tags
      */
     @JsonProperty(FIELD_TAGS)
@@ -80,7 +81,7 @@ public class BoxItem extends BoxTypedObject {
 
     /**
      * This is only used by {@see <a href="http://jackson.codehaus.org">Jackson JSON processer</a>}
-     *
+     * 
      * @param tags
      *            the tags to set
      */
@@ -316,6 +317,27 @@ public class BoxItem extends BoxTypedObject {
     @JsonProperty(FIELD_ITEM_STATUS)
     private void setItemStatus(String itemStatus) {
         put(FIELD_ITEM_STATUS, itemStatus);
+    }
+
+    /**
+     * Get a list of the allowed shared link access levels for this item.
+     * 
+     * @return the allowed_shared_link_access_levels
+     */
+    @JsonProperty(FIELD_ALLOWED_SHARED_LINK_ACCESS_LEVELS)
+    public String[] getAllowedSharedLinkAccessLevels() {
+        return (String[]) getValue(FIELD_ALLOWED_SHARED_LINK_ACCESS_LEVELS);
+    }
+
+    /**
+     * Setter. This is only used by {@see <a href="http://jackson.codehaus.org">Jackson JSON processer</a>}
+     * 
+     * @param itemStatus
+     *            the allowed_shared_link_access_levels to set
+     */
+    @JsonProperty(FIELD_ALLOWED_SHARED_LINK_ACCESS_LEVELS)
+    private void setAllowedSharedLinkAccessLevels(final String[] allowedSharedLinkAccessLevels) {
+        put(FIELD_ALLOWED_SHARED_LINK_ACCESS_LEVELS, allowedSharedLinkAccessLevels);
     }
 
     public BoxItem(IBoxParcelWrapper in) {
