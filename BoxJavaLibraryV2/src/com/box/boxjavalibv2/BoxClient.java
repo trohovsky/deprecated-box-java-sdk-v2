@@ -1,5 +1,8 @@
 package com.box.boxjavalibv2;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.apache.commons.lang.NotImplementedException;
 
 import com.box.boxjavalibv2.authorization.OAuthAuthorization;
@@ -21,6 +24,7 @@ import com.box.boxjavalibv2.interfaces.IAuthFlowUI;
 import com.box.boxjavalibv2.interfaces.IAuthSecureStorage;
 import com.box.boxjavalibv2.interfaces.IBoxJSONParser;
 import com.box.boxjavalibv2.interfaces.IBoxResourceHub;
+import com.box.boxjavalibv2.interfaces.IPluginResourceManagerBuilder;
 import com.box.boxjavalibv2.jsonparsing.BoxJSONParser;
 import com.box.boxjavalibv2.jsonparsing.BoxResourceHub;
 import com.box.boxjavalibv2.resourcemanagers.BoxCollaborationsManager;
@@ -66,6 +70,7 @@ public class BoxClient extends BoxBase implements IAuthFlowListener {
     private final BoxOAuthManager oauthManager;
     private final BoxGroupsManager groupsManager;
     private IAuthFlowListener mAuthListener;
+    private final Map<String, BoxResourceManager> pluginResourceManagers = new HashMap<String, BoxResourceManager>();
 
     /**
      * This constructor has some connection parameters. They are used to periodically close idle connections that HttpClient opens.
@@ -116,6 +121,12 @@ public class BoxClient extends BoxBase implements IAuthFlowListener {
     @Deprecated
     public BoxClient(final String clientId, final String clientSecret) {
         this(clientId, clientSecret, null, null);
+    }
+
+    public BoxResourceManager pluginResourceManager(String key, IPluginResourceManagerBuilder builder) {
+        BoxResourceManager manager = builder.build(getConfig(), getResourceHub(), getJSONParser(), getAuth(), getRestClient());
+        pluginResourceManagers.put(key, manager);
+        return manager;
     }
 
     /**
@@ -291,6 +302,10 @@ public class BoxClient extends BoxBase implements IAuthFlowListener {
             default:
                 throw new NotImplementedException();
         }
+    }
+
+    public BoxResourceManager getPluginManager(String pluginManagerKey) {
+        return this.pluginResourceManagers.get(pluginManagerKey);
     }
 
     /**

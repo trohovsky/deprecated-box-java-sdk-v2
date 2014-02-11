@@ -154,27 +154,9 @@ public abstract class BoxResourceManager {
         AuthFatalFailureException {
         request.setAuth(getAuth());
         DefaultBoxResponse response = (DefaultBoxResponse) getRestClient().execute(request);
-        BoxObjectResponseParser responseParser = new BoxObjectResponseParser(getResourceHub().getClass(type), parser);
+        BoxObjectResponseParser responseParser = new BoxObjectResponseParser(getClassFromType(type), parser);
         ErrorResponseParser errorParser = new ErrorResponseParser(getJSONParser());
         return response.parseResponse(responseParser, errorParser);
-    }
-
-    // TODO: support web links
-    /**
-     * Try to cast a box item into a concrete class(i.e. file or folder)
-     * 
-     * @param isFolder
-     *            whether it's folder
-     * @param item
-     *            the box item.
-     * @return box items
-     * @throws BoxServerException
-     *             exception
-     * @throws BoxRestException
-     *             exception
-     */
-    protected Object tryCastBoxItem(final BoxResourceType type, final Object item) throws BoxServerException, BoxRestException {
-        return tryCastObject(type, item);
     }
 
     /**
@@ -199,7 +181,7 @@ public abstract class BoxResourceManager {
             throw new BoxUnexpectedHttpStatusException((BoxUnexpectedStatus) obj);
         }
         else {
-            Class expectedClass = getResourceHub().getClass(expectedType);
+            Class expectedClass = getClassFromType(expectedType);
             if (expectedClass.isInstance(obj)) {
                 return obj;
             }
@@ -210,5 +192,28 @@ public abstract class BoxResourceManager {
                 throw new BoxRestException("Invalid class, expected:" + expectedClass.getCanonicalName() + ";current:" + obj.getClass().getCanonicalName());
             }
         }
+    }
+
+    @SuppressWarnings("rawtypes")
+    protected Class getClassFromType(final IBoxType type) {
+        return getResourceHub().getClass(type);
+    }
+
+    // TODO: support web links
+    /**
+     * Try to cast a box item into a concrete class(i.e. file or folder)
+     * 
+     * @param isFolder
+     *            whether it's folder
+     * @param item
+     *            the box item.
+     * @return box items
+     * @throws BoxServerException
+     *             exception
+     * @throws BoxRestException
+     *             exception
+     */
+    protected Object tryCastBoxItem(final BoxResourceType type, final Object item) throws BoxServerException, BoxRestException {
+        return tryCastObject(type, item);
     }
 }

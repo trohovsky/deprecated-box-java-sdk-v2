@@ -84,7 +84,7 @@ public class BoxObject extends DefaultJSONStringEntity implements IBoxParcelable
     }
 
     @JsonAnyGetter
-    public Map<String, Object> properties() {
+    public Map<String, Object> extraProperties() {
         return extraMap;
     }
 
