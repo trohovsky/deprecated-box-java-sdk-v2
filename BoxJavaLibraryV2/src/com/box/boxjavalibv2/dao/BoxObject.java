@@ -1,8 +1,11 @@
 package com.box.boxjavalibv2.dao;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import org.apache.commons.lang.builder.HashCodeBuilder;
 
@@ -30,6 +33,7 @@ public class BoxObject extends DefaultJSONStringEntity implements IBoxParcelable
         cloneMap(this.map, map);
     }
 
+    
     /**
      * Whether the two objects are equal. This strictly compares all the fields in the two objects, if any fields are different this returns false.
      * 
@@ -47,7 +51,51 @@ public class BoxObject extends DefaultJSONStringEntity implements IBoxParcelable
         }
 
         BoxObject bObj = (BoxObject) obj;
-        return map.equals(bObj.map) && extraMap.equals(bObj.extraMap);
+        return compareMapsWithPrimitiveArrays(map, bObj.map) && compareMapsWithPrimitiveArrays(extraMap, bObj.extraMap);
+    }
+
+    private boolean compareMapsWithPrimitiveArrays(final Map<String, Object> m, final Map<String, Object> o) {
+        if (m == o) {
+            return true;
+        }
+
+        if (o.size() != m.size()) {
+            return false;
+        }
+
+        try {
+            Iterator<Entry<String, Object>> i = o.entrySet().iterator();
+            while (i.hasNext()) {
+                Entry<String, Object> e = i.next();
+                String key = e.getKey();
+                Object value = e.getValue();
+                if (value == null) {
+                    if (!(m.get(key) == null && m.containsKey(key))) {
+                        return false;
+                    }
+                }
+                else {
+                    if (value instanceof Object[]) {
+                        if (!Arrays.equals((Object[]) value, (Object[]) (m.get(key)))) {
+                            return false;
+                        }
+                    }
+                    else if (!value.equals(m.get(key))) {
+                        return false;
+                    }
+
+                }
+
+            }
+        }
+        catch (ClassCastException e) {
+            return false;
+        }
+        catch (NullPointerException e) {
+            return false;
+        }
+        return true;
+
     }
 
     @Override
