@@ -6,8 +6,12 @@ public abstract class BoxSDKException extends Exception {
         super(message);
     }
 
-    public BoxSDKException(Exception exception) {
-        super(exception);
+    public BoxSDKException(String message, Throwable cause) {
+        super(message, cause);
+    }
+
+    public BoxSDKException(Throwable cause) {
+        super(cause);
     }
 
     public BoxSDKException() {

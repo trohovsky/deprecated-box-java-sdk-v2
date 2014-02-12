@@ -211,12 +211,17 @@ public class OAuthDataController implements IAuthDataController {
             getAuthData();
         }
         else {
-            if (getTokenState() == OAuthTokenState.FAIL || !mAutoRefresh) {
-                setTokenState(OAuthTokenState.FAIL);
-                throw new AuthFatalFailureException(getRefreshFailException());
+            try {
+                if (getTokenState() == OAuthTokenState.FAIL || !mAutoRefresh) {
+                    setTokenState(OAuthTokenState.FAIL);
+                    throw new AuthFatalFailureException(getRefreshFailException());
+                }
+                else {
+                    doRefresh();
+                }
             }
-            else {
-                doRefresh();
+            finally {
+                unlock();
             }
         }
     }
@@ -279,9 +284,6 @@ public class OAuthDataController implements IAuthDataController {
         catch (Exception e) {
             setRefreshFail(e);
             throw new AuthFatalFailureException(getRefreshFailException());
-        }
-        finally {
-            unlock();
         }
     }
 
