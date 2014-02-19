@@ -8,7 +8,7 @@ import com.box.boxjavalibv2.requests.requestobjects.BoxDefaultRequestObject;
 import com.box.boxjavalibv2.requests.requestobjects.BoxEventRequestObject;
 import com.box.restclientv2.exceptions.BoxRestException;
 
-public interface IBoxEventsManager {
+public interface IBoxEventsManager extends IBoxResourceManager {
 
     /**
      * Get Events.

@@ -12,7 +12,7 @@ import com.box.boxjavalibv2.requests.requestobjects.BoxItemRequestObject;
 import com.box.boxjavalibv2.requests.requestobjects.BoxItemRestoreRequestObject;
 import com.box.restclientv2.exceptions.BoxRestException;
 
-public interface IBoxItemsManager {
+public interface IBoxItemsManager extends IBoxResourceManager {
 
     /**
      * Get item given an item id.

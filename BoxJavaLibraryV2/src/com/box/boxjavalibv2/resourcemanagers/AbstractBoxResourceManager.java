@@ -21,7 +21,7 @@ import com.box.restclientv2.responses.DefaultBoxResponse;
 /**
  * Base class for BoxAPI classes.
  */
-public abstract class AbstractBoxResourceManager {
+public abstract class AbstractBoxResourceManager implements IBoxResourceManager {
 
     /** BoxConfig. */
     private final IBoxConfig mConfig;
@@ -55,11 +55,7 @@ public abstract class AbstractBoxResourceManager {
         this.mRestClient = restClient;
     }
 
-    /**
-     * Get auth.
-     * 
-     * @return auth
-     */
+    @Override
     public IBoxRequestAuth getAuth() {
         return mAuth;
     }
@@ -68,18 +64,17 @@ public abstract class AbstractBoxResourceManager {
         return this.mRestClient;
     }
 
-    /**
-     * @return the IResourceHub
-     */
+    @Override
     public IBoxResourceHub getResourceHub() {
         return mResourceHub;
     }
 
+    @Override
     public IBoxJSONParser getJSONParser() {
         return mParser;
     }
 
-    /** Get config. */
+    @Override
     public IBoxConfig getConfig() {
         return mConfig;
     }

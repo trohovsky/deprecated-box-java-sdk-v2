@@ -5,7 +5,7 @@ import com.box.boxjavalibv2.exceptions.AuthFatalFailureException;
 import com.box.boxjavalibv2.exceptions.BoxServerException;
 import com.box.restclientv2.exceptions.BoxRestException;
 
-public interface IBoxOAuthManager {
+public interface IBoxOAuthManager extends IBoxResourceManager {
 
     /**
      * @param code

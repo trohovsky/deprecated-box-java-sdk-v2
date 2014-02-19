@@ -15,7 +15,7 @@ import com.box.boxjavalibv2.requests.requestobjects.BoxFolderRequestObject;
 import com.box.boxjavalibv2.requests.requestobjects.BoxItemRestoreRequestObject;
 import com.box.restclientv2.exceptions.BoxRestException;
 
-public interface IBoxFoldersManager {
+public interface IBoxFoldersManager extends IBoxResourceManager {
 
     /**
      * Get folder given a folder id.

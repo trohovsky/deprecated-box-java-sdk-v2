@@ -11,7 +11,7 @@ import com.box.boxjavalibv2.requests.requestobjects.BoxDefaultRequestObject;
 import com.box.boxjavalibv2.requests.requestobjects.BoxUserRequestObject;
 import com.box.restclientv2.exceptions.BoxRestException;
 
-public interface IBoxUsersManager {
+public interface IBoxUsersManager extends IBoxResourceManager {
 
     /**
      * Get the current user's information.

@@ -6,7 +6,7 @@ import com.box.boxjavalibv2.exceptions.BoxServerException;
 import com.box.boxjavalibv2.requests.requestobjects.BoxDefaultRequestObject;
 import com.box.restclientv2.exceptions.BoxRestException;
 
-public interface IBoxSearchManager {
+public interface IBoxSearchManager extends IBoxResourceManager {
 
     /**
      * Perform a search against the user's account.

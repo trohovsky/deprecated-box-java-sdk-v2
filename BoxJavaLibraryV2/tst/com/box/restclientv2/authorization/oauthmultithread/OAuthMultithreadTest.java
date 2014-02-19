@@ -100,6 +100,6 @@ public class OAuthMultithreadTest {
 
     private void createOAuthDataController(boolean autoRefresh) throws BoxRestException, BoxServerException, AuthFatalFailureException {
         client = new MockBoxClient();
-        client.getOAuthDataController().setOAuthData(client.getOAuthManager().createOAuth(null));
+        client.getOAuthDataController().setOAuthData(client.getOAuthManager().createOAuth("", "", "", ""));
     }
 }

@@ -7,7 +7,7 @@ import com.box.boxjavalibv2.requests.requestobjects.BoxCommentRequestObject;
 import com.box.boxjavalibv2.requests.requestobjects.BoxDefaultRequestObject;
 import com.box.restclientv2.exceptions.BoxRestException;
 
-public interface IBoxCommentsManager {
+public interface IBoxCommentsManager extends IBoxResourceManager {
 
     /**
      * Add a comment to an item.

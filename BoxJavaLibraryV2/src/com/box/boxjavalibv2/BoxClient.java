@@ -27,7 +27,6 @@ import com.box.boxjavalibv2.interfaces.IBoxResourceHub;
 import com.box.boxjavalibv2.interfaces.IPluginResourceManagerBuilder;
 import com.box.boxjavalibv2.jsonparsing.BoxJSONParser;
 import com.box.boxjavalibv2.jsonparsing.BoxResourceHub;
-import com.box.boxjavalibv2.resourcemanagers.AbstractBoxResourceManager;
 import com.box.boxjavalibv2.resourcemanagers.BoxCollaborationsManagerImpl;
 import com.box.boxjavalibv2.resourcemanagers.BoxCommentsManagerImpl;
 import com.box.boxjavalibv2.resourcemanagers.BoxEventsManagerImpl;
@@ -43,9 +42,11 @@ import com.box.boxjavalibv2.resourcemanagers.IBoxCollaborationsManager;
 import com.box.boxjavalibv2.resourcemanagers.IBoxCommentsManager;
 import com.box.boxjavalibv2.resourcemanagers.IBoxEventsManager;
 import com.box.boxjavalibv2.resourcemanagers.IBoxFilesManager;
+import com.box.boxjavalibv2.resourcemanagers.IBoxFoldersManager;
 import com.box.boxjavalibv2.resourcemanagers.IBoxGroupsManager;
 import com.box.boxjavalibv2.resourcemanagers.IBoxItemsManager;
 import com.box.boxjavalibv2.resourcemanagers.IBoxOAuthManager;
+import com.box.boxjavalibv2.resourcemanagers.IBoxResourceManager;
 import com.box.boxjavalibv2.resourcemanagers.IBoxSearchManager;
 import com.box.boxjavalibv2.resourcemanagers.IBoxSharedItemsManager;
 import com.box.boxjavalibv2.resourcemanagers.IBoxUsersManager;
@@ -82,7 +83,7 @@ public class BoxClient extends BoxBase implements IAuthFlowListener {
     private final IBoxOAuthManager oauthManager;
     private final IBoxGroupsManager groupsManager;
     private IAuthFlowListener mAuthListener;
-    private final Map<String, AbstractBoxResourceManager> pluginResourceManagers = new HashMap<String, AbstractBoxResourceManager>();
+    private final Map<String, IBoxResourceManager> pluginResourceManagers = new HashMap<String, IBoxResourceManager>();
 
     /**
      * This constructor has some connection parameters. They are used to periodically close idle connections that HttpClient opens.
@@ -136,8 +137,8 @@ public class BoxClient extends BoxBase implements IAuthFlowListener {
         this(clientId, clientSecret, null, null);
     }
 
-    public AbstractBoxResourceManager pluginResourceManager(String key, IPluginResourceManagerBuilder builder) {
-        AbstractBoxResourceManager manager = builder.build(getConfig(), getResourceHub(), getJSONParser(), getAuth(), getRestClient());
+    public IBoxResourceManager pluginResourceManager(String key, IPluginResourceManagerBuilder builder) {
+        IBoxResourceManager manager = builder.build(getConfig(), getResourceHub(), getJSONParser(), getAuth(), getRestClient());
         pluginResourceManagers.put(key, manager);
         return manager;
     }
@@ -291,7 +292,7 @@ public class BoxClient extends BoxBase implements IAuthFlowListener {
      *            password of the shared link, use null if there is no password
      * @return BoxFilesManager
      */
-    public BoxFilesManagerImpl getSharedFilesManager(String sharedLink, String password) {
+    public IBoxFilesManager getSharedFilesManager(String sharedLink, String password) {
         return new BoxFilesManagerImpl(getConfig(), getResourceHub(), getJSONParser(), getSharedItemAuth(sharedLink, password), getRestClient());
     }
 
@@ -304,7 +305,7 @@ public class BoxClient extends BoxBase implements IAuthFlowListener {
      *            password of the shared link, use null if there is no password
      * @return BoxFoldersManager
      */
-    public BoxFoldersManageImpl getSharedFoldersManager(String sharedLink, String password) {
+    public IBoxFoldersManager getSharedFoldersManager(String sharedLink, String password) {
         return new BoxFoldersManageImpl(getConfig(), getResourceHub(), getJSONParser(), getSharedItemAuth(sharedLink, password), getRestClient());
     }
 
@@ -317,7 +318,7 @@ public class BoxClient extends BoxBase implements IAuthFlowListener {
      *            password of the shared link, use null if there is no password
      * @return BoxFoldersManager
      */
-    public BoxCommentsManagerImpl getSharedCommentsManager(String sharedLink, String password) {
+    public IBoxCommentsManager getSharedCommentsManager(String sharedLink, String password) {
         return new BoxCommentsManagerImpl(getConfig(), getResourceHub(), getJSONParser(), getSharedItemAuth(sharedLink, password), getRestClient());
     }
 
@@ -329,7 +330,7 @@ public class BoxClient extends BoxBase implements IAuthFlowListener {
      * @param password
      * @return
      */
-    public AbstractBoxResourceManager getResourceManagerWithSharedLinkAuth(BoxResourceType type, String sharedLink, String password) {
+    public IBoxResourceManager getResourceManagerWithSharedLinkAuth(BoxResourceType type, String sharedLink, String password) {
         switch (type) {
             case FILE:
                 return getSharedFilesManager(sharedLink, password);
@@ -342,7 +343,7 @@ public class BoxClient extends BoxBase implements IAuthFlowListener {
         }
     }
 
-    public AbstractBoxResourceManager getPluginManager(String pluginManagerKey) {
+    public IBoxResourceManager getPluginManager(String pluginManagerKey) {
         return this.pluginResourceManagers.get(pluginManagerKey);
     }
 
@@ -350,7 +351,7 @@ public class BoxClient extends BoxBase implements IAuthFlowListener {
      * @return the BoxFoldersManager, which can be used to make API calls on folders endpoints. Note this folders manager only work on the folders you own. if
      *         you are trying to make api calls on a shared folder (folder shared to you via shared link), please use getSharedFoldersManager().
      */
-    public BoxFoldersManageImpl getFoldersManager() {
+    public IBoxFoldersManager getFoldersManager() {
         return foldersManager;
     }
 

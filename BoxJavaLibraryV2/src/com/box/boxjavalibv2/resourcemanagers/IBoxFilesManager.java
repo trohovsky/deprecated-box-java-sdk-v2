@@ -21,7 +21,7 @@ import com.box.boxjavalibv2.requests.requestobjects.BoxImageRequestObject;
 import com.box.boxjavalibv2.requests.requestobjects.BoxItemRestoreRequestObject;
 import com.box.restclientv2.exceptions.BoxRestException;
 
-public interface IBoxFilesManager {
+public interface IBoxFilesManager extends IBoxResourceManager {
 
     /**
      * Get file given a file id.
