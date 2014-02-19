@@ -4,7 +4,8 @@ import com.box.boxjavalibv2.dao.BoxServerError;
 import com.box.restclientv2.exceptions.BoxSDKException;
 
 /**
- * Exception wrapping error responses received from api calls.
+ * Exception wrapping error responses received from api calls. This indicates api response is received so network level is good, however server returns error
+ * information.
  */
 public class BoxServerException extends BoxSDKException {
 
@@ -70,17 +71,17 @@ public class BoxServerException extends BoxSDKException {
         return statusCode;
     }
 
-
     @Override
     public String getMessage() {
-        if ( customMessage != null ) {
-            return String.format( "%s:%s", statusCode, customMessage );
-        } else if ( error != null ) {
+        if (customMessage != null) {
+            return String.format("%s:%s", statusCode, customMessage);
+        }
+        else if (error != null) {
             return error.getMessage();
-        } else {
+        }
+        else {
             return null;
         }
     }
-
 
 }

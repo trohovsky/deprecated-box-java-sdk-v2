@@ -43,7 +43,7 @@ import com.box.restclientv2.interfaces.IBoxRequestAuth;
 import com.box.restclientv2.responseparsers.DefaultFileResponseParser;
 import com.box.restclientv2.responses.DefaultBoxResponse;
 
-public class BoxFilesManager extends BoxItemsManager {
+public class BoxFilesManagerImpl extends BoxItemsManagerImpl implements IBoxFilesManager {
 
     /**
      * Constructor.
@@ -59,120 +59,43 @@ public class BoxFilesManager extends BoxItemsManager {
      * @param restClient
      *            REST client to make api calls.
      */
-    public BoxFilesManager(IBoxConfig config, final IBoxResourceHub resourceHub, final IBoxJSONParser parser, final IBoxRequestAuth auth,
+    public BoxFilesManagerImpl(IBoxConfig config, final IBoxResourceHub resourceHub, final IBoxJSONParser parser, final IBoxRequestAuth auth,
         final IBoxRESTClient restClient) {
         super(config, resourceHub, parser, auth, restClient);
     }
 
-    /**
-     * Get file given a file id.
-     * 
-     * @param fileId
-     *            id of the file
-     * @param requestObject
-     *            object that goes into request.
-     * @return requested box file
-     * @throws BoxRestException
-     *             exception
-     * @throws BoxServerException
-     *             exception
-     * @throws AuthFatalFailureException
-     *             exception indicating authentication totally failed
-     */
+    @Override
     public BoxFile getFile(final String fileId, final BoxDefaultRequestObject requestObject) throws BoxRestException, BoxServerException,
         AuthFatalFailureException {
         return (BoxFile) super.getItem(fileId, requestObject, BoxResourceType.FILE);
     }
 
-    /**
-     * Get trashed file given a file id.
-     * 
-     * @param fileId
-     *            id of the file
-     * @param requestObject
-     *            object that goes into request.
-     * @return requested box file
-     * @throws BoxRestException
-     *             exception
-     * @throws BoxServerException
-     *             exception
-     * @throws AuthFatalFailureException
-     *             exception indicating authentication totally failed
-     */
+    @Override
     public BoxFile getTrashFile(final String fileId, final BoxDefaultRequestObject requestObject) throws BoxRestException, AuthFatalFailureException,
         BoxServerException {
         return (BoxFile) super.getTrashItem(fileId, BoxResourceType.FILE, requestObject);
     }
 
-    /**
-     * Delete a file.
-     * 
-     * @param fileId
-     *            id of the file
-     * @param requestObject
-     *            object that goes into request.
-     * @throws BoxRestException
-     *             exception
-     * @throws BoxServerException
-     *             exception
-     * @throws AuthFatalFailureException
-     *             exception indicating authentication totally failed
-     */
+    @Override
     public void deleteFile(final String fileId, final BoxFileRequestObject requestObject) throws BoxRestException, BoxServerException,
         AuthFatalFailureException {
         DeleteFileRequest request = new DeleteFileRequest(getConfig(), getJSONParser(), fileId, requestObject);
         executeRequestWithNoResponseBody(request);
     }
 
-    /**
-     * Permanently delete a trashed file.
-     * 
-     * @param id
-     *            id of the file
-     * @param requestObject
-     *            request object
-     * @throws BoxRestException
-     * @throws AuthFatalFailureException
-     * @throws BoxServerException
-     */
+    @Override
     public void deleteTrashFile(final String id, final BoxFileRequestObject requestObject) throws BoxRestException, BoxServerException,
         AuthFatalFailureException {
         super.deleteTrashItem(id, BoxResourceType.FILE, requestObject);
     }
 
-    /**
-     * Restore a trashed file.
-     * 
-     * @param id
-     *            id of the trashed file.
-     * @param requestObject
-     * @return the file
-     * @throws BoxRestException
-     * @throws AuthFatalFailureException
-     * @throws BoxServerException
-     */
+    @Override
     public BoxFile restoreTrashFile(final String id, final BoxItemRestoreRequestObject requestObject) throws BoxRestException, AuthFatalFailureException,
         BoxServerException {
         return (BoxFile) super.restoreTrashItem(id, BoxResourceType.FILE, requestObject);
     }
 
-    /**
-     * Get preview of a file.
-     * 
-     * @param fileId
-     *            id of the file
-     * @param extension
-     *            requested of the preview image file extension
-     * @param requestObject
-     *            request object
-     * @return preview
-     * @throws BoxRestException
-     *             exception
-     * @throws BoxServerException
-     *             exception
-     * @throws AuthFatalFailureException
-     *             exception indicating authenticating totally failed
-     */
+    @Override
     public BoxPreview getPreview(final String fileId, final String extension, final BoxImageRequestObject requestObject) throws BoxRestException,
         BoxServerException, AuthFatalFailureException {
         PreviewRequest request = new PreviewRequest(getConfig(), getJSONParser(), fileId, extension, requestObject);
@@ -185,23 +108,7 @@ public class BoxFilesManager extends BoxItemsManager {
         return (BoxPreview) tryCastObject(BoxResourceType.PREVIEW, result);
     }
 
-    /**
-     * Get thumbnail of a file.
-     * 
-     * @param fileId
-     *            id of the file
-     * @param extension
-     *            file extension of requested thumbnail
-     * @param requestObject
-     *            request object
-     * @return InputStream
-     * @throws BoxRestException
-     *             exception
-     * @throws BoxServerException
-     *             exception
-     * @throws AuthFatalFailureException
-     *             exception indicating authenticating totally failed
-     */
+    @Override
     public InputStream downloadThumbnail(final String fileId, final String extension, final BoxImageRequestObject requestObject) throws BoxRestException,
         BoxServerException, AuthFatalFailureException {
         ThumbnailRequest request = new ThumbnailRequest(getConfig(), getJSONParser(), fileId, extension, requestObject);
@@ -222,71 +129,20 @@ public class BoxFilesManager extends BoxItemsManager {
         return (InputStream) (new DefaultFileResponseParser()).parse(response);
     }
 
-    /**
-     * Upload file/files.
-     * 
-     * @param requestObject
-     *            reqeust object
-     * @return newly created box file object
-     * @throws BoxRestException
-     *             exception
-     * @throws BoxServerException
-     *             exception
-     * @throws AuthFatalFailureException
-     *             exception indicating authentication totally failed
-     * @throws InterruptedException
-     */
-
+    @Override
     public BoxFile uploadFile(final BoxFileUploadRequestObject requestObject) throws BoxRestException, BoxServerException, AuthFatalFailureException,
         InterruptedException {
         BoxFileUpload upload = new BoxFileUpload(getConfig());
         return upload.execute(this, requestObject);
     }
 
-    /**
-     * Copy a file.
-     * 
-     * @param fileId
-     *            id of the file
-     * @param requestObject
-     *            request object
-     * @return copied file
-     * @throws BoxRestException
-     *             exception
-     * @throws BoxServerException
-     *             exception
-     * @throws AuthFatalFailureException
-     *             exception
-     */
+    @Override
     public BoxFile copyFile(final String fileId, final BoxFileRequestObject requestObject) throws BoxRestException, BoxServerException,
         AuthFatalFailureException {
         return (BoxFile) super.copyItem(fileId, requestObject, BoxResourceType.FILE);
     }
 
-    /**
-     * Download a file.
-     * 
-     * @param fileId
-     *            id of the file
-     * @param destination
-     *            destination of the downloaded file
-     * @param listener
-     *            listener to monitor the download progress
-     * @param requestObject
-     *            extra request object going into api request
-     * @throws BoxRestException
-     *             exception
-     * @throws BoxServerException
-     *             exception
-     * @throws IllegalStateException
-     *             exception
-     * @throws IOException
-     *             exception
-     * @throws InterruptedException
-     *             exception
-     * @throws AuthFatalFailureException
-     *             exception indicating authenticating totally failed
-     */
+    @Override
     public void downloadFile(final String fileId, final File destination, final IFileTransferListener listener, BoxDefaultRequestObject requestObject)
         throws BoxRestException, BoxServerException, IllegalStateException, IOException, InterruptedException, AuthFatalFailureException {
         BoxFileDownload download = new BoxFileDownload(getConfig(), getRestClient(), fileId);
@@ -294,50 +150,14 @@ public class BoxFilesManager extends BoxItemsManager {
         download.execute(getAuth(), destination, getJSONParser(), requestObject);
     }
 
-    /**
-     * Execute the download and return the raw InputStream. This method is not involved with download listeners and will not publish anything through download
-     * listeners. Instead caller handles the InputStream as she/he wishes.
-     * 
-     * @param fileId
-     *            id of the file to be downloaded
-     * @param requestObject
-     *            request object
-     * @return InputStream
-     * @throws BoxRestException
-     *             exception
-     * @throws BoxServerException
-     *             exception
-     * @throws AuthFatalFailureException
-     *             exception indicating authenticating totally failed
-     */
+    @Override
     public InputStream downloadFile(final String fileId, final BoxDefaultRequestObject requestObject) throws BoxRestException, BoxServerException,
         AuthFatalFailureException {
         BoxFileDownload download = new BoxFileDownload(getConfig(), getRestClient(), fileId);
         return download.execute(getAuth(), getJSONParser(), requestObject);
     }
 
-    /**
-     * Download a file.
-     * 
-     * @param fileId
-     *            id of the file
-     * @param outputStreams
-     *            OutputStream's the file will be downloaded into
-     * @param listener
-     *            listener to monitor the download progress
-     * @param requestObject
-     *            request object
-     * @throws BoxRestException
-     *             exception
-     * @throws BoxServerException
-     *             exception
-     * @throws IOException
-     *             exception
-     * @throws InterruptedException
-     *             exception
-     * @throws AuthFatalFailureException
-     *             exception indicating authenticating totally failed
-     */
+    @Override
     public void downloadFile(final String fileId, final OutputStream[] outputStreams, final IFileTransferListener listener,
         final BoxDefaultRequestObject requestObject) throws BoxRestException, IOException, BoxServerException, InterruptedException, AuthFatalFailureException {
         BoxFileDownload download = new BoxFileDownload(getConfig(), getRestClient(), fileId);
@@ -345,43 +165,14 @@ public class BoxFilesManager extends BoxItemsManager {
         download.execute(getAuth(), outputStreams, getJSONParser(), requestObject);
     }
 
-    /**
-     * Upload a new version of a file.
-     * 
-     * @param fileId
-     *            id of the file
-     * @param BoxFileUploadRequestObject
-     *            requestObject
-     * @return a FileVersion object
-     * @throws BoxRestException
-     *             exception
-     * @throws BoxServerException
-     *             exception
-     * @throws AuthFatalFailureException
-     *             exception
-     * @throws InterruptedException
-     */
+    @Override
     public BoxFile uploadNewVersion(final String fileId, final BoxFileUploadRequestObject requestObject) throws BoxRestException, BoxServerException,
         AuthFatalFailureException, InterruptedException {
         BoxFileUpload upload = new BoxFileUpload(getConfig());
         return upload.execute(fileId, this, requestObject);
     }
 
-    /**
-     * Get file versions(Note: Versions are only tracked for Box users with premium accounts.).
-     * 
-     * @param fileId
-     *            id of the file
-     * @param requestObject
-     *            request object
-     * @return FileVersions
-     * @throws BoxRestException
-     *             exception
-     * @throws BoxServerException
-     *             exception
-     * @throws AuthFatalFailureException
-     *             exception indicating authentication totally failed
-     */
+    @Override
     public List<BoxFileVersion> getFileVersions(final String fileId, final BoxDefaultRequestObject requestObject) throws BoxRestException, BoxServerException,
         AuthFatalFailureException {
         GetFileVersionsRequest request = new GetFileVersionsRequest(getConfig(), getJSONParser(), fileId, requestObject);
@@ -389,63 +180,19 @@ public class BoxFilesManager extends BoxItemsManager {
         return getFileVersions(collection);
     }
 
-    /**
-     * Update info for a file.
-     * 
-     * @param fileId
-     *            id of the file
-     * @param requestObject
-     *            request object
-     * @return updated file
-     * @throws UnsupportedEncodingException
-     *             exception
-     * @throws BoxRestException
-     *             exception
-     * @throws BoxServerException
-     *             exception
-     * @throws AuthFatalFailureException
-     *             exception indicating authentication totally failed
-     */
+    @Override
     public BoxFile updateFileInfo(final String fileId, BoxFileRequestObject requestObject) throws UnsupportedEncodingException, BoxRestException,
         BoxServerException, AuthFatalFailureException {
         return (BoxFile) super.updateItemInfo(fileId, requestObject, BoxResourceType.FILE);
     }
 
-    /**
-     * Create a shared link for a file, given the id of the file/folder.
-     * 
-     * @param fileId
-     *            id of the file
-     * @param requestObject
-     *            request object
-     * @return the file, with shared link related fields filled in.
-     * @throws BoxRestException
-     *             exception
-     * @throws BoxServerException
-     *             exception
-     * @throws AuthFatalFailureException
-     *             exception indicating authentication totally failed
-     */
+    @Override
     public BoxFile createSharedLink(final String fileId, BoxFileRequestObject requestObject) throws BoxRestException, BoxServerException,
         AuthFatalFailureException {
         return (BoxFile) super.createSharedLink(fileId, requestObject, BoxResourceType.FILE);
     }
 
-    /**
-     * Get comments on a file.
-     * 
-     * @param fileId
-     *            id of the file
-     * @param requestObject
-     *            object that goes into request.
-     * @return collection of comments
-     * @throws BoxRestException
-     *             exception
-     * @throws BoxServerException
-     *             exception
-     * @throws AuthFatalFailureException
-     *             exception indicating authentication totally failed
-     */
+    @Override
     public BoxCollection getFileComments(final String fileId, BoxDefaultRequestObject requestObject) throws BoxRestException, BoxServerException,
         AuthFatalFailureException {
         GetFileCommentsRequest request = new GetFileCommentsRequest(getConfig(), getJSONParser(), fileId, requestObject);
@@ -453,12 +200,13 @@ public class BoxFilesManager extends BoxItemsManager {
     }
 
     /**
-     * Get files in a collection.
+     * Get files in a collection.Deprecated, use Utils.getTypedObjects instead.
      * 
      * @param collection
      *            collection
      * @return list of files
      */
+    @Deprecated
     public static List<BoxFile> getFiles(BoxCollection collection) {
         List<BoxFile> files = new ArrayList<BoxFile>();
         List<BoxTypedObject> list = collection.getEntries();
@@ -471,12 +219,13 @@ public class BoxFilesManager extends BoxItemsManager {
     }
 
     /**
-     * Get file versions in a collection.
+     * Get file versions in a collection. Deprecated, use Utils.getTypedObjects instead.
      * 
      * @param collection
      *            collection
      * @return list of file versions
      */
+    @Deprecated
     public static List<BoxFileVersion> getFileVersions(BoxCollection collection) {
         List<BoxFileVersion> files = new ArrayList<BoxFileVersion>();
         List<BoxTypedObject> list = collection.getEntries();

@@ -2,6 +2,8 @@ package com.box.boxjavalibv2.interfaces;
 
 import java.util.Collection;
 
+import com.box.boxjavalibv2.dao.BoxObject;
+
 public interface IBoxResourceHub {
 
     /**
@@ -11,8 +13,7 @@ public interface IBoxResourceHub {
      *            resource type
      * @return corresponding resource DAO class
      */
-    @SuppressWarnings("rawtypes")
-    Class getClass(IBoxType type);
+    Class<? extends BoxObject> getClass(IBoxType type);
 
     /**
      * Get the IBoxType from a lower case string value. For example "file" would return BoxResourceType.FILE

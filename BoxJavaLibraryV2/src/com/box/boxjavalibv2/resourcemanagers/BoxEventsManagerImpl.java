@@ -27,7 +27,7 @@ import com.box.restclientv2.interfaces.IBoxRequestAuth;
  * methods in this class are executed in the invoking thread, and therefore are NOT safe to execute in the UI thread of your application. You should only use
  * this class if you already have worker threads or AsyncTasks that you want to incorporate the Box API into.
  */
-public class BoxEventsManager extends BoxResourceManager {
+public class BoxEventsManagerImpl extends AbstractBoxResourceManager implements IBoxEventsManager {
 
     /**
      * Constructor.
@@ -43,49 +43,31 @@ public class BoxEventsManager extends BoxResourceManager {
      * @param restClient
      *            REST client to make api calls.
      */
-    public BoxEventsManager(IBoxConfig config, IBoxResourceHub resourceHub, final IBoxJSONParser parser, final IBoxRequestAuth auth,
+    public BoxEventsManagerImpl(IBoxConfig config, IBoxResourceHub resourceHub, final IBoxJSONParser parser, final IBoxRequestAuth auth,
         final IBoxRESTClient restClient) {
         super(config, resourceHub, parser, auth, restClient);
     }
 
-    /**
-     * Get Events.
-     * 
-     * @param stream_position
-     * @param stream_type
-     * @param limit
-     * @param requestObject
-     * @return
-     * @throws BoxRestException
-     * @throws BoxServerException
-     * @throws AuthFatalFailureException
-     */
+    @Override
     public BoxEventCollection getEvents(BoxEventRequestObject requestObject) throws BoxRestException, BoxServerException, AuthFatalFailureException {
         GetEventsRequest request = new GetEventsRequest(getConfig(), getJSONParser(), requestObject);
         return (BoxEventCollection) getResponseAndParseAndTryCast(request, BoxResourceType.EVENTS, getJSONParser());
     }
 
-    /**
-     * Get Events options.
-     * 
-     * @param requestObject
-     * @return
-     * @throws BoxRestException
-     * @throws BoxServerException
-     * @throws AuthFatalFailureException
-     */
+    @Override
     public BoxCollection getEventOptions(BoxDefaultRequestObject requestObject) throws BoxRestException, BoxServerException, AuthFatalFailureException {
         EventOptionsRequest request = new EventOptionsRequest(getConfig(), getJSONParser(), requestObject);
         return (BoxCollection) getResponseAndParseAndTryCast(request, BoxResourceType.ITEMS, getJSONParser());
     }
 
     /**
-     * Get comments from a collection.
+     * Get events from a collection. Deprecated, use Utils.getTypedObjects instead.
      * 
      * @param collection
      *            collection
      * @return comments
      */
+    @Deprecated
     public static List<BoxEvent> getEvents(BoxCollection collection) {
         List<BoxEvent> events = new ArrayList<BoxEvent>();
         List<BoxTypedObject> list = collection.getEntries();

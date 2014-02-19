@@ -13,7 +13,7 @@ import com.box.restclientv2.interfaces.IBoxConfig;
 import com.box.restclientv2.interfaces.IBoxRESTClient;
 import com.box.restclientv2.interfaces.IBoxRequestAuth;
 
-public class BoxSharedItemsManager extends BoxResourceManager {
+public class BoxSharedItemsManagerImpl extends AbstractBoxResourceManager implements IBoxSharedItemsManager {
 
     /**
      * Constructor.
@@ -29,26 +29,12 @@ public class BoxSharedItemsManager extends BoxResourceManager {
      * @param restClient
      *            REST client to make api calls.
      */
-    public BoxSharedItemsManager(IBoxConfig config, IBoxResourceHub resourceHub, final IBoxJSONParser parser, final IBoxRequestAuth auth,
+    public BoxSharedItemsManagerImpl(IBoxConfig config, IBoxResourceHub resourceHub, final IBoxJSONParser parser, final IBoxRequestAuth auth,
         final IBoxRESTClient restClient) {
         super(config, resourceHub, parser, auth, restClient);
     }
 
-    /**
-     * Get the shared item given a SharedItemAuth.
-     * 
-     * @param auth
-     *            SharedItemAuth, which contains information of the shared link.
-     * @param requestObject
-     *            request object
-     * @return the shared object referred to by the shared link.
-     * @throws BoxRestException
-     *             exception
-     * @throws BoxServerException
-     *             exception
-     * @throws AuthFatalFailureException
-     *             exception indicating authentication totally failed
-     */
+    @Override
     public BoxItem getSharedItem(final BoxDefaultRequestObject requestObject) throws BoxRestException, BoxServerException, AuthFatalFailureException {
         GetSharedItemRequest request = new GetSharedItemRequest(getConfig(), getJSONParser(), requestObject);
         return (BoxItem) getResponseAndParseAndTryCast(request, BoxResourceType.ITEM, getJSONParser());

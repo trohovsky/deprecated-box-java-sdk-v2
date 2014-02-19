@@ -21,7 +21,7 @@ import com.box.restclientv2.responses.DefaultBoxResponse;
 /**
  * Base class for BoxAPI classes.
  */
-public abstract class BoxResourceManager {
+public abstract class AbstractBoxResourceManager {
 
     /** BoxConfig. */
     private final IBoxConfig mConfig;
@@ -46,7 +46,7 @@ public abstract class BoxResourceManager {
      * @param restClient
      *            REST client to make api calls.
      */
-    public BoxResourceManager(final IBoxConfig config, final IBoxResourceHub resourceHub, final IBoxJSONParser parser, final IBoxRequestAuth auth,
+    public AbstractBoxResourceManager(final IBoxConfig config, final IBoxResourceHub resourceHub, final IBoxJSONParser parser, final IBoxRequestAuth auth,
         final IBoxRESTClient restClient) {
         this.mConfig = config;
         this.mResourceHub = resourceHub;
@@ -86,15 +86,6 @@ public abstract class BoxResourceManager {
 
     /**
      * Execute a request and expect no response body.
-     * 
-     * @param request
-     *            request
-     * @throws BoxServerException
-     *             excepiton
-     * @throws BoxRestException
-     *             exception
-     * @throws AuthFatalFailureException
-     *             exception indicating authenticating totally failed
      */
     protected void executeRequestWithNoResponseBody(final DefaultBoxRequest request) throws BoxServerException, BoxRestException, AuthFatalFailureException {
         request.setAuth(getAuth());
@@ -114,20 +105,6 @@ public abstract class BoxResourceManager {
 
     /**
      * Make a rest api request, get response, parse the response, and try to cast parsed out object into expected object.
-     * 
-     * @param request
-     *            request
-     * @param type
-     *            type
-     * @param parser
-     *            json parser
-     * @return parsed object
-     * @throws AuthFatalFailureException
-     *             exception
-     * @throws BoxRestException
-     *             exception
-     * @throws BoxServerException
-     *             exception
      */
     public Object getResponseAndParseAndTryCast(final DefaultBoxRequest request, final IBoxType type, final IBoxJSONParser parser) throws BoxRestException,
         AuthFatalFailureException, BoxServerException {
@@ -137,18 +114,6 @@ public abstract class BoxResourceManager {
 
     /**
      * Make a rest api request, get response, and then parse the response.
-     * 
-     * @param request
-     *            request
-     * @param type
-     *            type
-     * @param parser
-     *            ObjectMapper
-     * @return parsed object
-     * @throws BoxRestException
-     *             exception
-     * @throws AuthFatalFailureException
-     *             exception indicating authenticating totally failed
      */
     public Object getResponseAndParse(final DefaultBoxRequest request, final IBoxType type, final IBoxJSONParser parser) throws BoxRestException,
         AuthFatalFailureException {
@@ -161,16 +126,6 @@ public abstract class BoxResourceManager {
 
     /**
      * Try to cast an object into a specific class.
-     * 
-     * @param expectedType
-     *            expected resource type class
-     * @param obj
-     *            object
-     * @return object
-     * @throws BoxServerException
-     *             exception
-     * @throws BoxRestException
-     *             exception
      */
     @SuppressWarnings("rawtypes")
     public Object tryCastObject(final IBoxType expectedType, final Object obj) throws BoxServerException, BoxRestException {
@@ -202,16 +157,6 @@ public abstract class BoxResourceManager {
     // TODO: support web links
     /**
      * Try to cast a box item into a concrete class(i.e. file or folder)
-     * 
-     * @param isFolder
-     *            whether it's folder
-     * @param item
-     *            the box item.
-     * @return box items
-     * @throws BoxServerException
-     *             exception
-     * @throws BoxRestException
-     *             exception
      */
     protected Object tryCastBoxItem(final BoxResourceType type, final Object item) throws BoxServerException, BoxRestException {
         return tryCastObject(type, item);

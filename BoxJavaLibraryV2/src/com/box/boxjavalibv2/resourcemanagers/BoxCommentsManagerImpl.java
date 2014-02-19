@@ -28,7 +28,7 @@ import com.box.restclientv2.interfaces.IBoxRequestAuth;
  * methods in this class are executed in the invoking thread, and therefore are NOT safe to execute in the UI thread of your application. You should only use
  * this class if you already have worker threads or AsyncTasks that you want to incorporate the Box API into.
  */
-public final class BoxCommentsManager extends BoxResourceManager {
+public final class BoxCommentsManagerImpl extends AbstractBoxResourceManager implements IBoxCommentsManager {
 
     /**
      * Constructor.
@@ -44,84 +44,32 @@ public final class BoxCommentsManager extends BoxResourceManager {
      * @param restClient
      *            REST client to make api calls.
      */
-    public BoxCommentsManager(IBoxConfig config, final IBoxResourceHub resourceHub, final IBoxJSONParser parser, final IBoxRequestAuth auth,
+    public BoxCommentsManagerImpl(IBoxConfig config, final IBoxResourceHub resourceHub, final IBoxJSONParser parser, final IBoxRequestAuth auth,
         final IBoxRESTClient restClient) {
         super(config, resourceHub, parser, auth, restClient);
     }
 
-    /**
-     * Add a comment to an item.
-     * 
-     * @param requestObject
-     *            comment request object.
-     * @throws BoxRestException
-     *             exception
-     * @throws BoxServerException
-     *             exception
-     * @throws AuthFatalFailureException
-     *             exception indicating authentication totally failed
-     */
+    @Override
     public BoxComment addComment(final BoxCommentRequestObject requestObject) throws BoxRestException, BoxServerException, AuthFatalFailureException {
         CreateCommentRequest request = new CreateCommentRequest(getConfig(), getJSONParser(), requestObject);
         return (BoxComment) getResponseAndParseAndTryCast(request, BoxResourceType.COMMENT, getJSONParser());
     }
 
-    /**
-     * Get a comment, given a comment id.
-     * 
-     * @param commentId
-     *            id of the comment
-     * @param requestObject
-     *            object that goes into request.
-     * @return comment
-     * @throws BoxRestException
-     *             exception
-     * @throws BoxServerException
-     *             exception
-     * @throws AuthFatalFailureException
-     *             exception indicating authentication totally failed
-     */
+    @Override
     public BoxComment getComment(final String commentId, BoxDefaultRequestObject requestObject) throws BoxRestException, BoxServerException,
         AuthFatalFailureException {
         GetCommentRequest request = new GetCommentRequest(getConfig(), getJSONParser(), commentId, requestObject);
         return (BoxComment) getResponseAndParseAndTryCast(request, BoxResourceType.COMMENT, getJSONParser());
     }
 
-    /**
-     * Update a comment.
-     * 
-     * @param commentId
-     *            id of the comment
-     * @param requestObject
-     *            comment request object.s
-     * @return comment
-     * @throws BoxRestException
-     *             exception
-     * @throws BoxServerException
-     *             exception
-     * @throws AuthFatalFailureException
-     *             exception indicating authentication totally failed
-     */
+    @Override
     public BoxComment updateComment(final String commentId, final BoxCommentRequestObject requestObject) throws BoxRestException, BoxServerException,
         AuthFatalFailureException {
         UpdateCommentRequest request = new UpdateCommentRequest(getConfig(), getJSONParser(), commentId, requestObject);
         return (BoxComment) getResponseAndParseAndTryCast(request, BoxResourceType.COMMENT, getJSONParser());
     }
 
-    /**
-     * Delete a comment.
-     * 
-     * @param commentId
-     *            id of the comment
-     * @param requestObject
-     *            object that goes into request.
-     * @throws BoxRestException
-     *             exception
-     * @throws BoxServerException
-     *             exception
-     * @throws AuthFatalFailureException
-     *             exception indicating authentication totally failed
-     */
+    @Override
     public void deleteComment(final String commentId, BoxDefaultRequestObject requestObject) throws BoxRestException, BoxServerException,
         AuthFatalFailureException {
         DeleteCommentRequest request = new DeleteCommentRequest(getConfig(), getJSONParser(), commentId, requestObject);
@@ -129,12 +77,13 @@ public final class BoxCommentsManager extends BoxResourceManager {
     }
 
     /**
-     * Get comments from a collection.
+     * Get comments from a collection. Deprecated, use Utils.getTypedObjects instead.
      * 
      * @param collection
      *            collection
      * @return comments
      */
+    @Deprecated
     public static List<BoxComment> getComments(BoxCollection collection) {
         List<BoxComment> comments = new ArrayList<BoxComment>();
         List<BoxTypedObject> list = collection.getEntries();

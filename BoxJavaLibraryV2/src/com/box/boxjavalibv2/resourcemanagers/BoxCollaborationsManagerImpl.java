@@ -29,7 +29,7 @@ import com.box.restclientv2.interfaces.IBoxRequestAuth;
  * All methods in this class are executed in the invoking thread, and therefore are NOT safe to execute in the UI thread of your application. You should only
  * use this class if you already have worker threads or AsyncTasks that you want to incorporate the Box API into.
  */
-public final class BoxCollaborationsManager extends BoxResourceManager {
+public final class BoxCollaborationsManagerImpl extends AbstractBoxResourceManager implements IBoxCollaborationsManager {
 
     /**
      * Constructor.
@@ -45,26 +45,12 @@ public final class BoxCollaborationsManager extends BoxResourceManager {
      * @param restClient
      *            REST client to make api calls.
      */
-    public BoxCollaborationsManager(IBoxConfig config, final IBoxResourceHub resourceHub, final IBoxJSONParser parser, final IBoxRequestAuth auth,
+    public BoxCollaborationsManagerImpl(IBoxConfig config, final IBoxResourceHub resourceHub, final IBoxJSONParser parser, final IBoxRequestAuth auth,
         final IBoxRESTClient restClient) {
         super(config, resourceHub, parser, auth, restClient);
     }
 
-    /**
-     * Get a collaboration.
-     * 
-     * @param collabId
-     *            id of the collaboration
-     * @param requestObject
-     *            object that goes into request.
-     * @return collaboration (Errors may occur if the IDs are invalid or if the user does not have permissions to see the collaboration.)
-     * @throws BoxRestException
-     *             exception
-     * @throws BoxServerException
-     *             exception
-     * @throws AuthFatalFailureException
-     *             exception indicating authentication totally failed
-     */
+    @Override
     public BoxCollaboration getCollaboration(final String collabId, BoxDefaultRequestObject requestObject) throws BoxRestException, BoxServerException,
         AuthFatalFailureException {
         GetCollaborationRequest request = new GetCollaborationRequest(getConfig(), getJSONParser(), collabId, requestObject);
@@ -72,21 +58,7 @@ public final class BoxCollaborationsManager extends BoxResourceManager {
         return (BoxCollaboration) getResponseAndParseAndTryCast(request, BoxResourceType.COLLABORATION, getJSONParser());
     }
 
-    /**
-     * Add a collaboration for a single user to a folder.
-     * 
-     * @param folderId
-     *            id of the folder
-     * @param collabObject
-     *            object that goes into request body.
-     * @return collaboration
-     * @throws BoxRestException
-     *             exception
-     * @throws BoxServerException
-     *             exception
-     * @throws AuthFatalFailureException
-     *             exception indicating authentication totally failed
-     */
+    @Override
     public BoxCollaboration createCollaboration(final String folderId, final BoxCollabRequestObject collabObject) throws BoxRestException, BoxServerException,
         AuthFatalFailureException {
         CreateCollaborationRequest request = new CreateCollaborationRequest(getConfig(), getJSONParser(), folderId, collabObject);
@@ -94,19 +66,7 @@ public final class BoxCollaborationsManager extends BoxResourceManager {
         return (BoxCollaboration) getResponseAndParseAndTryCast(request, BoxResourceType.COLLABORATION, getJSONParser());
     }
 
-    /**
-     * Get all collaborations. (Currently only support getting all pending collaborations.)
-     * 
-     * @param collabObject
-     *            object that goes into request.
-     * @return collaborations
-     * @throws BoxRestException
-     *             exception
-     * @throws BoxServerException
-     *             exception
-     * @throws AuthFatalFailureException
-     *             exception indicating authentication totally failed
-     */
+    @Override
     public List<BoxCollaboration> getAllCollaborations(final BoxCollabRequestObject collabObject) throws BoxRestException, BoxServerException,
         AuthFatalFailureException {
         GetAllCollaborationsRequest request = new GetAllCollaborationsRequest(getConfig(), getJSONParser(), collabObject);
@@ -115,36 +75,14 @@ public final class BoxCollaborationsManager extends BoxResourceManager {
         return getCollaborations(collection);
     }
 
-    /**
-     * Delete a collaboration.
-     * 
-     * @param collabId
-     *            id of the collaboration
-     * @param collabObject
-     *            object that goes into request.
-     * @throws BoxRestException
-     *             exception
-     * @throws BoxServerException
-     *             exception
-     * @throws AuthFatalFailureException
-     *             exception
-     */
+    @Override
     public void deleteCollaboration(final String collabId, BoxDefaultRequestObject requestObject) throws BoxServerException, BoxRestException,
         AuthFatalFailureException {
         DeleteCollaborationRequest request = new DeleteCollaborationRequest(getConfig(), getJSONParser(), collabId, requestObject);
         executeRequestWithNoResponseBody(request);
     }
 
-    /**
-     * Update a collaboration.
-     * 
-     * @param collabId
-     *            id of the collaboration
-     * @param requestObject
-     *            request object. Note the you can set the status in this object to 'accepted' or 'rejected' if you are the 'accessible_by' user and the current
-     *            status is 'pending'
-     * @return updated BoxCollaboration
-     */
+    @Override
     public BoxCollaboration updateCollaboration(final String collabId, BoxCollabRequestObject requestObject) throws BoxRestException,
         AuthFatalFailureException, BoxServerException {
         UpdateCollaborationRequest request = new UpdateCollaborationRequest(getConfig(), getJSONParser(), collabId, requestObject);
@@ -152,12 +90,13 @@ public final class BoxCollaborationsManager extends BoxResourceManager {
     }
 
     /**
-     * Get collaborations from a collection.
+     * Get collaborations from a collection.Deprecated, use Utils.getTypedObjects instead.
      * 
      * @param collection
      *            collection
      * @return collaborations
      */
+    @Deprecated
     public static List<BoxCollaboration> getCollaborations(BoxCollection collection) {
         List<BoxCollaboration> collabs = new ArrayList<BoxCollaboration>();
         List<BoxTypedObject> list = collection.getEntries();

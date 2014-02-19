@@ -1,7 +1,7 @@
 package com.box.restclientv2.authorization.oauthmultithread;
 
 import com.box.boxjavalibv2.BoxClient;
-import com.box.boxjavalibv2.resourcemanagers.BoxOAuthManager;
+import com.box.boxjavalibv2.resourcemanagers.IBoxOAuthManager;
 import com.box.restclientv2.interfaces.IBoxRESTClient;
 
 public class MockBoxClient extends BoxClient {
@@ -16,7 +16,7 @@ public class MockBoxClient extends BoxClient {
     }
 
     @Override
-    public BoxOAuthManager getOAuthManager() {
+    public IBoxOAuthManager getOAuthManager() {
         return new MockOAuthManager();
     }
 

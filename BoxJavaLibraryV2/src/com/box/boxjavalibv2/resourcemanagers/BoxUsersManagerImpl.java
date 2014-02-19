@@ -35,7 +35,7 @@ import com.box.restclientv2.interfaces.IBoxRequestAuth;
  * methods in this class are executed in the invoking thread, and therefore are NOT safe to execute in the UI thread of your application. You should only use
  * this class if you already have worker threads or AsyncTasks that you want to incorporate the Box API into.
  */
-public final class BoxUsersManager extends BoxResourceManager {
+public final class BoxUsersManagerImpl extends AbstractBoxResourceManager implements IBoxUsersManager {
 
     /**
      * Constructor.
@@ -51,46 +51,18 @@ public final class BoxUsersManager extends BoxResourceManager {
      * @param restClient
      *            REST client to make api calls.
      */
-    public BoxUsersManager(IBoxConfig config, final IBoxResourceHub resourceHub, final IBoxJSONParser parser, final IBoxRequestAuth auth,
+    public BoxUsersManagerImpl(IBoxConfig config, final IBoxResourceHub resourceHub, final IBoxJSONParser parser, final IBoxRequestAuth auth,
         final IBoxRESTClient restClient) {
         super(config, resourceHub, parser, auth, restClient);
     }
 
-    /**
-     * Get the current user's information.
-     * 
-     * @param requestObject
-     *            request object
-     * @return current user
-     * @throws BoxRestException
-     *             exception
-     * @throws BoxServerException
-     *             exception
-     * @throws AuthFatalFailureException
-     *             exception
-     */
+    @Override
     public BoxUser getCurrentUser(BoxDefaultRequestObject requestObject) throws BoxRestException, BoxServerException, AuthFatalFailureException {
         GetCurrentUserRequest request = new GetCurrentUserRequest(getConfig(), getJSONParser(), requestObject);
         return (BoxUser) getResponseAndParseAndTryCast(request, BoxResourceType.USER, getJSONParser());
     }
 
-    /**
-     * Get the list of all users for the Enterprise with their user_id, public_name, and login if the user is an enterprise admin. If the user is not an admin,
-     * this request returns the current user's user_id, public_name, and login.
-     * 
-     * @param requestObject
-     *            request object
-     * @param filterTerm
-     *            A string used to filter the results to only users starting with the filter_term in either the name or the login. Use null if don't want
-     *            filter.
-     * @return collection of users
-     * @throws BoxRestException
-     *             exception
-     * @throws BoxServerException
-     *             exception
-     * @throws AuthFatalFailureException
-     *             exception
-     */
+    @Override
     public List<BoxUser> getAllEnterpriseUser(final BoxDefaultRequestObject requestObject, final String filterTerm) throws BoxRestException,
         BoxServerException, AuthFatalFailureException {
         GetAllUsersInEnterpriseRequest request = new GetAllUsersInEnterpriseRequest(getConfig(), getJSONParser(), requestObject, filterTerm);
@@ -98,85 +70,27 @@ public final class BoxUsersManager extends BoxResourceManager {
         return getUsers(collection);
     }
 
-    /**
-     * Moves all of the content from within one user's folder into a new folder in another user's account. You can move folders across users as long as the you
-     * have administrative permissions. To move everything from the root folder, use 0 which always represents the root folder of a Box account
-     * 
-     * @param userId
-     *            id of the user
-     * @param folderId
-     *            id of the folder to be removed
-     * @param requestObject
-     *            request object
-     * @return the newly created destination folder
-     * @throws BoxRestException
-     *             exception
-     * @throws BoxServerException
-     *             exception
-     * @throws AuthFatalFailureException
-     *             exception
-     */
+    @Override
     public BoxFolder moveFolderToAnotherUser(final String userId, final String folderId, final BoxUserRequestObject requestObject) throws BoxRestException,
         BoxServerException, AuthFatalFailureException {
         MoveFolderToAnotherUserRequest request = new MoveFolderToAnotherUserRequest(getConfig(), getJSONParser(), userId, folderId, requestObject);
         return (BoxFolder) getResponseAndParseAndTryCast(request, BoxResourceType.FOLDER, getJSONParser());
     }
 
-    /**
-     * Used to provision a new user in an enterprise. This method only works for enterprise admins.
-     * 
-     * 
-     * @param requestObject
-     *            request object
-     * @return newly created user
-     * @throws BoxRestException
-     *             exception
-     * @throws BoxServerException
-     *             exception
-     * @throws AuthFatalFailureException
-     *             exception
-     */
+    @Override
     public BoxUser createEnterpriseUser(BoxUserRequestObject requestObject) throws BoxRestException, BoxServerException, AuthFatalFailureException {
         CreateEnterpriseUserRequest request = new CreateEnterpriseUserRequest(getConfig(), getJSONParser(), requestObject);
         return (BoxUser) getResponseAndParseAndTryCast(request, BoxResourceType.USER, getJSONParser());
     }
 
-    /**
-     * Used to edit the settings and information about a user. This method only works for enterprise admins.
-     * 
-     * @param userId
-     *            id of the user.
-     * @param requestObject
-     *            request object
-     * @return the updated user
-     * @throws BoxRestException
-     *             exception
-     * @throws BoxServerException
-     *             exception
-     * @throws AuthFatalFailureException
-     *             exception
-     */
+    @Override
     public BoxUser updateUserInformaiton(final String userId, BoxUserRequestObject requestObject) throws BoxRestException, BoxServerException,
         AuthFatalFailureException {
         UpdateUserRequest request = new UpdateUserRequest(getConfig(), getJSONParser(), userId, requestObject);
         return (BoxUser) getResponseAndParseAndTryCast(request, BoxResourceType.USER, getJSONParser());
     }
 
-    /**
-     * Retrieves all email aliases for this user. The collection of email aliases does not include the primary login for the user
-     * 
-     * @param userId
-     *            id of user
-     * @param requestObject
-     *            request object
-     * @return collection of email aliases
-     * @throws BoxServerException
-     *             exception
-     * @throws BoxRestException
-     *             exception
-     * @throws AuthFatalFailureException
-     *             exception
-     */
+    @Override
     public List<BoxEmailAlias> getEmailAliases(final String userId, final BoxDefaultRequestObject requestObject) throws BoxServerException, BoxRestException,
         AuthFatalFailureException {
         GetEmailAliasesRequest request = new GetEmailAliasesRequest(getConfig(), getJSONParser(), userId, requestObject);
@@ -184,65 +98,21 @@ public final class BoxUsersManager extends BoxResourceManager {
         return getEmailAliases(collection);
     }
 
-    /**
-     * Adds a new email alias to the given user's account. This feature is currently only available to enterprise admins and the new email must be in a domain
-     * associated with the enterprise and can not be a publicly atainable domain (e.g. gmail.com).
-     * 
-     * @param userId
-     *            id of user
-     * @param requestObject
-     *            request object
-     * @return the newly added email alias
-     * @throws BoxServerException
-     *             exception
-     * @throws BoxRestException
-     *             exception
-     * @throws AuthFatalFailureException
-     *             exception
-     */
+    @Override
     public BoxEmailAlias addEmailAlias(final String userId, BoxUserRequestObject requestObject) throws BoxServerException, BoxRestException,
         AuthFatalFailureException {
         CreateEmailAliasRequest request = new CreateEmailAliasRequest(getConfig(), getJSONParser(), userId, requestObject);
         return (BoxEmailAlias) getResponseAndParseAndTryCast(request, BoxResourceType.EMAIL_ALIAS, getJSONParser());
     }
 
-    /**
-     * Removes an email alias from a user.
-     * 
-     * @param userId
-     *            id of the user
-     * @param emailId
-     *            id of the email alias to be removed
-     * @param requestObject
-     *            request object
-     * @throws BoxRestException
-     *             exception
-     * @throws BoxServerException
-     *             exception
-     * @throws AuthFatalFailureException
-     *             exception
-     */
+    @Override
     public void deleteEmailAlias(final String userId, final String emailId, BoxDefaultRequestObject requestObject) throws BoxRestException, BoxServerException,
         AuthFatalFailureException {
         DeleteEmailAliasRequest request = new DeleteEmailAliasRequest(getConfig(), getJSONParser(), userId, emailId, requestObject);
         executeRequestWithNoResponseBody(request);
     }
 
-    /**
-     * Used to convert one of the user's confirmed email aliases into the user's primary login.
-     * 
-     * @param userId
-     *            id of the user
-     * @param requestObject
-     *            request object
-     * @return the updated user object
-     * @throws BoxRestException
-     *             exception
-     * @throws BoxServerException
-     *             exception
-     * @throws AuthFatalFailureException
-     *             exception
-     */
+    @Override
     public BoxUser updateUserPrimaryLogin(final String userId, final BoxUserRequestObject requestObject) throws BoxRestException, BoxServerException,
         AuthFatalFailureException {
         UpdateUserLoginRequest request = new UpdateUserLoginRequest(getConfig(), getJSONParser(), userId, requestObject);
@@ -250,12 +120,13 @@ public final class BoxUsersManager extends BoxResourceManager {
     }
 
     /**
-     * Get users from a collection.
+     * Get users from a collection.Deprecated, use Utils.getTypedObjects instead.
      * 
      * @param collection
      *            collection
      * @return users
      */
+    @Deprecated
     public static List<BoxUser> getUsers(BoxCollection collection) {
         List<BoxUser> users = new ArrayList<BoxUser>();
         List<BoxTypedObject> list = collection.getEntries();
@@ -268,12 +139,13 @@ public final class BoxUsersManager extends BoxResourceManager {
     }
 
     /**
-     * Get email aliases from a collection.
+     * Get email aliases from a collection.Deprecated, use Utils.getTypedObjects instead.
      * 
      * @param collection
      *            collection
      * @return email aliases
      */
+    @Deprecated
     public static List<BoxEmailAlias> getEmailAliases(BoxCollection collection) {
         List<BoxEmailAlias> aliases = new ArrayList<BoxEmailAlias>();
         List<BoxTypedObject> list = collection.getEntries();
