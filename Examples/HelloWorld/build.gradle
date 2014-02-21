@@ -1,0 +1,16 @@
+apply plugin: "java"
+
+repositories {
+	mavenLocal()
+	mavenCentral()
+}
+
+dependencies {
+	compile project(":BoxJavaLibraryV2")
+}
+
+sourceSets {
+	main {
+		java.srcDirs = ["src"]
+	}
+}
