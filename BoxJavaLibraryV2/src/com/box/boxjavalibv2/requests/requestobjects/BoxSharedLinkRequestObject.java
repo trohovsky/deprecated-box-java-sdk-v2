@@ -4,7 +4,6 @@ import java.text.ParseException;
 import java.util.Date;
 
 import com.box.boxjavalibv2.dao.BoxSharedLink;
-import com.box.boxjavalibv2.dao.BoxSharedLinkPermissions;
 import com.box.boxjavalibv2.utils.ISO8601DateParser;
 
 // CHECKSTYLE:OFF
@@ -74,23 +73,28 @@ public class BoxSharedLinkRequestObject extends BoxDefaultRequestObject {
     }
 
     /**
-     * Get permissions.
-     * 
-     * @return permissions
-     */
-    public BoxSharedLinkPermissions getPermissions() {
-        return (BoxSharedLinkPermissions) get(BoxSharedLink.FIELD_PERMISSIONS);
-    }
-
-    /**
      * Set permissions.
      * 
      * @param permissionsEntity
      *            permissions
      * @return
      */
-    public BoxSharedLinkRequestObject setPermissions(final BoxSharedLinkPermissions permissionsEntity) {
+    public BoxSharedLinkRequestObject setPermissions(final BoxSharedLinkPermissionsRequestObject permissionsEntity) {
         put(BoxSharedLink.FIELD_PERMISSIONS, permissionsEntity);
+        return this;
+    }
+
+    /**
+     * Set permissions
+     * 
+     * @param canDownload
+     *            Whether shared item can be downloaded.
+     * @return
+     */
+    public BoxSharedLinkRequestObject setPermissions(final boolean canDownload) {
+        BoxSharedLinkPermissionsRequestObject perm = new BoxSharedLinkPermissionsRequestObject();
+        perm.setCanDownload(canDownload);
+        put(BoxSharedLink.FIELD_PERMISSIONS, perm);
         return this;
     }
 }

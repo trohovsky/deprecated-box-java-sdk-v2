@@ -19,9 +19,7 @@ import com.box.boxjavalibv2.requests.GetFolderCollaborationsRequest;
 import com.box.boxjavalibv2.requests.GetFolderItemsRequest;
 import com.box.boxjavalibv2.requests.GetFolderTrashItemsRequest;
 import com.box.boxjavalibv2.requests.requestobjects.BoxDefaultRequestObject;
-import com.box.boxjavalibv2.requests.requestobjects.BoxFileRequestObject;
 import com.box.boxjavalibv2.requests.requestobjects.BoxFolderRequestObject;
-import com.box.boxjavalibv2.requests.requestobjects.BoxItemRestoreRequestObject;
 import com.box.boxjavalibv2.utils.Utils;
 import com.box.restclientv2.exceptions.BoxRestException;
 import com.box.restclientv2.interfaces.IBoxConfig;
@@ -56,12 +54,6 @@ public class BoxFoldersManageImpl extends BoxItemsManagerImpl implements IBoxFol
     }
 
     @Override
-    public BoxFolder getTrashFolder(final String folderId, BoxDefaultRequestObject requestObject) throws BoxRestException, BoxServerException,
-        AuthFatalFailureException {
-        return (BoxFolder) super.getTrashItem(folderId, BoxResourceType.FOLDER, requestObject);
-    }
-
-    @Override
     public BoxFolder createFolder(BoxFolderRequestObject requestObject) throws BoxRestException, BoxServerException, AuthFatalFailureException {
         CreateNewFolderRequest request = new CreateNewFolderRequest(getConfig(), getJSONParser(), requestObject);
         return (BoxFolder) getResponseAndParseAndTryCast(request, BoxResourceType.FOLDER, getJSONParser());
@@ -72,18 +64,6 @@ public class BoxFoldersManageImpl extends BoxItemsManagerImpl implements IBoxFol
         AuthFatalFailureException {
         DeleteFolderRequest request = new DeleteFolderRequest(getConfig(), getJSONParser(), folderId, requestObject);
         executeRequestWithNoResponseBody(request);
-    }
-
-    @Override
-    public void deleteTrashFolder(final String id, final BoxFileRequestObject requestObject) throws BoxRestException, BoxServerException,
-        AuthFatalFailureException {
-        super.deleteTrashItem(id, BoxResourceType.FOLDER, requestObject);
-    }
-
-    @Override
-    public BoxFolder restoreTrashFolder(final String id, final BoxItemRestoreRequestObject requestObject) throws BoxRestException, AuthFatalFailureException,
-        BoxServerException {
-        return (BoxFolder) super.restoreTrashItem(id, BoxResourceType.FOLDER, requestObject);
     }
 
     @Override

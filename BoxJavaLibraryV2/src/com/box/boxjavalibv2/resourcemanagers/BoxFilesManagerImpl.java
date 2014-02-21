@@ -33,7 +33,6 @@ import com.box.boxjavalibv2.requests.requestobjects.BoxDefaultRequestObject;
 import com.box.boxjavalibv2.requests.requestobjects.BoxFileRequestObject;
 import com.box.boxjavalibv2.requests.requestobjects.BoxFileUploadRequestObject;
 import com.box.boxjavalibv2.requests.requestobjects.BoxImageRequestObject;
-import com.box.boxjavalibv2.requests.requestobjects.BoxItemRestoreRequestObject;
 import com.box.boxjavalibv2.responseparsers.ErrorResponseParser;
 import com.box.boxjavalibv2.responseparsers.PreviewResponseParser;
 import com.box.restclientv2.exceptions.BoxRestException;
@@ -71,28 +70,10 @@ public class BoxFilesManagerImpl extends BoxItemsManagerImpl implements IBoxFile
     }
 
     @Override
-    public BoxFile getTrashFile(final String fileId, final BoxDefaultRequestObject requestObject) throws BoxRestException, AuthFatalFailureException,
-        BoxServerException {
-        return (BoxFile) super.getTrashItem(fileId, BoxResourceType.FILE, requestObject);
-    }
-
-    @Override
     public void deleteFile(final String fileId, final BoxFileRequestObject requestObject) throws BoxRestException, BoxServerException,
         AuthFatalFailureException {
         DeleteFileRequest request = new DeleteFileRequest(getConfig(), getJSONParser(), fileId, requestObject);
         executeRequestWithNoResponseBody(request);
-    }
-
-    @Override
-    public void deleteTrashFile(final String id, final BoxFileRequestObject requestObject) throws BoxRestException, BoxServerException,
-        AuthFatalFailureException {
-        super.deleteTrashItem(id, BoxResourceType.FILE, requestObject);
-    }
-
-    @Override
-    public BoxFile restoreTrashFile(final String id, final BoxItemRestoreRequestObject requestObject) throws BoxRestException, AuthFatalFailureException,
-        BoxServerException {
-        return (BoxFile) super.restoreTrashItem(id, BoxResourceType.FILE, requestObject);
     }
 
     @Override

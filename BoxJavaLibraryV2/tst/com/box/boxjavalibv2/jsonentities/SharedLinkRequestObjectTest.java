@@ -7,7 +7,6 @@ import junit.framework.Assert;
 import org.junit.Test;
 
 import com.box.boxjavalibv2.dao.BoxSharedLinkAccess;
-import com.box.boxjavalibv2.dao.BoxSharedLinkPermissions;
 import com.box.boxjavalibv2.exceptions.BoxJSONException;
 import com.box.boxjavalibv2.jsonparsing.BoxJSONParser;
 import com.box.boxjavalibv2.jsonparsing.BoxResourceHub;
@@ -24,8 +23,7 @@ public class SharedLinkRequestObjectTest {
     public void testFull() throws BoxJSONException {
         Date date = new Date();
         String access = BoxSharedLinkAccess.OPEN;
-        BoxSharedLinkRequestObject entity = BoxSharedLinkRequestObject.createSharedLinkRequestObject(access).setPermissions(new BoxSharedLinkPermissions(true))
-            .setUnshared_at(date);
+        BoxSharedLinkRequestObject entity = BoxSharedLinkRequestObject.createSharedLinkRequestObject(access).setPermissions(true).setUnshared_at(date);
 
         String accessStr = String.format(ACCESS_STR, access);
         String dateStr = String.format(UNSHARED_STR, ISO8601DateParser.toString(date));
@@ -39,7 +37,7 @@ public class SharedLinkRequestObjectTest {
     @Test
     public void testNoUnsharedAt() throws BoxJSONException {
         String access = BoxSharedLinkAccess.OPEN;
-        BoxSharedLinkRequestObject entity = BoxSharedLinkRequestObject.createSharedLinkRequestObject(access).setPermissions(new BoxSharedLinkPermissions(true));
+        BoxSharedLinkRequestObject entity = BoxSharedLinkRequestObject.createSharedLinkRequestObject(access).setPermissions(true);
 
         String accessStr = String.format(ACCESS_STR, access);
 

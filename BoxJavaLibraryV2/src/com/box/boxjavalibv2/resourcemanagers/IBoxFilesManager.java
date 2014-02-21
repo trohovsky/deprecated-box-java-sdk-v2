@@ -18,7 +18,6 @@ import com.box.boxjavalibv2.requests.requestobjects.BoxDefaultRequestObject;
 import com.box.boxjavalibv2.requests.requestobjects.BoxFileRequestObject;
 import com.box.boxjavalibv2.requests.requestobjects.BoxFileUploadRequestObject;
 import com.box.boxjavalibv2.requests.requestobjects.BoxImageRequestObject;
-import com.box.boxjavalibv2.requests.requestobjects.BoxItemRestoreRequestObject;
 import com.box.restclientv2.exceptions.BoxRestException;
 
 public interface IBoxFilesManager extends IBoxResourceManager {
@@ -41,23 +40,6 @@ public interface IBoxFilesManager extends IBoxResourceManager {
     public BoxFile getFile(String fileId, BoxDefaultRequestObject requestObject) throws BoxRestException, BoxServerException, AuthFatalFailureException;
 
     /**
-     * Get trashed file given a file id.
-     * 
-     * @param fileId
-     *            id of the file
-     * @param requestObject
-     *            object that goes into request.
-     * @return requested box file
-     * @throws BoxRestException
-     *             See {@link com.box.restclientv2.exceptions.BoxRestException} for more info.
-     * @throws BoxServerException
-     *             See {@link com.box.restclientv2.exceptions.BoxServerException} for more info.
-     * @throws AuthFatalFailureException
-     *             See {@link com.box.restclientv2.exceptions.AuthFatalFailureException} for more info.
-     */
-    public BoxFile getTrashFile(String fileId, BoxDefaultRequestObject requestObject) throws BoxRestException, AuthFatalFailureException, BoxServerException;
-
-    /**
      * Delete a file.
      * 
      * @param fileId
@@ -72,39 +54,6 @@ public interface IBoxFilesManager extends IBoxResourceManager {
      *             See {@link com.box.restclientv2.exceptions.AuthFatalFailureException} for more info.
      */
     public void deleteFile(String fileId, BoxFileRequestObject requestObject) throws BoxRestException, BoxServerException, AuthFatalFailureException;
-
-    /**
-     * Permanently delete a trashed file.
-     * 
-     * @param id
-     *            id of the file
-     * @param requestObject
-     *            request object
-     * @throws BoxRestException
-     *             See {@link com.box.restclientv2.exceptions.BoxRestException} for more info.
-     * @throws BoxServerException
-     *             See {@link com.box.restclientv2.exceptions.BoxServerException} for more info.
-     * @throws AuthFatalFailureException
-     *             See {@link com.box.restclientv2.exceptions.AuthFatalFailureException} for more info.
-     */
-    public void deleteTrashFile(String id, BoxFileRequestObject requestObject) throws BoxRestException, BoxServerException, AuthFatalFailureException;
-
-    /**
-     * Restore a trashed file.
-     * 
-     * @param id
-     *            id of the trashed file.
-     * @param requestObject
-     * @return the file
-     * @throws BoxRestException
-     *             See {@link com.box.restclientv2.exceptions.BoxRestException} for more info.
-     * @throws BoxServerException
-     *             See {@link com.box.restclientv2.exceptions.BoxServerException} for more info.
-     * @throws AuthFatalFailureException
-     *             See {@link com.box.restclientv2.exceptions.AuthFatalFailureException} for more info.
-     */
-    public BoxFile restoreTrashFile(String id, BoxItemRestoreRequestObject requestObject) throws BoxRestException, AuthFatalFailureException,
-        BoxServerException;
 
     /**
      * Get preview of a file.

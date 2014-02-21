@@ -11,7 +11,7 @@ import com.box.boxjavalibv2.interfaces.IBoxType;
 public abstract class BaseBoxResourceHub implements IBoxResourceHub {
 
     // As a performance optimization, set up string values for all types.
-    private static final Map<String, IBoxType> lowercaseStringToType = new HashMap<String, IBoxType>();
+    protected final Map<String, IBoxType> lowercaseStringToType = new HashMap<String, IBoxType>();
 
     public BaseBoxResourceHub() {
         initializeTypes();
@@ -53,7 +53,7 @@ public abstract class BaseBoxResourceHub implements IBoxResourceHub {
         // Make it non-abstract so children can call super. This way makes it more explicit that super should be called.
     }
 
-    protected void initializeEnumTypes(Class<? extends Enum> cls) {
+    protected synchronized void initializeEnumTypes(Class<? extends Enum> cls) {
         Map<String, IBoxType> map = getLowerCaseStringToTypeMap();
         Enum[] types = cls.getEnumConstants();
         for (Enum type : types) {

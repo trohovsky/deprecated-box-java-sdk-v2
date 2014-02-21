@@ -27,7 +27,7 @@ public class BoxFolderTest {
         TestParcel parcel = new TestParcel();
         folder.writeToParcel(parcel, 0);
         BoxFolder fromParcel = new BoxFolder(parcel);
-        String uploadEmailString = fromParcel.getFolderUploadEmail().toJSONString(new BoxJSONParser(new BoxResourceHub()));
+        String uploadEmailString = (new BoxJSONParser(new BoxResourceHub()).convertBoxObjectToJSONString(fromParcel.getFolderUploadEmail()));
         String[] parts = uploadEmailString.split(",");
         Assert.assertEquals(2, parts.length);
         Assert.assertTrue(emailJson.contains(parts[0].replace("{", "").replace("}", "")));

@@ -10,15 +10,10 @@ import com.box.boxjavalibv2.interfaces.IBoxJSONParser;
 import com.box.boxjavalibv2.interfaces.IBoxResourceHub;
 import com.box.boxjavalibv2.requests.CopyItemRequest;
 import com.box.boxjavalibv2.requests.CreateSharedLinkRequest;
-import com.box.boxjavalibv2.requests.DeleteTrashItemRequest;
 import com.box.boxjavalibv2.requests.GetItemRequest;
-import com.box.boxjavalibv2.requests.GetTrashItemRequest;
-import com.box.boxjavalibv2.requests.RestoreTrashItemRequest;
 import com.box.boxjavalibv2.requests.UpdateItemInfoRequest;
 import com.box.boxjavalibv2.requests.requestobjects.BoxDefaultRequestObject;
-import com.box.boxjavalibv2.requests.requestobjects.BoxFileRequestObject;
 import com.box.boxjavalibv2.requests.requestobjects.BoxItemRequestObject;
-import com.box.boxjavalibv2.requests.requestobjects.BoxItemRestoreRequestObject;
 import com.box.restclientv2.exceptions.BoxRestException;
 import com.box.restclientv2.interfaces.IBoxConfig;
 import com.box.restclientv2.interfaces.IBoxRESTClient;
@@ -60,14 +55,6 @@ public class BoxItemsManagerImpl extends AbstractBoxResourceManager implements I
     }
 
     @Override
-    public BoxItem getTrashItem(final String itemId, final BoxResourceType type, final BoxDefaultRequestObject requestObject) throws BoxRestException,
-        AuthFatalFailureException, BoxServerException {
-        GetTrashItemRequest request = new GetTrashItemRequest(getConfig(), getJSONParser(), itemId, type, requestObject);
-        Object result = getResponseAndParse(request, type, getJSONParser());
-        return (BoxItem) tryCastBoxItem(type, result);
-    }
-
-    @Override
     public BoxItem copyItem(final String id, BoxItemRequestObject requestObject, final BoxResourceType type) throws BoxRestException, BoxServerException,
         AuthFatalFailureException {
         CopyItemRequest request = new CopyItemRequest(getConfig(), getJSONParser(), id, requestObject, type);
@@ -86,20 +73,6 @@ public class BoxItemsManagerImpl extends AbstractBoxResourceManager implements I
         BoxServerException, AuthFatalFailureException {
         CreateSharedLinkRequest request = new CreateSharedLinkRequest(getConfig(), getJSONParser(), id, requestObject, type);
 
-        return (BoxItem) getResponseAndParseAndTryCast(request, type, getJSONParser());
-    }
-
-    @Override
-    public void deleteTrashItem(final String id, final BoxResourceType type, final BoxFileRequestObject requestObject) throws BoxRestException,
-        BoxServerException, AuthFatalFailureException {
-        DeleteTrashItemRequest request = new DeleteTrashItemRequest(getConfig(), getJSONParser(), id, type, requestObject);
-        executeRequestWithNoResponseBody(request);
-    }
-
-    @Override
-    public BoxItem restoreTrashItem(final String id, final BoxResourceType type, final BoxItemRestoreRequestObject requestObject) throws BoxRestException,
-        AuthFatalFailureException, BoxServerException {
-        RestoreTrashItemRequest request = new RestoreTrashItemRequest(getConfig(), getJSONParser(), id, type, requestObject);
         return (BoxItem) getResponseAndParseAndTryCast(request, type, getJSONParser());
     }
 }

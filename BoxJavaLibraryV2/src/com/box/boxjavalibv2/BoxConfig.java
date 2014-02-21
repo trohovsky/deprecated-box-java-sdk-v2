@@ -11,12 +11,7 @@
  ******************************************************************************/
 package com.box.boxjavalibv2;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 import java.util.Locale;
-
-import org.apache.http.message.BasicNameValuePair;
 
 import com.box.restclientv2.interfaces.IBoxConfig;
 
@@ -98,9 +93,6 @@ public class BoxConfig implements IBoxConfig {
     /** Time to wait before connection timeout. */
     private static int mConnectionTimout = 0;
 
-    /** Custom query parameters to be added to all Box API requests. */
-    private final List<BasicNameValuePair> mCustomQueryParams = new ArrayList<BasicNameValuePair>();
-
     /** Singleton instance. */
     private static BoxConfig mInstance;
 
@@ -115,7 +107,7 @@ public class BoxConfig implements IBoxConfig {
      * 
      * @return instance of BoxConfig.
      */
-    public static BoxConfig getInstance() {
+    public synchronized static BoxConfig getInstance() {
         if (mInstance == null) {
             mInstance = new BoxConfig();
         }
@@ -348,35 +340,6 @@ public class BoxConfig implements IBoxConfig {
      */
     public void setOAuthUrlPath(String oAuthUrlPath) {
         this.mOAuthWebUrlPath = oAuthUrlPath;
-    }
-
-    /**
-     * Add a custom query parameter that will be added to all Box API requests. In general you should not need to use this.
-     * 
-     * @param key
-     *            Key.
-     * @param value
-     *            Value.
-     */
-    public void appendCustomQueryParameterToAllRequests(String key, String value) {
-        mCustomQueryParams.add(new BasicNameValuePair(key, value));
-    }
-
-    /**
-     * Clear out all custom query parameters that may have been set.
-     */
-    public void clearCustomQueryParameters() {
-        mCustomQueryParams.clear();
-    }
-
-    /**
-     * Get a list of all custom query parameters that have been set. This may return null or an empty List if none have been set. The list returned is not
-     * modifiable. Attempts to modify the returned list, whether direct or via its iterator, result in an UnsupportedOperationException.
-     * 
-     * @return Unmodifiable list of custom query parameters.
-     */
-    public List<BasicNameValuePair> getCustomQueryParameters() {
-        return Collections.unmodifiableList(mCustomQueryParams);
     }
 
     /**

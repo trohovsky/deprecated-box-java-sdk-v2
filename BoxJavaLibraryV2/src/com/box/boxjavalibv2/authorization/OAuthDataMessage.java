@@ -28,7 +28,7 @@ public class OAuthDataMessage extends StringMessage {
      * @throws BoxJSONException
      */
     public OAuthDataMessage(final BoxOAuthToken oauthData, IBoxJSONParser parser, IBoxResourceHub hub) throws BoxRestException, BoxJSONException {
-        super(OAUTH_DATA_MESSAGE_KEY, oauthData.toJSONString(parser));
+        super(OAUTH_DATA_MESSAGE_KEY, parser.convertBoxObjectToJSONString(oauthData));
         this.mParser = parser;
         this.mHub = hub;
     }

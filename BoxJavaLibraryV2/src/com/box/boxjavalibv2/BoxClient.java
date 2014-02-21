@@ -37,6 +37,7 @@ import com.box.boxjavalibv2.resourcemanagers.BoxItemsManagerImpl;
 import com.box.boxjavalibv2.resourcemanagers.BoxOAuthManagerImpl;
 import com.box.boxjavalibv2.resourcemanagers.BoxSearchManagerImpl;
 import com.box.boxjavalibv2.resourcemanagers.BoxSharedItemsManagerImpl;
+import com.box.boxjavalibv2.resourcemanagers.BoxTrashManagerImpl;
 import com.box.boxjavalibv2.resourcemanagers.BoxUsersManagerImpl;
 import com.box.boxjavalibv2.resourcemanagers.IBoxCollaborationsManager;
 import com.box.boxjavalibv2.resourcemanagers.IBoxCommentsManager;
@@ -49,6 +50,7 @@ import com.box.boxjavalibv2.resourcemanagers.IBoxOAuthManager;
 import com.box.boxjavalibv2.resourcemanagers.IBoxResourceManager;
 import com.box.boxjavalibv2.resourcemanagers.IBoxSearchManager;
 import com.box.boxjavalibv2.resourcemanagers.IBoxSharedItemsManager;
+import com.box.boxjavalibv2.resourcemanagers.IBoxTrashManager;
 import com.box.boxjavalibv2.resourcemanagers.IBoxUsersManager;
 import com.box.restclientv2.interfaces.IBoxConfig;
 import com.box.restclientv2.interfaces.IBoxRESTClient;
@@ -73,7 +75,7 @@ public class BoxClient extends BoxBase implements IAuthFlowListener {
     private IBoxRESTClient restClient;
 
     private final IBoxFilesManager filesManager;
-    private final BoxFoldersManageImpl foldersManager;
+    private final IBoxFoldersManager foldersManager;
     private final IBoxItemsManager boxItemsManager;
     private final IBoxSearchManager searchManager;
     private final IBoxEventsManager eventsManager;
@@ -82,6 +84,7 @@ public class BoxClient extends BoxBase implements IAuthFlowListener {
     private final IBoxUsersManager usersManager;
     private final IBoxOAuthManager oauthManager;
     private final IBoxGroupsManager groupsManager;
+    private final IBoxTrashManager trashManager;
     private IAuthFlowListener mAuthListener;
     private final Map<String, IBoxResourceManager> pluginResourceManagers = new HashMap<String, IBoxResourceManager>();
 
@@ -130,6 +133,7 @@ public class BoxClient extends BoxBase implements IAuthFlowListener {
         usersManager = new BoxUsersManagerImpl(getConfig(), getResourceHub(), getJSONParser(), getAuth(), getRestClient());
         oauthManager = new BoxOAuthManagerImpl(getConfig(), getResourceHub(), getJSONParser(), getRestClient());
         groupsManager = new BoxGroupsManagerImpl(getConfig(), getResourceHub(), getJSONParser(), getAuth(), getRestClient());
+        trashManager = new BoxTrashManagerImpl(getConfig(), getResourceHub(), getJSONParser(), getAuth(), getRestClient());
     }
 
     @Deprecated
@@ -252,6 +256,15 @@ public class BoxClient extends BoxBase implements IAuthFlowListener {
      */
     public IBoxItemsManager getSharedBoxItemsManager(String sharedLink, String password) {
         return new BoxItemsManagerImpl(getConfig(), getResourceHub(), getJSONParser(), getSharedItemAuth(sharedLink, password), getRestClient());
+    }
+
+    /**
+     * Get the BoxItemsManager, which can be used to make API calls on files/folders endpoints for trashed files/folders.
+     * 
+     * @return the boxItemsManager
+     */
+    public IBoxTrashManager getTrashManager() {
+        return trashManager;
     }
 
     /**
@@ -396,14 +409,14 @@ public class BoxClient extends BoxBase implements IAuthFlowListener {
      * 
      * @param token
      */
-    public void authenticate(IAuthData authData) {
-        OAuthDataController con = getOAuthDataController();
-        con.setOAuthData((BoxOAuthToken) authData);
+    public synchronized void authenticate(IAuthData authData) {
+        OAuthDataController oauthController = getOAuthDataController();
+        oauthController.setOAuthData((BoxOAuthToken) authData);
         if (authData != null) {
-            con.setTokenState(OAuthTokenState.AVAILABLE);
+            oauthController.setTokenState(OAuthTokenState.AVAILABLE);
         }
         else {
-            con.setTokenState(OAuthTokenState.PRE_CREATION);
+            oauthController.setTokenState(OAuthTokenState.PRE_CREATION);
         }
     }
 

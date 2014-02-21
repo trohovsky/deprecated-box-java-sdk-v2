@@ -12,7 +12,6 @@ import org.junit.Test;
 import com.box.boxjavalibv2.BoxConfig;
 import com.box.boxjavalibv2.dao.BoxResourceType;
 import com.box.boxjavalibv2.dao.BoxSharedLinkAccess;
-import com.box.boxjavalibv2.dao.BoxSharedLinkPermissions;
 import com.box.boxjavalibv2.exceptions.AuthFatalFailureException;
 import com.box.boxjavalibv2.exceptions.BoxJSONException;
 import com.box.boxjavalibv2.requests.requestobjects.BoxSharedLinkRequestObject;
@@ -44,19 +43,17 @@ public class CreateSharedLinkRequestTest extends RequestTestBase {
     private void testRequestIsWellFormed(final BoxResourceType type) throws BoxRestException, IllegalStateException, IOException, AuthFatalFailureException,
         BoxJSONException {
         String id = "testid123";
-        BoxSharedLinkPermissions permissions = new BoxSharedLinkPermissions(true);
         String access = BoxSharedLinkAccess.COLLABORATORS;
         Date unsharedAt = new Date();
 
         CreateSharedLinkRequest request = new CreateSharedLinkRequest(CONFIG, JSON_PARSER, id, BoxSharedLinkRequestObject.createSharedLinkRequestObject(access)
-            .setPermissions(permissions).setUnshared_at(unsharedAt), type);
+            .setPermissions(true).setUnshared_at(unsharedAt), type);
         testRequestIsWellFormed(request, BoxConfig.getInstance().getApiUrlAuthority(),
             BoxConfig.getInstance().getApiUrlPath().concat(CreateSharedLinkRequest.getUri(id, type)), HttpStatus.SC_OK, RestMethod.PUT);
         HttpEntity entity = request.getRequestEntity();
         Assert.assertTrue(entity instanceof StringEntity);
 
-        BoxSharedLinkRequestObject sEntity = BoxSharedLinkRequestObject.createSharedLinkRequestObject(access).setPermissions(permissions)
-            .setUnshared_at(unsharedAt);
+        BoxSharedLinkRequestObject sEntity = BoxSharedLinkRequestObject.createSharedLinkRequestObject(access).setPermissions(true).setUnshared_at(unsharedAt);
         super.assertEqualStringEntity(sEntity.getJSONEntity(), entity);
     }
 }

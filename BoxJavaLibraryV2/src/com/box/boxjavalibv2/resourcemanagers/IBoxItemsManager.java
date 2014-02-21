@@ -7,9 +7,7 @@ import com.box.boxjavalibv2.dao.BoxResourceType;
 import com.box.boxjavalibv2.exceptions.AuthFatalFailureException;
 import com.box.boxjavalibv2.exceptions.BoxServerException;
 import com.box.boxjavalibv2.requests.requestobjects.BoxDefaultRequestObject;
-import com.box.boxjavalibv2.requests.requestobjects.BoxFileRequestObject;
 import com.box.boxjavalibv2.requests.requestobjects.BoxItemRequestObject;
-import com.box.boxjavalibv2.requests.requestobjects.BoxItemRestoreRequestObject;
 import com.box.restclientv2.exceptions.BoxRestException;
 
 public interface IBoxItemsManager extends IBoxResourceManager {
@@ -33,26 +31,6 @@ public interface IBoxItemsManager extends IBoxResourceManager {
      */
     public BoxItem getItem(String id, BoxDefaultRequestObject requestObject, BoxResourceType type) throws BoxRestException, BoxServerException,
         AuthFatalFailureException;
-
-    /**
-     * Get a trashed item.
-     * 
-     * @param itemId
-     *            item id
-     * @param type
-     *            type
-     * @param requestObject
-     *            request object
-     * @return the item
-     * @throws BoxRestException
-     *             See {@link com.box.restclientv2.exceptions.BoxRestException} for more info.
-     * @throws BoxServerException
-     *             See {@link com.box.restclientv2.exceptions.BoxServerException} for more info.
-     * @throws AuthFatalFailureException
-     *             See {@link com.box.restclientv2.exceptions.AuthFatalFailureException} for more info.
-     */
-    public BoxItem getTrashItem(String itemId, BoxResourceType type, BoxDefaultRequestObject requestObject) throws BoxRestException, AuthFatalFailureException,
-        BoxServerException;
 
     /**
      * Copy an item.
@@ -117,43 +95,4 @@ public interface IBoxItemsManager extends IBoxResourceManager {
      */
     public BoxItem createSharedLink(String id, BoxItemRequestObject requestObject, BoxResourceType type) throws BoxRestException, BoxServerException,
         AuthFatalFailureException;
-
-    /**
-     * Permanently delete a trashed item.
-     * 
-     * @param id
-     *            id of the item
-     * @param type
-     *            resource type of the item.
-     * @param requestObject
-     *            request object
-     * @throws BoxRestException
-     *             See {@link com.box.restclientv2.exceptions.BoxRestException} for more info.
-     * @throws BoxServerException
-     *             See {@link com.box.restclientv2.exceptions.BoxServerException} for more info.
-     * @throws AuthFatalFailureException
-     *             See {@link com.box.restclientv2.exceptions.AuthFatalFailureException} for more info.
-     */
-    public void deleteTrashItem(String id, BoxResourceType type, BoxFileRequestObject requestObject) throws BoxRestException, BoxServerException,
-        AuthFatalFailureException;
-
-    /**
-     * Restore a trashed item.
-     * 
-     * @param id
-     *            id of the trashed item.
-     * @param type
-     *            type of the item
-     * @param requestObject
-     * @return the item.
-     * @throws BoxRestException
-     *             See {@link com.box.restclientv2.exceptions.BoxRestException} for more info.
-     * @throws BoxServerException
-     *             See {@link com.box.restclientv2.exceptions.BoxServerException} for more info.
-     * @throws AuthFatalFailureException
-     *             See {@link com.box.restclientv2.exceptions.AuthFatalFailureException} for more info.
-     */
-    public BoxItem restoreTrashItem(String id, BoxResourceType type, BoxItemRestoreRequestObject requestObject) throws BoxRestException,
-        AuthFatalFailureException, BoxServerException;
-
 }

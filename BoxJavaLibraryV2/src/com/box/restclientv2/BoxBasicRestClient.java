@@ -1,5 +1,7 @@
 package com.box.restclientv2;
 
+import java.io.IOException;
+
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpUriRequest;
@@ -81,7 +83,7 @@ public class BoxBasicRestClient implements IBoxRESTClient {
         try {
             response = getRawHttpClient().execute(httpRequest);
         }
-        catch (Exception e) {
+        catch (IOException e) {
             throw new BoxRestException(e);
         }
         DefaultBoxResponse boxResponse = new DefaultBoxResponse(response);

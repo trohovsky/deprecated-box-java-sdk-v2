@@ -11,7 +11,7 @@ import com.box.boxjavalibv2.interfaces.IBoxParcelWrapper;
  */
 public class BoxSharedLinkPermissions extends BoxObject {
 
-    private boolean can_download;
+    public static final String FIELD_CAN_DOWNLOAD = "can_download";
 
     /**
      * Default constructor.
@@ -44,7 +44,7 @@ public class BoxSharedLinkPermissions extends BoxObject {
      *            can be downloaded
      */
     public BoxSharedLinkPermissions(final boolean canDownload) {
-        this.setCan_download(canDownload);
+        setCan_download(canDownload);
     }
 
     /**
@@ -52,8 +52,8 @@ public class BoxSharedLinkPermissions extends BoxObject {
      * 
      * @return can_download
      */
-    public boolean isCan_download() {
-        return can_download;
+    public Boolean isCan_download() {
+        return (Boolean) getValue(FIELD_CAN_DOWNLOAD);
     }
 
     /**
@@ -61,8 +61,8 @@ public class BoxSharedLinkPermissions extends BoxObject {
      * 
      * @param canDownload
      */
-    private void setCan_download(final boolean canDownload) {
-        this.can_download = canDownload;
+    protected void setCan_download(final Boolean canDownload) {
+        put(FIELD_CAN_DOWNLOAD, canDownload);
     }
 
     protected BoxSharedLinkPermissions(IBoxParcelWrapper parcel) {
