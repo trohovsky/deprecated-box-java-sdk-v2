@@ -46,7 +46,7 @@ public class BoxBasicRestClient implements IBoxRESTClient {
      */
     public BoxBasicRestClient(final int maxConnection, final int maxConnectionPerRoute, final long timePeriodCleanUpIdleConnection, final long idleTimeThreshold) {
         ConnectionMonitor.setIdleTimeThreshold(idleTimeThreshold);
-        ConnectionMonitor.setMaxConnection(maxConnectionPerRoute);
+        ConnectionMonitor.setMaxConnection(maxConnection);
         ConnectionMonitor.setMaxConnectionPerRoute(maxConnectionPerRoute);
         ConnectionMonitor.setTimePeriodCleanUpIdleConnection(timePeriodCleanUpIdleConnection);
         ClientConnectionManager connectionManager = ConnectionMonitor.getConnectionManagerInstance();
