@@ -16,6 +16,7 @@ import com.box.restclientv2.exceptions.BoxRestException;
 import com.box.restclientv2.interfaces.IBoxResponse;
 import com.box.restclientv2.responseparsers.DefaultBoxJSONResponseParser;
 import com.box.restclientv2.responses.DefaultBoxResponse;
+import org.apache.http.util.EntityUtils;
 
 /**
  * Parser to parse {@link com.box.restclientv2.responses.DefaultBoxResponse} into {@link com.box.boxjavalibv2.dao.BoxServerError} objects. It analyse the
@@ -37,30 +38,27 @@ public class ErrorResponseParser extends DefaultBoxJSONResponseParser {
         }
 
         HttpResponse httpResponse = ((DefaultBoxResponse) response).getHttpResponse();
-        int statusCode = httpResponse.getStatusLine().getStatusCode();
-        BoxServerError error = null;
-        if (isErrorResponse(statusCode)) {
-            error = (BoxServerError) super.parse(response);
-        }
-        else {
-            error = new BoxUnexpectedStatus(statusCode);
-            if (isRetryAccepted(statusCode)) {
-                Header header = ((DefaultBoxResponse) response).getHttpResponse().getFirstHeader(RETRY_AFTER);
-                if (header != null) {
-                    String value = header.getValue();
-                    ((BoxUnexpectedStatus) error).setRetryAfter(Integer.valueOf(value));
+        try {
+            int statusCode = httpResponse.getStatusLine().getStatusCode();
+            BoxServerError error = null;
+            if (isErrorResponse(statusCode)) {
+                error = (BoxServerError) super.parse(response);
+            }
+            else {
+                error = new BoxUnexpectedStatus(statusCode);
+                if (isRetryAccepted(statusCode)) {
+                    Header header = ((DefaultBoxResponse) response).getHttpResponse().getFirstHeader(RETRY_AFTER);
+                    if (header != null) {
+                        String value = header.getValue();
+                        ((BoxUnexpectedStatus) error).setRetryAfter(Integer.valueOf(value));
+                    }
                 }
             }
-            
-            try {
-                httpResponse.getEntity().consumeContent();
-            }
-            catch (Exception e) {
-                // Nothing we can do here. Worst case we left an InputStream open and it will be recycled later.
-            }
+            error.setStatus(statusCode);
+            return error;
+        } finally {
+            EntityUtils.consumeQuietly(httpResponse.getEntity());
         }
-        error.setStatus(statusCode);
-        return error;
     }
 
     @SuppressWarnings("unchecked")
