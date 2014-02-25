@@ -7,9 +7,6 @@ import java.util.Map.Entry;
 
 public class BoxHashMap<K, V> extends HashMap<K, V> {
 
-    /**
-     * 
-     */
     private static final long serialVersionUID = 1L;
 
     @SuppressWarnings("unchecked")
@@ -18,13 +15,13 @@ public class BoxHashMap<K, V> extends HashMap<K, V> {
         if (obj == this) {
             return true;
         }
-        
-        if (!(obj instanceof HashMap)){
+
+        if (!(obj instanceof HashMap)) {
             return false;
         }
-        
-        HashMap<K,Object> mapObj = (HashMap<K,Object>) obj;
-        
+
+        HashMap<K, Object> mapObj = (HashMap<K, Object>) obj;
+
         if (mapObj.size() != this.size()) {
             return false;
         }
@@ -68,15 +65,14 @@ public class BoxHashMap<K, V> extends HashMap<K, V> {
     public int hashCode() {
         int hashCode = 0;
         Iterator<java.util.Map.Entry<K, V>> i = entrySet().iterator();
-        while (i.hasNext()){            
-            Entry<K,V> entry = i.next();
+        while (i.hasNext()) {
+            Entry<K, V> entry = i.next();
             // ignore primitive arrays in our calculation of hashCode.
-            if (! (entry.getValue() instanceof Object[])){
-                hashCode += entry.hashCode();                
-            }            
+            if (!(entry.getValue() instanceof Object[])) {
+                hashCode += entry.hashCode();
+            }
         }
         return hashCode;
     }
-
 
 }
