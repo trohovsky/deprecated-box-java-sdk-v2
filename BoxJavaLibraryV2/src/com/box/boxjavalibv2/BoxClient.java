@@ -58,7 +58,7 @@ public class BoxClient extends BoxBase implements IAuthFlowListener {
 
     private final IBoxResourceHub resourceHub;
     private final IBoxJSONParser jsonParser;
-    private IBoxRESTClient restClient;
+    private final IBoxRESTClient restClient;
 
     private final BoxFilesManager filesManager;
     private final BoxFoldersManager foldersManager;
@@ -86,8 +86,7 @@ public class BoxClient extends BoxBase implements IAuthFlowListener {
      */
     public BoxClient(final String clientId, final String clientSecret, final IBoxResourceHub hub, final IBoxJSONParser parser, final int maxConnection,
         final int maxConnectionPerRoute, final long timePeriodCleanUpIdleConnection, final long idleTimeThreshold) {
-        this(clientId, clientSecret, hub, parser);
-        restClient = createMonitoredRestClient(maxConnection, maxConnectionPerRoute, timePeriodCleanUpIdleConnection, idleTimeThreshold);
+        this(clientId, clientSecret, hub, parser, createMonitoredRestClient(maxConnection, maxConnectionPerRoute, timePeriodCleanUpIdleConnection, idleTimeThreshold));
     }
 
     /**
@@ -101,9 +100,25 @@ public class BoxClient extends BoxBase implements IAuthFlowListener {
      *            json parser, use null for default parser.
      */
     public BoxClient(final String clientId, final String clientSecret, final IBoxResourceHub hub, final IBoxJSONParser parser) {
+        this(clientId, clientSecret, hub, parser, createRestClient());
+    }
+
+    /**
+     * @param clientId
+     *            client id
+     * @param clientSecret
+     *            client secret
+     * @param hub
+     *            resource hub, use null for default resource hub.
+     * @param parser
+     *            json parser, use null for default parser.
+     * @param restClient
+     *            rest client
+     */
+    public BoxClient(final String clientId, final String clientSecret, final IBoxResourceHub hub, final IBoxJSONParser parser, final IBoxRESTClient restClient) {
         this.resourceHub = hub == null ? createResourceHub() : hub;
         this.jsonParser = parser == null ? createJSONParser(resourceHub) : parser;
-        restClient = createRestClient();
+        this.restClient = restClient;
         authController = createAuthDataController(clientId, clientSecret);
         auth = createAuthorization(authController);
 
@@ -459,11 +474,11 @@ public class BoxClient extends BoxBase implements IAuthFlowListener {
      * 
      * @return IBoxRESTClient
      */
-    protected IBoxRESTClient createRestClient() {
+    protected static IBoxRESTClient createRestClient() {
         return new BoxRESTClient();
     }
 
-    protected IBoxRESTClient createMonitoredRestClient(final int maxConnection, final int maxConnectionPerRoute, final long timePeriodCleanUpIdleConnection,
+    protected static IBoxRESTClient createMonitoredRestClient(final int maxConnection, final int maxConnectionPerRoute, final long timePeriodCleanUpIdleConnection,
         final long idleTimeThreshold) {
         return new BoxRESTClient(maxConnection, maxConnectionPerRoute, timePeriodCleanUpIdleConnection, idleTimeThreshold);
     }
