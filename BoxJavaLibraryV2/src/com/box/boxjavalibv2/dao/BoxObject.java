@@ -1,12 +1,9 @@
 package com.box.boxjavalibv2.dao;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
-import java.util.Map.Entry;
 
+import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 
 import com.box.boxjavalibv2.interfaces.IBoxParcelWrapper;
@@ -17,9 +14,9 @@ import com.fasterxml.jackson.annotation.JsonAnySetter;
 
 public class BoxObject extends DefaultJSONStringEntity implements IBoxParcelable {
 
-    private final Map<String, Object> extraMap = new HashMap<String, Object>();
+    private final Map<String, Object> extraMap = new BoxHashMap<String, Object>();
 
-    private final Map<String, Object> map = new HashMap<String, Object>();
+    private final Map<String, Object> map = new BoxHashMap<String, Object>();
 
     public BoxObject() {
     }
@@ -51,52 +48,10 @@ public class BoxObject extends DefaultJSONStringEntity implements IBoxParcelable
         }
 
         BoxObject bObj = (BoxObject) obj;
-        return compareMapsWithPrimitiveArrays(map, bObj.map) && compareMapsWithPrimitiveArrays(extraMap, bObj.extraMap);
+        return new EqualsBuilder().append(map, bObj.map).append(extraMap, bObj.extraMap).isEquals();
     }
 
-    private boolean compareMapsWithPrimitiveArrays(final Map<String, Object> m, final Map<String, Object> o) {
-        if (m == o) {
-            return true;
-        }
-
-        if (o.size() != m.size()) {
-            return false;
-        }
-
-        try {
-            Iterator<Entry<String, Object>> i = o.entrySet().iterator();
-            while (i.hasNext()) {
-                Entry<String, Object> e = i.next();
-                String key = e.getKey();
-                Object value = e.getValue();
-                if (value == null) {
-                    if (!(m.get(key) == null && m.containsKey(key))) {
-                        return false;
-                    }
-                }
-                else {
-                    if (value instanceof Object[]) {
-                        if (!Arrays.equals((Object[]) value, (Object[]) (m.get(key)))) {
-                            return false;
-                        }
-                    }
-                    else if (!value.equals(m.get(key))) {
-                        return false;
-                    }
-
-                }
-
-            }
-        }
-        catch (ClassCastException e) {
-            return false;
-        }
-        catch (NullPointerException e) {
-            return false;
-        }
-        return true;
-
-    }
+  
 
     @Override
     public int hashCode() {
