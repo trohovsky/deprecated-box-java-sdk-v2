@@ -20,6 +20,7 @@ import com.box.boxjavalibv2.requests.GetFolderItemsRequest;
 import com.box.boxjavalibv2.requests.GetFolderTrashItemsRequest;
 import com.box.boxjavalibv2.requests.requestobjects.BoxDefaultRequestObject;
 import com.box.boxjavalibv2.requests.requestobjects.BoxFolderRequestObject;
+import com.box.boxjavalibv2.requests.requestobjects.BoxFolderUpdateRequestObject;
 import com.box.boxjavalibv2.utils.Utils;
 import com.box.restclientv2.exceptions.BoxRestException;
 import com.box.restclientv2.interfaces.IBoxConfig;
@@ -87,8 +88,8 @@ public class BoxFoldersManageImpl extends BoxItemsManagerImpl implements IBoxFol
     }
 
     @Override
-    public BoxFolder updateFolderInfo(final String folderId, final BoxFolderRequestObject requestObject) throws UnsupportedEncodingException, BoxRestException,
-        BoxServerException, AuthFatalFailureException {
+    public BoxFolder updateFolderInfo(final String folderId, final BoxFolderUpdateRequestObject requestObject) throws UnsupportedEncodingException,
+        BoxRestException, BoxServerException, AuthFatalFailureException {
         return (BoxFolder) super.updateItemInfo(folderId, requestObject, BoxResourceType.FOLDER);
     }
 

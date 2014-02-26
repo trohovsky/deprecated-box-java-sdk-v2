@@ -1,20 +1,18 @@
 package com.box.boxjavalibv2.requests.requestobjects;
 
-import com.box.boxjavalibv2.dao.BoxEmail;
-import com.box.boxjavalibv2.dao.BoxFolder;
-import com.box.boxjavalibv2.jsonentities.MapJSONStringEntity;
+import com.box.boxjavalibv2.jsonentities.BoxSharedLinkRequestEntity;
 import com.box.boxjavalibv2.utils.Constants;
 
 public class BoxFolderRequestObject extends BoxItemRequestObject {
 
-    private BoxFolderRequestObject() {
+    protected BoxFolderRequestObject() {
     }
 
     public static BoxFolderRequestObject deleteSharedLinkRequestObject() {
         return (BoxFolderRequestObject) (new BoxFolderRequestObject()).setSharedLink(null);
     }
 
-    public static BoxFolderRequestObject createSharedLinkRequestObject(BoxSharedLinkRequestObject sharedLink) {
+    public static BoxFolderRequestObject createSharedLinkRequestObject(BoxSharedLinkRequestEntity sharedLink) {
         return (BoxFolderRequestObject) (new BoxFolderRequestObject()).setSharedLink(sharedLink);
     }
 
@@ -54,35 +52,14 @@ public class BoxFolderRequestObject extends BoxItemRequestObject {
         return (BoxFolderRequestObject) (new BoxFolderRequestObject()).setParent(parentId);
     }
 
-    public static BoxFolderRequestObject updateFolderInfoRequestObject() {
-        return (new BoxFolderRequestObject());
-    }
-
     /**
      * Set whether operation is done recursively. (For example deleting a folder)
      * 
      * @param recursive
      * @return
      */
-    public BoxFolderRequestObject setRecursive(final boolean recursive) {
+    private BoxFolderRequestObject setRecursive(final boolean recursive) {
         addQueryParam(Constants.RECURSIVE, Boolean.toString(recursive));
-        return this;
-    }
-
-    /**
-     * Set the email-to-upload address for this folder.
-     * 
-     * @param access
-     *            access level
-     * @param email
-     *            email address
-     * @return
-     */
-    public BoxFolderRequestObject setUploadEmail(String access, String email) {
-        MapJSONStringEntity entity = new MapJSONStringEntity();
-        entity.put(BoxEmail.FIELD_ACCESS, access);
-        entity.put(BoxEmail.FIELD_EMAIL, email);
-        put(BoxFolder.FIELD_FOLDER_UPLOAD_EMAIL, entity);
         return this;
     }
 }

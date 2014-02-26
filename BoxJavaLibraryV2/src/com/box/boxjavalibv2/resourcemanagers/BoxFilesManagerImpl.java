@@ -14,6 +14,7 @@ import com.box.boxjavalibv2.dao.BoxFileVersion;
 import com.box.boxjavalibv2.dao.BoxPreview;
 import com.box.boxjavalibv2.dao.BoxResourceType;
 import com.box.boxjavalibv2.dao.BoxServerError;
+import com.box.boxjavalibv2.dao.BoxThumbnail;
 import com.box.boxjavalibv2.dao.BoxTypedObject;
 import com.box.boxjavalibv2.exceptions.AuthFatalFailureException;
 import com.box.boxjavalibv2.exceptions.BoxServerException;
@@ -27,12 +28,13 @@ import com.box.boxjavalibv2.interfaces.IFileTransferListener;
 import com.box.boxjavalibv2.requests.DeleteFileRequest;
 import com.box.boxjavalibv2.requests.GetFileCommentsRequest;
 import com.box.boxjavalibv2.requests.GetFileVersionsRequest;
-import com.box.boxjavalibv2.requests.PreviewRequest;
+import com.box.boxjavalibv2.requests.GetPreviewRequest;
 import com.box.boxjavalibv2.requests.ThumbnailRequest;
 import com.box.boxjavalibv2.requests.requestobjects.BoxDefaultRequestObject;
 import com.box.boxjavalibv2.requests.requestobjects.BoxFileRequestObject;
 import com.box.boxjavalibv2.requests.requestobjects.BoxFileUploadRequestObject;
 import com.box.boxjavalibv2.requests.requestobjects.BoxImageRequestObject;
+import com.box.boxjavalibv2.responseparsers.BoxBigPayloadResponseParser;
 import com.box.boxjavalibv2.responseparsers.ErrorResponseParser;
 import com.box.boxjavalibv2.responseparsers.PreviewResponseParser;
 import com.box.restclientv2.exceptions.BoxRestException;
@@ -79,7 +81,7 @@ public class BoxFilesManagerImpl extends BoxItemsManagerImpl implements IBoxFile
     @Override
     public BoxPreview getPreview(final String fileId, final String extension, final BoxImageRequestObject requestObject) throws BoxRestException,
         BoxServerException, AuthFatalFailureException {
-        PreviewRequest request = new PreviewRequest(getConfig(), getJSONParser(), fileId, extension, requestObject);
+        GetPreviewRequest request = new GetPreviewRequest(getConfig(), getJSONParser(), fileId, extension, requestObject);
         request.setAuth(getAuth());
         DefaultBoxResponse response = (DefaultBoxResponse) getRestClient().execute(request);
         PreviewResponseParser parser = new PreviewResponseParser();
@@ -90,6 +92,19 @@ public class BoxFilesManagerImpl extends BoxItemsManagerImpl implements IBoxFile
     }
 
     @Override
+    public BoxThumbnail getThumbnail(final String fileId, final String extension, final BoxImageRequestObject requestObject) throws BoxRestException,
+        BoxServerException, AuthFatalFailureException {
+        ThumbnailRequest request = new ThumbnailRequest(getConfig(), getJSONParser(), fileId, extension, requestObject);
+        request.setAuth(getAuth());
+        DefaultBoxResponse response = (DefaultBoxResponse) getRestClient().execute(request);
+        BoxBigPayloadResponseParser parser = new BoxBigPayloadResponseParser();
+        ErrorResponseParser errorParser = new ErrorResponseParser(getJSONParser());
+        Object result = response.parseResponse(parser, errorParser);
+        return (BoxThumbnail) tryCastObject(BoxResourceType.THUMBNAIL, result);
+    }
+
+    @Override
+    @Deprecated
     public InputStream downloadThumbnail(final String fileId, final String extension, final BoxImageRequestObject requestObject) throws BoxRestException,
         BoxServerException, AuthFatalFailureException {
         ThumbnailRequest request = new ThumbnailRequest(getConfig(), getJSONParser(), fileId, extension, requestObject);

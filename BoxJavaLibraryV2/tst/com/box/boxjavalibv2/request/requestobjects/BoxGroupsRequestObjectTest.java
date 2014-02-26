@@ -8,6 +8,7 @@ import com.box.boxjavalibv2.dao.BoxGroup;
 import com.box.boxjavalibv2.dao.BoxGroupMembership;
 import com.box.boxjavalibv2.dao.BoxUser;
 import com.box.boxjavalibv2.jsonentities.MapJSONStringEntity;
+import com.box.boxjavalibv2.requests.requestobjects.BoxGroupMembershipRequestObject;
 import com.box.boxjavalibv2.requests.requestobjects.BoxGroupRequestObject;
 
 public class BoxGroupsRequestObjectTest {
@@ -31,7 +32,7 @@ public class BoxGroupsRequestObjectTest {
         String groupId = "testgroupid";
         String userId = "testuserid";
         String role = "testrole";
-        BoxGroupRequestObject obj = BoxGroupRequestObject.addMembershipRequest(groupId, userId, role);
+        BoxGroupMembershipRequestObject obj = BoxGroupMembershipRequestObject.addMembershipRequestObject(groupId, userId, role);
         Object groupObj = obj.get(BoxGroupMembership.FIELD_GROUP);
         Assert.assertTrue(groupObj instanceof MapJSONStringEntity);
         MapJSONStringEntity groupEntity = (MapJSONStringEntity) groupObj;
@@ -48,7 +49,7 @@ public class BoxGroupsRequestObjectTest {
     @Test
     public void testUpdateMembershipRequest() {
         String role = "testrole";
-        BoxGroupRequestObject obj = BoxGroupRequestObject.updateMembershipRequest(role);
+        BoxGroupMembershipRequestObject obj = BoxGroupMembershipRequestObject.updateMembershipRequest(role);
 
         Assert.assertEquals(role, obj.get(BoxGroupMembership.FIELD_ROLE));
     }

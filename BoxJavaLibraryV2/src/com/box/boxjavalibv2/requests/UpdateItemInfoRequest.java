@@ -4,7 +4,7 @@ import java.io.UnsupportedEncodingException;
 
 import com.box.boxjavalibv2.dao.BoxResourceType;
 import com.box.boxjavalibv2.interfaces.IBoxJSONParser;
-import com.box.boxjavalibv2.requests.requestobjects.BoxDefaultRequestObject;
+import com.box.boxjavalibv2.requests.requestobjects.BoxItemRequestObject;
 import com.box.restclientv2.RestMethod;
 import com.box.restclientv2.exceptions.BoxRestException;
 import com.box.restclientv2.interfaces.IBoxConfig;
@@ -33,7 +33,7 @@ public class UpdateItemInfoRequest extends DefaultBoxRequest {
      * @throws BoxRestException
      * @throws UnsupportedEncodingException
      */
-    public UpdateItemInfoRequest(final IBoxConfig config, final IBoxJSONParser parser, final String fileFolderId, final BoxDefaultRequestObject requestObject,
+    public UpdateItemInfoRequest(final IBoxConfig config, final IBoxJSONParser parser, final String fileFolderId, final BoxItemRequestObject requestObject,
         final BoxResourceType type) throws BoxRestException, UnsupportedEncodingException {
         super(config, parser, getUri(fileFolderId, type), RestMethod.PUT, requestObject);
     }

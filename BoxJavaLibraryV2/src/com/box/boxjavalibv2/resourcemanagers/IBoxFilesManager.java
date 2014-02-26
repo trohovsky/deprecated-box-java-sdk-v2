@@ -11,6 +11,7 @@ import com.box.boxjavalibv2.dao.BoxCollection;
 import com.box.boxjavalibv2.dao.BoxFile;
 import com.box.boxjavalibv2.dao.BoxFileVersion;
 import com.box.boxjavalibv2.dao.BoxPreview;
+import com.box.boxjavalibv2.dao.BoxThumbnail;
 import com.box.boxjavalibv2.exceptions.AuthFatalFailureException;
 import com.box.boxjavalibv2.exceptions.BoxServerException;
 import com.box.boxjavalibv2.interfaces.IFileTransferListener;
@@ -76,6 +77,13 @@ public interface IBoxFilesManager extends IBoxResourceManager {
         AuthFatalFailureException;
 
     /**
+     * Get thumbnail of a file. Deprecated, use getThumbnail instead.s
+     */
+    @Deprecated
+    public InputStream downloadThumbnail(String fileId, String extension, BoxImageRequestObject requestObject) throws BoxRestException, BoxServerException,
+        AuthFatalFailureException;
+
+    /**
      * Get thumbnail of a file.
      * 
      * @param fileId
@@ -92,8 +100,8 @@ public interface IBoxFilesManager extends IBoxResourceManager {
      * @throws AuthFatalFailureException
      *             See {@link com.box.restclientv2.exceptions.AuthFatalFailureException} for more info.
      */
-    public InputStream downloadThumbnail(String fileId, String extension, BoxImageRequestObject requestObject) throws BoxRestException, BoxServerException,
-        AuthFatalFailureException;
+    public BoxThumbnail getThumbnail(final String fileId, final String extension, final BoxImageRequestObject requestObject) throws BoxRestException,
+        BoxServerException, AuthFatalFailureException;
 
     /**
      * Upload file/files.

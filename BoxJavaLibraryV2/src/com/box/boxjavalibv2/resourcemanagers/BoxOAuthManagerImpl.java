@@ -1,5 +1,7 @@
 package com.box.boxjavalibv2.resourcemanagers;
 
+import org.apache.commons.lang.StringUtils;
+
 import com.box.boxjavalibv2.dao.BoxOAuthToken;
 import com.box.boxjavalibv2.dao.BoxResourceType;
 import com.box.boxjavalibv2.exceptions.AuthFatalFailureException;
@@ -73,8 +75,10 @@ public class BoxOAuthManagerImpl extends AbstractBoxResourceManager implements I
     public BoxOAuthToken createOAuth(final String code, final String clientId, final String clientSecret, final String redirectUrl, final String deviceId,
         final String deviceName) throws BoxRestException, BoxServerException, AuthFatalFailureException {
         BoxOAuthRequestObject obj = BoxOAuthRequestObject.createOAuthRequestObject(code, clientId, clientSecret, redirectUrl);
-        obj.put("device_id", deviceId);
-        obj.put("device_name", deviceName);
+        if (StringUtils.isNotEmpty(deviceId) && StringUtils.isNotEmpty(deviceName)) {
+            obj.put("device_id", deviceId);
+            obj.put("device_name", deviceName);
+        }
         return createOAuth(obj);
     }
 

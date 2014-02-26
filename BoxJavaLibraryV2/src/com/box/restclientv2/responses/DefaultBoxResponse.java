@@ -1,5 +1,6 @@
 package com.box.restclientv2.responses;
 
+import org.apache.http.Header;
 import org.apache.http.HttpResponse;
 
 import com.box.restclientv2.exceptions.BoxRestException;
@@ -72,5 +73,20 @@ public class DefaultBoxResponse implements IBoxResponse {
      */
     public int getExpectedResponseCode() {
         return this.expectedResponseCode;
+    }
+
+    @Override
+    public double getContentLength() {
+        Header header = getHttpResponse().getFirstHeader("Content-Length");
+        if (header != null) {
+
+            try {
+                return Double.parseDouble(header.getValue());
+            }
+            catch (NumberFormatException e) {
+                // Something wrong with response, content length is unknown in this case.
+            }
+        }
+        return 0;
     }
 }

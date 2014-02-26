@@ -18,7 +18,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.box.boxjavalibv2.dao.BoxPreview;
-import com.box.boxjavalibv2.responseparsers.PreviewResponseParser;
 import com.box.restclientv2.exceptions.BoxRestException;
 import com.box.restclientv2.responses.DefaultBoxResponse;
 
@@ -29,6 +28,7 @@ public class PreviewResponseParserTest {
     private final static String LINK_NAME = "Link";
     private final static int firstPage = 1;
     private final static int lastPage = 2;
+    private final static double length = 213;
 
     private BoxPreview preview;
     private DefaultBoxResponse boxResponse;
@@ -53,6 +53,7 @@ public class PreviewResponseParserTest {
         EasyMock.reset(boxResponse, response, entity);
         inputStream = new ByteArrayInputStream(PREVIEW_MOCK_CONTENT.getBytes());
         EasyMock.expect(boxResponse.getHttpResponse()).andReturn(response);
+        EasyMock.expect(boxResponse.getContentLength()).andReturn(length);
         EasyMock.expect(response.getEntity()).andReturn(entity);
         EasyMock.expect(entity.getContent()).andReturn(inputStream);
 
@@ -65,6 +66,7 @@ public class PreviewResponseParserTest {
         Assert.assertEquals(BoxPreview.class, object.getClass());
 
         BoxPreview parsed = (BoxPreview) object;
+        Assert.assertEquals(length, parsed.getContentLength());
         Assert.assertEquals(firstPage, parsed.getFirstPage().intValue());
         Assert.assertEquals(lastPage, parsed.getLastPage().intValue());
         Assert.assertEquals(PREVIEW_MOCK_CONTENT, IOUtils.toString(parsed.getContent()));

@@ -3,12 +3,11 @@ package com.box.boxjavalibv2.requests.requestobjects;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import com.box.boxjavalibv2.dao.BoxEnterprise;
 import com.box.boxjavalibv2.dao.BoxUser;
-import com.box.boxjavalibv2.jsonentities.MapJSONStringEntity;
+import com.box.boxjavalibv2.jsonentities.BoxEnterpriseRequestEntity;
 import com.box.boxjavalibv2.jsonentities.PairArrayJSONStringEntity;
 
-public class BoxUserRequestObject extends BoxDefaultRequestObject {
+public class BoxUserRequestObject extends BoxSimpleUserRequestObject {
 
     private BoxUserRequestObject() {
     }
@@ -40,7 +39,7 @@ public class BoxUserRequestObject extends BoxDefaultRequestObject {
      * @return
      */
     public static BoxUserRequestObject updateUserInfoRequestObject(boolean notify) {
-        return new BoxUserRequestObject().setNotifyUser(notify);
+        return (BoxUserRequestObject) new BoxUserRequestObject().setNotifyUser(notify);
     }
 
     /**
@@ -54,29 +53,6 @@ public class BoxUserRequestObject extends BoxDefaultRequestObject {
     }
 
     /**
-     * Request object to add an email alias.
-     * 
-     * @param email
-     * @return
-     */
-    public static BoxUserRequestObject addEmailAliasRequestObject(final String email) {
-        return (new BoxUserRequestObject()).setEmailAlias(email);
-    }
-
-    /**
-     * Request object to move a folder to another user.
-     * 
-     * @param destinationFolderId
-     *            the ID of the user who the folder will be transferred to
-     * @param notify
-     *            whether destination user should receive email notification of the transfer
-     * @return
-     */
-    public static BoxUserRequestObject moveFolderToAnotherUserRequestObject(final String destinationUserId, final boolean notify) {
-        return (new BoxUserRequestObject()).setNotifyUser(notify).setDestinationUser(destinationUserId);
-    }
-
-    /**
      * Set Login(email) of the user.
      * 
      * @param login
@@ -85,31 +61,6 @@ public class BoxUserRequestObject extends BoxDefaultRequestObject {
      */
     public BoxUserRequestObject setLogin(final String login) {
         put(BoxUser.FIELD_LOGIN, login);
-        return this;
-    }
-
-    /**
-     * Set email alias.
-     * 
-     * @param email
-     * @return
-     */
-    public BoxUserRequestObject setEmailAlias(final String email) {
-        put("email", email);
-        return this;
-    }
-
-    /**
-     * Set destination user, this is only used in request to move a folder to another user's account.
-     * 
-     * @param destinationFolderId
-     *            the ID of the user who the folder will be transferred to
-     * @return
-     */
-    public BoxUserRequestObject setDestinationUser(final String destinationUserId) {
-        MapJSONStringEntity id = new MapJSONStringEntity();
-        id.put(BoxUser.FIELD_ID, destinationUserId);
-        put("owned_by", id);
         return this;
     }
 
@@ -244,20 +195,8 @@ public class BoxUserRequestObject extends BoxDefaultRequestObject {
      *            the enterprise to set. Note when updating user information you can set this to null in order to roll the user out from enterprise.
      * @return
      */
-    public BoxUserRequestObject setEnterprise(final BoxEnterprise enterprise) {
+    public BoxUserRequestObject setEnterprise(final BoxEnterpriseRequestEntity enterprise) {
         put(BoxUser.FIELD_ENTERPRISE, enterprise);
-        return this;
-    }
-
-    /**
-     * Set whether the user should receive an email notification. This applies to the case when they are rolled out of an enterprise or when somebody moves a
-     * folder into the user's account.
-     * 
-     * @param notify
-     * @return
-     */
-    public BoxUserRequestObject setNotifyUser(final boolean notify) {
-        addQueryParam("notify", Boolean.toString(notify));
         return this;
     }
 }

@@ -6,6 +6,7 @@ import com.box.boxjavalibv2.dao.BoxGroupMembership;
 import com.box.boxjavalibv2.exceptions.AuthFatalFailureException;
 import com.box.boxjavalibv2.exceptions.BoxServerException;
 import com.box.boxjavalibv2.requests.requestobjects.BoxDefaultRequestObject;
+import com.box.boxjavalibv2.requests.requestobjects.BoxGroupMembershipRequestObject;
 import com.box.boxjavalibv2.requests.requestobjects.BoxGroupRequestObject;
 import com.box.restclientv2.exceptions.BoxRestException;
 
@@ -105,7 +106,8 @@ public interface IBoxGroupsManager extends IBoxResourceManager {
     public BoxGroupMembership getMembership(String membershipId, BoxDefaultRequestObject requestObject) throws BoxRestException, AuthFatalFailureException,
         BoxServerException;
 
-    public BoxGroupMembership createMembership(BoxGroupRequestObject requestObject) throws BoxRestException, AuthFatalFailureException, BoxServerException;
+    public BoxGroupMembership createMembership(BoxGroupMembershipRequestObject requestObject) throws BoxRestException, AuthFatalFailureException,
+        BoxServerException;
 
     /**
      * @param groupId
@@ -138,8 +140,8 @@ public interface IBoxGroupsManager extends IBoxResourceManager {
      * @throws AuthFatalFailureException
      *             See {@link com.box.restclientv2.exceptions.AuthFatalFailureException} for more info.
      */
-    public BoxGroupMembership updateMembership(String membershipId, BoxGroupRequestObject requestObject) throws BoxRestException, AuthFatalFailureException,
-        BoxServerException;
+    public BoxGroupMembership updateMembership(String membershipId, BoxGroupMembershipRequestObject requestObject) throws BoxRestException,
+        AuthFatalFailureException, BoxServerException;
 
     /**
      * Update role of a membership.
@@ -190,5 +192,4 @@ public interface IBoxGroupsManager extends IBoxResourceManager {
      */
     public BoxCollection getAllCollaborations(String groupId, BoxDefaultRequestObject requestObject) throws BoxRestException, AuthFatalFailureException,
         BoxServerException;
-
 }

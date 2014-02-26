@@ -11,6 +11,7 @@ import com.box.boxjavalibv2.exceptions.BoxServerException;
 import com.box.boxjavalibv2.requests.GetFolderItemsRequest;
 import com.box.boxjavalibv2.requests.requestobjects.BoxDefaultRequestObject;
 import com.box.boxjavalibv2.requests.requestobjects.BoxFolderRequestObject;
+import com.box.boxjavalibv2.requests.requestobjects.BoxFolderUpdateRequestObject;
 import com.box.restclientv2.exceptions.BoxRestException;
 
 public interface IBoxFoldersManager extends IBoxResourceManager {
@@ -135,7 +136,7 @@ public interface IBoxFoldersManager extends IBoxResourceManager {
      * @throws AuthFatalFailureException
      *             See {@link com.box.restclientv2.exceptions.AuthFatalFailureException} for more info.
      */
-    public BoxFolder updateFolderInfo(String folderId, BoxFolderRequestObject requestObject) throws UnsupportedEncodingException, BoxRestException,
+    public BoxFolder updateFolderInfo(String folderId, BoxFolderUpdateRequestObject requestObject) throws UnsupportedEncodingException, BoxRestException,
         BoxServerException, AuthFatalFailureException;
 
     /**

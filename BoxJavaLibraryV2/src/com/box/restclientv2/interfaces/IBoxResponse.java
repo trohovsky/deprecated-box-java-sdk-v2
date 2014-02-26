@@ -15,4 +15,10 @@ public interface IBoxResponse {
      * @throws BoxRestException
      */
     public Object parseResponse(IBoxResponseParser responseParser, IBoxResponseParser errorParser) throws BoxRestException;
+
+    /**
+     * Get content length of the response.
+     */
+    public double getContentLength();
+
 }

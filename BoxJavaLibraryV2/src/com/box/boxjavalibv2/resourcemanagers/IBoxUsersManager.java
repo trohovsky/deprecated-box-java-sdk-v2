@@ -8,6 +8,7 @@ import com.box.boxjavalibv2.dao.BoxUser;
 import com.box.boxjavalibv2.exceptions.AuthFatalFailureException;
 import com.box.boxjavalibv2.exceptions.BoxServerException;
 import com.box.boxjavalibv2.requests.requestobjects.BoxDefaultRequestObject;
+import com.box.boxjavalibv2.requests.requestobjects.BoxEmailAliasRequestObject;
 import com.box.boxjavalibv2.requests.requestobjects.BoxUserRequestObject;
 import com.box.restclientv2.exceptions.BoxRestException;
 
@@ -137,7 +138,7 @@ public interface IBoxUsersManager extends IBoxResourceManager {
      * @throws AuthFatalFailureException
      *             See {@link com.box.restclientv2.exceptions.AuthFatalFailureException} for more info.
      */
-    public BoxEmailAlias addEmailAlias(String userId, BoxUserRequestObject requestObject) throws BoxServerException, BoxRestException,
+    public BoxEmailAlias addEmailAlias(String userId, BoxEmailAliasRequestObject requestObject) throws BoxServerException, BoxRestException,
         AuthFatalFailureException;
 
     /**

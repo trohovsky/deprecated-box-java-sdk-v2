@@ -67,7 +67,7 @@ public enum BoxResourceType implements IBoxType {
     /** group membership. */
     GROUP_MEMBERSHIP,
     /** A plural format of {@link #GROUP_MEMBERSHIP}. */
-    GROUP_MEMBERSHIPS;
+    GROUP_MEMBERSHIPS, THUMBNAIL;
 
     // As a performance optimization, set up string values for all types.
     private static final Map<BoxResourceType, String> typeToLowercaseString = new HashMap<BoxResourceType, String>();

@@ -10,7 +10,7 @@ import com.box.restclientv2.requests.DefaultBoxRequest;
 /**
  * Request to get preview.
  */
-public class PreviewRequest extends DefaultBoxRequest {
+public class GetPreviewRequest extends DefaultBoxRequest {
 
     private final static String URI = "/files/%s/preview.%s";
 
@@ -29,7 +29,7 @@ public class PreviewRequest extends DefaultBoxRequest {
      *            request object
      * @throws BoxRestException
      */
-    public PreviewRequest(final IBoxConfig config, final IBoxJSONParser parser, final String fileId, final String fileExtension,
+    public GetPreviewRequest(final IBoxConfig config, final IBoxJSONParser parser, final String fileId, final String fileExtension,
         final BoxImageRequestObject requestObject) throws BoxRestException {
         super(config, parser, getUri(fileId, fileExtension), RestMethod.GET, requestObject);
     }

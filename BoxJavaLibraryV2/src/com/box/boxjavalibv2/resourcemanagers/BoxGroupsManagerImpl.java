@@ -19,6 +19,7 @@ import com.box.boxjavalibv2.requests.GetGroupMembershipsRequest;
 import com.box.boxjavalibv2.requests.UpdateGroupMembershipRequest;
 import com.box.boxjavalibv2.requests.UpdateGroupRequest;
 import com.box.boxjavalibv2.requests.requestobjects.BoxDefaultRequestObject;
+import com.box.boxjavalibv2.requests.requestobjects.BoxGroupMembershipRequestObject;
 import com.box.boxjavalibv2.requests.requestobjects.BoxGroupRequestObject;
 import com.box.restclientv2.exceptions.BoxRestException;
 import com.box.restclientv2.interfaces.IBoxConfig;
@@ -76,7 +77,8 @@ public class BoxGroupsManagerImpl extends AbstractBoxResourceManager implements 
     }
 
     @Override
-    public BoxGroupMembership createMembership(BoxGroupRequestObject requestObject) throws BoxRestException, AuthFatalFailureException, BoxServerException {
+    public BoxGroupMembership createMembership(BoxGroupMembershipRequestObject requestObject) throws BoxRestException, AuthFatalFailureException,
+        BoxServerException {
         CreateGroupMembershipRequest request = new CreateGroupMembershipRequest(getConfig(), getJSONParser(), requestObject);
         return (BoxGroupMembership) getResponseAndParseAndTryCast(request, BoxResourceType.GROUP_MEMBERSHIP, getJSONParser());
     }
@@ -84,20 +86,20 @@ public class BoxGroupsManagerImpl extends AbstractBoxResourceManager implements 
     @Override
     public BoxGroupMembership createMembership(String groupId, String userId, String role) throws BoxRestException, AuthFatalFailureException,
         BoxServerException {
-        BoxGroupRequestObject obj = BoxGroupRequestObject.addMembershipRequest(groupId, userId, role);
+        BoxGroupMembershipRequestObject obj = BoxGroupMembershipRequestObject.addMembershipRequestObject(groupId, userId, role);
         return createMembership(obj);
     }
 
     @Override
-    public BoxGroupMembership updateMembership(String membershipId, BoxGroupRequestObject requestObject) throws BoxRestException, AuthFatalFailureException,
-        BoxServerException {
+    public BoxGroupMembership updateMembership(String membershipId, BoxGroupMembershipRequestObject requestObject) throws BoxRestException,
+        AuthFatalFailureException, BoxServerException {
         UpdateGroupMembershipRequest request = new UpdateGroupMembershipRequest(getConfig(), getJSONParser(), membershipId, requestObject);
         return (BoxGroupMembership) getResponseAndParseAndTryCast(request, BoxResourceType.GROUP_MEMBERSHIP, getJSONParser());
     }
 
     @Override
     public BoxGroupMembership updateMembership(String membershipId, String role) throws BoxRestException, AuthFatalFailureException, BoxServerException {
-        BoxGroupRequestObject obj = BoxGroupRequestObject.updateMembershipRequest(role);
+        BoxGroupMembershipRequestObject obj = BoxGroupMembershipRequestObject.updateMembershipRequest(role);
         return updateMembership(membershipId, obj);
     }
 

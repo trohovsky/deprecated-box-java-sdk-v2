@@ -144,6 +144,12 @@ public class InterfacesTest {
                 return parsedResponse;
             }
 
+            @Override
+            public double getContentLength() {
+                // TODO Auto-generated method stub
+                return 0;
+            }
+
         };
         responseParser = new IBoxResponseParser() {
 

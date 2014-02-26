@@ -23,6 +23,7 @@ import com.box.boxjavalibv2.requests.MoveFolderToAnotherUserRequest;
 import com.box.boxjavalibv2.requests.UpdateUserLoginRequest;
 import com.box.boxjavalibv2.requests.UpdateUserRequest;
 import com.box.boxjavalibv2.requests.requestobjects.BoxDefaultRequestObject;
+import com.box.boxjavalibv2.requests.requestobjects.BoxEmailAliasRequestObject;
 import com.box.boxjavalibv2.requests.requestobjects.BoxUserRequestObject;
 import com.box.restclientv2.exceptions.BoxRestException;
 import com.box.restclientv2.interfaces.IBoxConfig;
@@ -99,7 +100,7 @@ public final class BoxUsersManagerImpl extends AbstractBoxResourceManager implem
     }
 
     @Override
-    public BoxEmailAlias addEmailAlias(final String userId, BoxUserRequestObject requestObject) throws BoxServerException, BoxRestException,
+    public BoxEmailAlias addEmailAlias(final String userId, BoxEmailAliasRequestObject requestObject) throws BoxServerException, BoxRestException,
         AuthFatalFailureException {
         CreateEmailAliasRequest request = new CreateEmailAliasRequest(getConfig(), getJSONParser(), userId, requestObject);
         return (BoxEmailAlias) getResponseAndParseAndTryCast(request, BoxResourceType.EMAIL_ALIAS, getJSONParser());

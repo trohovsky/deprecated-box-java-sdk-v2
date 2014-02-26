@@ -1,7 +1,7 @@
 package com.box.boxjavalibv2.requests;
 
 import com.box.boxjavalibv2.interfaces.IBoxJSONParser;
-import com.box.boxjavalibv2.requests.requestobjects.BoxUserRequestObject;
+import com.box.boxjavalibv2.requests.requestobjects.BoxSimpleUserRequestObject;
 import com.box.restclientv2.RestMethod;
 import com.box.restclientv2.exceptions.BoxRestException;
 import com.box.restclientv2.interfaces.IBoxConfig;
@@ -32,7 +32,7 @@ public class MoveFolderToAnotherUserRequest extends DefaultBoxRequest {
      *             exception
      */
     public MoveFolderToAnotherUserRequest(final IBoxConfig config, final IBoxJSONParser parser, final String userId, final String folderId,
-        final BoxUserRequestObject requestObject) throws BoxRestException {
+        final BoxSimpleUserRequestObject requestObject) throws BoxRestException {
         super(config, parser, getUri(userId, folderId), RestMethod.PUT, requestObject);
     }
 

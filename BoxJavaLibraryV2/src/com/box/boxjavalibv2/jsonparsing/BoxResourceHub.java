@@ -20,6 +20,7 @@ import com.box.boxjavalibv2.dao.BoxPreview;
 import com.box.boxjavalibv2.dao.BoxRealTimeServer;
 import com.box.boxjavalibv2.dao.BoxResourceType;
 import com.box.boxjavalibv2.dao.BoxServerError;
+import com.box.boxjavalibv2.dao.BoxThumbnail;
 import com.box.boxjavalibv2.dao.BoxTypedObject;
 import com.box.boxjavalibv2.dao.BoxUser;
 import com.box.boxjavalibv2.dao.BoxWebLink;
@@ -54,6 +55,8 @@ public class BoxResourceHub extends BaseBoxResourceHub {
                 return BoxFile.class;
             case PREVIEW:
                 return BoxPreview.class;
+            case THUMBNAIL:
+                return BoxThumbnail.class;
             case FOLDER:
                 return BoxFolder.class;
             case WEB_LINK:

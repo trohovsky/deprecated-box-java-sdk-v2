@@ -61,34 +61,6 @@ public class BoxCollabRequestObject extends BoxDefaultRequestObject {
     }
 
     /**
-     * @return the item
-     */
-    public MapJSONStringEntity getItem() {
-        return (MapJSONStringEntity) get(BoxCollaboration.FIELD_FOLDER);
-    }
-
-    /**
-     * @return the accessible_by
-     */
-    public MapJSONStringEntity getAccessible_by() {
-        return (MapJSONStringEntity) get(BoxCollaboration.FIELD_ACCESSIBLE_BY);
-    }
-
-    /**
-     * @return the role
-     */
-    public String getRole() {
-        return (String) get(BoxCollaboration.FIELD_ROLE);
-    }
-
-    /**
-     * @return the status, indicating whether this collaboration has been accepted.
-     */
-    public String getStatus() {
-        return getQueryParams().get(BoxCollaboration.FIELD_STATUS);
-    }
-
-    /**
 	 */
     public BoxCollabRequestObject setStatus(String status) {
         this.addQueryParam(BoxCollaboration.FIELD_STATUS, status);

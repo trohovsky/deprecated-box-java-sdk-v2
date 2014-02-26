@@ -28,13 +28,15 @@ public class PreviewResponseParser extends DefaultFileResponseParser {
 
     @Override
     public BoxPreview parse(IBoxResponse response) throws BoxRestException {
+        InputStream is = (InputStream) super.parse(response);
         BoxPreview preview = new BoxPreview();
-        preview.setContent((InputStream) super.parse(response));
-        extraParses(preview, (DefaultBoxResponse) response);
+        preview.setContent(is);
+        preview.setContentLength(response.getContentLength());
+        parseLinks(preview, (DefaultBoxResponse) response);
         return preview;
     }
 
-    private void extraParses(BoxPreview preview, DefaultBoxResponse response) throws BoxRestException {
+    private void parseLinks(BoxPreview preview, DefaultBoxResponse response) throws BoxRestException {
         Header header = response.getHttpResponse().getFirstHeader(HEADER_LINK);
         if (header == null) {
             return;

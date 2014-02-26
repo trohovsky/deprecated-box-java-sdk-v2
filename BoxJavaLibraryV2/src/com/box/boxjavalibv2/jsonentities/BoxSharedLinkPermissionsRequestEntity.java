@@ -1,8 +1,7 @@
-package com.box.boxjavalibv2.requests.requestobjects;
+package com.box.boxjavalibv2.jsonentities;
 
-import com.box.boxjavalibv2.jsonentities.MapJSONStringEntity;
 
-public class BoxSharedLinkPermissionsRequestObject extends MapJSONStringEntity {
+public class BoxSharedLinkPermissionsRequestEntity extends MapJSONStringEntity {
 
     private static final long serialVersionUID = 1L;
     public static final String FIELD_CAN_DOWNLOAD = "can_download";
