@@ -14,3 +14,6 @@ BoxJavaLibraryV2.jar
 .DS_Store
 .gradle
 gradle.properties
+.idea/workspace.xml
+.idea/tasks.xml
+.idea/libraries
