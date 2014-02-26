@@ -1,7 +1,11 @@
 package com.box.boxjavalibv2.utils;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.apache.http.HttpEntity;
 
 import com.box.boxjavalibv2.dao.BoxCollection;
 import com.box.boxjavalibv2.dao.BoxResourceType;
@@ -63,5 +67,45 @@ public final class Utils {
         }
 
         return objects;
+    }
+
+    /**
+     * Ensures that the entity content is fully consumed and the content stream, if exists, is closed. The process is done, <i>quietly</i> , without throwing
+     * any IOException.
+     * 
+     * @param entity
+     *            the entity to consume.
+     * 
+     * 
+     *            Copied from org.apache.http.util.EntityUtils
+     */
+    public static void consumeHttpEntityQuietly(final HttpEntity entity) {
+        try {
+            consumeHttpEntity(entity);
+        }
+        catch (final IOException ignore) {
+        }
+    }
+
+    /**
+     * Ensures that the entity content is fully consumed and the content stream, if exists, is closed.
+     * 
+     * @param entity
+     *            the entity to consume.
+     * @throws IOException
+     *             if an error occurs reading the input stream
+     * 
+     *             Copied from org.apache.http.util.EntityUtils
+     */
+    public static void consumeHttpEntity(final HttpEntity entity) throws IOException {
+        if (entity == null) {
+            return;
+        }
+        if (entity.isStreaming()) {
+            final InputStream instream = entity.getContent();
+            if (instream != null) {
+                instream.close();
+            }
+        }
     }
 }

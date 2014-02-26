@@ -165,7 +165,9 @@ public class OAuthDataController implements IAuthDataController {
      */
     public void setRefreshFail(Exception refreshFailException) {
         this.refreshFailException = refreshFailException;
-        setTokenState(OAuthTokenState.FAIL);
+        if (refreshFailException != null) {
+            setTokenState(OAuthTokenState.FAIL);
+        }
     }
 
     /**
@@ -275,7 +277,6 @@ public class OAuthDataController implements IAuthDataController {
             if (refreshListener != null) {
                 refreshListener.onRefresh(mOAuthToken);
             }
-
         }
         catch (Exception e) {
             setRefreshFail(e);

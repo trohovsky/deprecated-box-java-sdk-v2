@@ -7,12 +7,7 @@ import com.box.restclientv2.interfaces.IBoxRESTClient;
 public class MockBoxClient extends BoxClient {
 
     public MockBoxClient() {
-        super("", "");
-    }
-
-    @Override
-    protected IBoxRESTClient createRestClient() {
-        return new MockRestClient();
+        super("", "", null, null, new MockRestClient());
     }
 
     @Override

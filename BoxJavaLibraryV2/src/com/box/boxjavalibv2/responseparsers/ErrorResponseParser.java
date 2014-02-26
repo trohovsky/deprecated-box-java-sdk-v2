@@ -12,6 +12,7 @@ import com.box.boxjavalibv2.dao.BoxGenericServerError;
 import com.box.boxjavalibv2.dao.BoxServerError;
 import com.box.boxjavalibv2.exceptions.BoxUnexpectedStatus;
 import com.box.boxjavalibv2.interfaces.IBoxJSONParser;
+import com.box.boxjavalibv2.utils.Utils;
 import com.box.restclientv2.exceptions.BoxRestException;
 import com.box.restclientv2.interfaces.IBoxResponse;
 import com.box.restclientv2.responseparsers.DefaultBoxJSONResponseParser;
@@ -23,7 +24,7 @@ import com.box.restclientv2.responses.DefaultBoxResponse;
  * objects.
  */
 public class ErrorResponseParser extends DefaultBoxJSONResponseParser {
-    
+
     private static final String RETRY_AFTER = "Retry-After";
 
     public ErrorResponseParser(final IBoxJSONParser parser) {
@@ -37,30 +38,28 @@ public class ErrorResponseParser extends DefaultBoxJSONResponseParser {
         }
 
         HttpResponse httpResponse = ((DefaultBoxResponse) response).getHttpResponse();
-        int statusCode = httpResponse.getStatusLine().getStatusCode();
-        BoxServerError error = null;
-        if (isErrorResponse(statusCode)) {
-            error = (BoxServerError) super.parse(response);
-        }
-        else {
-            error = new BoxUnexpectedStatus(statusCode);
-            if (isRetryAccepted(statusCode)) {
-                Header header = ((DefaultBoxResponse) response).getHttpResponse().getFirstHeader(RETRY_AFTER);
-                if (header != null) {
-                    String value = header.getValue();
-                    ((BoxUnexpectedStatus) error).setRetryAfter(Integer.valueOf(value));
+        try {
+            int statusCode = httpResponse.getStatusLine().getStatusCode();
+            BoxServerError error = null;
+            if (isErrorResponse(statusCode)) {
+                error = (BoxServerError) super.parse(response);
+            }
+            else {
+                error = new BoxUnexpectedStatus(statusCode);
+                if (isRetryAccepted(statusCode)) {
+                    Header header = ((DefaultBoxResponse) response).getHttpResponse().getFirstHeader(RETRY_AFTER);
+                    if (header != null) {
+                        String value = header.getValue();
+                        ((BoxUnexpectedStatus) error).setRetryAfter(Integer.valueOf(value));
+                    }
                 }
             }
-            
-            try {
-                httpResponse.getEntity().consumeContent();
-            }
-            catch (Exception e) {
-                // Nothing we can do here. Worst case we left an InputStream open and it will be recycled later.
-            }
+            error.setStatus(statusCode);
+            return error;
         }
-        error.setStatus(statusCode);
-        return error;
+        finally {
+            Utils.consumeHttpEntityQuietly(httpResponse.getEntity());
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -90,9 +89,9 @@ public class ErrorResponseParser extends DefaultBoxJSONResponseParser {
     private boolean isErrorResponse(int statusCode) {
         return statusCode >= 400 && statusCode < 600;
     }
-    
+
     private boolean isRetryAccepted(int statusCode) {
         return statusCode == HttpStatus.SC_ACCEPTED;
     }
-    
+
 }

@@ -11,13 +11,13 @@ import org.apache.http.HttpStatus;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpUriRequest;
-import org.apache.http.entity.StringEntity;
 import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.params.HttpParams;
 
 import com.box.boxjavalibv2.authorization.OAuthAuthorization;
 import com.box.boxjavalibv2.exceptions.AuthFatalFailureException;
 import com.box.boxjavalibv2.exceptions.BoxUnexpectedHttpStatusException;
+import com.box.boxjavalibv2.utils.Utils;
 import com.box.restclientv2.BoxBasicRestClient;
 import com.box.restclientv2.exceptions.BoxRestException;
 import com.box.restclientv2.interfaces.IBoxRequest;
@@ -92,29 +92,39 @@ public class BoxRESTClient extends BoxBasicRestClient {
         }
 
         try {
-            response = getResponse(httpRequest);
-            for (IBoxRestVisitor v : visitors) {
-                v.visitResponseUponReceiving(response, sequenceId);
-            }
+            try {
+                response = getResponse(httpRequest);
+                for (IBoxRestVisitor v : visitors) {
+                    v.visitResponseUponReceiving(response, sequenceId);
+                }
 
-            if (usingOAuth && oauthExpired(response)) {
-                try {
-                    return handleOAuthTokenExpire((OAuthAuthorization) boxRequest.getAuth(), boxRequest);
-                }
-                catch (AuthFatalFailureException e) {
-                    // Swallow the OAuthRefreshFailException here, the response will be parsed and caller will see the unauthorized error.
-                    for (IBoxRestVisitor v : visitors) {
-                        v.visitException(e, sequenceId);
+                if (usingOAuth && oauthExpired(response)) {
+                    Utils.consumeHttpEntityQuietly(response.getEntity());
+                    try {
+                        return handleOAuthTokenExpire((OAuthAuthorization) boxRequest.getAuth(), boxRequest);
                     }
-                    throw e;
+                    catch (AuthFatalFailureException e) {
+                        // Swallow the OAuthRefreshFailException here, the response will be parsed and caller will see the unauthorized error.
+                        for (IBoxRestVisitor v : visitors) {
+                            v.visitException(e, sequenceId);
+                        }
+                        throw e;
+                    }
                 }
             }
+            catch (IOException e) {
+                handleException(e, sequenceId);
+            }
+            catch (BoxUnexpectedHttpStatusException e) {
+                handleException(e, sequenceId);
+            }
         }
-        catch (IOException e) {
-            handleException(e, sequenceId);
-        }
-        catch (BoxUnexpectedHttpStatusException e) {
-            handleException(e, sequenceId);
+        catch (BoxRestException e) {
+            // If we received a response but we are discarding it, we need to close it
+            if (response != null) {
+                Utils.consumeHttpEntityQuietly(response.getEntity());
+            }
+            throw e;
         }
 
         DefaultBoxResponse boxResponse = new DefaultBoxResponse(response);
@@ -190,7 +200,7 @@ public class BoxRESTClient extends BoxBasicRestClient {
         BoxRestException, BoxUnexpectedHttpStatusException {
         auth.refresh();
         HttpEntity entity = boxRequest.getRequestEntity();
-        if (entity instanceof StringEntity) {
+        if (entity.isRepeatable()) {
             return execute(boxRequest, true);
         }
         throw new BoxRestException(ENTITY_CANNOT_BE_RETRIED);

@@ -48,13 +48,14 @@ public class ErrorResponseParserTest {
         BoxJSONParser jsonParser = new BoxJSONParser(new BoxResourceHub());
         EasyMock.reset(boxResponse, response, entity);
         inputStream = new ByteArrayInputStream(jsonParser.convertBoxObjectToJSONString(error).getBytes());
-        EasyMock.expect(boxResponse.getHttpResponse()).andReturn(response);
-        EasyMock.expect(response.getEntity()).andReturn(entity);
-        EasyMock.expect(entity.getContent()).andReturn(inputStream);
+        EasyMock.expect(boxResponse.getHttpResponse()).andStubReturn(response);
+        EasyMock.expect(response.getEntity()).andStubReturn(entity);
+        EasyMock.expect(entity.getContent()).andStubReturn(inputStream);
+        EasyMock.expect(entity.isStreaming()).andStubReturn(false);
 
-        EasyMock.expect(boxResponse.getHttpResponse()).andReturn(response);
-        EasyMock.expect(response.getStatusLine()).andReturn(statusLine);
-        EasyMock.expect(statusLine.getStatusCode()).andReturn(statusCode);
+        EasyMock.expect(boxResponse.getHttpResponse()).andStubReturn(response);
+        EasyMock.expect(response.getStatusLine()).andStubReturn(statusLine);
+        EasyMock.expect(statusLine.getStatusCode()).andStubReturn(statusCode);
 
         EasyMock.replay(boxResponse, response, entity, statusLine);
         ErrorResponseParser parser = new ErrorResponseParser(jsonParser);
