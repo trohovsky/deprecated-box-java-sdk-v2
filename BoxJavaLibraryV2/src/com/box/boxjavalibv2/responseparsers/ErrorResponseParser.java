@@ -12,11 +12,11 @@ import com.box.boxjavalibv2.dao.BoxGenericServerError;
 import com.box.boxjavalibv2.dao.BoxServerError;
 import com.box.boxjavalibv2.exceptions.BoxUnexpectedStatus;
 import com.box.boxjavalibv2.interfaces.IBoxJSONParser;
+import com.box.boxjavalibv2.utils.Utils;
 import com.box.restclientv2.exceptions.BoxRestException;
 import com.box.restclientv2.interfaces.IBoxResponse;
 import com.box.restclientv2.responseparsers.DefaultBoxJSONResponseParser;
 import com.box.restclientv2.responses.DefaultBoxResponse;
-import org.apache.http.util.EntityUtils;
 
 /**
  * Parser to parse {@link com.box.restclientv2.responses.DefaultBoxResponse} into {@link com.box.boxjavalibv2.dao.BoxServerError} objects. It analyse the
@@ -24,7 +24,7 @@ import org.apache.http.util.EntityUtils;
  * objects.
  */
 public class ErrorResponseParser extends DefaultBoxJSONResponseParser {
-    
+
     private static final String RETRY_AFTER = "Retry-After";
 
     public ErrorResponseParser(final IBoxJSONParser parser) {
@@ -56,8 +56,9 @@ public class ErrorResponseParser extends DefaultBoxJSONResponseParser {
             }
             error.setStatus(statusCode);
             return error;
-        } finally {
-            EntityUtils.consumeQuietly(httpResponse.getEntity());
+        }
+        finally {
+            Utils.consumeHttpEntityQuietly(httpResponse.getEntity());
         }
     }
 
@@ -88,9 +89,9 @@ public class ErrorResponseParser extends DefaultBoxJSONResponseParser {
     private boolean isErrorResponse(int statusCode) {
         return statusCode >= 400 && statusCode < 600;
     }
-    
+
     private boolean isRetryAccepted(int statusCode) {
         return statusCode == HttpStatus.SC_ACCEPTED;
     }
-    
+
 }
