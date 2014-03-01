@@ -11,6 +11,7 @@ import com.box.boxjavalibv2.interfaces.IBoxResourceHub;
 import com.box.boxjavalibv2.interfaces.IBoxType;
 import com.box.boxjavalibv2.responseparsers.BoxObjectResponseParser;
 import com.box.boxjavalibv2.responseparsers.ErrorResponseParser;
+import com.box.boxjavalibv2.utils.Utils;
 import com.box.restclientv2.exceptions.BoxRestException;
 import com.box.restclientv2.interfaces.IBoxConfig;
 import com.box.restclientv2.interfaces.IBoxRESTClient;
@@ -99,16 +100,20 @@ public abstract class BoxResourceManager {
     protected void executeRequestWithNoResponseBody(final DefaultBoxRequest request) throws BoxServerException, BoxRestException, AuthFatalFailureException {
         request.setAuth(getAuth());
         DefaultBoxResponse response = (DefaultBoxResponse) getRestClient().execute(request);
-        if (response.getExpectedResponseCode() != response.getResponseStatusCode()) {
-            ErrorResponseParser errorParser = new ErrorResponseParser(getJSONParser());
-            BoxServerError error = (BoxServerError) errorParser.parse(response);
-            if (error == null) {
-                throw new BoxServerException("Unexpected response code:" + response.getResponseStatusCode() + ", expecting:"
-                                             + response.getExpectedResponseCode(), response.getResponseStatusCode());
+        try {
+            if (response.getExpectedResponseCode() != response.getResponseStatusCode()) {
+                ErrorResponseParser errorParser = new ErrorResponseParser(getJSONParser());
+                BoxServerError error = (BoxServerError) errorParser.parse(response);
+                if (error == null) {
+                    throw new BoxServerException("Unexpected response code:" + response.getResponseStatusCode() + ", expecting:"
+                                                 + response.getExpectedResponseCode(), response.getResponseStatusCode());
+                }
+                else {
+                    throw new BoxServerException(error);
+                }
             }
-            else {
-                throw new BoxServerException(error);
-            }
+        } finally {
+            Utils.consumeHttpEntityQuietly(response.getHttpResponse().getEntity());
         }
     }
 
