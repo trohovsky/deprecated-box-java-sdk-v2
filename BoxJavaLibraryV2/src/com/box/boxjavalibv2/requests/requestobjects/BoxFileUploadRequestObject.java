@@ -197,14 +197,6 @@ public class BoxFileUploadRequestObject extends BoxDefaultRequestObject {
         throws BoxRestException, UnsupportedEncodingException {
         MultipartEntityWithProgressListener me = new MultipartEntityWithProgressListener(HttpMultipartMode.BROWSER_COMPATIBLE);
         me.addPart(Constants.FOLDER_ID, new StringBody(parentId));
-        String date = ISO8601DateParser.toString(new Date());
-        if (me.getPart(KEY_CONTENT_CREATED_AT) == null) {
-            me.addPart(KEY_CONTENT_CREATED_AT, new StringBody(date));
-        }
-        if (me.getPart(KEY_CONTENT_MODIFIED_AT) == null) {
-            me.addPart(KEY_CONTENT_MODIFIED_AT, new StringBody(date));
-        }
-
         me.addPart(fileName, new InputStreamBody(inputStream, fileName));
 
         return me;
@@ -216,13 +208,6 @@ public class BoxFileUploadRequestObject extends BoxDefaultRequestObject {
         me.addPart(Constants.FOLDER_ID, new StringBody(parentId));
         me.addPart(KEY_FILE_NAME, new FileBody(file, KEY_FILE_NAME, "", CharEncoding.UTF_8));
         me.addPart(METADATA, getMetadataBody(parentId, name, parser));
-        String date = ISO8601DateParser.toString(new Date(file.lastModified()));
-        if (me.getPart(KEY_CONTENT_CREATED_AT) == null) {
-            me.addPart(KEY_CONTENT_CREATED_AT, new StringBody(date));
-        }
-        if (me.getPart(KEY_CONTENT_MODIFIED_AT) == null) {
-            me.addPart(KEY_CONTENT_MODIFIED_AT, new StringBody(date));
-        }
 
         return me;
     }
@@ -242,9 +227,6 @@ public class BoxFileUploadRequestObject extends BoxDefaultRequestObject {
         MultipartEntityWithProgressListener me = new MultipartEntityWithProgressListener(HttpMultipartMode.BROWSER_COMPATIBLE);
         me.addPart(name, new FileBody(file, name, "", CharEncoding.UTF_8));
 
-        if (me.getPart(KEY_CONTENT_MODIFIED_AT) == null) {
-            me.addPart(KEY_CONTENT_MODIFIED_AT, new StringBody(ISO8601DateParser.toString(new Date(file.lastModified()))));
-        }
         return me;
     }
 
@@ -253,9 +235,6 @@ public class BoxFileUploadRequestObject extends BoxDefaultRequestObject {
         MultipartEntityWithProgressListener me = new MultipartEntityWithProgressListener(HttpMultipartMode.BROWSER_COMPATIBLE);
         me.addPart(name, new InputStreamBody(inputStream, name));
 
-        if (me.getPart(KEY_CONTENT_MODIFIED_AT) == null) {
-            me.addPart(KEY_CONTENT_MODIFIED_AT, new StringBody(ISO8601DateParser.toString(new Date())));
-        }
         return me;
     }
 }
