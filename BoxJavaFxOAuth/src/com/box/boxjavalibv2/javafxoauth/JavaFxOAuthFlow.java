@@ -23,7 +23,6 @@ import com.box.boxjavalibv2.dao.BoxOAuthToken;
 import com.box.boxjavalibv2.events.OAuthEvent;
 import com.box.boxjavalibv2.interfaces.IAuthFlowListener;
 import com.box.boxjavalibv2.interfaces.IAuthFlowUI;
-import com.box.boxjavalibv2.requests.requestobjects.BoxOAuthRequestObject;
 import com.box.restclientv2.httpclientsupport.HttpClientURIBuilder;
 
 /**
@@ -167,9 +166,8 @@ public class JavaFxOAuthFlow implements IAuthFlowUI {
             public void run() {
                 BoxOAuthToken oauth = null;
                 try {
-                    oauth = client.getOAuthManager().createOAuth(
-                        BoxOAuthRequestObject.createOAuthRequestObject(code, mWebViewData.getClientId(), mWebViewData.getClientSecret(),
-                            mWebViewData.getRedirectUrl()));
+                    oauth = client.getOAuthManager().createOAuth(code, mWebViewData.getClientId(), mWebViewData.getClientSecret(),
+                        mWebViewData.getRedirectUrl());
                     exitSuccess(oauth);
                 }
                 catch (Exception e) {

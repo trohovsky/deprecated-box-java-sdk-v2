@@ -71,11 +71,12 @@ public class BoxFileUploadRequestObject extends BoxDefaultRequestObject {
      *            InputStream of the file to be uploaded
      * @return BoxFileUploadRequestObject
      * @throws BoxRestException
+     * @throws BoxJSONException
      */
-    public static BoxFileUploadRequestObject uploadFileRequestObject(final String parentId, final String fileName, final InputStream inputStream)
-        throws BoxRestException {
+    public static BoxFileUploadRequestObject uploadFileRequestObject(final String parentId, final String fileName, final InputStream inputStream,
+        final IBoxJSONParser parser) throws BoxRestException, BoxJSONException {
         try {
-            return (new BoxFileUploadRequestObject()).setMultipartMIME(getNewFileMultipartEntity(parentId, inputStream, fileName));
+            return (new BoxFileUploadRequestObject()).setMultipartMIME(getNewFileMultipartEntity(parentId, inputStream, fileName, parser));
         }
         catch (UnsupportedEncodingException e) {
             throw new BoxRestException(e);
@@ -193,10 +194,12 @@ public class BoxFileUploadRequestObject extends BoxDefaultRequestObject {
         return entity;
     }
 
-    private static MultipartEntityWithProgressListener getNewFileMultipartEntity(final String parentId, final InputStream inputStream, final String fileName)
-        throws BoxRestException, UnsupportedEncodingException {
+    // In order to handle foreign characters, the file name is handled in metadata part instead of the InputStreamBody part.
+    private static MultipartEntityWithProgressListener getNewFileMultipartEntity(final String parentId, final InputStream inputStream, final String fileName,
+        IBoxJSONParser parser) throws BoxRestException, UnsupportedEncodingException, BoxJSONException {
         MultipartEntityWithProgressListener me = new MultipartEntityWithProgressListener(HttpMultipartMode.BROWSER_COMPATIBLE);
         me.addPart(Constants.FOLDER_ID, new StringBody(parentId));
+        me.addPart(METADATA, getMetadataBody(parentId, fileName, parser));
         String date = ISO8601DateParser.toString(new Date());
         if (me.getPart(KEY_CONTENT_CREATED_AT) == null) {
             me.addPart(KEY_CONTENT_CREATED_AT, new StringBody(date));
@@ -205,11 +208,12 @@ public class BoxFileUploadRequestObject extends BoxDefaultRequestObject {
             me.addPart(KEY_CONTENT_MODIFIED_AT, new StringBody(date));
         }
 
-        me.addPart(fileName, new InputStreamBody(inputStream, fileName));
+        me.addPart(fileName, new InputStreamBody(inputStream, KEY_FILE_NAME));
 
         return me;
     }
 
+    // In order to handle foreign characters, the file name is handled in metadata part instead of the FileBody part.
     private static MultipartEntityWithProgressListener getNewFileMultipartEntity(final String parentId, final String name, final File file,
         IBoxJSONParser parser) throws BoxRestException, UnsupportedEncodingException, BoxJSONException {
         MultipartEntityWithProgressListener me = new MultipartEntityWithProgressListener(HttpMultipartMode.BROWSER_COMPATIBLE);

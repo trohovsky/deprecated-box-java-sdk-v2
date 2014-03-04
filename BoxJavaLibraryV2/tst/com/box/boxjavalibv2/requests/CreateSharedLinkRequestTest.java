@@ -3,7 +3,6 @@ package com.box.boxjavalibv2.requests;
 import java.io.IOException;
 import java.util.Date;
 
-import org.apache.commons.io.IOUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpStatus;
 import org.apache.http.entity.StringEntity;
@@ -16,8 +15,6 @@ import com.box.boxjavalibv2.dao.BoxSharedLinkAccess;
 import com.box.boxjavalibv2.exceptions.AuthFatalFailureException;
 import com.box.boxjavalibv2.exceptions.BoxJSONException;
 import com.box.boxjavalibv2.jsonentities.BoxSharedLinkRequestEntity;
-import com.box.boxjavalibv2.jsonparsing.BoxJSONParser;
-import com.box.boxjavalibv2.jsonparsing.BoxResourceHub;
 import com.box.boxjavalibv2.requests.requestobjects.BoxItemRequestObject;
 import com.box.restclientv2.RestMethod;
 import com.box.restclientv2.exceptions.BoxRestException;
@@ -60,9 +57,6 @@ public class CreateSharedLinkRequestTest extends RequestTestBase {
         HttpEntity entity = request.getRequestEntity();
         Assert.assertTrue(entity instanceof StringEntity);
 
-        sEntity = new BoxSharedLinkRequestEntity(access);
-        sEntity.setPermissions(true);
-        sEntity.setUnshared_at(unsharedAt);
-        Assert.assertEquals(sEntity.toJSONString(new BoxJSONParser(new BoxResourceHub())), IOUtils.toString(entity.getContent()));
+        super.assertEqualStringEntity(obj.getJSONEntity(), entity);
     }
 }
