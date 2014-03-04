@@ -82,8 +82,10 @@ uploadArchives {
 			}
 		}
 
-		repository(url: repoUploadUrl) {
-			authentication(userName: repoUserName, privateKey: repoKeyFile)
+		if (project.hasProperty("repoUploadUrl")) {
+			repository(url: repoUploadUrl) {
+				authentication(userName: repoUserName, privateKey: repoKeyFile)
+			}
 		}
 	}
 }
