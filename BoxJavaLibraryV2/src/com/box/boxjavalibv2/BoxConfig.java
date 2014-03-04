@@ -18,8 +18,6 @@ import com.box.restclientv2.interfaces.IBoxConfig;
 /**
  * Class for retrieving configuration parameters.
  * 
- * @author developers@box.net
- * 
  */
 public class BoxConfig implements IBoxConfig {
 

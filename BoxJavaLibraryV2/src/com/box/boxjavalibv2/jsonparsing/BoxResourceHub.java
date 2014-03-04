@@ -33,7 +33,7 @@ public class BoxResourceHub extends BaseBoxResourceHub {
     }
 
     @Override
-    @SuppressWarnings("rawtypes")
+    @SuppressWarnings({"rawtypes", "unchecked"})
     public Class getClass(IBoxType type) {
         if (getConcreteClassForIBoxType().equals(type.getClass())) {
             return getObjectClassGivenConcreteIBoxType(type);
@@ -48,6 +48,7 @@ public class BoxResourceHub extends BaseBoxResourceHub {
         return getLowerCaseStringToTypeMap().values();
     }
 
+    @SuppressWarnings("rawtypes")
     @Override
     protected Class getObjectClassGivenConcreteIBoxType(IBoxType type) {
         switch ((BoxResourceType) type) {

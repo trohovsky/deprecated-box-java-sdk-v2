@@ -18,7 +18,7 @@ public abstract class BaseBoxResourceHub implements IBoxResourceHub {
     }
 
     @Override
-    @SuppressWarnings("rawtypes")
+    @SuppressWarnings({"rawtypes", "unchecked"})
     public Class getClass(IBoxType type) {
         return BoxObject.class;
     }
@@ -53,6 +53,7 @@ public abstract class BaseBoxResourceHub implements IBoxResourceHub {
         // Make it non-abstract so children can call super. This way makes it more explicit that super should be called.
     }
 
+    @SuppressWarnings("rawtypes")
     protected synchronized void initializeEnumTypes(Class<? extends Enum> cls) {
         Map<String, IBoxType> map = getLowerCaseStringToTypeMap();
         Enum[] types = cls.getEnumConstants();

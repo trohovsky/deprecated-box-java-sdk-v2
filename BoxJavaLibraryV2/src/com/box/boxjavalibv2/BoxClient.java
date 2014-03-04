@@ -102,7 +102,8 @@ public class BoxClient extends BoxBase implements IAuthFlowListener {
      */
     public BoxClient(final String clientId, final String clientSecret, final IBoxResourceHub hub, final IBoxJSONParser parser, final int maxConnection,
         final int maxConnectionPerRoute, final long timePeriodCleanUpIdleConnection, final long idleTimeThreshold) {
-        this(clientId, clientSecret, hub, parser, createMonitoredRestClient(maxConnection, maxConnectionPerRoute, timePeriodCleanUpIdleConnection, idleTimeThreshold));
+        this(clientId, clientSecret, hub, parser, createMonitoredRestClient(maxConnection, maxConnectionPerRoute, timePeriodCleanUpIdleConnection,
+            idleTimeThreshold));
     }
 
     /**
@@ -156,6 +157,15 @@ public class BoxClient extends BoxBase implements IAuthFlowListener {
         this(clientId, clientSecret, null, null);
     }
 
+    /**
+     * Plug in a resource manager into sdk client. The plugged in resource manager can be retrieved by getPluginManager(key).
+     * 
+     * @param key
+     *            key of the resource manager. The key is used to retrieve the plugged in resource manager.
+     * @param builder
+     *            builder of the resource manager, the builder interface confines the base building blocks of the plugged in resource manager.
+     * @return The plugged in resource manager.
+     */
     public IBoxResourceManager pluginResourceManager(String key, IPluginResourceManagerBuilder builder) {
         IBoxResourceManager manager = builder.build(getConfig(), getResourceHub(), getJSONParser(), getAuth(), getRestClient());
         pluginResourceManagers.put(key, manager);
@@ -185,6 +195,12 @@ public class BoxClient extends BoxBase implements IAuthFlowListener {
         getOAuthDataController().setAutoRefreshOAuth(autoRefresh);
     }
 
+    /**
+     * Set whether we want the connection to keep open (and reused) after an api call.
+     * 
+     * @param connectionOpen
+     *            true if we want the connection to remain open and reused for another api call.
+     */
     public void setConnectionOpen(final boolean connectionOpen) {
         ((BoxRESTClient) getRestClient()).setConnectionOpen(connectionOpen);
     }
@@ -205,6 +221,12 @@ public class BoxClient extends BoxBase implements IAuthFlowListener {
         return (OAuthDataController) authController;
     }
 
+    /**
+     * Add a listener to listen to OAuth refresh events. This is important because every time OAuth token refreshes, a new refresh/access token pair will be
+     * generated. If your app is storing the token pairs, it needs to get rid of the stale pair store the updated pair.
+     * 
+     * @param listener
+     */
     public void addOAuthRefreshListener(OAuthRefreshListener listener) {
         getOAuthDataController().addOAuthRefreshListener(listener);
     }
@@ -371,6 +393,9 @@ public class BoxClient extends BoxBase implements IAuthFlowListener {
         }
     }
 
+    /**
+     * Get a resource manager plugged in based on the key.
+     */
     public IBoxResourceManager getPluginManager(String pluginManagerKey) {
         return this.pluginResourceManagers.get(pluginManagerKey);
     }
@@ -530,8 +555,8 @@ public class BoxClient extends BoxBase implements IAuthFlowListener {
         return new BoxRESTClient();
     }
 
-    protected static IBoxRESTClient createMonitoredRestClient(final int maxConnection, final int maxConnectionPerRoute, final long timePeriodCleanUpIdleConnection,
-        final long idleTimeThreshold) {
+    protected static IBoxRESTClient createMonitoredRestClient(final int maxConnection, final int maxConnectionPerRoute,
+        final long timePeriodCleanUpIdleConnection, final long idleTimeThreshold) {
         return new BoxRESTClient(maxConnection, maxConnectionPerRoute, timePeriodCleanUpIdleConnection, idleTimeThreshold);
     }
 

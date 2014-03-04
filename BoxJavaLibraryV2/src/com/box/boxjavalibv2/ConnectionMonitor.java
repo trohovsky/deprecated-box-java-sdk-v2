@@ -15,6 +15,7 @@ import org.apache.http.impl.conn.tsccm.ThreadSafeClientConnManager;
 import org.apache.http.params.BasicHttpParams;
 import org.apache.http.params.HttpParams;
 
+@SuppressWarnings("deprecation")
 public class ConnectionMonitor {
 
     private static ClientConnectionManager connManager;

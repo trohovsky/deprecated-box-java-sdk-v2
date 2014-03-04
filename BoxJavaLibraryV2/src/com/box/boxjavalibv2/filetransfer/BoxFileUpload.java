@@ -12,6 +12,7 @@ import com.box.boxjavalibv2.requests.UploadFileRequest;
 import com.box.boxjavalibv2.requests.UploadNewVersionFileRequest;
 import com.box.boxjavalibv2.requests.requestobjects.BoxFileUploadRequestObject;
 import com.box.boxjavalibv2.resourcemanagers.BoxFilesManagerImpl;
+import com.box.boxjavalibv2.utils.Utils;
 import com.box.restclientv2.exceptions.BoxRestException;
 import com.box.restclientv2.interfaces.IBoxConfig;
 
@@ -50,13 +51,15 @@ public class BoxFileUpload {
      * @throws InterruptedException
      *             interrupted exception.
      */
+    @SuppressWarnings({"unchecked", "rawtypes"})
     public BoxFile execute(BoxFilesManagerImpl manager, BoxFileUploadRequestObject requestObject) throws BoxServerException, BoxRestException,
         AuthFatalFailureException, InterruptedException {
         UploadFileRequest request = new UploadFileRequest(mConfig, manager.getJSONParser(), requestObject);
         try {
             Object result = manager.getResponseAndParse(request, BoxResourceType.FILES, manager.getJSONParser());
             BoxCollection collection = (BoxCollection) manager.tryCastObject(BoxResourceType.FILES, result);
-            return BoxFilesManagerImpl.getFiles(collection).get(0);
+            Class cls = manager.getResourceHub().getClass(BoxResourceType.FILE);
+            return (BoxFile) Utils.getTypedObjects(collection, cls).get(0);
         }
         catch (BoxRestException e) {
             if (isInterruptedMultipartException(e)) {
@@ -85,8 +88,8 @@ public class BoxFileUpload {
      * @throws InterruptedException
      *             interrupted exception.
      */
-    public BoxFile execute(final String fileId, BoxFilesManagerImpl manager, BoxFileUploadRequestObject requestObject) throws BoxServerException, BoxRestException,
-        AuthFatalFailureException, InterruptedException {
+    public BoxFile execute(final String fileId, BoxFilesManagerImpl manager, BoxFileUploadRequestObject requestObject) throws BoxServerException,
+        BoxRestException, AuthFatalFailureException, InterruptedException {
         UploadNewVersionFileRequest request = new UploadNewVersionFileRequest(mConfig, manager.getJSONParser(), fileId, requestObject);
         try {
             Object result = manager.getResponseAndParse(request, BoxResourceType.FILE_VERSIONS, manager.getJSONParser());

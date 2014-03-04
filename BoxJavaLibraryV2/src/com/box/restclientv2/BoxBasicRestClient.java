@@ -29,6 +29,7 @@ import com.box.restclientv2.responses.DefaultBoxResponse;
 /**
  * Basic implementation of the {@link IBoxRESTClient}.
  */
+@SuppressWarnings("deprecation")
 public class BoxBasicRestClient implements IBoxRESTClient {
 
     private final DefaultHttpClient mHttpClient;
