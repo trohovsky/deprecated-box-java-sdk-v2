@@ -74,7 +74,7 @@ public class DefaultBoxJSONResponseParser implements IBoxResponseParser {
             }
         }
         catch (Exception e) {
-            throw new BoxRestException(e.getMessage());
+            throw new BoxRestException(e, "Failed to parse response.");
         }
         finally {
             IOUtils.closeQuietly(in);

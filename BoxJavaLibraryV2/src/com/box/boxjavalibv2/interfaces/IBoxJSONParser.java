@@ -1,5 +1,6 @@
 package com.box.boxjavalibv2.interfaces;
 
+import java.io.IOException;
 import java.io.InputStream;
 
 import com.box.boxjavalibv2.exceptions.BoxJSONException;
@@ -38,8 +39,9 @@ public interface IBoxJSONParser {
      * @param object
      * @return
      * @throws BoxJSONException
+     * @throws IOException
      */
-    String convertBoxObjectToJSONString(final Object object) throws BoxJSONException;
+    String convertBoxObjectToJSONString(final Object object) throws BoxJSONException, IOException;
 
     /**
      * Convert InputStream to object.
@@ -48,8 +50,9 @@ public interface IBoxJSONParser {
      * @param theClass
      * @return
      * @throws BoxJSONException
+     * @throws IOException
      */
-    <T> T parseIntoBoxObject(final InputStream inputStream, final Class<T> theClass) throws BoxJSONException;
+    <T> T parseIntoBoxObject(final InputStream inputStream, final Class<T> theClass) throws BoxJSONException, IOException;
 
     /**
      * Convert the json string into object.
@@ -58,6 +61,7 @@ public interface IBoxJSONParser {
      * @param theClass
      * @return
      * @throws BoxJSONException
+     * @throws IOException
      */
-    <T> T parseIntoBoxObject(final String jsonString, final Class<T> theClass) throws BoxJSONException;
+    <T> T parseIntoBoxObject(final String jsonString, final Class<T> theClass) throws BoxJSONException, IOException;
 }

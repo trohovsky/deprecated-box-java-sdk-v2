@@ -22,7 +22,7 @@ public class DefaultFileResponseParser implements IBoxResponseParser {
             return httpResponse.getEntity().getContent();
         }
         catch (Exception e) {
-            throw new BoxRestException(e);
+            throw new BoxRestException(e, "Failed to parse response.");
         }
     }
 }
