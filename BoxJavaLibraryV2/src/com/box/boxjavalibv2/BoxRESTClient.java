@@ -16,6 +16,7 @@ import org.apache.http.params.HttpParams;
 
 import com.box.boxjavalibv2.authorization.OAuthAuthorization;
 import com.box.boxjavalibv2.exceptions.AuthFatalFailureException;
+import com.box.boxjavalibv2.exceptions.BoxServerException;
 import com.box.boxjavalibv2.exceptions.BoxUnexpectedHttpStatusException;
 import com.box.boxjavalibv2.utils.Utils;
 import com.box.restclientv2.BoxBasicRestClient;
@@ -188,19 +189,17 @@ public class BoxRESTClient extends BoxBasicRestClient {
      *            auth
      * @param boxRequest
      *            request
-     * @return response
+     * @return response@throws BoxRestException See {@link com.box.restclientv2.exceptions.BoxRestException} for more info.
+     * @throws BoxServerException
+     *             See {@link com.box.restclientv2.exceptions.BoxServerException} for more info.
      * @throws AuthFatalFailureException
-     *             exception
-     * @throws BoxRestException
-     *             exception
-     * @throws BoxUnexpectedHttpStatusException
-     *             exception
+     *             See {@link com.box.restclientv2.exceptions.AuthFatalFailureException} for more info.
      */
     private IBoxResponse handleOAuthTokenExpire(final OAuthAuthorization auth, final IBoxRequest boxRequest) throws AuthFatalFailureException,
         BoxRestException, BoxUnexpectedHttpStatusException {
         auth.refresh();
         HttpEntity entity = boxRequest.getRequestEntity();
-        if (entity.isRepeatable()) {
+        if (entity == null || entity.isRepeatable()) {
             return execute(boxRequest, true);
         }
         throw new BoxRestException(ENTITY_CANNOT_BE_RETRIED);

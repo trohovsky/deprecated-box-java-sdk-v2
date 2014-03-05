@@ -573,11 +573,17 @@ public class BoxClient extends BoxBase implements IAuthFlowListener {
         return new SharedLinkAuthorization((OAuthAuthorization) getAuth(), sharedLink, password);
     }
 
-    public IAuthDataController createAuthDataController(final String clientId, final String clientSecret) {
+    /**
+     * Create auth data controller, which maintains auth data and handles auth refresh.
+     */
+    protected IAuthDataController createAuthDataController(final String clientId, final String clientSecret) {
         return new OAuthDataController(this, clientId, clientSecret, DEFAULT_AUTO_REFRESH);
     }
 
-    public IBoxRequestAuth createAuthorization(IAuthDataController controller) {
+    /**
+     * From auth data controller, generate IBoxRequestAuth, which can be applied to api requests.
+     */
+    protected IBoxRequestAuth createAuthorization(IAuthDataController controller) {
         return new OAuthAuthorization((OAuthDataController) authController);
     }
 

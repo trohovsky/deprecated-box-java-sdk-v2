@@ -1,5 +1,8 @@
 package com.box.restclientv2.authorization.oauthmultithread;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Random;
 
 import junit.framework.Assert;
@@ -16,15 +19,16 @@ import com.box.restclientv2.responses.DefaultBoxResponse;
 public class OAuthMultithreadTest {
 
     private MockBoxClient client;
+    private final List<Exception> exceptions = Collections.synchronizedList(new ArrayList<Exception>());
 
     @Test
     public void testMultipleThreadUsingOAuth() throws BoxRestException, BoxServerException, AuthFatalFailureException {
-        // System.out.println("Main: Init access token, refresh should succeed");
+        System.out.println("Main: Init access token, refresh should succeed");
         MockOAuthManager.refreshShouldFail = false;
         MockRestClient.accessToken = "testa";
         createOAuthDataController(true);
 
-        int numThreads = 1;
+        int numThreads = 10;
         Thread[] threads = new Thread[numThreads];
         for (int i = 0; i < numThreads; i++) {
             threads[i] = aThreadMakesCallsRandomly();
@@ -39,7 +43,7 @@ public class OAuthMultithreadTest {
         }
         catch (InterruptedException e) {
         }
-        // System.out.println("Main: change access token, refresh should succeed");
+        System.out.println("Main: change access token, refresh should succeed");
         MockRestClient.accessToken = "testb";
 
         try {
@@ -48,7 +52,7 @@ public class OAuthMultithreadTest {
         catch (InterruptedException e) {
         }
 
-        // System.out.println("Main: change access token, refresh should fail");
+        System.out.println("Main: change access token, refresh should fail");
         MockOAuthManager.refreshShouldFail = true;
         MockRestClient.accessToken = "testc";
         try {
@@ -60,6 +64,7 @@ public class OAuthMultithreadTest {
             threads[i].interrupt();
         }
 
+        Assert.assertEquals(0, exceptions.size());
     }
 
     private Thread aThreadMakesCallsRandomly() {
@@ -71,12 +76,18 @@ public class OAuthMultithreadTest {
                 while (true) {
                     try {
                         int statusCode = makeRequestAndGetStatusCode();
-                        // System.out.println("Thread: status code:" + statusCode);
+                        System.out.println("Thread: status code:" + statusCode);
+                        if (statusCode != HttpStatus.SC_OK) {
+                            exceptions.add(new StatusCodeException(statusCode));
+                        }
                         Assert.assertEquals(HttpStatus.SC_OK, statusCode);
                     }
                     catch (Exception e) {
-                        // System.out.println("Thread: fail:" + e.getClass().getCanonicalName());
-                        Assert.assertEquals(true, MockOAuthManager.refreshShouldFail);
+                        System.out.println("Thread: fail:" + e.getClass().getCanonicalName());
+                        e.printStackTrace();
+                        if (!MockOAuthManager.refreshShouldFail) {
+                            exceptions.add(e);
+                        }
                     }
 
                     try {
@@ -101,5 +112,14 @@ public class OAuthMultithreadTest {
     private void createOAuthDataController(boolean autoRefresh) throws BoxRestException, BoxServerException, AuthFatalFailureException {
         client = new MockBoxClient();
         client.getOAuthDataController().setOAuthData(client.getOAuthManager().createOAuth("", "", "", ""));
+    }
+
+    private static class StatusCodeException extends Exception {
+
+        private static final long serialVersionUID = 1L;
+
+        StatusCodeException(int status) {
+            super(Integer.toString(status));
+        }
     }
 }
