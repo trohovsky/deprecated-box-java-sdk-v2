@@ -1,5 +1,6 @@
 package com.box.restclientv2.responseparsers;
 
+import java.io.IOException;
 import java.io.InputStream;
 
 import org.apache.commons.io.IOUtils;
@@ -87,9 +88,10 @@ public class DefaultBoxJSONResponseParser implements IBoxResponseParser {
      * @param in
      *            input stream.
      * @throws BoxRestException
+     * @throws IOException
      */
     @SuppressWarnings("unchecked")
-    protected Object parseInputStream(InputStream in) throws BoxRestException, BoxJSONException {
+    protected Object parseInputStream(InputStream in) throws BoxRestException, BoxJSONException, IOException {
         return mParser.parseIntoBoxObject(in, objectClass);
     }
 }
