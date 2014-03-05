@@ -80,12 +80,11 @@ public class OAuthMultithreadTest {
                         if (statusCode != HttpStatus.SC_OK) {
                             exceptions.add(new StatusCodeException(statusCode));
                         }
-                        Assert.assertEquals(HttpStatus.SC_OK, statusCode);
                     }
                     catch (Exception e) {
-                        System.out.println("Thread: fail:" + e.getClass().getCanonicalName());
-                        e.printStackTrace();
                         if (!MockOAuthManager.refreshShouldFail) {
+                            System.out.println("Thread: fail:" + e.getClass().getCanonicalName());
+                            e.printStackTrace();
                             exceptions.add(e);
                         }
                     }
