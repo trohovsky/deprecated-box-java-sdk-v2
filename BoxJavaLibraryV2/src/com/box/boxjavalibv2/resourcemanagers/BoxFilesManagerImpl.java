@@ -34,7 +34,7 @@ import com.box.boxjavalibv2.requests.requestobjects.BoxDefaultRequestObject;
 import com.box.boxjavalibv2.requests.requestobjects.BoxFileRequestObject;
 import com.box.boxjavalibv2.requests.requestobjects.BoxFileUploadRequestObject;
 import com.box.boxjavalibv2.requests.requestobjects.BoxImageRequestObject;
-import com.box.boxjavalibv2.responseparsers.BoxBigPayloadResponseParser;
+import com.box.boxjavalibv2.responseparsers.ThumbnailResponseParser;
 import com.box.boxjavalibv2.responseparsers.ErrorResponseParser;
 import com.box.boxjavalibv2.responseparsers.PreviewResponseParser;
 import com.box.restclientv2.exceptions.BoxRestException;
@@ -97,7 +97,7 @@ public class BoxFilesManagerImpl extends BoxItemsManagerImpl implements IBoxFile
         ThumbnailRequest request = new ThumbnailRequest(getConfig(), getJSONParser(), fileId, extension, requestObject);
         request.setAuth(getAuth());
         DefaultBoxResponse response = (DefaultBoxResponse) getRestClient().execute(request);
-        BoxBigPayloadResponseParser parser = new BoxBigPayloadResponseParser();
+        ThumbnailResponseParser parser = new ThumbnailResponseParser();
         ErrorResponseParser errorParser = new ErrorResponseParser(getJSONParser());
         Object result = response.parseResponse(parser, errorParser);
         return (BoxThumbnail) tryCastObject(BoxResourceType.THUMBNAIL, result);

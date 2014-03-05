@@ -1,5 +1,6 @@
 package com.box.boxjavalibv2.jsonparsing;
 
+import java.io.IOException;
 import java.io.InputStream;
 
 import com.box.boxjavalibv2.exceptions.BoxJSONException;
@@ -8,8 +9,10 @@ import com.box.boxjavalibv2.interfaces.IBoxResourceHub;
 import com.box.boxjavalibv2.interfaces.IBoxType;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.core.JsonFactory;
+import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.jsontype.NamedType;
 
@@ -72,7 +75,13 @@ public class BoxJSONParser implements IBoxJSONParser {
         try {
             return getObjectMapper().writeValueAsString(object);
         }
-        catch (Exception e) {
+        catch (JsonGenerationException e) {
+            throw new BoxJSONException(e);
+        }
+        catch (JsonMappingException e) {
+            throw new BoxJSONException(e);
+        }
+        catch (IOException e) {
             throw new BoxJSONException(e);
         }
     }
@@ -84,7 +93,13 @@ public class BoxJSONParser implements IBoxJSONParser {
             JsonParser jp = jsonFactory.createJsonParser(inputStream);
             return getObjectMapper().readValue(jp, theClass);
         }
-        catch (Exception e) {
+        catch (JsonGenerationException e) {
+            throw new BoxJSONException(e);
+        }
+        catch (JsonMappingException e) {
+            throw new BoxJSONException(e);
+        }
+        catch (IOException e) {
             throw new BoxJSONException(e);
         }
     }
@@ -96,7 +111,13 @@ public class BoxJSONParser implements IBoxJSONParser {
             JsonParser jp = jsonFactory.createJsonParser(jsonString);
             return getObjectMapper().readValue(jp, theClass);
         }
-        catch (Exception e) {
+        catch (JsonGenerationException e) {
+            throw new BoxJSONException(e);
+        }
+        catch (JsonMappingException e) {
+            throw new BoxJSONException(e);
+        }
+        catch (IOException e) {
             throw new BoxJSONException(e);
         }
     }

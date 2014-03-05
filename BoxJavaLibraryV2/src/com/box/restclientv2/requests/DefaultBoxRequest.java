@@ -20,6 +20,7 @@ import org.apache.http.params.BasicHttpParams;
 import org.apache.http.params.HttpParams;
 
 import com.box.boxjavalibv2.exceptions.AuthFatalFailureException;
+import com.box.boxjavalibv2.exceptions.BoxJSONException;
 import com.box.boxjavalibv2.interfaces.IBoxJSONParser;
 import com.box.boxjavalibv2.requests.requestobjects.BoxDefaultRequestObject;
 import com.box.restclientv2.RestMethod;
@@ -76,6 +77,7 @@ public class DefaultBoxRequest implements IBoxRequest {
      *            request object
      * @throws BoxRestException
      *             exception
+     * @throws BoxJSONException
      */
     public DefaultBoxRequest(final IBoxConfig config, final IBoxJSONParser parser, final String uriPath, final RestMethod restMethod,
         final BoxDefaultRequestObject requestObject) throws BoxRestException {
@@ -85,7 +87,12 @@ public class DefaultBoxRequest implements IBoxRequest {
         getHeaders().put("User-Agent", getConfig().getUserAgent());
         if (requestObject != null) {
             requestObject.setJSONParser(parser);
-            setEntity(requestObject.getEntity());
+            try {
+                setEntity(requestObject.getEntity());
+            }
+            catch (BoxJSONException e) {
+                throw new BoxRestException(e, "Cannot parse entity of the request object.");
+            }
             setRequestFields(requestObject.getFields());
             getQueryParams().putAll(requestObject.getQueryParams());
             getHeaders().putAll(requestObject.getHeaders());

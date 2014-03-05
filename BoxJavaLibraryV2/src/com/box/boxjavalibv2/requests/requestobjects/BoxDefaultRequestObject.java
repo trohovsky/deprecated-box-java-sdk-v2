@@ -1,5 +1,6 @@
 package com.box.boxjavalibv2.requests.requestobjects;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -9,6 +10,7 @@ import org.apache.commons.codec.CharEncoding;
 import org.apache.http.HttpEntity;
 import org.apache.http.entity.StringEntity;
 
+import com.box.boxjavalibv2.exceptions.BoxJSONException;
 import com.box.boxjavalibv2.interfaces.IBoxJSONParser;
 import com.box.boxjavalibv2.interfaces.IBoxJSONStringEntity;
 import com.box.boxjavalibv2.interfaces.IBoxRequestObject;
@@ -41,11 +43,11 @@ public class BoxDefaultRequestObject implements IBoxRequestObject {
     }
 
     @Override
-    public HttpEntity getEntity() throws BoxRestException {
+    public HttpEntity getEntity() throws BoxRestException, BoxJSONException {
         try {
             return new StringEntity(getJSONEntity().toJSONString(getJSONParser()), CharEncoding.UTF_8);
         }
-        catch (Exception e) {
+        catch (UnsupportedEncodingException e) {
             throw new BoxRestException(e);
         }
     }
@@ -152,7 +154,7 @@ public class BoxDefaultRequestObject implements IBoxRequestObject {
 
     /**
      * Add a key value string pair to the request body.
-     *
+     * 
      * @param key
      *            key
      * @param value

@@ -49,8 +49,6 @@ public class BoxObject extends BoxBase implements IBoxParcelable {
         return new EqualsBuilder().append(map, bObj.map).append(extraMap, bObj.extraMap).isEquals();
     }
 
-  
-
     @Override
     public int hashCode() {
         return new HashCodeBuilder().append(map).append(extraMap).toHashCode();
@@ -132,6 +130,7 @@ public class BoxObject extends BoxBase implements IBoxParcelable {
                     destination.put(entry.getKey(), value.getClass().getConstructor(value.getClass()).newInstance(value));
                 }
                 catch (Exception e) {
+                    // Exception is swallowed.
                 }
             }
             else if (value instanceof ArrayList<?>) {
@@ -158,6 +157,7 @@ public class BoxObject extends BoxBase implements IBoxParcelable {
                     destination.add(obj.getClass().getConstructor(obj.getClass()).newInstance(obj));
                 }
                 catch (Exception e) {
+                    // Exception is swallowed.
                 }
             }
             else {

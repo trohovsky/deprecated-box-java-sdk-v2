@@ -278,7 +278,11 @@ public class OAuthDataController implements IAuthDataController {
                 refreshListener.onRefresh(mOAuthToken);
             }
         }
-        catch (Exception e) {
+        catch (BoxRestException e) {
+            setRefreshFail(e);
+            throw new AuthFatalFailureException(getRefreshFailException());
+        }
+        catch (BoxServerException e) {
             setRefreshFail(e);
             throw new AuthFatalFailureException(getRefreshFailException());
         }

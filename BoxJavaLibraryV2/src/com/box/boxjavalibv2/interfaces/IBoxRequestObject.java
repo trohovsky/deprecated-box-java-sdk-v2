@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.apache.http.HttpEntity;
 
+import com.box.boxjavalibv2.exceptions.BoxJSONException;
 import com.box.restclientv2.exceptions.BoxRestException;
 
 /**
@@ -18,9 +19,10 @@ public interface IBoxRequestObject {
      * 
      * @return HttpEntity.
      * @throws BoxRestException
+     * @throws BoxJSONException
      * @throws UnsupportedEncodingException
      */
-    public HttpEntity getEntity() throws BoxRestException;
+    public HttpEntity getEntity() throws BoxRestException, BoxJSONException;
 
     /**
      * Get fields, these fields (Please check "Fields" part in <a href="http://developers.box.com/docs/">developer doc</a> will end up as fields query parameter

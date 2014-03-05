@@ -101,6 +101,7 @@ public class PreviewResponseParser extends DefaultFileResponseParser {
             }
         }
         catch (Exception e) {
+            // swallow all exceptions.
         }
         return result;
     }
