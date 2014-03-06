@@ -1,4 +1,4 @@
-package com.box.boxjavalibv2.interfaces;
+package com.box.boxjavalibv2.filetransfer;
 
 import java.io.IOException;
 

@@ -1,4 +1,4 @@
-package com.box.boxjavalibv2.interfaces;
+package com.box.boxjavalibv2.requests.requestobjects;
 
 import java.io.UnsupportedEncodingException;
 import java.util.List;

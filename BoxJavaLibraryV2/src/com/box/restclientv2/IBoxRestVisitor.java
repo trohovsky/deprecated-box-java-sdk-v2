@@ -1,4 +1,4 @@
-package com.box.restclientv2.interfaces;
+package com.box.restclientv2;
 
 import org.apache.http.HttpRequest;
 import org.apache.http.HttpResponse;

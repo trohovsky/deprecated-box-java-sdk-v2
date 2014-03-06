@@ -6,8 +6,6 @@ import java.util.Map;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 
-import com.box.boxjavalibv2.interfaces.IBoxParcelWrapper;
-import com.box.boxjavalibv2.interfaces.IBoxParcelable;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 

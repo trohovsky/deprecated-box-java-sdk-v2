@@ -16,12 +16,12 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.box.boxjavalibv2.BoxConfig;
+import com.box.boxjavalibv2.IBoxConfig;
 import com.box.boxjavalibv2.exceptions.AuthFatalFailureException;
 import com.box.boxjavalibv2.jsonparsing.BoxJSONParser;
 import com.box.boxjavalibv2.jsonparsing.BoxResourceHub;
 import com.box.restclientv2.RestMethod;
 import com.box.restclientv2.exceptions.BoxRestException;
-import com.box.restclientv2.interfaces.IBoxConfig;
 
 public class DefaultBoxRequestTest {
 

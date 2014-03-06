@@ -4,7 +4,6 @@ import com.box.boxjavalibv2.BoxClient;
 import com.box.boxjavalibv2.dao.BoxOAuthToken;
 import com.box.boxjavalibv2.exceptions.AuthFatalFailureException;
 import com.box.boxjavalibv2.exceptions.BoxServerException;
-import com.box.boxjavalibv2.interfaces.IAuthDataController;
 import com.box.restclientv2.exceptions.BoxRestException;
 
 /**

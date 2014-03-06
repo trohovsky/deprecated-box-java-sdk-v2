@@ -1,6 +1,6 @@
 package com.box.boxjavalibv2.responseparsers;
 
-import com.box.boxjavalibv2.interfaces.IBoxJSONParser;
+import com.box.boxjavalibv2.jsonparsing.IBoxJSONParser;
 import com.box.restclientv2.responseparsers.DefaultBoxJSONResponseParser;
 
 /**

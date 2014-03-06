@@ -1,4 +1,4 @@
-package com.box.boxjavalibv2.interfaces;
+package com.box.boxjavalibv2.jsonparsing;
 
 import java.io.IOException;
 import java.io.InputStream;

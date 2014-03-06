@@ -2,7 +2,7 @@ package com.box.restclientv2.authorization.oauthmultithread;
 
 import com.box.boxjavalibv2.BoxClient;
 import com.box.boxjavalibv2.resourcemanagers.IBoxOAuthManager;
-import com.box.restclientv2.interfaces.IBoxRESTClient;
+import com.box.restclientv2.IBoxRESTClient;
 
 public class MockBoxClient extends BoxClient {
 

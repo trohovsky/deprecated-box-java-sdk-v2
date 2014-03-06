@@ -1,6 +1,7 @@
-package com.box.restclientv2.interfaces;
+package com.box.restclientv2.responseparsers;
 
 import com.box.restclientv2.exceptions.BoxRestException;
+import com.box.restclientv2.responses.IBoxResponse;
 
 /**
  * Interface for the class of object to be converted from API response. Although this interface is on REST client level, application level can still implement

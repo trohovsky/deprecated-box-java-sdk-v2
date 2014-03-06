@@ -1,4 +1,6 @@
-package com.box.boxjavalibv2.interfaces;
+package com.box.boxjavalibv2.authorization;
+
+import com.box.boxjavalibv2.dao.IAuthData;
 
 /**
  * Interface for storage to save authentication(OAuth) objects in a secure way.

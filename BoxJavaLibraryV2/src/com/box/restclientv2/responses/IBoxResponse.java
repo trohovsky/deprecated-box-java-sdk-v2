@@ -1,6 +1,7 @@
-package com.box.restclientv2.interfaces;
+package com.box.restclientv2.responses;
 
 import com.box.restclientv2.exceptions.BoxRestException;
+import com.box.restclientv2.responseparsers.IBoxResponseParser;
 
 /**
  * Interface for API response.

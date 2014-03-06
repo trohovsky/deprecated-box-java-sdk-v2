@@ -5,6 +5,12 @@ import java.util.Map;
 
 import org.apache.commons.lang.NotImplementedException;
 
+import com.box.boxjavalibv2.authorization.IAuthDataController;
+import com.box.boxjavalibv2.authorization.IAuthEvent;
+import com.box.boxjavalibv2.authorization.IAuthFlowListener;
+import com.box.boxjavalibv2.authorization.IAuthFlowMessage;
+import com.box.boxjavalibv2.authorization.IAuthFlowUI;
+import com.box.boxjavalibv2.authorization.IAuthSecureStorage;
 import com.box.boxjavalibv2.authorization.OAuthAuthorization;
 import com.box.boxjavalibv2.authorization.OAuthDataController;
 import com.box.boxjavalibv2.authorization.OAuthDataController.OAuthTokenState;
@@ -13,20 +19,13 @@ import com.box.boxjavalibv2.authorization.SharedLinkAuthorization;
 import com.box.boxjavalibv2.dao.BoxBase;
 import com.box.boxjavalibv2.dao.BoxOAuthToken;
 import com.box.boxjavalibv2.dao.BoxResourceType;
+import com.box.boxjavalibv2.dao.IAuthData;
 import com.box.boxjavalibv2.events.OAuthEvent;
 import com.box.boxjavalibv2.exceptions.AuthFatalFailureException;
-import com.box.boxjavalibv2.interfaces.IAuthData;
-import com.box.boxjavalibv2.interfaces.IAuthDataController;
-import com.box.boxjavalibv2.interfaces.IAuthEvent;
-import com.box.boxjavalibv2.interfaces.IAuthFlowListener;
-import com.box.boxjavalibv2.interfaces.IAuthFlowMessage;
-import com.box.boxjavalibv2.interfaces.IAuthFlowUI;
-import com.box.boxjavalibv2.interfaces.IAuthSecureStorage;
-import com.box.boxjavalibv2.interfaces.IBoxJSONParser;
-import com.box.boxjavalibv2.interfaces.IBoxResourceHub;
-import com.box.boxjavalibv2.interfaces.IPluginResourceManagerBuilder;
 import com.box.boxjavalibv2.jsonparsing.BoxJSONParser;
 import com.box.boxjavalibv2.jsonparsing.BoxResourceHub;
+import com.box.boxjavalibv2.jsonparsing.IBoxJSONParser;
+import com.box.boxjavalibv2.jsonparsing.IBoxResourceHub;
 import com.box.boxjavalibv2.resourcemanagers.BoxCollaborationsManagerImpl;
 import com.box.boxjavalibv2.resourcemanagers.BoxCommentsManagerImpl;
 import com.box.boxjavalibv2.resourcemanagers.BoxEventsManagerImpl;
@@ -52,9 +51,9 @@ import com.box.boxjavalibv2.resourcemanagers.IBoxSearchManager;
 import com.box.boxjavalibv2.resourcemanagers.IBoxSharedItemsManager;
 import com.box.boxjavalibv2.resourcemanagers.IBoxTrashManager;
 import com.box.boxjavalibv2.resourcemanagers.IBoxUsersManager;
-import com.box.restclientv2.interfaces.IBoxConfig;
-import com.box.restclientv2.interfaces.IBoxRESTClient;
-import com.box.restclientv2.interfaces.IBoxRequestAuth;
+import com.box.boxjavalibv2.resourcemanagers.IPluginResourceManagerBuilder;
+import com.box.restclientv2.IBoxRESTClient;
+import com.box.restclientv2.authorization.IBoxRequestAuth;
 
 /**
  * This is the main entrance of the sdk. The client contains all resource managers and also handles authentication. Make sure you call authenticate method

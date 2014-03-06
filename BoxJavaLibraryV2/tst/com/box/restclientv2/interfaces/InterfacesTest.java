@@ -15,8 +15,14 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.box.boxjavalibv2.exceptions.AuthFatalFailureException;
+import com.box.restclientv2.IBoxRESTClient;
 import com.box.restclientv2.RestMethod;
+import com.box.restclientv2.authorization.IBoxRequestAuth;
 import com.box.restclientv2.exceptions.BoxRestException;
+import com.box.restclientv2.requests.IBoxRequest;
+import com.box.restclientv2.requests.ICookie;
+import com.box.restclientv2.responseparsers.IBoxResponseParser;
+import com.box.restclientv2.responses.IBoxResponse;
 
 /**
  * This is a unit test class to test and guarantee interfaces of the REST client. No concrete implemented classes are tested.

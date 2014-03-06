@@ -1,8 +1,9 @@
-package com.box.boxjavalibv2.interfaces;
+package com.box.boxjavalibv2.jsonparsing;
 
 import java.util.Collection;
 
 import com.box.boxjavalibv2.dao.BoxObject;
+import com.box.boxjavalibv2.dao.IBoxType;
 
 public interface IBoxResourceHub {
 

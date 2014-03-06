@@ -4,8 +4,8 @@ import java.io.InputStream;
 
 import com.box.boxjavalibv2.dao.BoxThumbnail;
 import com.box.restclientv2.exceptions.BoxRestException;
-import com.box.restclientv2.interfaces.IBoxResponse;
 import com.box.restclientv2.responseparsers.DefaultFileResponseParser;
+import com.box.restclientv2.responses.IBoxResponse;
 
 public class ThumbnailResponseParser extends DefaultFileResponseParser {
 

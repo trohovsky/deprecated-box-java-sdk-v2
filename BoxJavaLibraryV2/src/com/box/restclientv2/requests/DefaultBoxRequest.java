@@ -19,17 +19,15 @@ import org.apache.http.client.methods.HttpRequestBase;
 import org.apache.http.params.BasicHttpParams;
 import org.apache.http.params.HttpParams;
 
+import com.box.boxjavalibv2.IBoxConfig;
 import com.box.boxjavalibv2.exceptions.AuthFatalFailureException;
 import com.box.boxjavalibv2.exceptions.BoxJSONException;
-import com.box.boxjavalibv2.interfaces.IBoxJSONParser;
+import com.box.boxjavalibv2.jsonparsing.IBoxJSONParser;
 import com.box.boxjavalibv2.requests.requestobjects.BoxDefaultRequestObject;
 import com.box.restclientv2.RestMethod;
+import com.box.restclientv2.authorization.IBoxRequestAuth;
 import com.box.restclientv2.exceptions.BoxRestException;
 import com.box.restclientv2.httpclientsupport.HttpClientURIBuilder;
-import com.box.restclientv2.interfaces.IBoxConfig;
-import com.box.restclientv2.interfaces.IBoxRequest;
-import com.box.restclientv2.interfaces.IBoxRequestAuth;
-import com.box.restclientv2.interfaces.ICookie;
 
 /**
  * Default implementation for IBoxRequest interface. This implementaion utilizes HttpRequestBase as underlying http request.

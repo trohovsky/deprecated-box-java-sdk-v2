@@ -13,7 +13,7 @@ package com.box.boxjavalibv2;
 
 import java.util.Locale;
 
-import com.box.restclientv2.interfaces.IBoxConfig;
+
 
 /**
  * Class for retrieving configuration parameters. This is a singleton and should be the same across the whole app.

@@ -2,7 +2,6 @@ package com.box.boxjavalibv2.dao;
 
 import java.util.Map;
 
-import com.box.boxjavalibv2.interfaces.IBoxParcelWrapper;
 
 // CHECKSTYLE:OFF
 /**

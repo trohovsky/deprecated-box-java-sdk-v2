@@ -2,19 +2,19 @@ package com.box.boxjavalibv2.resourcemanagers;
 
 import org.apache.commons.lang.StringUtils;
 
+import com.box.boxjavalibv2.IBoxConfig;
 import com.box.boxjavalibv2.dao.BoxOAuthToken;
 import com.box.boxjavalibv2.dao.BoxResourceType;
 import com.box.boxjavalibv2.exceptions.AuthFatalFailureException;
 import com.box.boxjavalibv2.exceptions.BoxServerException;
-import com.box.boxjavalibv2.interfaces.IBoxJSONParser;
-import com.box.boxjavalibv2.interfaces.IBoxResourceHub;
+import com.box.boxjavalibv2.jsonparsing.IBoxJSONParser;
+import com.box.boxjavalibv2.jsonparsing.IBoxResourceHub;
 import com.box.boxjavalibv2.requests.CreateOAuthRequest;
 import com.box.boxjavalibv2.requests.RefreshOAuthRequest;
 import com.box.boxjavalibv2.requests.RevokeOAuthRequest;
 import com.box.boxjavalibv2.requests.requestobjects.BoxOAuthRequestObject;
+import com.box.restclientv2.IBoxRESTClient;
 import com.box.restclientv2.exceptions.BoxRestException;
-import com.box.restclientv2.interfaces.IBoxConfig;
-import com.box.restclientv2.interfaces.IBoxRESTClient;
 
 /**
  * API for OAuth. Full details about the Box API can be found at <a href="http://developers.box.com/oauth/">http://developers.box.com/docs</a>

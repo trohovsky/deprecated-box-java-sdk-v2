@@ -24,7 +24,7 @@ import com.box.boxjavalibv2.dao.BoxThumbnail;
 import com.box.boxjavalibv2.dao.BoxTypedObject;
 import com.box.boxjavalibv2.dao.BoxUser;
 import com.box.boxjavalibv2.dao.BoxWebLink;
-import com.box.boxjavalibv2.interfaces.IBoxType;
+import com.box.boxjavalibv2.dao.IBoxType;
 
 public class BoxResourceHub extends BaseBoxResourceHub {
 

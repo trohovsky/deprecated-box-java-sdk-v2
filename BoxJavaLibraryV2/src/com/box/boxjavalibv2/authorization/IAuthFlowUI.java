@@ -1,4 +1,4 @@
-package com.box.boxjavalibv2.interfaces;
+package com.box.boxjavalibv2.authorization;
 
 /**
  * Interface for UI to generate auth.

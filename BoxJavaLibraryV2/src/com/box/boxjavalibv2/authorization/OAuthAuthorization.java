@@ -4,7 +4,7 @@ import com.box.boxjavalibv2.dao.BoxOAuthToken;
 import com.box.boxjavalibv2.exceptions.AuthFatalFailureException;
 import com.box.restclientv2.authorization.DefaultRequestAuth;
 import com.box.restclientv2.exceptions.BoxRestException;
-import com.box.restclientv2.interfaces.IBoxRequest;
+import com.box.restclientv2.requests.IBoxRequest;
 
 /**
  * This is authorization class for API requests using OAuth.

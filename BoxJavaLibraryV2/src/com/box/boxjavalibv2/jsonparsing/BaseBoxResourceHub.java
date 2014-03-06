@@ -5,8 +5,7 @@ import java.util.Locale;
 import java.util.Map;
 
 import com.box.boxjavalibv2.dao.BoxObject;
-import com.box.boxjavalibv2.interfaces.IBoxResourceHub;
-import com.box.boxjavalibv2.interfaces.IBoxType;
+import com.box.boxjavalibv2.dao.IBoxType;
 
 public abstract class BaseBoxResourceHub implements IBoxResourceHub {
 

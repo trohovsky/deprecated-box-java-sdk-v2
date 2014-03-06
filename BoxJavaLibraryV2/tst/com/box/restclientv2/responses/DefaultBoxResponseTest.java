@@ -11,8 +11,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.box.restclientv2.exceptions.BoxRestException;
-import com.box.restclientv2.interfaces.IBoxResponseParser;
 import com.box.restclientv2.responseparsers.DefaultBoxJSONResponseParser;
+import com.box.restclientv2.responseparsers.IBoxResponseParser;
 
 public class DefaultBoxResponseTest {
 

@@ -3,10 +3,8 @@ package com.box.boxjavalibv2.jsonparsing;
 import java.io.IOException;
 import java.io.InputStream;
 
+import com.box.boxjavalibv2.dao.IBoxType;
 import com.box.boxjavalibv2.exceptions.BoxJSONException;
-import com.box.boxjavalibv2.interfaces.IBoxJSONParser;
-import com.box.boxjavalibv2.interfaces.IBoxResourceHub;
-import com.box.boxjavalibv2.interfaces.IBoxType;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.JsonGenerationException;

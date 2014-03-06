@@ -3,6 +3,7 @@ package com.box.boxjavalibv2.resourcemanagers;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.box.boxjavalibv2.IBoxConfig;
 import com.box.boxjavalibv2.dao.BoxCollection;
 import com.box.boxjavalibv2.dao.BoxEmailAlias;
 import com.box.boxjavalibv2.dao.BoxFolder;
@@ -11,8 +12,8 @@ import com.box.boxjavalibv2.dao.BoxTypedObject;
 import com.box.boxjavalibv2.dao.BoxUser;
 import com.box.boxjavalibv2.exceptions.AuthFatalFailureException;
 import com.box.boxjavalibv2.exceptions.BoxServerException;
-import com.box.boxjavalibv2.interfaces.IBoxJSONParser;
-import com.box.boxjavalibv2.interfaces.IBoxResourceHub;
+import com.box.boxjavalibv2.jsonparsing.IBoxJSONParser;
+import com.box.boxjavalibv2.jsonparsing.IBoxResourceHub;
 import com.box.boxjavalibv2.requests.CreateEmailAliasRequest;
 import com.box.boxjavalibv2.requests.CreateEnterpriseUserRequest;
 import com.box.boxjavalibv2.requests.DeleteEmailAliasRequest;
@@ -25,10 +26,9 @@ import com.box.boxjavalibv2.requests.UpdateUserRequest;
 import com.box.boxjavalibv2.requests.requestobjects.BoxDefaultRequestObject;
 import com.box.boxjavalibv2.requests.requestobjects.BoxEmailAliasRequestObject;
 import com.box.boxjavalibv2.requests.requestobjects.BoxUserRequestObject;
+import com.box.restclientv2.IBoxRESTClient;
+import com.box.restclientv2.authorization.IBoxRequestAuth;
 import com.box.restclientv2.exceptions.BoxRestException;
-import com.box.restclientv2.interfaces.IBoxConfig;
-import com.box.restclientv2.interfaces.IBoxRESTClient;
-import com.box.restclientv2.interfaces.IBoxRequestAuth;
 
 /**
  * Use this class to execute requests <b>synchronously</b> against the Box REST API(V2), users endpints. Full details about the Box API can be found at <a

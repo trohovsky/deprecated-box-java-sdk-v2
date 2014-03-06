@@ -21,10 +21,9 @@ import org.apache.http.params.HttpParams;
 import com.box.boxjavalibv2.ConnectionMonitor;
 import com.box.boxjavalibv2.exceptions.AuthFatalFailureException;
 import com.box.restclientv2.exceptions.BoxRestException;
-import com.box.restclientv2.interfaces.IBoxRESTClient;
-import com.box.restclientv2.interfaces.IBoxRequest;
-import com.box.restclientv2.interfaces.IBoxResponse;
+import com.box.restclientv2.requests.IBoxRequest;
 import com.box.restclientv2.responses.DefaultBoxResponse;
+import com.box.restclientv2.responses.IBoxResponse;
 
 /**
  * Basic implementation of the {@link IBoxRESTClient}.

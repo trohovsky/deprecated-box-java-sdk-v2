@@ -20,12 +20,12 @@ import com.box.boxjavalibv2.exceptions.BoxServerException;
 import com.box.boxjavalibv2.exceptions.BoxUnexpectedHttpStatusException;
 import com.box.boxjavalibv2.utils.Utils;
 import com.box.restclientv2.BoxBasicRestClient;
+import com.box.restclientv2.IBoxRestVisitor;
+import com.box.restclientv2.authorization.IBoxRequestAuth;
 import com.box.restclientv2.exceptions.BoxRestException;
-import com.box.restclientv2.interfaces.IBoxRequest;
-import com.box.restclientv2.interfaces.IBoxRequestAuth;
-import com.box.restclientv2.interfaces.IBoxResponse;
-import com.box.restclientv2.interfaces.IBoxRestVisitor;
+import com.box.restclientv2.requests.IBoxRequest;
 import com.box.restclientv2.responses.DefaultBoxResponse;
+import com.box.restclientv2.responses.IBoxResponse;
 
 /**
  * API v2 client. By default, DefaultHttpClient is used as underlying http client. This takes visitors for requests and handles OAuth failures.

@@ -2,7 +2,6 @@ package com.box.boxjavalibv2.dao;
 
 import java.io.InputStream;
 
-import com.box.boxjavalibv2.interfaces.IBoxParcelWrapper;
 import com.box.restclientv2.exceptions.BoxRestException;
 
 /**

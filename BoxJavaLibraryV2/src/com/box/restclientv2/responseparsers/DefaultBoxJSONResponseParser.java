@@ -7,11 +7,10 @@ import org.apache.commons.io.IOUtils;
 import org.apache.http.HttpResponse;
 
 import com.box.boxjavalibv2.exceptions.BoxJSONException;
-import com.box.boxjavalibv2.interfaces.IBoxJSONParser;
+import com.box.boxjavalibv2.jsonparsing.IBoxJSONParser;
 import com.box.restclientv2.exceptions.BoxRestException;
-import com.box.restclientv2.interfaces.IBoxResponse;
-import com.box.restclientv2.interfaces.IBoxResponseParser;
 import com.box.restclientv2.responses.DefaultBoxResponse;
+import com.box.restclientv2.responses.IBoxResponse;
 
 /**
  * This class is a wrapper class in order for <a href="http://jackson.codehaus.org/">Jackson JSON processor</a> to parse response JSON into the wrapped objects.

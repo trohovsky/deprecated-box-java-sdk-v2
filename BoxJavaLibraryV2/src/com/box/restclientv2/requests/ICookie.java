@@ -1,4 +1,5 @@
-package com.box.restclientv2.interfaces;
+package com.box.restclientv2.requests;
+
 
 /**
  * Interface for API cookie.

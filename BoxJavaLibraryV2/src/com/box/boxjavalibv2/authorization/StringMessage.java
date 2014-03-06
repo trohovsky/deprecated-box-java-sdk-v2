@@ -1,6 +1,5 @@
 package com.box.boxjavalibv2.authorization;
 
-import com.box.boxjavalibv2.interfaces.IAuthFlowMessage;
 
 /**
  * A String message.

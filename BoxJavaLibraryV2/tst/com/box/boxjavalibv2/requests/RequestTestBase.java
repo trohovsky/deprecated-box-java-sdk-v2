@@ -9,14 +9,14 @@ import org.apache.commons.io.IOUtils;
 import org.apache.http.HttpEntity;
 
 import com.box.boxjavalibv2.BoxConfig;
+import com.box.boxjavalibv2.IBoxConfig;
 import com.box.boxjavalibv2.exceptions.AuthFatalFailureException;
 import com.box.boxjavalibv2.exceptions.BoxJSONException;
-import com.box.boxjavalibv2.interfaces.IBoxJSONStringEntity;
+import com.box.boxjavalibv2.jsonentities.IBoxJSONStringEntity;
 import com.box.boxjavalibv2.jsonparsing.BoxJSONParser;
 import com.box.boxjavalibv2.jsonparsing.BoxResourceHub;
 import com.box.restclientv2.RestMethod;
 import com.box.restclientv2.exceptions.BoxRestException;
-import com.box.restclientv2.interfaces.IBoxConfig;
 import com.box.restclientv2.requests.DefaultBoxRequest;
 
 public class RequestTestBase {

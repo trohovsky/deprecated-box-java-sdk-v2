@@ -11,10 +11,9 @@ import org.apache.http.HttpEntity;
 import org.apache.http.entity.StringEntity;
 
 import com.box.boxjavalibv2.exceptions.BoxJSONException;
-import com.box.boxjavalibv2.interfaces.IBoxJSONParser;
-import com.box.boxjavalibv2.interfaces.IBoxJSONStringEntity;
-import com.box.boxjavalibv2.interfaces.IBoxRequestObject;
+import com.box.boxjavalibv2.jsonentities.IBoxJSONStringEntity;
 import com.box.boxjavalibv2.jsonentities.MapJSONStringEntity;
+import com.box.boxjavalibv2.jsonparsing.IBoxJSONParser;
 import com.box.restclientv2.exceptions.BoxRestException;
 
 /**

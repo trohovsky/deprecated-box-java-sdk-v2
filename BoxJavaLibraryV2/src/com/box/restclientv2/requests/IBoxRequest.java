@@ -1,4 +1,4 @@
-package com.box.restclientv2.interfaces;
+package com.box.restclientv2.requests;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.HttpUriRequest;
@@ -6,6 +6,7 @@ import org.apache.http.params.HttpParams;
 
 import com.box.boxjavalibv2.exceptions.AuthFatalFailureException;
 import com.box.restclientv2.RestMethod;
+import com.box.restclientv2.authorization.IBoxRequestAuth;
 import com.box.restclientv2.exceptions.BoxRestException;
 
 /**

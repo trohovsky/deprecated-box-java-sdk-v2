@@ -1,9 +1,9 @@
 package com.box.boxjavalibv2.resourcemanagers;
 
-import com.box.boxjavalibv2.interfaces.IBoxJSONParser;
-import com.box.boxjavalibv2.interfaces.IBoxResourceHub;
-import com.box.restclientv2.interfaces.IBoxConfig;
-import com.box.restclientv2.interfaces.IBoxRequestAuth;
+import com.box.boxjavalibv2.IBoxConfig;
+import com.box.boxjavalibv2.jsonparsing.IBoxJSONParser;
+import com.box.boxjavalibv2.jsonparsing.IBoxResourceHub;
+import com.box.restclientv2.authorization.IBoxRequestAuth;
 
 public interface IBoxResourceManager {
 

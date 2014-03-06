@@ -1,4 +1,4 @@
-package com.box.restclientv2.interfaces;
+package com.box.boxjavalibv2;
 
 public interface IBoxConfig {
 

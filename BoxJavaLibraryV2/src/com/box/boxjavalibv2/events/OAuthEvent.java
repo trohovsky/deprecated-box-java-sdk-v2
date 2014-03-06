@@ -1,6 +1,6 @@
 package com.box.boxjavalibv2.events;
 
-import com.box.boxjavalibv2.interfaces.IAuthEvent;
+import com.box.boxjavalibv2.authorization.IAuthEvent;
 
 /**
  * OAuth event.

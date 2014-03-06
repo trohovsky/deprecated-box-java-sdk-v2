@@ -13,7 +13,7 @@ import org.apache.http.entity.mime.HttpMultipartMode;
 import org.apache.http.entity.mime.MultipartEntity;
 import org.apache.http.entity.mime.content.ContentBody;
 
-import com.box.boxjavalibv2.interfaces.IFileTransferListener;
+import com.box.boxjavalibv2.filetransfer.IFileTransferListener;
 
 /**
  * This is a class wrappying MultipartEntity with a IFIleTransferListener so the writing progress of the entity can be monitored.

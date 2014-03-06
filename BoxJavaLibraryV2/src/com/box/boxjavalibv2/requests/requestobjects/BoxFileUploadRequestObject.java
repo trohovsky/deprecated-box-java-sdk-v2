@@ -14,10 +14,10 @@ import org.apache.http.entity.mime.content.InputStreamBody;
 import org.apache.http.entity.mime.content.StringBody;
 
 import com.box.boxjavalibv2.exceptions.BoxJSONException;
+import com.box.boxjavalibv2.filetransfer.IFileTransferListener;
 import com.box.boxjavalibv2.httpentities.MultipartEntityWithProgressListener;
-import com.box.boxjavalibv2.interfaces.IBoxJSONParser;
-import com.box.boxjavalibv2.interfaces.IFileTransferListener;
 import com.box.boxjavalibv2.jsonentities.MapJSONStringEntity;
+import com.box.boxjavalibv2.jsonparsing.IBoxJSONParser;
 import com.box.boxjavalibv2.utils.Constants;
 import com.box.boxjavalibv2.utils.ISO8601DateParser;
 import com.box.restclientv2.exceptions.BoxRestException;

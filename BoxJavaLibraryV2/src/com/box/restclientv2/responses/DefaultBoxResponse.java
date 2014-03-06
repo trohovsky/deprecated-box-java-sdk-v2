@@ -4,8 +4,7 @@ import org.apache.http.Header;
 import org.apache.http.HttpResponse;
 
 import com.box.restclientv2.exceptions.BoxRestException;
-import com.box.restclientv2.interfaces.IBoxResponse;
-import com.box.restclientv2.interfaces.IBoxResponseParser;
+import com.box.restclientv2.responseparsers.IBoxResponseParser;
 
 /**
  * Default implementation for BOX JSON response. This implementation uses <a href="http://jackson.codehaus.org/">Jackson JSON processor</a> to parse response

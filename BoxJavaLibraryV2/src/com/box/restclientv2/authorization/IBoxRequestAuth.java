@@ -1,7 +1,8 @@
-package com.box.restclientv2.interfaces;
+package com.box.restclientv2.authorization;
 
 import com.box.boxjavalibv2.exceptions.AuthFatalFailureException;
 import com.box.restclientv2.exceptions.BoxRestException;
+import com.box.restclientv2.requests.IBoxRequest;
 
 /**
  * Interface for Auth used for Box API Client.

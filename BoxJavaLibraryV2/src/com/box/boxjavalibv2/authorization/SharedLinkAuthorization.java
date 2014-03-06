@@ -7,7 +7,7 @@ import org.apache.commons.lang.StringUtils;
 import com.box.boxjavalibv2.exceptions.AuthFatalFailureException;
 import com.box.restclientv2.authorization.DefaultRequestAuth;
 import com.box.restclientv2.exceptions.BoxRestException;
-import com.box.restclientv2.interfaces.IBoxRequest;
+import com.box.restclientv2.requests.IBoxRequest;
 
 /**
  * Shared link authorization. This authorization can be used in addition to other authorization(currently only OAuth) to support authorization to access a

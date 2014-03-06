@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
-import com.box.boxjavalibv2.interfaces.IBoxType;
 
 /**
  * Type of resources that can be requested by API's.

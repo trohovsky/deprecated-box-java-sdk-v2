@@ -1,5 +1,6 @@
-package com.box.boxjavalibv2.interfaces;
+package com.box.boxjavalibv2.authorization;
 
+import com.box.boxjavalibv2.dao.IAuthData;
 import com.box.boxjavalibv2.exceptions.AuthFatalFailureException;
 
 /**

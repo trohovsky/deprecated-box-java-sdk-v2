@@ -9,9 +9,9 @@ import org.apache.http.NameValuePair;
 import com.box.boxjavalibv2.dao.BoxPreview;
 import com.box.restclientv2.exceptions.BoxRestException;
 import com.box.restclientv2.httpclientsupport.HttpClientURIBuilder;
-import com.box.restclientv2.interfaces.IBoxResponse;
 import com.box.restclientv2.responseparsers.DefaultFileResponseParser;
 import com.box.restclientv2.responses.DefaultBoxResponse;
+import com.box.restclientv2.responses.IBoxResponse;
 
 /**
  * Parser to parse {@link com.box.restclientv2.responses.DefaultBoxResponse} into {@link com.box.boxjavalibv2.dao.BoxPreview} objects.
