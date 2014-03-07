@@ -1,0 +1,2 @@
+include ":BoxJavaLibraryV2",
+		":Examples:HelloWorld"
