@@ -12,7 +12,7 @@ public class BoxUnexpectedHttpStatusException extends BoxServerException {
     private Object context;
 
     public BoxUnexpectedHttpStatusException(BoxUnexpectedStatus unexpectedStatus) {
-        super();
+        super(unexpectedStatus.getMessage(), unexpectedStatus.getStatus());
         this.unexpectedStatus = unexpectedStatus;
     }
 

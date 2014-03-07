@@ -18,7 +18,10 @@ public class BoxServerException extends BoxSDKException {
     private String customMessage;
     private int statusCode;
 
-    public BoxServerException() {
+    /**
+     * For jackson parser use only.
+     */
+    protected BoxServerException() {
     }
 
     /**
