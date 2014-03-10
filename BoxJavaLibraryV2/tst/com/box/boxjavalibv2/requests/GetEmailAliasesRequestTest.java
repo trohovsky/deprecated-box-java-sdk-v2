@@ -7,8 +7,8 @@ import junit.framework.Assert;
 import org.apache.http.HttpStatus;
 import org.junit.Test;
 
-import com.box.boxjavalibv2.BoxConfig;
 import com.box.boxjavalibv2.exceptions.AuthFatalFailureException;
+import com.box.boxjavalibv2.testutils.TestUtils;
 import com.box.restclientv2.RestMethod;
 import com.box.restclientv2.exceptions.BoxRestException;
 
@@ -24,8 +24,8 @@ public class GetEmailAliasesRequestTest extends RequestTestBase {
         String userId = "testuserid";
         GetEmailAliasesRequest request = new GetEmailAliasesRequest(CONFIG, JSON_PARSER, userId, null);
 
-        testRequestIsWellFormed(request, BoxConfig.getInstance().getApiUrlAuthority(),
-            BoxConfig.getInstance().getApiUrlPath().concat(GetEmailAliasesRequest.getUri(userId)), HttpStatus.SC_OK, RestMethod.GET);
+        testRequestIsWellFormed(request, TestUtils.getConfig().getApiUrlAuthority(),
+            TestUtils.getConfig().getApiUrlPath().concat(GetEmailAliasesRequest.getUri(userId)), HttpStatus.SC_OK, RestMethod.GET);
 
     }
 }

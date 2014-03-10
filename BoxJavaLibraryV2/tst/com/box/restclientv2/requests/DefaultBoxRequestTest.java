@@ -15,11 +15,11 @@ import org.apache.http.entity.StringEntity;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.box.boxjavalibv2.BoxConfig;
 import com.box.boxjavalibv2.IBoxConfig;
 import com.box.boxjavalibv2.exceptions.AuthFatalFailureException;
 import com.box.boxjavalibv2.jsonparsing.BoxJSONParser;
 import com.box.boxjavalibv2.jsonparsing.BoxResourceHub;
+import com.box.boxjavalibv2.testutils.TestUtils;
 import com.box.restclientv2.RestMethod;
 import com.box.restclientv2.exceptions.BoxRestException;
 
@@ -34,7 +34,7 @@ public class DefaultBoxRequestTest {
 
     @Before
     public void setup() {
-        config = BoxConfig.getInstance();
+        config = TestUtils.getConfig();
         host = config.getApiUrlAuthority();
         scheme = config.getApiUrlScheme();
         uri = "/uri";
@@ -59,7 +59,7 @@ public class DefaultBoxRequestTest {
             URI url = rawRequest.getURI();
             Assert.assertEquals(scheme, url.getScheme());
             Assert.assertEquals(host, url.getHost());
-            Assert.assertEquals(BoxConfig.getInstance().getApiUrlPath().concat(uri), url.getPath());
+            Assert.assertEquals(TestUtils.getConfig().getApiUrlPath().concat(uri), url.getPath());
             Assert.assertTrue(url.getQuery().contains("a=b"));
             Assert.assertEquals(requestEntity, ((HttpPost) rawRequest).getEntity());
         }

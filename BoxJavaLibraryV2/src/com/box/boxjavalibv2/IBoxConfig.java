@@ -47,13 +47,6 @@ public interface IBoxConfig {
     public String getDownloadUrlAuthority();
 
     /**
-     * Get the amount of time in milliseconds that calls to the server should wait before timing out.
-     * 
-     * @return The current connection timeout set.
-     */
-    public int getConnectionTimeOut();
-
-    /**
      * Get the User-Agent String to apply to the HTTP(S) calls.
      * 
      * @return String to use for User-Agent.
@@ -79,13 +72,6 @@ public interface IBoxConfig {
      * @return the OAuth Api Url Path.
      */
     public String getOAuthApiUrlPath();
-
-    /**
-     * Get the Accept-Language HTTP header that we should set.
-     * 
-     * @return Accept-Language HTTP header.
-     */
-    public String getAcceptLanguage();
 
     /** Get the upload url path. */
     public String getUploadUrlPath();

@@ -47,8 +47,8 @@ public class BoxRESTClient extends BoxBasicRestClient {
         super();
     }
 
-    public BoxRESTClient(final int maxConnection, final int maxConnectionPerRoute, final long timePeriodCleanUpIdleConnection, final long idleTimeThreshold) {
-        super(maxConnection, maxConnectionPerRoute, timePeriodCleanUpIdleConnection, idleTimeThreshold);
+    public BoxRESTClient(final BoxConnectionManager connectionManager) {
+        super(connectionManager);
     }
 
     /**

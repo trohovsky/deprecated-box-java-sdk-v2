@@ -72,6 +72,7 @@ public class BoxClient extends BoxBase implements IAuthFlowListener {
     private final IBoxResourceHub resourceHub;
     private final IBoxJSONParser jsonParser;
     private final IBoxRESTClient restClient;
+    private final IBoxConfig config;
 
     private final IBoxFilesManager filesManager;
     private final IBoxFoldersManager foldersManager;
@@ -90,19 +91,22 @@ public class BoxClient extends BoxBase implements IAuthFlowListener {
     /**
      * This constructor has some connection parameters. They are used to periodically close idle connections that HttpClient opens.
      * 
-     * @param maxConnection
-     *            maximum connection. Recommend value: 1000
-     * @param maxConnectionPerRoute
-     *            maximum connection allowed per route. Recommend value: 50
-     * @param timePeriodCleanUpIdleConnection
-     *            clean up idle connection every such period of time. in miliseconds. Recommend value: 300000(5 minutes)
-     * @param idleTimeThreshold
-     *            an idle connection will be closed if idled above this threshold of time. in miliseconds. Recommend value: 60000(1 minute)
+     * @param clientId
+     *            client id, you can get it from dev console.
+     * @param clientSecret
+     *            client secret, you can get it from dev console.
+     * @param hub
+     *            resource hub. use null if you want to use default one.
+     * @param parser
+     *            json parser, use null if you want to use default one(Jackson).
+     * @param config
+     *            BoxConfig. User BoxConfigBuilder to build. Normally you only need default config: (new BoxConfigBuilder()).build()
+     * @param connectionManager
+     *            BoxConnectionManager. Normally you only need default connection manager: (new BoxConnectionManagerBuilder()).build()
      */
-    public BoxClient(final String clientId, final String clientSecret, final IBoxResourceHub hub, final IBoxJSONParser parser, final int maxConnection,
-        final int maxConnectionPerRoute, final long timePeriodCleanUpIdleConnection, final long idleTimeThreshold) {
-        this(clientId, clientSecret, hub, parser, createMonitoredRestClient(maxConnection, maxConnectionPerRoute, timePeriodCleanUpIdleConnection,
-            idleTimeThreshold));
+    public BoxClient(final String clientId, final String clientSecret, final IBoxResourceHub hub, final IBoxJSONParser parser, final IBoxConfig config,
+        final BoxConnectionManager connectionManager) {
+        this(clientId, clientSecret, hub, parser, createMonitoredRestClient(connectionManager), config);
     }
 
     /**
@@ -114,9 +118,11 @@ public class BoxClient extends BoxBase implements IAuthFlowListener {
      *            resource hub, use null for default resource hub.
      * @param parser
      *            json parser, use null for default parser.
+     * @param config
+     *            BoxConfig. User BoxConfigBuilder to build. Normally you only need default config: (new BoxConfigBuilder()).build()
      */
-    public BoxClient(final String clientId, final String clientSecret, final IBoxResourceHub hub, final IBoxJSONParser parser) {
-        this(clientId, clientSecret, hub, parser, createRestClient());
+    public BoxClient(final String clientId, final String clientSecret, final IBoxResourceHub hub, final IBoxJSONParser parser, final IBoxConfig config) {
+        this(clientId, clientSecret, hub, parser, createRestClient(), config);
     }
 
     /**
@@ -130,11 +136,15 @@ public class BoxClient extends BoxBase implements IAuthFlowListener {
      *            json parser, use null for default parser.
      * @param restClient
      *            rest client
+     * @param config
+     *            BoxConfig. User BoxConfigBuilder to build. Normally you only need default config: (new BoxConfigBuilder()).build()
      */
-    public BoxClient(final String clientId, final String clientSecret, final IBoxResourceHub hub, final IBoxJSONParser parser, final IBoxRESTClient restClient) {
+    public BoxClient(final String clientId, final String clientSecret, final IBoxResourceHub hub, final IBoxJSONParser parser, final IBoxRESTClient restClient,
+        final IBoxConfig config) {
         this.resourceHub = hub == null ? createResourceHub() : hub;
         this.jsonParser = parser == null ? createJSONParser(resourceHub) : parser;
         this.restClient = restClient;
+        this.config = config;
         authController = createAuthDataController(clientId, clientSecret);
         auth = createAuthorization(authController);
 
@@ -152,8 +162,8 @@ public class BoxClient extends BoxBase implements IAuthFlowListener {
     }
 
     @Deprecated
-    public BoxClient(final String clientId, final String clientSecret) {
-        this(clientId, clientSecret, null, null);
+    public BoxClient(final String clientId, final String clientSecret, final IBoxConfig config) {
+        this(clientId, clientSecret, null, null, config);
     }
 
     /**
@@ -501,7 +511,7 @@ public class BoxClient extends BoxBase implements IAuthFlowListener {
      * @return config
      */
     public IBoxConfig getConfig() {
-        return BoxConfig.getInstance();
+        return config;
     }
 
     /**
@@ -554,9 +564,8 @@ public class BoxClient extends BoxBase implements IAuthFlowListener {
         return new BoxRESTClient();
     }
 
-    protected static IBoxRESTClient createMonitoredRestClient(final int maxConnection, final int maxConnectionPerRoute,
-        final long timePeriodCleanUpIdleConnection, final long idleTimeThreshold) {
-        return new BoxRESTClient(maxConnection, maxConnectionPerRoute, timePeriodCleanUpIdleConnection, idleTimeThreshold);
+    protected static IBoxRESTClient createMonitoredRestClient(final BoxConnectionManager connectionManager) {
+        return new BoxRESTClient(connectionManager);
     }
 
     /**

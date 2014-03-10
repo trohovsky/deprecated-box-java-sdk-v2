@@ -4,8 +4,8 @@ import org.apache.http.HttpStatus;
 import org.junit.Assert;
 import org.junit.Test;
 
-import com.box.boxjavalibv2.BoxConfig;
 import com.box.boxjavalibv2.exceptions.AuthFatalFailureException;
+import com.box.boxjavalibv2.testutils.TestUtils;
 import com.box.restclientv2.RestMethod;
 import com.box.restclientv2.exceptions.BoxRestException;
 
@@ -20,8 +20,8 @@ public class UpdateGroupMembershipRequestTest extends RequestTestBase {
     public void testRequestWellFormed() throws BoxRestException, AuthFatalFailureException {
         String id = "1234";
         UpdateGroupMembershipRequest request = new UpdateGroupMembershipRequest(CONFIG, JSON_PARSER, id, null);
-        this.testRequestIsWellFormed(request, BoxConfig.getInstance().getApiUrlAuthority(),
-            BoxConfig.getInstance().getApiUrlPath().concat(UpdateGroupMembershipRequest.getUri(id)), HttpStatus.SC_OK, RestMethod.PUT);
+        this.testRequestIsWellFormed(request, TestUtils.getConfig().getApiUrlAuthority(),
+            TestUtils.getConfig().getApiUrlPath().concat(UpdateGroupMembershipRequest.getUri(id)), HttpStatus.SC_OK, RestMethod.PUT);
     }
 
 }

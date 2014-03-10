@@ -8,7 +8,6 @@ import junit.framework.Assert;
 import org.apache.http.HttpStatus;
 import org.junit.Test;
 
-import com.box.boxjavalibv2.BoxConfig;
 import com.box.boxjavalibv2.exceptions.AuthFatalFailureException;
 import com.box.boxjavalibv2.exceptions.BoxJSONException;
 import com.box.boxjavalibv2.requests.requestobjects.BoxFileUploadRequestObject;
@@ -50,7 +49,7 @@ public class UploadFileRequestTest extends RequestTestBase {
 
         UploadFileRequest request = new UploadFileRequest(CONFIG, JSON_PARSER, BoxFileUploadRequestObject.uploadFileRequestObject(parentId, fileName, f,
             JSON_PARSER));
-        testRequestIsWellFormed(request, BoxConfig.getInstance().getUploadUrlAuthority(),
-            BoxConfig.getInstance().getUploadUrlPath().concat(UploadFileRequest.getUri()), HttpStatus.SC_CREATED, RestMethod.POST);
+        testRequestIsWellFormed(request, TestUtils.getConfig().getUploadUrlAuthority(),
+            TestUtils.getConfig().getUploadUrlPath().concat(UploadFileRequest.getUri()), HttpStatus.SC_CREATED, RestMethod.POST);
     }
 }

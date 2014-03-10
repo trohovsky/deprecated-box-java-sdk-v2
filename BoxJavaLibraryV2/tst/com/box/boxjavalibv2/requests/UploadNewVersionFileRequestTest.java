@@ -9,7 +9,6 @@ import org.apache.http.Header;
 import org.apache.http.HttpStatus;
 import org.junit.Test;
 
-import com.box.boxjavalibv2.BoxConfig;
 import com.box.boxjavalibv2.exceptions.AuthFatalFailureException;
 import com.box.boxjavalibv2.requests.requestobjects.BoxFileUploadRequestObject;
 import com.box.boxjavalibv2.testutils.TestUtils;
@@ -52,8 +51,8 @@ public class UploadNewVersionFileRequestTest extends RequestTestBase {
 
         UploadNewVersionFileRequest request = new UploadNewVersionFileRequest(CONFIG, JSON_PARSER, fileId, BoxFileUploadRequestObject
             .uploadNewVersionRequestObject(fileName, f).setIfMatch(sha1));
-        testRequestIsWellFormed(request, BoxConfig.getInstance().getUploadUrlAuthority(),
-            BoxConfig.getInstance().getUploadUrlPath().concat(UploadNewVersionFileRequest.getUri(fileId)), HttpStatus.SC_CREATED, RestMethod.POST);
+        testRequestIsWellFormed(request, TestUtils.getConfig().getUploadUrlAuthority(),
+            TestUtils.getConfig().getUploadUrlPath().concat(UploadNewVersionFileRequest.getUri(fileId)), HttpStatus.SC_CREATED, RestMethod.POST);
 
         Header header = request.getRawRequest().getFirstHeader(Constants.IF_MATCH);
         Assert.assertNotNull(header);

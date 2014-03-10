@@ -53,6 +53,7 @@ public final class Utils {
         try {
             T instance = cls.newInstance();
             List<BoxTypedObject> list = collection.getEntries();
+
             for (BoxTypedObject object : list) {
                 if (object.getClass().isInstance(instance)) {
                     objects.add((T) object);

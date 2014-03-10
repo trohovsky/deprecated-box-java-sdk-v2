@@ -17,6 +17,7 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.http.NameValuePair;
 
 import com.box.boxjavalibv2.BoxClient;
+import com.box.boxjavalibv2.BoxConfig.BoxConfigBuilder;
 import com.box.boxjavalibv2.authorization.IAuthFlowListener;
 import com.box.boxjavalibv2.authorization.IAuthFlowUI;
 import com.box.boxjavalibv2.authorization.OAuthDataMessage;
@@ -86,7 +87,7 @@ public class JavaFxOAuthFlow implements IAuthFlowUI {
 
     @Override
     public void initializeAuthFlow(Object activity, String clientId, String clientSecret, String redirectUrl) {
-        client = new BoxClient(clientId, clientSecret, null, null);
+        client = new BoxClient(clientId, clientSecret, null, null, (new BoxConfigBuilder()).build());
         mWebViewData = new OAuthWebViewData(client.getOAuthDataController());
         if (StringUtils.isNotEmpty(redirectUrl)) {
             mWebViewData.setRedirectUrl(redirectUrl);

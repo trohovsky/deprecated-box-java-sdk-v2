@@ -8,9 +8,9 @@ import junit.framework.Assert;
 import org.apache.http.HttpStatus;
 import org.junit.Test;
 
-import com.box.boxjavalibv2.BoxConfig;
 import com.box.boxjavalibv2.exceptions.AuthFatalFailureException;
 import com.box.boxjavalibv2.requests.requestobjects.BoxDefaultRequestObject;
+import com.box.boxjavalibv2.testutils.TestUtils;
 import com.box.restclientv2.RestMethod;
 import com.box.restclientv2.exceptions.BoxRestException;
 
@@ -26,8 +26,8 @@ public class GetFolderCollaborationsRequestTest extends RequestTestBase {
         String folderId = "testfolderid123";
 
         GetFolderCollaborationsRequest request = new GetFolderCollaborationsRequest(CONFIG, JSON_PARSER, folderId, new BoxDefaultRequestObject());
-        testRequestIsWellFormed(request, BoxConfig.getInstance().getApiUrlAuthority(),
-            BoxConfig.getInstance().getApiUrlPath().concat(GetFolderCollaborationsRequest.getUri(folderId)), HttpStatus.SC_OK, RestMethod.GET);
+        testRequestIsWellFormed(request, TestUtils.getConfig().getApiUrlAuthority(),
+            TestUtils.getConfig().getApiUrlPath().concat(GetFolderCollaborationsRequest.getUri(folderId)), HttpStatus.SC_OK, RestMethod.GET);
     }
 
     @Test

@@ -10,10 +10,10 @@ import org.apache.http.HttpStatus;
 import org.apache.http.entity.StringEntity;
 import org.junit.Test;
 
-import com.box.boxjavalibv2.BoxConfig;
 import com.box.boxjavalibv2.exceptions.AuthFatalFailureException;
 import com.box.boxjavalibv2.exceptions.BoxJSONException;
 import com.box.boxjavalibv2.requests.requestobjects.BoxUserRequestObject;
+import com.box.boxjavalibv2.testutils.TestUtils;
 import com.box.restclientv2.RestMethod;
 import com.box.restclientv2.exceptions.BoxRestException;
 
@@ -56,8 +56,8 @@ public class UpdateUserRequestTest extends RequestTestBase {
             obj.setEnterprise(null);
         }
         UpdateUserRequest request = new UpdateUserRequest(CONFIG, JSON_PARSER, userId, obj);
-        testRequestIsWellFormed(request, BoxConfig.getInstance().getApiUrlAuthority(),
-            BoxConfig.getInstance().getApiUrlPath().concat(UpdateUserRequest.getUri(userId)), HttpStatus.SC_OK, RestMethod.PUT);
+        testRequestIsWellFormed(request, TestUtils.getConfig().getApiUrlAuthority(),
+            TestUtils.getConfig().getApiUrlPath().concat(UpdateUserRequest.getUri(userId)), HttpStatus.SC_OK, RestMethod.PUT);
 
         Assert.assertEquals(Boolean.toString(notify), request.getQueryParams().get("notify"));
 

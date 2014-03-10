@@ -8,9 +8,9 @@ import junit.framework.Assert;
 import org.apache.http.HttpStatus;
 import org.junit.Test;
 
-import com.box.boxjavalibv2.BoxConfig;
 import com.box.boxjavalibv2.exceptions.AuthFatalFailureException;
 import com.box.boxjavalibv2.requests.requestobjects.BoxCollabRequestObject;
+import com.box.boxjavalibv2.testutils.TestUtils;
 import com.box.restclientv2.RestMethod;
 import com.box.restclientv2.exceptions.BoxRestException;
 
@@ -27,8 +27,8 @@ public class GetAllCollaborationsRequestTest extends RequestTestBase {
 
         GetAllCollaborationsRequest request = new GetAllCollaborationsRequest(CONFIG, JSON_PARSER,
             BoxCollabRequestObject.getAllCollaborationsRequestObject(status));
-        testRequestIsWellFormed(request, BoxConfig.getInstance().getApiUrlAuthority(),
-            BoxConfig.getInstance().getApiUrlPath().concat(GetAllCollaborationsRequest.getUri()), HttpStatus.SC_OK, RestMethod.GET);
+        testRequestIsWellFormed(request, TestUtils.getConfig().getApiUrlAuthority(),
+            TestUtils.getConfig().getApiUrlPath().concat(GetAllCollaborationsRequest.getUri()), HttpStatus.SC_OK, RestMethod.GET);
 
         Map<String, String> queries = request.getQueryParams();
         Assert.assertEquals(status, queries.get("status"));

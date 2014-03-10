@@ -7,8 +7,8 @@ import junit.framework.Assert;
 import org.apache.http.HttpStatus;
 import org.junit.Test;
 
-import com.box.boxjavalibv2.BoxConfig;
 import com.box.boxjavalibv2.exceptions.AuthFatalFailureException;
+import com.box.boxjavalibv2.testutils.TestUtils;
 import com.box.restclientv2.RestMethod;
 import com.box.restclientv2.exceptions.BoxRestException;
 
@@ -24,7 +24,7 @@ public class DeleteCollaborationRequestTest extends RequestTestBase {
         String collabId = "testcollabid123";
 
         DeleteCollaborationRequest request = new DeleteCollaborationRequest(CONFIG, JSON_PARSER, collabId, null);
-        testRequestIsWellFormed(request, BoxConfig.getInstance().getApiUrlAuthority(),
-            BoxConfig.getInstance().getApiUrlPath().concat(DeleteCollaborationRequest.getUri(collabId)), HttpStatus.SC_NO_CONTENT, RestMethod.DELETE);
+        testRequestIsWellFormed(request, TestUtils.getConfig().getApiUrlAuthority(),
+            TestUtils.getConfig().getApiUrlPath().concat(DeleteCollaborationRequest.getUri(collabId)), HttpStatus.SC_NO_CONTENT, RestMethod.DELETE);
     }
 }

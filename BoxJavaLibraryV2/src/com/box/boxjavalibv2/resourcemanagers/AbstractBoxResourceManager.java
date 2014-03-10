@@ -56,7 +56,6 @@ public abstract class AbstractBoxResourceManager implements IBoxResourceManager 
         this.mRestClient = restClient;
     }
 
-    @Override
     public IBoxRequestAuth getAuth() {
         return mAuth;
     }
@@ -65,17 +64,14 @@ public abstract class AbstractBoxResourceManager implements IBoxResourceManager 
         return this.mRestClient;
     }
 
-    @Override
     public IBoxResourceHub getResourceHub() {
         return mResourceHub;
     }
 
-    @Override
     public IBoxJSONParser getJSONParser() {
         return mParser;
     }
 
-    @Override
     public IBoxConfig getConfig() {
         return mConfig;
     }
@@ -98,7 +94,8 @@ public abstract class AbstractBoxResourceManager implements IBoxResourceManager 
                     throw new BoxServerException(error);
                 }
             }
-        } finally {
+        }
+        finally {
             Utils.consumeHttpEntityQuietly(response.getHttpResponse().getEntity());
         }
     }

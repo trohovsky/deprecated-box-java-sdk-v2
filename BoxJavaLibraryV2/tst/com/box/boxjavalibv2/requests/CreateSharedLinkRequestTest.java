@@ -9,13 +9,13 @@ import org.apache.http.entity.StringEntity;
 import org.junit.Assert;
 import org.junit.Test;
 
-import com.box.boxjavalibv2.BoxConfig;
 import com.box.boxjavalibv2.dao.BoxResourceType;
 import com.box.boxjavalibv2.dao.BoxSharedLinkAccess;
 import com.box.boxjavalibv2.exceptions.AuthFatalFailureException;
 import com.box.boxjavalibv2.exceptions.BoxJSONException;
 import com.box.boxjavalibv2.jsonentities.BoxSharedLinkRequestEntity;
 import com.box.boxjavalibv2.requests.requestobjects.BoxItemRequestObject;
+import com.box.boxjavalibv2.testutils.TestUtils;
 import com.box.restclientv2.RestMethod;
 import com.box.restclientv2.exceptions.BoxRestException;
 
@@ -52,8 +52,8 @@ public class CreateSharedLinkRequestTest extends RequestTestBase {
         sEntity.setUnshared_at(unsharedAt);
         BoxItemRequestObject obj = BoxItemRequestObject.createSharedLinkRequestObject(sEntity);
         CreateSharedLinkRequest request = new CreateSharedLinkRequest(CONFIG, JSON_PARSER, id, obj, type);
-        testRequestIsWellFormed(request, BoxConfig.getInstance().getApiUrlAuthority(),
-            BoxConfig.getInstance().getApiUrlPath().concat(CreateSharedLinkRequest.getUri(id, type)), HttpStatus.SC_OK, RestMethod.PUT);
+        testRequestIsWellFormed(request, TestUtils.getConfig().getApiUrlAuthority(),
+            TestUtils.getConfig().getApiUrlPath().concat(CreateSharedLinkRequest.getUri(id, type)), HttpStatus.SC_OK, RestMethod.PUT);
         HttpEntity entity = request.getRequestEntity();
         Assert.assertTrue(entity instanceof StringEntity);
 

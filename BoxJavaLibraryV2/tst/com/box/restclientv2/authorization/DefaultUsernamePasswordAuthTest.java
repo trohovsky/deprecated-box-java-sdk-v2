@@ -7,9 +7,9 @@ import junit.framework.Assert;
 import org.apache.http.client.methods.HttpRequestBase;
 import org.junit.Test;
 
-import com.box.boxjavalibv2.BoxConfig;
 import com.box.boxjavalibv2.jsonparsing.BoxJSONParser;
 import com.box.boxjavalibv2.jsonparsing.BoxResourceHub;
+import com.box.boxjavalibv2.testutils.TestUtils;
 import com.box.restclientv2.RestMethod;
 import com.box.restclientv2.requests.DefaultBoxRequest;
 
@@ -18,8 +18,7 @@ public class DefaultUsernamePasswordAuthTest {
     @Test
     public void testSetAuth() {
         try {
-            DefaultBoxRequest request = new DefaultBoxRequest(BoxConfig.getInstance(), new BoxJSONParser(new BoxResourceHub()), "/uri", RestMethod.GET,
-                null);
+            DefaultBoxRequest request = new DefaultBoxRequest(TestUtils.getConfig(), new BoxJSONParser(new BoxResourceHub()), "/uri", RestMethod.GET, null);
             String userName = "testusername";
             String password = "testpassword";
 

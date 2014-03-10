@@ -7,8 +7,8 @@ import junit.framework.Assert;
 import org.apache.http.HttpStatus;
 import org.junit.Test;
 
-import com.box.boxjavalibv2.BoxConfig;
 import com.box.boxjavalibv2.exceptions.AuthFatalFailureException;
+import com.box.boxjavalibv2.testutils.TestUtils;
 import com.box.restclientv2.RestMethod;
 import com.box.restclientv2.exceptions.BoxRestException;
 
@@ -25,8 +25,8 @@ public class DeleteEmailAliasRequestTest extends RequestTestBase {
         String emailId = "testemailid";
         DeleteEmailAliasRequest request = new DeleteEmailAliasRequest(CONFIG, JSON_PARSER, userId, emailId, null);
 
-        testRequestIsWellFormed(request, BoxConfig.getInstance().getApiUrlAuthority(),
-            BoxConfig.getInstance().getApiUrlPath().concat(DeleteEmailAliasRequest.getUri(userId, emailId)), HttpStatus.SC_OK, RestMethod.DELETE);
+        testRequestIsWellFormed(request, TestUtils.getConfig().getApiUrlAuthority(),
+            TestUtils.getConfig().getApiUrlPath().concat(DeleteEmailAliasRequest.getUri(userId, emailId)), HttpStatus.SC_OK, RestMethod.DELETE);
 
     }
 
