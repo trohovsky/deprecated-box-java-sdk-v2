@@ -3,6 +3,7 @@ package com.box.boxjavalibv2.requests.requestobjects;
 import com.box.boxjavalibv2.dao.BoxComment;
 import com.box.boxjavalibv2.dao.BoxResourceType;
 import com.box.boxjavalibv2.jsonentities.MapJSONStringEntity;
+import com.box.boxjavalibv2.jsonparsing.IBoxJSONParser;
 
 /**
  * Entity for a comment message.
@@ -11,10 +12,8 @@ public class BoxCommentRequestObject extends BoxDefaultRequestObject {
 
     private static final String MESSAGE = BoxComment.FIELD_MESSAGE;
 
-    /**
-     * Constructor.
-     */
-    private BoxCommentRequestObject() {
+    private BoxCommentRequestObject(IBoxJSONParser parser) {
+        super(parser);
     }
 
     /**
@@ -28,8 +27,9 @@ public class BoxCommentRequestObject extends BoxDefaultRequestObject {
      *            comment message
      * @return BoxCommentRequestObject
      */
-    public static BoxCommentRequestObject addCommentRequestObject(final BoxResourceType type, final String itemId, final String message) {
-        return (new BoxCommentRequestObject()).setItem(type, itemId).setMessage(message);
+    public static BoxCommentRequestObject addCommentRequestObject(final BoxResourceType type, final String itemId, final String message,
+        final IBoxJSONParser parser) {
+        return (new BoxCommentRequestObject(parser)).setItem(type, itemId).setMessage(message);
     }
 
     /**
@@ -39,8 +39,8 @@ public class BoxCommentRequestObject extends BoxDefaultRequestObject {
      *            comment message
      * @return BoxCommentRequestObject
      */
-    public static BoxCommentRequestObject updateCommentRequestObject(final String message) {
-        return (new BoxCommentRequestObject()).setMessage(message);
+    public static BoxCommentRequestObject updateCommentRequestObject(final String message, final IBoxJSONParser parser) {
+        return (new BoxCommentRequestObject(parser)).setMessage(message);
     }
 
     /**

@@ -17,21 +17,21 @@ public class BoxItemRestoreRequestObjectTest {
 
     @Test
     public void testDefaultObjectHasNoField() {
-        BoxItemRestoreRequestObject obj = BoxItemRestoreRequestObject.restoreItemRequestObject();
+        BoxItemRestoreRequestObject obj = BoxItemRestoreRequestObject.restoreItemRequestObject(new BoxJSONParser(new BoxResourceHub()));
         Assert.assertTrue(obj.getJSONEntity().isEmpty());
     }
 
     @Test
     public void testNameInObject() throws BoxRestException, BoxJSONException {
         String name = "testname";
-        BoxItemRestoreRequestObject obj = BoxItemRestoreRequestObject.restoreItemRequestObject().setNewName(name);
+        BoxItemRestoreRequestObject obj = BoxItemRestoreRequestObject.restoreItemRequestObject(new BoxJSONParser(new BoxResourceHub())).setNewName(name);
         Assert.assertEquals("{" + String.format(NAME, name) + "}", obj.getJSONEntity().toJSONString(new BoxJSONParser(new BoxResourceHub())));
     }
 
     @Test
     public void testParentInObject() throws BoxRestException, BoxJSONException {
         String parentid = "testid";
-        BoxItemRestoreRequestObject obj = BoxItemRestoreRequestObject.restoreItemRequestObject().setNewParent(parentid);
+        BoxItemRestoreRequestObject obj = BoxItemRestoreRequestObject.restoreItemRequestObject(new BoxJSONParser(new BoxResourceHub())).setNewParent(parentid);
         Assert.assertEquals("{" + String.format(PARENT, parentid) + "}", obj.getJSONEntity().toJSONString(new BoxJSONParser(new BoxResourceHub())));
     }
 
@@ -39,7 +39,8 @@ public class BoxItemRestoreRequestObjectTest {
     public void testBothParentAndNameInObject() throws BoxRestException, BoxJSONException {
         String name = "testname";
         String parentid = "testid";
-        BoxItemRestoreRequestObject obj = BoxItemRestoreRequestObject.restoreItemRequestObject().setNewName(name).setNewParent(parentid);
+        BoxItemRestoreRequestObject obj = BoxItemRestoreRequestObject.restoreItemRequestObject(new BoxJSONParser(new BoxResourceHub())).setNewName(name)
+            .setNewParent(parentid);
         String json = obj.getJSONEntity().toJSONString(new BoxJSONParser(new BoxResourceHub()));
         Assert.assertTrue(json.contains(String.format(NAME, name)));
         Assert.assertTrue(json.contains(String.format(PARENT, parentid)));

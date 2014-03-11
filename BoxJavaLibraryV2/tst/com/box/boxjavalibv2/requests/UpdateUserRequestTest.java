@@ -49,8 +49,8 @@ public class UpdateUserRequestTest extends RequestTestBase {
         codes.put(key1, value1);
         codes.put(key2, value2);
 
-        BoxUserRequestObject obj = BoxUserRequestObject.updateUserInfoRequestObject(notify).setName(name).setRole(role).setLanguage(language)
-            .setSyncEnabled(sync).setJobTitle(title).setPhone(phone).setAddress(address).setSpaceAmount(space).setTrackingCodes(codes)
+        BoxUserRequestObject obj = BoxUserRequestObject.updateUserInfoRequestObject(notify, TestUtils.getJsonParser()).setName(name).setRole(role)
+            .setLanguage(language).setSyncEnabled(sync).setJobTitle(title).setPhone(phone).setAddress(address).setSpaceAmount(space).setTrackingCodes(codes)
             .setCanSeeManagedUsers(seeManaged).setExemptFromDeviceLimits(exemptLimit).setExemptFromLoginVerification(exemptLogin);
         if (removeEnterprise) {
             obj.setEnterprise(null);

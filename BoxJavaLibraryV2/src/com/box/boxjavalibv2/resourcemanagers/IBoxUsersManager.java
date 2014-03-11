@@ -9,7 +9,9 @@ import com.box.boxjavalibv2.exceptions.AuthFatalFailureException;
 import com.box.boxjavalibv2.exceptions.BoxServerException;
 import com.box.boxjavalibv2.requests.requestobjects.BoxDefaultRequestObject;
 import com.box.boxjavalibv2.requests.requestobjects.BoxEmailAliasRequestObject;
+import com.box.boxjavalibv2.requests.requestobjects.BoxSimpleUserRequestObject;
 import com.box.boxjavalibv2.requests.requestobjects.BoxUserRequestObject;
+import com.box.boxjavalibv2.requests.requestobjects.BoxUserUpdateLoginRequestObject;
 import com.box.restclientv2.exceptions.BoxRestException;
 
 public interface IBoxUsersManager extends IBoxResourceManager {
@@ -67,8 +69,8 @@ public interface IBoxUsersManager extends IBoxResourceManager {
      * @throws AuthFatalFailureException
      *             See {@link com.box.restclientv2.exceptions.AuthFatalFailureException} for more info.
      */
-    public BoxFolder moveFolderToAnotherUser(String userId, String folderId, BoxUserRequestObject requestObject) throws BoxRestException, BoxServerException,
-        AuthFatalFailureException;
+    public BoxFolder moveFolderToAnotherUser(String userId, String folderId, BoxSimpleUserRequestObject requestObject) throws BoxRestException,
+        BoxServerException, AuthFatalFailureException;
 
     /**
      * Used to provision a new user in an enterprise. This method only works for enterprise admins.
@@ -175,7 +177,7 @@ public interface IBoxUsersManager extends IBoxResourceManager {
      * @throws AuthFatalFailureException
      *             See {@link com.box.restclientv2.exceptions.AuthFatalFailureException} for more info.
      */
-    public BoxUser updateUserPrimaryLogin(String userId, BoxUserRequestObject requestObject) throws BoxRestException, BoxServerException,
+    public BoxUser updateUserPrimaryLogin(String userId, BoxUserUpdateLoginRequestObject requestObject) throws BoxRestException, BoxServerException,
         AuthFatalFailureException;
 
 }

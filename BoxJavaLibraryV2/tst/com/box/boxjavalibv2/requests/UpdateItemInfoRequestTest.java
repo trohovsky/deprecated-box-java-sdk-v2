@@ -40,13 +40,13 @@ public class UpdateItemInfoRequestTest extends RequestTestBase {
         String id = "testid123";
         String parentId = "testparentid456";
 
-        UpdateItemInfoRequest request = new UpdateItemInfoRequest(CONFIG, JSON_PARSER, id, BoxFileRequestObject.updateFileRequestObject().setParent(parentId),
-            type);
+        UpdateItemInfoRequest request = new UpdateItemInfoRequest(CONFIG, JSON_PARSER, id, BoxFileRequestObject.updateFileRequestObject(
+            TestUtils.getJsonParser()).setParent(parentId), type);
         testRequestIsWellFormed(request, TestUtils.getConfig().getApiUrlAuthority(),
             TestUtils.getConfig().getApiUrlPath().concat(UpdateItemInfoRequest.getUri(id, type)), HttpStatus.SC_OK, RestMethod.PUT);
 
         HttpEntity entity = request.getRequestEntity();
         Assert.assertTrue(entity instanceof StringEntity);
-        assertEqualStringEntity(BoxFileRequestObject.updateFileRequestObject().setParent(parentId).getJSONEntity(), entity);
+        assertEqualStringEntity(BoxFileRequestObject.updateFileRequestObject(TestUtils.getJsonParser()).setParent(parentId).getJSONEntity(), entity);
     }
 }

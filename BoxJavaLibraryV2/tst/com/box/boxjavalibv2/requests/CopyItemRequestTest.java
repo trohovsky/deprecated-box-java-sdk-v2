@@ -11,7 +11,7 @@ import org.junit.Test;
 import com.box.boxjavalibv2.dao.BoxResourceType;
 import com.box.boxjavalibv2.exceptions.AuthFatalFailureException;
 import com.box.boxjavalibv2.exceptions.BoxJSONException;
-import com.box.boxjavalibv2.requests.requestobjects.BoxFileRequestObject;
+import com.box.boxjavalibv2.requests.requestobjects.BoxItemCopyRequestObject;
 import com.box.boxjavalibv2.testutils.TestUtils;
 import com.box.restclientv2.RestMethod;
 import com.box.restclientv2.exceptions.BoxRestException;
@@ -40,13 +40,14 @@ public class CopyItemRequestTest extends RequestTestBase {
         String parentId = "testparentid456";
         String newName = "testnewname789";
 
-        CopyItemRequest request = new CopyItemRequest(CONFIG, JSON_PARSER, id, BoxFileRequestObject.copyFileRequestObject(parentId).setName(newName), type);
+        CopyItemRequest request = new CopyItemRequest(CONFIG, JSON_PARSER, id, BoxItemCopyRequestObject.copyItemRequestObject(parentId,
+            TestUtils.getJsonParser()).setName(newName), type);
         testRequestIsWellFormed(request, TestUtils.getConfig().getApiUrlAuthority(),
             TestUtils.getConfig().getApiUrlPath().concat(CopyItemRequest.getUri(id, type)), HttpStatus.SC_CREATED, RestMethod.POST);
 
         HttpEntity entity = request.getRequestEntity();
         Assert.assertTrue(entity instanceof StringEntity);
-        assertEqualStringEntity(BoxFileRequestObject.copyFileRequestObject(parentId).setName(newName).getJSONEntity(), entity);
+        assertEqualStringEntity(BoxItemCopyRequestObject.copyItemRequestObject(parentId, TestUtils.getJsonParser()).setName(newName).getJSONEntity(), entity);
 
     }
 }

@@ -10,8 +10,12 @@ import com.box.boxjavalibv2.exceptions.AuthFatalFailureException;
 import com.box.boxjavalibv2.exceptions.BoxServerException;
 import com.box.boxjavalibv2.requests.GetFolderItemsRequest;
 import com.box.boxjavalibv2.requests.requestobjects.BoxDefaultRequestObject;
+import com.box.boxjavalibv2.requests.requestobjects.BoxFolderDeleteRequestObject;
 import com.box.boxjavalibv2.requests.requestobjects.BoxFolderRequestObject;
 import com.box.boxjavalibv2.requests.requestobjects.BoxFolderUpdateRequestObject;
+import com.box.boxjavalibv2.requests.requestobjects.BoxItemCopyRequestObject;
+import com.box.boxjavalibv2.requests.requestobjects.BoxPagingRequestObject;
+import com.box.boxjavalibv2.requests.requestobjects.SharedLinkRequestObject;
 import com.box.restclientv2.exceptions.BoxRestException;
 
 public interface IBoxFoldersManager extends IBoxResourceManager {
@@ -62,7 +66,8 @@ public interface IBoxFoldersManager extends IBoxResourceManager {
      * @throws AuthFatalFailureException
      *             See {@link com.box.restclientv2.exceptions.AuthFatalFailureException} for more info.
      */
-    public void deleteFolder(String folderId, BoxFolderRequestObject requestObject) throws BoxRestException, BoxServerException, AuthFatalFailureException;
+    public void deleteFolder(String folderId, BoxFolderDeleteRequestObject requestObject) throws BoxRestException, BoxServerException,
+        AuthFatalFailureException;
 
     /**
      * Copy a folder.
@@ -79,7 +84,7 @@ public interface IBoxFoldersManager extends IBoxResourceManager {
      * @throws AuthFatalFailureException
      *             See {@link com.box.restclientv2.exceptions.AuthFatalFailureException} for more info.
      */
-    public BoxFolder copyFolder(String folderId, BoxFolderRequestObject requestObject) throws BoxRestException, BoxServerException, AuthFatalFailureException;
+    public BoxFolder copyFolder(String folderId, BoxItemCopyRequestObject requestObject) throws BoxRestException, BoxServerException, AuthFatalFailureException;
 
     /**
      * Get the items(subfolders, files, weblinks...) under a folder. By default, returning maximum of {@link GetFolderItemsRequest#DEFAULT_FOLDER_ITEMS_LIMIT}
@@ -97,26 +102,7 @@ public interface IBoxFoldersManager extends IBoxResourceManager {
      * @throws AuthFatalFailureException
      *             See {@link com.box.restclientv2.exceptions.AuthFatalFailureException} for more info.
      */
-    public BoxCollection getFolderItems(String folderId, BoxFolderRequestObject requestObject) throws BoxRestException, BoxServerException,
-        AuthFatalFailureException;
-
-    /**
-     * Get the trashed items(subfolders, files, weblinks...) under a folder. By default, returning maximum of
-     * {@link GetFolderItemsRequest#DEFAULT_FOLDER_ITEMS_LIMIT} items, at an offset of {@link GetFolderItemsRequest#DEFAULT_FOLDER_ITEMS_OFFSET}
-     * 
-     * @param folderId
-     *            id of the folder.
-     * @param requestObject
-     *            request object
-     * @return Items(subfolders, files, weblinks...) under the folder.
-     * @throws BoxRestException
-     *             See {@link com.box.restclientv2.exceptions.BoxRestException} for more info.
-     * @throws BoxServerException
-     *             See {@link com.box.restclientv2.exceptions.BoxServerException} for more info.
-     * @throws AuthFatalFailureException
-     *             See {@link com.box.restclientv2.exceptions.AuthFatalFailureException} for more info.
-     */
-    public BoxCollection getFolderTrashItems(String folderId, BoxFolderRequestObject requestObject) throws BoxRestException, BoxServerException,
+    public BoxCollection getFolderItems(String folderId, BoxPagingRequestObject requestObject) throws BoxRestException, BoxServerException,
         AuthFatalFailureException;
 
     /**
@@ -160,7 +146,7 @@ public interface IBoxFoldersManager extends IBoxResourceManager {
      * @throws AuthFatalFailureException
      *             See {@link com.box.restclientv2.exceptions.AuthFatalFailureException} for more info.
      */
-    public BoxFolder createSharedLink(String folderId, BoxFolderRequestObject requestObject) throws BoxRestException, BoxServerException,
+    public BoxFolder createSharedLink(String folderId, SharedLinkRequestObject requestObject) throws BoxRestException, BoxServerException,
         AuthFatalFailureException;
 
     /**

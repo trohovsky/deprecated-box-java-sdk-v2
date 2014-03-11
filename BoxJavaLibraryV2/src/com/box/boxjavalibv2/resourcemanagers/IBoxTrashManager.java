@@ -1,12 +1,14 @@
 package com.box.boxjavalibv2.resourcemanagers;
 
+import com.box.boxjavalibv2.dao.BoxCollection;
 import com.box.boxjavalibv2.dao.BoxFile;
 import com.box.boxjavalibv2.dao.BoxFolder;
 import com.box.boxjavalibv2.exceptions.AuthFatalFailureException;
 import com.box.boxjavalibv2.exceptions.BoxServerException;
+import com.box.boxjavalibv2.requests.GetFolderItemsRequest;
 import com.box.boxjavalibv2.requests.requestobjects.BoxDefaultRequestObject;
-import com.box.boxjavalibv2.requests.requestobjects.BoxFileRequestObject;
 import com.box.boxjavalibv2.requests.requestobjects.BoxItemRestoreRequestObject;
+import com.box.boxjavalibv2.requests.requestobjects.BoxPagingRequestObject;
 import com.box.restclientv2.exceptions.BoxRestException;
 
 public interface IBoxTrashManager extends IBoxResourceManager {
@@ -42,7 +44,7 @@ public interface IBoxTrashManager extends IBoxResourceManager {
      * @throws AuthFatalFailureException
      *             See {@link com.box.restclientv2.exceptions.AuthFatalFailureException} for more info.
      */
-    public void deleteTrashFile(String id, BoxFileRequestObject requestObject) throws BoxRestException, BoxServerException, AuthFatalFailureException;
+    public void deleteTrashFile(String id, BoxDefaultRequestObject requestObject) throws BoxRestException, BoxServerException, AuthFatalFailureException;
 
     /**
      * Restore a trashed file.
@@ -80,6 +82,25 @@ public interface IBoxTrashManager extends IBoxResourceManager {
         AuthFatalFailureException;
 
     /**
+     * Get the trashed items(subfolders, files, weblinks...) under a folder. By default, returning maximum of
+     * {@link GetFolderItemsRequest#DEFAULT_FOLDER_ITEMS_LIMIT} items, at an offset of {@link GetFolderItemsRequest#DEFAULT_FOLDER_ITEMS_OFFSET}
+     * 
+     * @param folderId
+     *            id of the folder.
+     * @param requestObject
+     *            request object
+     * @return Items(subfolders, files, weblinks...) under the folder.
+     * @throws BoxRestException
+     *             See {@link com.box.restclientv2.exceptions.BoxRestException} for more info.
+     * @throws BoxServerException
+     *             See {@link com.box.restclientv2.exceptions.BoxServerException} for more info.
+     * @throws AuthFatalFailureException
+     *             See {@link com.box.restclientv2.exceptions.AuthFatalFailureException} for more info.
+     */
+    public BoxCollection getFolderTrashItems(String folderId, BoxPagingRequestObject requestObject) throws BoxRestException, BoxServerException,
+        AuthFatalFailureException;
+
+    /**
      * Permanently delete a trashed folder.
      * 
      * @param id
@@ -93,7 +114,7 @@ public interface IBoxTrashManager extends IBoxResourceManager {
      * @throws AuthFatalFailureException
      *             See {@link com.box.restclientv2.exceptions.AuthFatalFailureException} for more info.
      */
-    public void deleteTrashFolder(String id, BoxFileRequestObject requestObject) throws BoxRestException, BoxServerException, AuthFatalFailureException;
+    public void deleteTrashFolder(String id, BoxDefaultRequestObject requestObject) throws BoxRestException, BoxServerException, AuthFatalFailureException;
 
     /**
      * Restore a trashed folder.

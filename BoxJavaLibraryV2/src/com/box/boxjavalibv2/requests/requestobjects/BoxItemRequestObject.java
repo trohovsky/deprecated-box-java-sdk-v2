@@ -5,18 +5,20 @@ import com.box.boxjavalibv2.dao.BoxFolder;
 import com.box.boxjavalibv2.dao.BoxItem;
 import com.box.boxjavalibv2.jsonentities.BoxSharedLinkRequestEntity;
 import com.box.boxjavalibv2.jsonentities.MapJSONStringEntity;
+import com.box.boxjavalibv2.jsonparsing.IBoxJSONParser;
 
-public class BoxItemRequestObject extends BoxDefaultRequestObject {
+public class BoxItemRequestObject extends SharedLinkRequestObject {
 
-    protected BoxItemRequestObject() {
+    protected BoxItemRequestObject(IBoxJSONParser parser) {
+        super(parser);
     }
 
-    public static BoxItemRequestObject deleteSharedLinkRequestObject() {
-        return (new BoxItemRequestObject()).setSharedLink(null);
+    public static BoxItemRequestObject deleteSharedLinkRequestObject(final IBoxJSONParser parser) {
+        return (new BoxItemRequestObject(parser)).setSharedLink(null);
     }
 
-    public static BoxItemRequestObject createSharedLinkRequestObject(BoxSharedLinkRequestEntity sharedLink) {
-        return (new BoxItemRequestObject()).setSharedLink(sharedLink);
+    public static BoxItemRequestObject createSharedLinkRequestObject(BoxSharedLinkRequestEntity sharedLink, final IBoxJSONParser parser) {
+        return (new BoxItemRequestObject(parser)).setSharedLink(sharedLink);
     }
 
     /**
@@ -25,9 +27,9 @@ public class BoxItemRequestObject extends BoxDefaultRequestObject {
      * @param sharedLink
      * @return
      */
+    @Override
     public BoxItemRequestObject setSharedLink(BoxSharedLinkRequestEntity sharedLink) {
-        put(BoxFile.FIELD_SHARED_LINK, sharedLink);
-        return this;
+        return (BoxItemRequestObject) super.setSharedLink(sharedLink);
     }
 
     /**
@@ -41,18 +43,6 @@ public class BoxItemRequestObject extends BoxDefaultRequestObject {
         MapJSONStringEntity entity = new MapJSONStringEntity();
         entity.put(BoxFolder.FIELD_ID, parentId);
         put(BoxItem.FIELD_PARENT, entity);
-        return this;
-    }
-
-    /**
-     * Set etag. This can be set when making a delete file/folder request. If this is set and if-match fails, the deletion api call will fail.
-     * 
-     * @param etag
-     *            etag
-     * @return BoxFileRequestObject
-     */
-    public BoxItemRequestObject setIfMatch(String etag) {
-        addHeader("If-Match", etag);
         return this;
     }
 

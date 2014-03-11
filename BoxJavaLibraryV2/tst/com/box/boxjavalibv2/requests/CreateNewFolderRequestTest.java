@@ -28,11 +28,12 @@ public class CreateNewFolderRequestTest extends RequestTestBase {
         String name = "foldername123";
         String parentId = "parentid456";
 
-        CreateNewFolderRequest request = new CreateNewFolderRequest(CONFIG, JSON_PARSER, BoxFolderRequestObject.createFolderRequestObject(name, parentId));
+        CreateNewFolderRequest request = new CreateNewFolderRequest(CONFIG, JSON_PARSER, BoxFolderRequestObject.createFolderRequestObject(name, parentId,
+            TestUtils.getJsonParser()));
         testRequestIsWellFormed(request, TestUtils.getConfig().getApiUrlAuthority(),
             TestUtils.getConfig().getApiUrlPath().concat(CreateNewFolderRequest.getUri()), HttpStatus.SC_CREATED, RestMethod.POST);
         HttpEntity entity = request.getRequestEntity();
         Assert.assertTrue(entity instanceof StringEntity);
-        assertEqualStringEntity(BoxFolderRequestObject.createFolderRequestObject(name, parentId).getJSONEntity(), entity);
+        assertEqualStringEntity(BoxFolderRequestObject.createFolderRequestObject(name, parentId, TestUtils.getJsonParser()).getJSONEntity(), entity);
     }
 }

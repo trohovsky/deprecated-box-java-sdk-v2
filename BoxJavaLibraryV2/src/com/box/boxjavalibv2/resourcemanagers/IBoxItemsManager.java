@@ -7,7 +7,9 @@ import com.box.boxjavalibv2.dao.BoxResourceType;
 import com.box.boxjavalibv2.exceptions.AuthFatalFailureException;
 import com.box.boxjavalibv2.exceptions.BoxServerException;
 import com.box.boxjavalibv2.requests.requestobjects.BoxDefaultRequestObject;
+import com.box.boxjavalibv2.requests.requestobjects.BoxItemCopyRequestObject;
 import com.box.boxjavalibv2.requests.requestobjects.BoxItemRequestObject;
+import com.box.boxjavalibv2.requests.requestobjects.SharedLinkRequestObject;
 import com.box.restclientv2.exceptions.BoxRestException;
 
 public interface IBoxItemsManager extends IBoxResourceManager {
@@ -49,7 +51,7 @@ public interface IBoxItemsManager extends IBoxResourceManager {
      * @throws AuthFatalFailureException
      *             See {@link com.box.restclientv2.exceptions.AuthFatalFailureException} for more info.
      */
-    public BoxItem copyItem(String id, BoxItemRequestObject requestObject, BoxResourceType type) throws BoxRestException, BoxServerException,
+    public BoxItem copyItem(String id, BoxItemCopyRequestObject requestObject, BoxResourceType type) throws BoxRestException, BoxServerException,
         AuthFatalFailureException;
 
     /**
@@ -93,6 +95,6 @@ public interface IBoxItemsManager extends IBoxResourceManager {
      * @throws AuthFatalFailureException
      *             See {@link com.box.restclientv2.exceptions.AuthFatalFailureException} for more info.
      */
-    public BoxItem createSharedLink(String id, BoxItemRequestObject requestObject, BoxResourceType type) throws BoxRestException, BoxServerException,
+    public BoxItem createSharedLink(String id, SharedLinkRequestObject requestObject, BoxResourceType type) throws BoxRestException, BoxServerException,
         AuthFatalFailureException;
 }

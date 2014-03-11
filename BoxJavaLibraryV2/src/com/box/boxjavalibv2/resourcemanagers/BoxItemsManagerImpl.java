@@ -14,7 +14,9 @@ import com.box.boxjavalibv2.requests.CreateSharedLinkRequest;
 import com.box.boxjavalibv2.requests.GetItemRequest;
 import com.box.boxjavalibv2.requests.UpdateItemInfoRequest;
 import com.box.boxjavalibv2.requests.requestobjects.BoxDefaultRequestObject;
+import com.box.boxjavalibv2.requests.requestobjects.BoxItemCopyRequestObject;
 import com.box.boxjavalibv2.requests.requestobjects.BoxItemRequestObject;
+import com.box.boxjavalibv2.requests.requestobjects.SharedLinkRequestObject;
 import com.box.restclientv2.IBoxRESTClient;
 import com.box.restclientv2.authorization.IBoxRequestAuth;
 import com.box.restclientv2.exceptions.BoxRestException;
@@ -55,7 +57,7 @@ public class BoxItemsManagerImpl extends AbstractBoxResourceManager implements I
     }
 
     @Override
-    public BoxItem copyItem(final String id, BoxItemRequestObject requestObject, final BoxResourceType type) throws BoxRestException, BoxServerException,
+    public BoxItem copyItem(final String id, BoxItemCopyRequestObject requestObject, final BoxResourceType type) throws BoxRestException, BoxServerException,
         AuthFatalFailureException {
         CopyItemRequest request = new CopyItemRequest(getConfig(), getJSONParser(), id, requestObject, type);
         return (BoxItem) getResponseAndParseAndTryCast(request, type, getJSONParser());
@@ -69,7 +71,7 @@ public class BoxItemsManagerImpl extends AbstractBoxResourceManager implements I
     }
 
     @Override
-    public BoxItem createSharedLink(final String id, BoxItemRequestObject requestObject, final BoxResourceType type) throws BoxRestException,
+    public BoxItem createSharedLink(final String id, SharedLinkRequestObject requestObject, final BoxResourceType type) throws BoxRestException,
         BoxServerException, AuthFatalFailureException {
         CreateSharedLinkRequest request = new CreateSharedLinkRequest(getConfig(), getJSONParser(), id, requestObject, type);
 

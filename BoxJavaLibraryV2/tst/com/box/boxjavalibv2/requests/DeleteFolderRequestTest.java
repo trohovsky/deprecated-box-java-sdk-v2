@@ -7,7 +7,7 @@ import org.apache.http.HttpStatus;
 import org.junit.Test;
 
 import com.box.boxjavalibv2.exceptions.AuthFatalFailureException;
-import com.box.boxjavalibv2.requests.requestobjects.BoxFolderRequestObject;
+import com.box.boxjavalibv2.requests.requestobjects.BoxFolderDeleteRequestObject;
 import com.box.boxjavalibv2.testutils.TestUtils;
 import com.box.boxjavalibv2.utils.Constants;
 import com.box.restclientv2.RestMethod;
@@ -26,8 +26,8 @@ public class DeleteFolderRequestTest extends RequestTestBase {
         String etag = "testetag123";
         String id = "testid456";
 
-        DeleteFolderRequest request = new DeleteFolderRequest(CONFIG, JSON_PARSER, id, (BoxFolderRequestObject) BoxFolderRequestObject
-            .deleteFolderRequestObject(recursive).setIfMatch(etag));
+        DeleteFolderRequest request = new DeleteFolderRequest(CONFIG, JSON_PARSER, id, (BoxFolderDeleteRequestObject) BoxFolderDeleteRequestObject
+            .deleteFolderRequestObject(recursive, TestUtils.getJsonParser()).setIfMatch(etag));
         testRequestIsWellFormed(request, TestUtils.getConfig().getApiUrlAuthority(),
             TestUtils.getConfig().getApiUrlPath().concat(DeleteFolderRequest.getUri(id)), HttpStatus.SC_NO_CONTENT, RestMethod.DELETE);
 

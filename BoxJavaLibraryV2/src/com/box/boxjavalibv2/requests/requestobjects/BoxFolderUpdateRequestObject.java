@@ -3,10 +3,12 @@ package com.box.boxjavalibv2.requests.requestobjects;
 import com.box.boxjavalibv2.dao.BoxEmail;
 import com.box.boxjavalibv2.dao.BoxFolder;
 import com.box.boxjavalibv2.jsonentities.MapJSONStringEntity;
+import com.box.boxjavalibv2.jsonparsing.IBoxJSONParser;
 
 public class BoxFolderUpdateRequestObject extends BoxFolderRequestObject {
 
-    protected BoxFolderUpdateRequestObject() {
+    private BoxFolderUpdateRequestObject(IBoxJSONParser parser) {
+        super(parser);
     }
 
     /**
@@ -26,7 +28,7 @@ public class BoxFolderUpdateRequestObject extends BoxFolderRequestObject {
         return this;
     }
 
-    public static BoxFolderUpdateRequestObject updateFolderInfoRequestObject() {
-        return (new BoxFolderUpdateRequestObject());
+    public static BoxFolderUpdateRequestObject updateFolderInfoRequestObject(final IBoxJSONParser parser) {
+        return (new BoxFolderUpdateRequestObject(parser));
     }
 }

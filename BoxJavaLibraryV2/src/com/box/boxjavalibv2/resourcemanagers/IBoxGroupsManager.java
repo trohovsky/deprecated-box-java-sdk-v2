@@ -84,7 +84,7 @@ public interface IBoxGroupsManager extends IBoxResourceManager {
      * @throws AuthFatalFailureException
      *             See {@link com.box.restclientv2.exceptions.AuthFatalFailureException} for more info.
      */
-    public void deleteGroup(String groupId, BoxGroupRequestObject requestObject) throws BoxRestException, AuthFatalFailureException, BoxServerException;
+    public void deleteGroup(String groupId, BoxDefaultRequestObject requestObject) throws BoxRestException, AuthFatalFailureException, BoxServerException;
 
     /**
      * Get memberships of a group.
@@ -173,7 +173,7 @@ public interface IBoxGroupsManager extends IBoxResourceManager {
      * @throws AuthFatalFailureException
      *             See {@link com.box.restclientv2.exceptions.AuthFatalFailureException} for more info.
      */
-    public void deleteMembership(String membershipId, BoxGroupRequestObject requestObject) throws BoxRestException, AuthFatalFailureException,
+    public void deleteMembership(String membershipId, BoxDefaultRequestObject requestObject) throws BoxRestException, AuthFatalFailureException,
         BoxServerException;
 
     /**

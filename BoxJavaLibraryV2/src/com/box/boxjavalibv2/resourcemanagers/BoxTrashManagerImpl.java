@@ -1,6 +1,7 @@
 package com.box.boxjavalibv2.resourcemanagers;
 
 import com.box.boxjavalibv2.IBoxConfig;
+import com.box.boxjavalibv2.dao.BoxCollection;
 import com.box.boxjavalibv2.dao.BoxFile;
 import com.box.boxjavalibv2.dao.BoxFolder;
 import com.box.boxjavalibv2.dao.BoxItem;
@@ -10,11 +11,12 @@ import com.box.boxjavalibv2.exceptions.BoxServerException;
 import com.box.boxjavalibv2.jsonparsing.IBoxJSONParser;
 import com.box.boxjavalibv2.jsonparsing.IBoxResourceHub;
 import com.box.boxjavalibv2.requests.DeleteTrashItemRequest;
+import com.box.boxjavalibv2.requests.GetFolderTrashItemsRequest;
 import com.box.boxjavalibv2.requests.GetTrashItemRequest;
 import com.box.boxjavalibv2.requests.RestoreTrashItemRequest;
 import com.box.boxjavalibv2.requests.requestobjects.BoxDefaultRequestObject;
-import com.box.boxjavalibv2.requests.requestobjects.BoxFileRequestObject;
 import com.box.boxjavalibv2.requests.requestobjects.BoxItemRestoreRequestObject;
+import com.box.boxjavalibv2.requests.requestobjects.BoxPagingRequestObject;
 import com.box.restclientv2.IBoxRESTClient;
 import com.box.restclientv2.authorization.IBoxRequestAuth;
 import com.box.restclientv2.exceptions.BoxRestException;
@@ -26,7 +28,7 @@ public class BoxTrashManagerImpl extends AbstractBoxResourceManager implements I
     }
 
     @Override
-    public void deleteTrashFile(final String id, final BoxFileRequestObject requestObject) throws BoxRestException, BoxServerException,
+    public void deleteTrashFile(final String id, final BoxDefaultRequestObject requestObject) throws BoxRestException, BoxServerException,
         AuthFatalFailureException {
         deleteTrashItem(id, BoxResourceType.FILE, requestObject);
     }
@@ -50,7 +52,14 @@ public class BoxTrashManagerImpl extends AbstractBoxResourceManager implements I
     }
 
     @Override
-    public void deleteTrashFolder(final String id, final BoxFileRequestObject requestObject) throws BoxRestException, BoxServerException,
+    public BoxCollection getFolderTrashItems(final String folderId, BoxPagingRequestObject requestObject) throws BoxRestException, BoxServerException,
+        AuthFatalFailureException {
+        GetFolderTrashItemsRequest request = new GetFolderTrashItemsRequest(getConfig(), getJSONParser(), folderId, requestObject);
+        return (BoxCollection) getResponseAndParseAndTryCast(request, BoxResourceType.ITEMS, getJSONParser());
+    }
+
+    @Override
+    public void deleteTrashFolder(final String id, final BoxDefaultRequestObject requestObject) throws BoxRestException, BoxServerException,
         AuthFatalFailureException {
         deleteTrashItem(id, BoxResourceType.FOLDER, requestObject);
     }
@@ -68,7 +77,7 @@ public class BoxTrashManagerImpl extends AbstractBoxResourceManager implements I
         return (BoxItem) tryCastBoxItem(type, result);
     }
 
-    private void deleteTrashItem(final String id, final BoxResourceType type, final BoxFileRequestObject requestObject) throws BoxRestException,
+    private void deleteTrashItem(final String id, final BoxResourceType type, final BoxDefaultRequestObject requestObject) throws BoxRestException,
         BoxServerException, AuthFatalFailureException {
         DeleteTrashItemRequest request = new DeleteTrashItemRequest(getConfig(), getJSONParser(), id, type, requestObject);
         executeRequestWithNoResponseBody(request);

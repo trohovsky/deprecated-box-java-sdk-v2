@@ -7,6 +7,7 @@ import com.box.boxjavalibv2.exceptions.AuthFatalFailureException;
 import com.box.boxjavalibv2.exceptions.BoxServerException;
 import com.box.boxjavalibv2.requests.requestobjects.BoxCollabRequestObject;
 import com.box.boxjavalibv2.requests.requestobjects.BoxDefaultRequestObject;
+import com.box.boxjavalibv2.requests.requestobjects.BoxGetAllCollabsRequestObject;
 import com.box.restclientv2.exceptions.BoxRestException;
 
 public interface IBoxCollaborationsManager extends IBoxResourceManager {
@@ -60,7 +61,7 @@ public interface IBoxCollaborationsManager extends IBoxResourceManager {
      * @throws AuthFatalFailureException
      *             See {@link com.box.restclientv2.exceptions.AuthFatalFailureException} for more info.
      */
-    public List<BoxCollaboration> getAllCollaborations(BoxCollabRequestObject collabObject) throws BoxRestException, BoxServerException,
+    public List<BoxCollaboration> getAllCollaborations(BoxGetAllCollabsRequestObject collabObject) throws BoxRestException, BoxServerException,
         AuthFatalFailureException;
 
     /**

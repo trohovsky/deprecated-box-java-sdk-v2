@@ -10,6 +10,7 @@ import com.box.boxjavalibv2.IBoxConfig;
 import com.box.boxjavalibv2.dao.BoxObject;
 import com.box.boxjavalibv2.jsonparsing.BoxJSONParser;
 import com.box.boxjavalibv2.jsonparsing.BoxResourceHub;
+import com.box.boxjavalibv2.jsonparsing.IBoxJSONParser;
 import com.box.restclientv2.exceptions.BoxRestException;
 
 public class TestUtils {
@@ -29,5 +30,9 @@ public class TestUtils {
     public static IBoxConfig getConfig() {
         BoxConfigBuilder builder = new BoxConfigBuilder();
         return builder.build();
+    }
+
+    public static IBoxJSONParser getJsonParser() {
+        return new BoxJSONParser(new BoxResourceHub());
     }
 }

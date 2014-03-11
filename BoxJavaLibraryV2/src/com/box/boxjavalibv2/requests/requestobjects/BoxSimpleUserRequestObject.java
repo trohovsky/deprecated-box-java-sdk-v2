@@ -2,8 +2,13 @@ package com.box.boxjavalibv2.requests.requestobjects;
 
 import com.box.boxjavalibv2.dao.BoxUser;
 import com.box.boxjavalibv2.jsonentities.MapJSONStringEntity;
+import com.box.boxjavalibv2.jsonparsing.IBoxJSONParser;
 
 public class BoxSimpleUserRequestObject extends BoxDefaultRequestObject {
+
+    protected BoxSimpleUserRequestObject(IBoxJSONParser parser) {
+        super(parser);
+    }
 
     /**
      * Request object to move a folder to another user.
@@ -14,8 +19,9 @@ public class BoxSimpleUserRequestObject extends BoxDefaultRequestObject {
      *            whether destination user should receive email notification of the transfer
      * @return
      */
-    public static BoxSimpleUserRequestObject moveFolderToAnotherUserRequestObject(final String destinationUserId, final boolean notify) {
-        return (new BoxSimpleUserRequestObject()).setNotifyUser(notify).setDestinationUser(destinationUserId);
+    public static BoxSimpleUserRequestObject moveFolderToAnotherUserRequestObject(final String destinationUserId, final boolean notify,
+        final IBoxJSONParser parser) {
+        return (new BoxSimpleUserRequestObject(parser)).setNotifyUser(notify).setDestinationUser(destinationUserId);
     }
 
     /**

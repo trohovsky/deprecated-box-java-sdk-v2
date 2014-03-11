@@ -4,8 +4,13 @@ import com.box.boxjavalibv2.dao.BoxGroup;
 import com.box.boxjavalibv2.dao.BoxGroupMembership;
 import com.box.boxjavalibv2.dao.BoxUser;
 import com.box.boxjavalibv2.jsonentities.MapJSONStringEntity;
+import com.box.boxjavalibv2.jsonparsing.IBoxJSONParser;
 
 public class BoxGroupMembershipRequestObject extends BoxDefaultRequestObject {
+
+    private BoxGroupMembershipRequestObject(IBoxJSONParser parser) {
+        super(parser);
+    }
 
     /**
      * 
@@ -17,12 +22,13 @@ public class BoxGroupMembershipRequestObject extends BoxDefaultRequestObject {
      *            role of the user.
      * @return
      */
-    public static BoxGroupMembershipRequestObject addMembershipRequestObject(final String groupId, final String userId, final String role) {
-        return (new BoxGroupMembershipRequestObject()).setGroup(groupId).setUser(userId).setRole(role);
+    public static BoxGroupMembershipRequestObject addMembershipRequestObject(final String groupId, final String userId, final String role,
+        final IBoxJSONParser parser) {
+        return (new BoxGroupMembershipRequestObject(parser)).setGroup(groupId).setUser(userId).setRole(role);
     }
 
-    public static BoxGroupMembershipRequestObject updateMembershipRequest(final String role) {
-        return (new BoxGroupMembershipRequestObject()).setRole(role);
+    public static BoxGroupMembershipRequestObject updateMembershipRequest(final String role, final IBoxJSONParser parser) {
+        return (new BoxGroupMembershipRequestObject(parser)).setRole(role);
     }
 
     public BoxGroupMembershipRequestObject setGroup(final String groupId) {

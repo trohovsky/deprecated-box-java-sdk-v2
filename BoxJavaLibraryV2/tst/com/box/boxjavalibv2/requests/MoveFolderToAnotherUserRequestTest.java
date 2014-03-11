@@ -29,13 +29,13 @@ public class MoveFolderToAnotherUserRequestTest extends RequestTestBase {
         String folderId = "testfolderid";
         boolean notify = true;
         MoveFolderToAnotherUserRequest request = new MoveFolderToAnotherUserRequest(CONFIG, JSON_PARSER, userId, folderId,
-            BoxUserRequestObject.moveFolderToAnotherUserRequestObject(folderId, notify));
+            BoxUserRequestObject.moveFolderToAnotherUserRequestObject(folderId, notify, TestUtils.getJsonParser()));
         testRequestIsWellFormed(request, TestUtils.getConfig().getApiUrlAuthority(),
             TestUtils.getConfig().getApiUrlPath().concat(MoveFolderToAnotherUserRequest.getUri(userId, folderId)), HttpStatus.SC_OK, RestMethod.PUT);
         Assert.assertEquals(Boolean.toString(notify), request.getQueryParams().get("notify"));
 
         HttpEntity entity = request.getRequestEntity();
         Assert.assertTrue(entity instanceof StringEntity);
-        assertEqualStringEntity(BoxUserRequestObject.moveFolderToAnotherUserRequestObject(folderId, notify).getJSONEntity(), entity);
+        assertEqualStringEntity(BoxUserRequestObject.moveFolderToAnotherUserRequestObject(folderId, notify, TestUtils.getJsonParser()).getJSONEntity(), entity);
     }
 }

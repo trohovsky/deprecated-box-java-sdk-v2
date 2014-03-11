@@ -46,7 +46,7 @@ public class BoxGroupsManagerImpl extends AbstractBoxResourceManager implements 
 
     @Override
     public BoxGroup createGroup(String name) throws BoxRestException, AuthFatalFailureException, BoxServerException {
-        BoxGroupRequestObject requestObj = BoxGroupRequestObject.createGroupRequestObject(name);
+        BoxGroupRequestObject requestObj = BoxGroupRequestObject.createGroupRequestObject(name, getJSONParser());
         return createGroup(requestObj);
     }
 
@@ -57,7 +57,7 @@ public class BoxGroupsManagerImpl extends AbstractBoxResourceManager implements 
     }
 
     @Override
-    public void deleteGroup(String groupId, BoxGroupRequestObject requestObject) throws BoxRestException, AuthFatalFailureException, BoxServerException {
+    public void deleteGroup(String groupId, BoxDefaultRequestObject requestObject) throws BoxRestException, AuthFatalFailureException, BoxServerException {
         DeleteGroupRequest request = new DeleteGroupRequest(getConfig(), getJSONParser(), groupId, requestObject);
         this.executeRequestWithNoResponseBody(request);
     }
@@ -86,7 +86,7 @@ public class BoxGroupsManagerImpl extends AbstractBoxResourceManager implements 
     @Override
     public BoxGroupMembership createMembership(String groupId, String userId, String role) throws BoxRestException, AuthFatalFailureException,
         BoxServerException {
-        BoxGroupMembershipRequestObject obj = BoxGroupMembershipRequestObject.addMembershipRequestObject(groupId, userId, role);
+        BoxGroupMembershipRequestObject obj = BoxGroupMembershipRequestObject.addMembershipRequestObject(groupId, userId, role, getJSONParser());
         return createMembership(obj);
     }
 
@@ -99,12 +99,12 @@ public class BoxGroupsManagerImpl extends AbstractBoxResourceManager implements 
 
     @Override
     public BoxGroupMembership updateMembership(String membershipId, String role) throws BoxRestException, AuthFatalFailureException, BoxServerException {
-        BoxGroupMembershipRequestObject obj = BoxGroupMembershipRequestObject.updateMembershipRequest(role);
+        BoxGroupMembershipRequestObject obj = BoxGroupMembershipRequestObject.updateMembershipRequest(role, getJSONParser());
         return updateMembership(membershipId, obj);
     }
 
     @Override
-    public void deleteMembership(String membershipId, BoxGroupRequestObject requestObject) throws BoxRestException, AuthFatalFailureException,
+    public void deleteMembership(String membershipId, BoxDefaultRequestObject requestObject) throws BoxRestException, AuthFatalFailureException,
         BoxServerException {
         DeleteGroupMembershipRequest request = new DeleteGroupMembershipRequest(getConfig(), getJSONParser(), membershipId, requestObject);
         this.executeRequestWithNoResponseBody(request);

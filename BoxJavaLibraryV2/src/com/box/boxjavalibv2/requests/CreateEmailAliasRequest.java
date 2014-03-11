@@ -52,7 +52,7 @@ public class CreateEmailAliasRequest extends DefaultBoxRequest {
      *             exception
      */
     public CreateEmailAliasRequest(final IBoxConfig config, final IBoxJSONParser parser, final String userId, final String email) throws BoxRestException {
-        super(config, parser, getUri(userId), RestMethod.POST, BoxEmailAliasRequestObject.addEmailAliasRequestObject(email));
+        super(config, parser, getUri(userId), RestMethod.POST, BoxEmailAliasRequestObject.addEmailAliasRequestObject(email, parser));
         setExpectedResponseCode(HttpStatus.SC_CREATED);
     }
 

@@ -3,10 +3,12 @@ package com.box.boxjavalibv2.requests.requestobjects;
 import com.box.boxjavalibv2.dao.BoxFolder;
 import com.box.boxjavalibv2.dao.BoxItem;
 import com.box.boxjavalibv2.jsonentities.MapJSONStringEntity;
+import com.box.boxjavalibv2.jsonparsing.IBoxJSONParser;
 
 public class BoxItemRestoreRequestObject extends BoxDefaultRequestObject {
 
-    protected BoxItemRestoreRequestObject() {
+    private BoxItemRestoreRequestObject(IBoxJSONParser parser) {
+        super(parser);
     }
 
     /**
@@ -14,8 +16,8 @@ public class BoxItemRestoreRequestObject extends BoxDefaultRequestObject {
      * 
      * @return
      */
-    public static BoxItemRestoreRequestObject restoreItemRequestObject() {
-        return new BoxItemRestoreRequestObject();
+    public static BoxItemRestoreRequestObject restoreItemRequestObject(final IBoxJSONParser parser) {
+        return new BoxItemRestoreRequestObject(parser);
     }
 
     /**

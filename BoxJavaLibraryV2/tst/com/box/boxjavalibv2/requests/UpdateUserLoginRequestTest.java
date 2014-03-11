@@ -12,7 +12,7 @@ import org.junit.Test;
 import com.box.boxjavalibv2.exceptions.AuthFatalFailureException;
 import com.box.boxjavalibv2.exceptions.BoxJSONException;
 import com.box.boxjavalibv2.jsonentities.MapJSONStringEntity;
-import com.box.boxjavalibv2.requests.requestobjects.BoxUserRequestObject;
+import com.box.boxjavalibv2.requests.requestobjects.BoxUserUpdateLoginRequestObject;
 import com.box.boxjavalibv2.testutils.TestUtils;
 import com.box.restclientv2.RestMethod;
 import com.box.restclientv2.exceptions.BoxRestException;
@@ -29,7 +29,7 @@ public class UpdateUserLoginRequestTest extends RequestTestBase {
         String userId = "testuserid";
         String newLogin = "testnewlogin";
         UpdateUserLoginRequest request = new UpdateUserLoginRequest(CONFIG, JSON_PARSER, userId,
-            BoxUserRequestObject.updateUserPrimaryLoginRequestObject(newLogin));
+            BoxUserUpdateLoginRequestObject.updateUserPrimaryLoginRequestObject(newLogin, TestUtils.getJsonParser()));
 
         testRequestIsWellFormed(request, TestUtils.getConfig().getApiUrlAuthority(),
             TestUtils.getConfig().getApiUrlPath().concat(UpdateUserLoginRequest.getUri(userId)), HttpStatus.SC_OK, RestMethod.PUT);

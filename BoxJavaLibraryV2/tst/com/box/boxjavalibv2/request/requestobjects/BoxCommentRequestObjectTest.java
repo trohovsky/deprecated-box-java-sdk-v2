@@ -17,7 +17,7 @@ public class BoxCommentRequestObjectTest {
     @Test
     public void testJSONHasAllFields() throws BoxRestException, BoxJSONException {
         String message = "testmessage123";
-        BoxCommentRequestObject entity = BoxCommentRequestObject.updateCommentRequestObject(message);
+        BoxCommentRequestObject entity = BoxCommentRequestObject.updateCommentRequestObject(message, new BoxJSONParser(new BoxResourceHub()));
 
         Assert.assertEquals(String.format(JSON_STR, message), entity.getJSONEntity().toJSONString(new BoxJSONParser(new BoxResourceHub())));
     }

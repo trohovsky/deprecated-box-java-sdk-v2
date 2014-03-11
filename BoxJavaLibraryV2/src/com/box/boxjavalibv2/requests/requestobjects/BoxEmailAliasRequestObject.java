@@ -1,6 +1,12 @@
 package com.box.boxjavalibv2.requests.requestobjects;
 
+import com.box.boxjavalibv2.jsonparsing.IBoxJSONParser;
+
 public class BoxEmailAliasRequestObject extends BoxDefaultRequestObject {
+
+    private BoxEmailAliasRequestObject(IBoxJSONParser parser) {
+        super(parser);
+    }
 
     /**
      * Request object to add an email alias.
@@ -8,8 +14,8 @@ public class BoxEmailAliasRequestObject extends BoxDefaultRequestObject {
      * @param email
      * @return
      */
-    public static BoxEmailAliasRequestObject addEmailAliasRequestObject(final String email) {
-        return (new BoxEmailAliasRequestObject()).setEmailAlias(email);
+    public static BoxEmailAliasRequestObject addEmailAliasRequestObject(final String email, IBoxJSONParser parser) {
+        return (new BoxEmailAliasRequestObject(parser)).setEmailAlias(email);
     }
 
     /**

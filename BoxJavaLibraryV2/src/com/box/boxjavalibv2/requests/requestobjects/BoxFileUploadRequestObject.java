@@ -33,7 +33,8 @@ public class BoxFileUploadRequestObject extends BoxDefaultRequestObject {
     private static final String KEY_CONTENT_CREATED_AT = "content_created_at";
     private static final String KEY_CONTENT_MODIFIED_AT = "content_modified_at";
 
-    private BoxFileUploadRequestObject() {
+    private BoxFileUploadRequestObject(IBoxJSONParser parser) {
+        super(parser);
     }
 
     /**
@@ -52,7 +53,7 @@ public class BoxFileUploadRequestObject extends BoxDefaultRequestObject {
     public static BoxFileUploadRequestObject uploadFileRequestObject(final String parentId, final String fileName, final File file, final IBoxJSONParser parser)
         throws BoxRestException, BoxJSONException {
         try {
-            BoxFileUploadRequestObject requestObject = new BoxFileUploadRequestObject();
+            BoxFileUploadRequestObject requestObject = new BoxFileUploadRequestObject(parser);
             return requestObject.setMultipartMIME(getNewFileMultipartEntity(parentId, fileName, file, parser));
         }
         catch (UnsupportedEncodingException e) {
@@ -76,7 +77,7 @@ public class BoxFileUploadRequestObject extends BoxDefaultRequestObject {
     public static BoxFileUploadRequestObject uploadFileRequestObject(final String parentId, final String fileName, final InputStream inputStream,
         final IBoxJSONParser parser) throws BoxRestException, BoxJSONException {
         try {
-            return (new BoxFileUploadRequestObject()).setMultipartMIME(getNewFileMultipartEntity(parentId, inputStream, fileName, parser));
+            return (new BoxFileUploadRequestObject(parser)).setMultipartMIME(getNewFileMultipartEntity(parentId, inputStream, fileName, parser));
         }
         catch (UnsupportedEncodingException e) {
             throw new BoxRestException(e);
@@ -94,9 +95,10 @@ public class BoxFileUploadRequestObject extends BoxDefaultRequestObject {
      * @throws BoxRestException
      *             exception
      */
-    public static BoxFileUploadRequestObject uploadNewVersionRequestObject(final String name, final File file) throws BoxRestException {
+    public static BoxFileUploadRequestObject uploadNewVersionRequestObject(final String name, final File file, final IBoxJSONParser parser)
+        throws BoxRestException {
         try {
-            return (new BoxFileUploadRequestObject()).setMultipartMIME(getNewVersionMultipartEntity(name, file));
+            return (new BoxFileUploadRequestObject(parser)).setMultipartMIME(getNewVersionMultipartEntity(name, file));
         }
         catch (UnsupportedEncodingException e) {
             throw new BoxRestException(e);
@@ -114,9 +116,10 @@ public class BoxFileUploadRequestObject extends BoxDefaultRequestObject {
      * @throws BoxRestException
      *             exception
      */
-    public static BoxFileUploadRequestObject uploadNewVersionRequestObject(final String name, final InputStream inputStream) throws BoxRestException {
+    public static BoxFileUploadRequestObject uploadNewVersionRequestObject(final String name, final InputStream inputStream, final IBoxJSONParser parser)
+        throws BoxRestException {
         try {
-            return (new BoxFileUploadRequestObject()).setMultipartMIME(getNewVersionMultipartEntity(name, inputStream));
+            return (new BoxFileUploadRequestObject(parser)).setMultipartMIME(getNewVersionMultipartEntity(name, inputStream));
         }
         catch (UnsupportedEncodingException e) {
             throw new BoxRestException(e);

@@ -21,24 +21,18 @@ import com.box.restclientv2.exceptions.BoxRestException;
  */
 public class BoxDefaultRequestObject implements IBoxRequestObject {
 
-    private IBoxJSONParser mParser;
+    private final IBoxJSONParser mParser;
     private final MapJSONStringEntity jsonEntity = new MapJSONStringEntity();
     private final List<String> fields = new ArrayList<String>();
     private final Map<String, String> queryParams = new HashMap<String, String>();
     private final Map<String, String> headers = new HashMap<String, String>();
 
-    /**
-     * Constructor.
-     */
-    public BoxDefaultRequestObject() {
-    }
-
-    public IBoxJSONParser getJSONParser() {
-        return mParser;
-    }
-
-    public void setJSONParser(IBoxJSONParser parser) {
+    public BoxDefaultRequestObject(IBoxJSONParser parser) {
         this.mParser = parser;
+    }
+
+    protected IBoxJSONParser getJSONParser() {
+        return mParser;
     }
 
     @Override
@@ -184,6 +178,18 @@ public class BoxDefaultRequestObject implements IBoxRequestObject {
     public BoxDefaultRequestObject setPage(final int limit, final int offset) {
         addQueryParam("limit", Integer.toString(limit));
         addQueryParam("offset", Integer.toString(offset));
+        return this;
+    }
+
+    /**
+     * Set etag.
+     * 
+     * @param etag
+     *            etag
+     * @return BoxFileRequestObject
+     */
+    public BoxDefaultRequestObject setIfMatch(String etag) {
+        addHeader("If-Match", etag);
         return this;
     }
 }

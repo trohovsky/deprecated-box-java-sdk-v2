@@ -23,7 +23,8 @@ public class BoxCollaborationRequestObjectTest {
         String login = "abc@box.com";
         String role = "testrole789";
 
-        BoxCollabRequestObject entity = BoxCollabRequestObject.createCollaborationObject(folderId, userId, login, role);
+        BoxCollabRequestObject entity = BoxCollabRequestObject
+            .createCollaborationObject(folderId, userId, login, role, new BoxJSONParser(new BoxResourceHub()));
         String jsonStr = entity.getJSONEntity().toJSONString(new BoxJSONParser(new BoxResourceHub()));
         Assert.assertTrue(jsonStr.contains(ITEM_STR));
         Assert.assertTrue(jsonStr.contains(ACCESSIBLE_STR));

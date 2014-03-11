@@ -1,6 +1,12 @@
 package com.box.boxjavalibv2.requests.requestobjects;
 
+import com.box.boxjavalibv2.jsonparsing.IBoxJSONParser;
+
 public class BoxEventRequestObject extends BoxItemRequestObject {
+
+    private BoxEventRequestObject(IBoxJSONParser parser) {
+        super(parser);
+    }
 
     /**
      * Stream position of "now",See http://developers.box.com/docs/#events. Currently it's only supported for regular events, not enterprise events(admin_logs).
@@ -11,9 +17,6 @@ public class BoxEventRequestObject extends BoxItemRequestObject {
     public static final String STREAM_TYPE_CHANGES = "changes";
     public static final String STREAM_TYPE_SYNC = "sync";
 
-    private BoxEventRequestObject() {
-    }
-
     /**
      * Construct a new events object for fetching the event stream.
      * 
@@ -23,8 +26,8 @@ public class BoxEventRequestObject extends BoxItemRequestObject {
      *            events(admin_logs),STREAM_POSITION_NOW is only supported for regular events.
      * @return BoxEventRequestObject.
      */
-    public static BoxEventRequestObject getEventsRequestObject(final long streamPosition) {
-        BoxEventRequestObject req = new BoxEventRequestObject();
+    public static BoxEventRequestObject getEventsRequestObject(final long streamPosition, final IBoxJSONParser parser) {
+        BoxEventRequestObject req = new BoxEventRequestObject(parser);
         if (streamPosition == STREAM_POSITION_NOW) {
             req.addQueryParam("stream_position", "now");
         }

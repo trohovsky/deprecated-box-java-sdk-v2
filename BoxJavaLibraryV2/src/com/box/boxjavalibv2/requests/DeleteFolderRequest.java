@@ -4,7 +4,7 @@ import org.apache.http.HttpStatus;
 
 import com.box.boxjavalibv2.IBoxConfig;
 import com.box.boxjavalibv2.jsonparsing.IBoxJSONParser;
-import com.box.boxjavalibv2.requests.requestobjects.BoxFolderRequestObject;
+import com.box.boxjavalibv2.requests.requestobjects.BoxFolderDeleteRequestObject;
 import com.box.restclientv2.RestMethod;
 import com.box.restclientv2.exceptions.BoxRestException;
 import com.box.restclientv2.requests.DefaultBoxRequest;
@@ -30,7 +30,7 @@ public class DeleteFolderRequest extends DefaultBoxRequest {
      * @throws BoxRestException
      *             exception
      */
-    public DeleteFolderRequest(final IBoxConfig config, final IBoxJSONParser parser, final String folderId, final BoxFolderRequestObject requestObject)
+    public DeleteFolderRequest(final IBoxConfig config, final IBoxJSONParser parser, final String folderId, final BoxFolderDeleteRequestObject requestObject)
         throws BoxRestException {
         super(config, parser, getUri(folderId), RestMethod.DELETE, requestObject);
         setExpectedResponseCode(HttpStatus.SC_NO_CONTENT);

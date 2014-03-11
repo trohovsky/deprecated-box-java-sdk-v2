@@ -6,10 +6,12 @@ import java.util.Map;
 import com.box.boxjavalibv2.dao.BoxUser;
 import com.box.boxjavalibv2.jsonentities.BoxEnterpriseRequestEntity;
 import com.box.boxjavalibv2.jsonentities.PairArrayJSONStringEntity;
+import com.box.boxjavalibv2.jsonparsing.IBoxJSONParser;
 
 public class BoxUserRequestObject extends BoxSimpleUserRequestObject {
 
-    private BoxUserRequestObject() {
+    private BoxUserRequestObject(IBoxJSONParser parser) {
+        super(parser);
     }
 
     public BoxUserRequestObject setName(String name) {
@@ -26,8 +28,8 @@ public class BoxUserRequestObject extends BoxSimpleUserRequestObject {
      *            name of the user
      * @return
      */
-    public static BoxUserRequestObject createEnterpriseUserRequestObject(final String login, final String name) {
-        return (new BoxUserRequestObject()).setLogin(login).setName(name);
+    public static BoxUserRequestObject createEnterpriseUserRequestObject(final String login, final String name, final IBoxJSONParser parser) {
+        return (new BoxUserRequestObject(parser)).setLogin(login).setName(name);
     }
 
     /**
@@ -38,18 +40,8 @@ public class BoxUserRequestObject extends BoxSimpleUserRequestObject {
      *            to notify user if user is rolled out of enterprise
      * @return
      */
-    public static BoxUserRequestObject updateUserInfoRequestObject(boolean notify) {
-        return (BoxUserRequestObject) new BoxUserRequestObject().setNotifyUser(notify);
-    }
-
-    /**
-     * Request object to update user's primary login.
-     * 
-     * @param login
-     * @return
-     */
-    public static BoxUserRequestObject updateUserPrimaryLoginRequestObject(final String login) {
-        return (new BoxUserRequestObject()).setLogin(login);
+    public static BoxUserRequestObject updateUserInfoRequestObject(boolean notify, final IBoxJSONParser parser) {
+        return (BoxUserRequestObject) new BoxUserRequestObject(parser).setNotifyUser(notify);
     }
 
     /**

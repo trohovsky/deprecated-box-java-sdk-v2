@@ -25,7 +25,9 @@ import com.box.boxjavalibv2.requests.UpdateUserLoginRequest;
 import com.box.boxjavalibv2.requests.UpdateUserRequest;
 import com.box.boxjavalibv2.requests.requestobjects.BoxDefaultRequestObject;
 import com.box.boxjavalibv2.requests.requestobjects.BoxEmailAliasRequestObject;
+import com.box.boxjavalibv2.requests.requestobjects.BoxSimpleUserRequestObject;
 import com.box.boxjavalibv2.requests.requestobjects.BoxUserRequestObject;
+import com.box.boxjavalibv2.requests.requestobjects.BoxUserUpdateLoginRequestObject;
 import com.box.restclientv2.IBoxRESTClient;
 import com.box.restclientv2.authorization.IBoxRequestAuth;
 import com.box.restclientv2.exceptions.BoxRestException;
@@ -72,8 +74,8 @@ public final class BoxUsersManagerImpl extends AbstractBoxResourceManager implem
     }
 
     @Override
-    public BoxFolder moveFolderToAnotherUser(final String userId, final String folderId, final BoxUserRequestObject requestObject) throws BoxRestException,
-        BoxServerException, AuthFatalFailureException {
+    public BoxFolder moveFolderToAnotherUser(final String userId, final String folderId, final BoxSimpleUserRequestObject requestObject)
+        throws BoxRestException, BoxServerException, AuthFatalFailureException {
         MoveFolderToAnotherUserRequest request = new MoveFolderToAnotherUserRequest(getConfig(), getJSONParser(), userId, folderId, requestObject);
         return (BoxFolder) getResponseAndParseAndTryCast(request, BoxResourceType.FOLDER, getJSONParser());
     }
@@ -114,8 +116,8 @@ public final class BoxUsersManagerImpl extends AbstractBoxResourceManager implem
     }
 
     @Override
-    public BoxUser updateUserPrimaryLogin(final String userId, final BoxUserRequestObject requestObject) throws BoxRestException, BoxServerException,
-        AuthFatalFailureException {
+    public BoxUser updateUserPrimaryLogin(final String userId, final BoxUserUpdateLoginRequestObject requestObject) throws BoxRestException,
+        BoxServerException, AuthFatalFailureException {
         UpdateUserLoginRequest request = new UpdateUserLoginRequest(getConfig(), getJSONParser(), userId, requestObject);
         return (BoxUser) getResponseAndParseAndTryCast(request, BoxResourceType.USER, getJSONParser());
     }

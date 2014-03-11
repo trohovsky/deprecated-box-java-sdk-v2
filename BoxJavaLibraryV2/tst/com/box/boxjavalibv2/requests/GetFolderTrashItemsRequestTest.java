@@ -10,7 +10,7 @@ import org.apache.http.HttpStatus;
 import org.junit.Test;
 
 import com.box.boxjavalibv2.exceptions.AuthFatalFailureException;
-import com.box.boxjavalibv2.requests.requestobjects.BoxFolderRequestObject;
+import com.box.boxjavalibv2.requests.requestobjects.BoxPagingRequestObject;
 import com.box.boxjavalibv2.testutils.TestUtils;
 import com.box.restclientv2.RestMethod;
 import com.box.restclientv2.exceptions.BoxRestException;
@@ -33,8 +33,8 @@ public class GetFolderTrashItemsRequestTest extends RequestTestBase {
         fields.add(fieldA);
         fields.add(fieldB);
 
-        GetFolderTrashItemsRequest request = new GetFolderTrashItemsRequest(CONFIG, JSON_PARSER, id, (BoxFolderRequestObject) BoxFolderRequestObject
-            .getTrashItemsRequestObject(limit, offset).addFields(fields));
+        GetFolderTrashItemsRequest request = new GetFolderTrashItemsRequest(CONFIG, JSON_PARSER, id, (BoxPagingRequestObject) BoxPagingRequestObject
+            .pagingRequestObject(limit, offset, TestUtils.getJsonParser()).addFields(fields));
         testRequestIsWellFormed(request, TestUtils.getConfig().getApiUrlAuthority(),
             TestUtils.getConfig().getApiUrlPath().concat(GetFolderTrashItemsRequest.getUri(id)), HttpStatus.SC_OK, RestMethod.GET);
 

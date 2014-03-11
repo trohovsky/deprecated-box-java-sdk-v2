@@ -10,6 +10,7 @@ import org.junit.Test;
 
 import com.box.boxjavalibv2.exceptions.AuthFatalFailureException;
 import com.box.boxjavalibv2.requests.requestobjects.BoxCollabRequestObject;
+import com.box.boxjavalibv2.requests.requestobjects.BoxGetAllCollabsRequestObject;
 import com.box.boxjavalibv2.testutils.TestUtils;
 import com.box.restclientv2.RestMethod;
 import com.box.restclientv2.exceptions.BoxRestException;
@@ -26,7 +27,7 @@ public class GetAllCollaborationsRequestTest extends RequestTestBase {
         String status = "teststatus789";
 
         GetAllCollaborationsRequest request = new GetAllCollaborationsRequest(CONFIG, JSON_PARSER,
-            BoxCollabRequestObject.getAllCollaborationsRequestObject(status));
+            BoxGetAllCollabsRequestObject.getAllCollaborationsRequestObject(status, TestUtils.getJsonParser()));
         testRequestIsWellFormed(request, TestUtils.getConfig().getApiUrlAuthority(),
             TestUtils.getConfig().getApiUrlPath().concat(GetAllCollaborationsRequest.getUri()), HttpStatus.SC_OK, RestMethod.GET);
 

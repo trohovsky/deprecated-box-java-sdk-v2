@@ -19,6 +19,7 @@ import com.box.boxjavalibv2.requests.GetCollaborationRequest;
 import com.box.boxjavalibv2.requests.UpdateCollaborationRequest;
 import com.box.boxjavalibv2.requests.requestobjects.BoxCollabRequestObject;
 import com.box.boxjavalibv2.requests.requestobjects.BoxDefaultRequestObject;
+import com.box.boxjavalibv2.requests.requestobjects.BoxGetAllCollabsRequestObject;
 import com.box.restclientv2.IBoxRESTClient;
 import com.box.restclientv2.authorization.IBoxRequestAuth;
 import com.box.restclientv2.exceptions.BoxRestException;
@@ -67,7 +68,7 @@ public final class BoxCollaborationsManagerImpl extends AbstractBoxResourceManag
     }
 
     @Override
-    public List<BoxCollaboration> getAllCollaborations(final BoxCollabRequestObject collabObject) throws BoxRestException, BoxServerException,
+    public List<BoxCollaboration> getAllCollaborations(final BoxGetAllCollabsRequestObject collabObject) throws BoxRestException, BoxServerException,
         AuthFatalFailureException {
         GetAllCollaborationsRequest request = new GetAllCollaborationsRequest(getConfig(), getJSONParser(), collabObject);
 

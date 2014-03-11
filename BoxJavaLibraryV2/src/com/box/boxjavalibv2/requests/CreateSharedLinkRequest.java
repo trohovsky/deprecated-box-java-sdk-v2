@@ -3,7 +3,7 @@ package com.box.boxjavalibv2.requests;
 import com.box.boxjavalibv2.IBoxConfig;
 import com.box.boxjavalibv2.dao.BoxResourceType;
 import com.box.boxjavalibv2.jsonparsing.IBoxJSONParser;
-import com.box.boxjavalibv2.requests.requestobjects.BoxItemRequestObject;
+import com.box.boxjavalibv2.requests.requestobjects.SharedLinkRequestObject;
 import com.box.restclientv2.RestMethod;
 import com.box.restclientv2.exceptions.BoxRestException;
 import com.box.restclientv2.requests.DefaultBoxRequest;
@@ -32,7 +32,7 @@ public class CreateSharedLinkRequest extends DefaultBoxRequest {
      * @throws BoxRestException
      *             exception
      */
-    public CreateSharedLinkRequest(final IBoxConfig config, final IBoxJSONParser parser, final String id, BoxItemRequestObject requestObject,
+    public CreateSharedLinkRequest(final IBoxConfig config, final IBoxJSONParser parser, final String id, SharedLinkRequestObject requestObject,
         final BoxResourceType type) throws BoxRestException {
         super(config, parser, getUri(id, type), RestMethod.PUT, requestObject);
     }

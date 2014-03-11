@@ -2,7 +2,7 @@ package com.box.boxjavalibv2.requests;
 
 import com.box.boxjavalibv2.IBoxConfig;
 import com.box.boxjavalibv2.jsonparsing.IBoxJSONParser;
-import com.box.boxjavalibv2.requests.requestobjects.BoxUserRequestObject;
+import com.box.boxjavalibv2.requests.requestobjects.BoxUserUpdateLoginRequestObject;
 import com.box.restclientv2.RestMethod;
 import com.box.restclientv2.exceptions.BoxRestException;
 import com.box.restclientv2.requests.DefaultBoxRequest;
@@ -28,7 +28,7 @@ public class UpdateUserLoginRequest extends DefaultBoxRequest {
      * @throws BoxRestException
      *             exception
      */
-    public UpdateUserLoginRequest(final IBoxConfig config, final IBoxJSONParser parser, final String userId, final BoxUserRequestObject requestObject)
+    public UpdateUserLoginRequest(final IBoxConfig config, final IBoxJSONParser parser, final String userId, final BoxUserUpdateLoginRequestObject requestObject)
         throws BoxRestException {
         super(config, parser, getUri(userId), RestMethod.PUT, requestObject);
     }

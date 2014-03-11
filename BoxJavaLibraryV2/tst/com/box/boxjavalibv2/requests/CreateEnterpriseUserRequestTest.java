@@ -48,17 +48,17 @@ public class CreateEnterpriseUserRequestTest extends RequestTestBase {
         codes.put(key2, value2);
 
         CreateEnterpriseUserRequest request = new CreateEnterpriseUserRequest(CONFIG, JSON_PARSER, BoxUserRequestObject
-            .createEnterpriseUserRequestObject(login, name).setRole(role).setLanguage(language).setSyncEnabled(sync).setJobTitle(title).setPhone(phone)
-            .setAddress(address).setSpaceAmount(space).setTrackingCodes(codes).setCanSeeManagedUsers(seeManaged).setStatus(status)
-            .setExemptFromDeviceLimits(exemptLimit).setExemptFromLoginVerification(exemptLogin));
+            .createEnterpriseUserRequestObject(login, name, TestUtils.getJsonParser()).setRole(role).setLanguage(language).setSyncEnabled(sync)
+            .setJobTitle(title).setPhone(phone).setAddress(address).setSpaceAmount(space).setTrackingCodes(codes).setCanSeeManagedUsers(seeManaged)
+            .setStatus(status).setExemptFromDeviceLimits(exemptLimit).setExemptFromLoginVerification(exemptLogin));
         testRequestIsWellFormed(request, TestUtils.getConfig().getApiUrlAuthority(),
             TestUtils.getConfig().getApiUrlPath().concat(CreateEnterpriseUserRequest.getUri()), HttpStatus.SC_CREATED, RestMethod.POST);
 
         HttpEntity entity = request.getRequestEntity();
         Assert.assertTrue(entity instanceof StringEntity);
 
-        BoxUserRequestObject userEntity = BoxUserRequestObject.createEnterpriseUserRequestObject(login, name).setRole(role).setLanguage(language)
-            .setSyncEnabled(sync).setJobTitle(title).setPhone(phone).setAddress(address).setSpaceAmount(space).setTrackingCodes(codes)
+        BoxUserRequestObject userEntity = BoxUserRequestObject.createEnterpriseUserRequestObject(login, name, TestUtils.getJsonParser()).setRole(role)
+            .setLanguage(language).setSyncEnabled(sync).setJobTitle(title).setPhone(phone).setAddress(address).setSpaceAmount(space).setTrackingCodes(codes)
             .setCanSeeManagedUsers(seeManaged).setStatus(status).setExemptFromDeviceLimits(exemptLimit).setExemptFromLoginVerification(exemptLogin);
         assertEqualStringEntity(userEntity.getJSONEntity(), entity);
     }

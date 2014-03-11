@@ -11,9 +11,14 @@ import org.apache.http.NameValuePair;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.message.BasicNameValuePair;
 
+import com.box.boxjavalibv2.jsonparsing.IBoxJSONParser;
 import com.box.restclientv2.exceptions.BoxRestException;
 
 public class BoxOAuthRequestObject extends BoxDefaultRequestObject {
+
+    private BoxOAuthRequestObject(IBoxJSONParser parser) {
+        super(parser);
+    }
 
     private final static String GRANT_TYPE = "grant_type";
     private final static String CODE = "code";
@@ -23,9 +28,6 @@ public class BoxOAuthRequestObject extends BoxDefaultRequestObject {
     private final static String REFRESH_TOKEN = "refresh_token";
     private final static String AUTHORIZATION_CODE = "authorization_code";
     private final static String REVOKE_TOKEN = "token";
-
-    private BoxOAuthRequestObject() {
-    }
 
     /**
      * Request object to create OAUth.
@@ -41,12 +43,14 @@ public class BoxOAuthRequestObject extends BoxDefaultRequestObject {
      *            null if don't want to supply this field.
      * @return BoxOAuthRequestObject
      */
-    public static BoxOAuthRequestObject createOAuthRequestObject(final String code, final String clientId, final String clientSecret, final String redirectUrl) {
-        return (new BoxOAuthRequestObject()).setAuthCode(code).setClient(clientId, clientSecret).setRedirectUrl(redirectUrl);
+    public static BoxOAuthRequestObject createOAuthRequestObject(final String code, final String clientId, final String clientSecret, final String redirectUrl,
+        final IBoxJSONParser parser) {
+        return (new BoxOAuthRequestObject(parser)).setAuthCode(code).setClient(clientId, clientSecret).setRedirectUrl(redirectUrl);
     }
 
-    public static BoxOAuthRequestObject refreshOAuthRequestObject(final String refreshToken, final String clientId, final String clientSecret) {
-        return (new BoxOAuthRequestObject()).setRefreshToken(refreshToken).setClient(clientId, clientSecret);
+    public static BoxOAuthRequestObject refreshOAuthRequestObject(final String refreshToken, final String clientId, final String clientSecret,
+        final IBoxJSONParser parser) {
+        return (new BoxOAuthRequestObject(parser)).setRefreshToken(refreshToken).setClient(clientId, clientSecret);
     }
 
     /**
@@ -58,8 +62,9 @@ public class BoxOAuthRequestObject extends BoxDefaultRequestObject {
      * @param clientSecret
      * @return
      */
-    public static BoxOAuthRequestObject revokeOAuthRequestObject(final String revokeToken, final String clientId, final String clientSecret) {
-        return (new BoxOAuthRequestObject()).setRevokeToken(revokeToken).setClient(clientId, clientSecret);
+    public static BoxOAuthRequestObject revokeOAuthRequestObject(final String revokeToken, final String clientId, final String clientSecret,
+        final IBoxJSONParser parser) {
+        return (new BoxOAuthRequestObject(parser)).setRevokeToken(revokeToken).setClient(clientId, clientSecret);
     }
 
     /**

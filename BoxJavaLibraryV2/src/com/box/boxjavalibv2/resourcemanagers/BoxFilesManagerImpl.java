@@ -35,9 +35,11 @@ import com.box.boxjavalibv2.requests.requestobjects.BoxDefaultRequestObject;
 import com.box.boxjavalibv2.requests.requestobjects.BoxFileRequestObject;
 import com.box.boxjavalibv2.requests.requestobjects.BoxFileUploadRequestObject;
 import com.box.boxjavalibv2.requests.requestobjects.BoxImageRequestObject;
-import com.box.boxjavalibv2.responseparsers.ThumbnailResponseParser;
+import com.box.boxjavalibv2.requests.requestobjects.BoxItemCopyRequestObject;
+import com.box.boxjavalibv2.requests.requestobjects.SharedLinkRequestObject;
 import com.box.boxjavalibv2.responseparsers.ErrorResponseParser;
 import com.box.boxjavalibv2.responseparsers.PreviewResponseParser;
+import com.box.boxjavalibv2.responseparsers.ThumbnailResponseParser;
 import com.box.restclientv2.IBoxRESTClient;
 import com.box.restclientv2.authorization.IBoxRequestAuth;
 import com.box.restclientv2.exceptions.BoxRestException;
@@ -72,7 +74,7 @@ public class BoxFilesManagerImpl extends BoxItemsManagerImpl implements IBoxFile
     }
 
     @Override
-    public void deleteFile(final String fileId, final BoxFileRequestObject requestObject) throws BoxRestException, BoxServerException,
+    public void deleteFile(final String fileId, final BoxDefaultRequestObject requestObject) throws BoxRestException, BoxServerException,
         AuthFatalFailureException {
         DeleteFileRequest request = new DeleteFileRequest(getConfig(), getJSONParser(), fileId, requestObject);
         executeRequestWithNoResponseBody(request);
@@ -133,7 +135,7 @@ public class BoxFilesManagerImpl extends BoxItemsManagerImpl implements IBoxFile
     }
 
     @Override
-    public BoxFile copyFile(final String fileId, final BoxFileRequestObject requestObject) throws BoxRestException, BoxServerException,
+    public BoxFile copyFile(final String fileId, final BoxItemCopyRequestObject requestObject) throws BoxRestException, BoxServerException,
         AuthFatalFailureException {
         return (BoxFile) super.copyItem(fileId, requestObject, BoxResourceType.FILE);
     }
@@ -183,7 +185,7 @@ public class BoxFilesManagerImpl extends BoxItemsManagerImpl implements IBoxFile
     }
 
     @Override
-    public BoxFile createSharedLink(final String fileId, BoxFileRequestObject requestObject) throws BoxRestException, BoxServerException,
+    public BoxFile createSharedLink(final String fileId, SharedLinkRequestObject requestObject) throws BoxRestException, BoxServerException,
         AuthFatalFailureException {
         return (BoxFile) super.createSharedLink(fileId, requestObject, BoxResourceType.FILE);
     }

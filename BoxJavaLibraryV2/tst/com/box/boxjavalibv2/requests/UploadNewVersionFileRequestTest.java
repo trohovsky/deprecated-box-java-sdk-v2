@@ -50,7 +50,7 @@ public class UploadNewVersionFileRequestTest extends RequestTestBase {
         String fileName = "testfilename998";
 
         UploadNewVersionFileRequest request = new UploadNewVersionFileRequest(CONFIG, JSON_PARSER, fileId, BoxFileUploadRequestObject
-            .uploadNewVersionRequestObject(fileName, f).setIfMatch(sha1));
+            .uploadNewVersionRequestObject(fileName, f, TestUtils.getJsonParser()).setIfMatch(sha1));
         testRequestIsWellFormed(request, TestUtils.getConfig().getUploadUrlAuthority(),
             TestUtils.getConfig().getUploadUrlPath().concat(UploadNewVersionFileRequest.getUri(fileId)), HttpStatus.SC_CREATED, RestMethod.POST);
 

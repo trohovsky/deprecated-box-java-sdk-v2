@@ -19,6 +19,8 @@ import com.box.boxjavalibv2.requests.requestobjects.BoxDefaultRequestObject;
 import com.box.boxjavalibv2.requests.requestobjects.BoxFileRequestObject;
 import com.box.boxjavalibv2.requests.requestobjects.BoxFileUploadRequestObject;
 import com.box.boxjavalibv2.requests.requestobjects.BoxImageRequestObject;
+import com.box.boxjavalibv2.requests.requestobjects.BoxItemCopyRequestObject;
+import com.box.boxjavalibv2.requests.requestobjects.SharedLinkRequestObject;
 import com.box.restclientv2.exceptions.BoxRestException;
 
 public interface IBoxFilesManager extends IBoxResourceManager {
@@ -54,7 +56,7 @@ public interface IBoxFilesManager extends IBoxResourceManager {
      * @throws AuthFatalFailureException
      *             See {@link com.box.restclientv2.exceptions.AuthFatalFailureException} for more info.
      */
-    public void deleteFile(String fileId, BoxFileRequestObject requestObject) throws BoxRestException, BoxServerException, AuthFatalFailureException;
+    public void deleteFile(String fileId, BoxDefaultRequestObject requestObject) throws BoxRestException, BoxServerException, AuthFatalFailureException;
 
     /**
      * Get preview of a file.
@@ -136,7 +138,7 @@ public interface IBoxFilesManager extends IBoxResourceManager {
      * @throws AuthFatalFailureException
      *             See {@link com.box.restclientv2.exceptions.AuthFatalFailureException} for more info.
      */
-    public BoxFile copyFile(String fileId, BoxFileRequestObject requestObject) throws BoxRestException, BoxServerException, AuthFatalFailureException;
+    public BoxFile copyFile(String fileId, BoxItemCopyRequestObject requestObject) throws BoxRestException, BoxServerException, AuthFatalFailureException;
 
     /**
      * Download a file.
@@ -281,7 +283,8 @@ public interface IBoxFilesManager extends IBoxResourceManager {
      * @throws AuthFatalFailureException
      *             See {@link com.box.restclientv2.exceptions.AuthFatalFailureException} for more info.
      */
-    public BoxFile createSharedLink(String fileId, BoxFileRequestObject requestObject) throws BoxRestException, BoxServerException, AuthFatalFailureException;
+    public BoxFile createSharedLink(String fileId, SharedLinkRequestObject requestObject) throws BoxRestException, BoxServerException,
+        AuthFatalFailureException;
 
     /**
      * Get comments on a file.

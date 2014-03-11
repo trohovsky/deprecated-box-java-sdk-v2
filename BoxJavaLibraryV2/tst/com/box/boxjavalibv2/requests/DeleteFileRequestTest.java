@@ -7,7 +7,7 @@ import org.apache.http.HttpStatus;
 import org.junit.Test;
 
 import com.box.boxjavalibv2.exceptions.AuthFatalFailureException;
-import com.box.boxjavalibv2.requests.requestobjects.BoxFileRequestObject;
+import com.box.boxjavalibv2.requests.requestobjects.BoxDefaultRequestObject;
 import com.box.boxjavalibv2.testutils.TestUtils;
 import com.box.boxjavalibv2.utils.Constants;
 import com.box.restclientv2.RestMethod;
@@ -25,8 +25,7 @@ public class DeleteFileRequestTest extends RequestTestBase {
         String id = "testid123";
         String sha1 = "testsha1456";
 
-        DeleteFileRequest request = new DeleteFileRequest(CONFIG, JSON_PARSER, id, (BoxFileRequestObject) BoxFileRequestObject.deleteFileRequestObject()
-            .setIfMatch(sha1));
+        DeleteFileRequest request = new DeleteFileRequest(CONFIG, JSON_PARSER, id, (new BoxDefaultRequestObject(TestUtils.getJsonParser()).setIfMatch(sha1)));
         testRequestIsWellFormed(request, TestUtils.getConfig().getApiUrlAuthority(),
             TestUtils.getConfig().getApiUrlPath().concat(DeleteFileRequest.getUri(id)), HttpStatus.SC_NO_CONTENT, RestMethod.DELETE);
 

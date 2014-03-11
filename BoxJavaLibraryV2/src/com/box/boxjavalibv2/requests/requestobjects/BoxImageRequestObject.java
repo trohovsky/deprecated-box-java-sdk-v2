@@ -1,10 +1,12 @@
 package com.box.boxjavalibv2.requests.requestobjects;
 
 import com.box.boxjavalibv2.dao.BoxPreview;
+import com.box.boxjavalibv2.jsonparsing.IBoxJSONParser;
 
 public class BoxImageRequestObject extends BoxDefaultRequestObject {
 
-    private BoxImageRequestObject() {
+    private BoxImageRequestObject(IBoxJSONParser parser) {
+        super(parser);
     }
 
     /**
@@ -23,8 +25,8 @@ public class BoxImageRequestObject extends BoxDefaultRequestObject {
      * @return BoxPreviewRequestObject
      */
     public static BoxImageRequestObject pagePreviewRequestObject(final int page, final int minWidth, final int maxWidth, final int minHeight,
-        final int maxHeight) {
-        return (new BoxImageRequestObject()).setPage(page).setMinHeight(minHeight).setMaxHeight(maxHeight).setMinWidth(minWidth).setMaxWidth(maxWidth);
+        final int maxHeight, final IBoxJSONParser parser) {
+        return (new BoxImageRequestObject(parser)).setPage(page).setMinHeight(minHeight).setMaxHeight(maxHeight).setMinWidth(minWidth).setMaxWidth(maxWidth);
     }
 
     /**
@@ -32,8 +34,8 @@ public class BoxImageRequestObject extends BoxDefaultRequestObject {
      * 
      * @return BoxPreviewRequestObject
      */
-    public static BoxImageRequestObject previewRequestObject() {
-        return new BoxImageRequestObject();
+    public static BoxImageRequestObject previewRequestObject(final IBoxJSONParser parser) {
+        return new BoxImageRequestObject(parser);
     }
 
     public BoxImageRequestObject setMinWidth(int minWidth) {
