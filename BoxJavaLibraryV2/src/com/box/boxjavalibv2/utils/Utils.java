@@ -50,21 +50,12 @@ public final class Utils {
     @SuppressWarnings("unchecked")
     public static <T extends BoxTypedObject> List<T> getTypedObjects(BoxCollection collection, Class<T> cls) {
         List<T> objects = new ArrayList<T>();
-        try {
-            T instance = cls.newInstance();
-            List<BoxTypedObject> list = collection.getEntries();
 
-            for (BoxTypedObject object : list) {
-                if (object.getClass().isInstance(instance)) {
-                    objects.add((T) object);
-                }
+        List<BoxTypedObject> list = collection.getEntries();
+        for (BoxTypedObject object : list) {
+            if (cls.isInstance(object)) {
+                objects.add((T) object);
             }
-        }
-        catch (InstantiationException e) {
-            // No default constructor, not a BoxTypedObject.
-        }
-        catch (IllegalAccessException e) {
-            // No default constructor, not a BoxTypedObject.
         }
 
         return objects;
