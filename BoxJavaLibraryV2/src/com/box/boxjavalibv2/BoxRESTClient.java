@@ -14,6 +14,7 @@ import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.params.HttpParams;
 
+import com.box.boxjavalibv2.BoxConnectionManagerBuilder.BoxConnectionManager;
 import com.box.boxjavalibv2.authorization.OAuthAuthorization;
 import com.box.boxjavalibv2.exceptions.AuthFatalFailureException;
 import com.box.boxjavalibv2.exceptions.BoxServerException;

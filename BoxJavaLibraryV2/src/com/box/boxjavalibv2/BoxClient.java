@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.apache.commons.lang.NotImplementedException;
 
+import com.box.boxjavalibv2.BoxConnectionManagerBuilder.BoxConnectionManager;
 import com.box.boxjavalibv2.authorization.IAuthDataController;
 import com.box.boxjavalibv2.authorization.IAuthEvent;
 import com.box.boxjavalibv2.authorization.IAuthFlowListener;

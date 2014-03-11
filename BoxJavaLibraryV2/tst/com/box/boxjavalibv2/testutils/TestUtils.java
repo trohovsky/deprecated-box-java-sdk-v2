@@ -5,7 +5,7 @@ import java.io.IOException;
 
 import org.apache.commons.io.FileUtils;
 
-import com.box.boxjavalibv2.BoxConfig.BoxConfigBuilder;
+import com.box.boxjavalibv2.BoxConfigBuilder;
 import com.box.boxjavalibv2.IBoxConfig;
 import com.box.boxjavalibv2.dao.BoxObject;
 import com.box.boxjavalibv2.jsonparsing.BoxJSONParser;
