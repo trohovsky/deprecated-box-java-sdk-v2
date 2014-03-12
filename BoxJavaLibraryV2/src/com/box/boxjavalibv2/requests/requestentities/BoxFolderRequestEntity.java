@@ -3,7 +3,6 @@ package com.box.boxjavalibv2.requests.requestentities;
 import com.box.boxjavalibv2.dao.BoxEmail;
 import com.box.boxjavalibv2.dao.BoxFolder;
 import com.box.boxjavalibv2.jsonentities.MapJSONStringEntity;
-import com.box.boxjavalibv2.jsonparsing.IBoxJSONParser;
 
 public class BoxFolderRequestEntity extends BoxItemRequestEntity {
 
@@ -27,7 +26,7 @@ public class BoxFolderRequestEntity extends BoxItemRequestEntity {
         return (new BoxFolderRequestEntity());
     }
 
-    public static BoxFolderRequestEntity createFolderRequestEntity(String name, String parentId, final IBoxJSONParser parser) {
+    public static BoxFolderRequestEntity createFolderRequestEntity(String name, String parentId) {
         BoxFolderRequestEntity entity = new BoxFolderRequestEntity();
         entity.setName(name);
         entity.setParent(parentId);
