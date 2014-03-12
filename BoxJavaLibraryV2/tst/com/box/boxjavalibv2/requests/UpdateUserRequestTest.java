@@ -12,7 +12,8 @@ import org.junit.Test;
 
 import com.box.boxjavalibv2.exceptions.AuthFatalFailureException;
 import com.box.boxjavalibv2.exceptions.BoxJSONException;
-import com.box.boxjavalibv2.requests.requestobjects.BoxUserRequestObject;
+import com.box.boxjavalibv2.requests.requestentities.BoxUserRequestEntity;
+import com.box.boxjavalibv2.requests.requestobjects.BoxEntityRequestObject;
 import com.box.boxjavalibv2.testutils.TestUtils;
 import com.box.restclientv2.RestMethod;
 import com.box.restclientv2.exceptions.BoxRestException;
@@ -48,22 +49,38 @@ public class UpdateUserRequestTest extends RequestTestBase {
         LinkedHashMap<String, String> codes = new LinkedHashMap<String, String>();
         codes.put(key1, value1);
         codes.put(key2, value2);
-
-        BoxUserRequestObject obj = BoxUserRequestObject.updateUserInfoRequestObject(notify, TestUtils.getJsonParser()).setName(name).setRole(role)
-            .setLanguage(language).setSyncEnabled(sync).setJobTitle(title).setPhone(phone).setAddress(address).setSpaceAmount(space).setTrackingCodes(codes)
-            .setCanSeeManagedUsers(seeManaged).setExemptFromDeviceLimits(exemptLimit).setExemptFromLoginVerification(exemptLogin);
+        BoxUserRequestEntity entity = this.getUserRequestEntity(notify, name, role, language, sync, title, phone, address, space, codes, seeManaged,
+            exemptLimit, exemptLogin);
         if (removeEnterprise) {
-            obj.setEnterprise(null);
+            entity.setEnterprise(null);
         }
-        UpdateUserRequest request = new UpdateUserRequest(CONFIG, JSON_PARSER, userId, obj);
+        UpdateUserRequest request = new UpdateUserRequest(CONFIG, JSON_PARSER, userId, BoxEntityRequestObject.getRequestEntity(TestUtils.getJsonParser(),
+            entity));
         testRequestIsWellFormed(request, TestUtils.getConfig().getApiUrlAuthority(),
             TestUtils.getConfig().getApiUrlPath().concat(UpdateUserRequest.getUri(userId)), HttpStatus.SC_OK, RestMethod.PUT);
 
         Assert.assertEquals(Boolean.toString(notify), request.getQueryParams().get("notify"));
 
-        HttpEntity entity = request.getRequestEntity();
-        Assert.assertTrue(entity instanceof StringEntity);
+        HttpEntity en = request.getRequestEntity();
+        Assert.assertTrue(en instanceof StringEntity);
 
-        assertEqualStringEntity(obj.getJSONEntity(), entity);
+        assertEqualStringEntity(entity.getMap(), en);
+    }
+
+    private BoxUserRequestEntity getUserRequestEntity(boolean notify, String name, String role, String language, boolean sync, String title, String phone,
+        String address, double space, LinkedHashMap<String, String> codes, boolean seeManaged, boolean exemptLimit, boolean exemptLogin) {
+        BoxUserRequestEntity rentity = BoxUserRequestEntity.updateUserInfoRequestObject(notify);
+        rentity.setRole(role);
+        rentity.setLanguage(language);
+        rentity.setSyncEnabled(sync);
+        rentity.setJobTitle(title);
+        rentity.setPhone(phone);
+        rentity.setAddress(address);
+        rentity.setSpaceAmount(space);
+        rentity.setTrackingCodes(codes);
+        rentity.setCanSeeManagedUsers(seeManaged);
+        rentity.setExemptFromDeviceLimits(exemptLimit);
+        rentity.setExemptFromLoginVerification(exemptLogin);
+        return rentity;
     }
 }

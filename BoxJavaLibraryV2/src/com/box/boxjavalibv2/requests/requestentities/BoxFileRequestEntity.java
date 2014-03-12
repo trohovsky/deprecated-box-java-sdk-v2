@@ -1,5 +1,7 @@
 package com.box.boxjavalibv2.requests.requestentities;
 
+import com.box.boxjavalibv2.jsonentities.BoxSharedLinkEntity;
+
 public class BoxFileRequestEntity extends BoxItemRequestEntity {
 
     public static BoxFileRequestEntity getRequestEntity() {
@@ -10,7 +12,7 @@ public class BoxFileRequestEntity extends BoxItemRequestEntity {
         return (BoxFileRequestEntity) BoxItemRequestEntity.deleteSharedLinkRequestEntity();
     }
 
-    public static BoxFileRequestEntity createSharedLinkRequestEntity(BoxSharedLinkRequestEntity sharedLink) {
+    public static BoxFileRequestEntity createSharedLinkRequestEntity(BoxSharedLinkEntity sharedLink) {
         return (BoxFileRequestEntity) BoxItemRequestEntity.createSharedLinkRequestEntity(sharedLink);
     }
 }

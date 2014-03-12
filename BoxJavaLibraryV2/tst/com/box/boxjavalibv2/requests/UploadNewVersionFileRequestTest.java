@@ -48,9 +48,9 @@ public class UploadNewVersionFileRequestTest extends RequestTestBase {
         f = TestUtils.createTempFile(content);
 
         String fileName = "testfilename998";
-
-        UploadNewVersionFileRequest request = new UploadNewVersionFileRequest(CONFIG, JSON_PARSER, fileId, BoxFileUploadRequestObject
-            .uploadNewVersionRequestObject(fileName, f, TestUtils.getJsonParser()).setIfMatch(sha1));
+        BoxFileUploadRequestObject obj = BoxFileUploadRequestObject.uploadNewVersionRequestObject(fileName, f, TestUtils.getJsonParser());
+        obj.setIfMatch(sha1);
+        UploadNewVersionFileRequest request = new UploadNewVersionFileRequest(CONFIG, JSON_PARSER, fileId, obj);
         testRequestIsWellFormed(request, TestUtils.getConfig().getUploadUrlAuthority(),
             TestUtils.getConfig().getUploadUrlPath().concat(UploadNewVersionFileRequest.getUri(fileId)), HttpStatus.SC_CREATED, RestMethod.POST);
 

@@ -12,7 +12,8 @@ import org.junit.Test;
 import com.box.boxjavalibv2.exceptions.AuthFatalFailureException;
 import com.box.boxjavalibv2.exceptions.BoxJSONException;
 import com.box.boxjavalibv2.jsonentities.MapJSONStringEntity;
-import com.box.boxjavalibv2.requests.requestobjects.BoxEmailAliasRequestObject;
+import com.box.boxjavalibv2.requests.requestentities.BoxEmailAliasRequestEntity;
+import com.box.boxjavalibv2.requests.requestobjects.BoxEntityRequestObject;
 import com.box.boxjavalibv2.testutils.TestUtils;
 import com.box.restclientv2.RestMethod;
 import com.box.restclientv2.exceptions.BoxRestException;
@@ -29,17 +30,18 @@ public class AddEmailAliasRequestTest extends RequestTestBase {
         String userId = "testuserid";
         String email = "testeamail@box.com";
 
-        CreateEmailAliasRequest request = new CreateEmailAliasRequest(CONFIG, JSON_PARSER, userId, BoxEmailAliasRequestObject.addEmailAliasRequestObject(email,
-            TestUtils.getJsonParser()));
+        BoxEmailAliasRequestEntity entity = BoxEmailAliasRequestEntity.addEmailAliasRequestEntity(email);
+
+        CreateEmailAliasRequest request = new CreateEmailAliasRequest(CONFIG, JSON_PARSER, userId, BoxEntityRequestObject.getRequestEntity(
+            TestUtils.getJsonParser(), entity));
 
         testRequestIsWellFormed(request, TestUtils.getConfig().getApiUrlAuthority(),
             TestUtils.getConfig().getApiUrlPath().concat(CreateEmailAliasRequest.getUri(userId)), HttpStatus.SC_CREATED, RestMethod.POST);
-        HttpEntity entity = request.getRequestEntity();
-        Assert.assertTrue(entity instanceof StringEntity);
+        HttpEntity en = request.getRequestEntity();
+        Assert.assertTrue(en instanceof StringEntity);
         MapJSONStringEntity mEntity = new MapJSONStringEntity();
         mEntity.put("email", email);
-        assertEqualStringEntity(mEntity, entity);
+        assertEqualStringEntity(mEntity, en);
 
     }
-
 }

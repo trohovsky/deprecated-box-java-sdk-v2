@@ -13,8 +13,9 @@ import com.box.boxjavalibv2.dao.BoxResourceType;
 import com.box.boxjavalibv2.dao.BoxSharedLinkAccess;
 import com.box.boxjavalibv2.exceptions.AuthFatalFailureException;
 import com.box.boxjavalibv2.exceptions.BoxJSONException;
+import com.box.boxjavalibv2.jsonentities.BoxSharedLinkEntity;
 import com.box.boxjavalibv2.requests.requestentities.BoxSharedLinkRequestEntity;
-import com.box.boxjavalibv2.requests.requestobjects.BoxItemRequestObject;
+import com.box.boxjavalibv2.requests.requestobjects.BoxEntityRequestObject;
 import com.box.boxjavalibv2.testutils.TestUtils;
 import com.box.restclientv2.RestMethod;
 import com.box.restclientv2.exceptions.BoxRestException;
@@ -47,16 +48,18 @@ public class CreateSharedLinkRequestTest extends RequestTestBase {
         String access = BoxSharedLinkAccess.COLLABORATORS;
         Date unsharedAt = new Date();
 
-        BoxSharedLinkRequestEntity sEntity = new BoxSharedLinkRequestEntity(access);
+        BoxSharedLinkEntity sEntity = new BoxSharedLinkEntity(access);
         sEntity.setPermissions(true);
         sEntity.setUnshared_at(unsharedAt);
-        BoxItemRequestObject obj = BoxItemRequestObject.createSharedLinkRequestObject(sEntity, TestUtils.getJsonParser());
-        CreateSharedLinkRequest request = new CreateSharedLinkRequest(CONFIG, JSON_PARSER, id, obj, type);
+        BoxSharedLinkRequestEntity entity = BoxSharedLinkRequestEntity.createSharedLinkRequestEntity(sEntity);
+
+        CreateSharedLinkRequest request = new CreateSharedLinkRequest(CONFIG, JSON_PARSER, id, BoxEntityRequestObject.getRequestEntity(
+            TestUtils.getJsonParser(), entity), type);
         testRequestIsWellFormed(request, TestUtils.getConfig().getApiUrlAuthority(),
             TestUtils.getConfig().getApiUrlPath().concat(CreateSharedLinkRequest.getUri(id, type)), HttpStatus.SC_OK, RestMethod.PUT);
-        HttpEntity entity = request.getRequestEntity();
-        Assert.assertTrue(entity instanceof StringEntity);
+        HttpEntity en = request.getRequestEntity();
+        Assert.assertTrue(en instanceof StringEntity);
 
-        super.assertEqualStringEntity(obj.getJSONEntity(), entity);
+        super.assertEqualStringEntity(entity.getMap(), en);
     }
 }

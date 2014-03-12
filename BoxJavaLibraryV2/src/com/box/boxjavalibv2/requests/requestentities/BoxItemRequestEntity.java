@@ -3,6 +3,7 @@ package com.box.boxjavalibv2.requests.requestentities;
 import com.box.boxjavalibv2.dao.BoxFile;
 import com.box.boxjavalibv2.dao.BoxFolder;
 import com.box.boxjavalibv2.dao.BoxItem;
+import com.box.boxjavalibv2.jsonentities.BoxSharedLinkEntity;
 import com.box.boxjavalibv2.jsonentities.MapJSONStringEntity;
 
 public class BoxItemRequestEntity extends BoxSharedLinkRequestEntity {
@@ -15,7 +16,7 @@ public class BoxItemRequestEntity extends BoxSharedLinkRequestEntity {
         return (BoxItemRequestEntity) BoxSharedLinkRequestEntity.deleteSharedLinkRequestEntity();
     }
 
-    public static BoxItemRequestEntity createSharedLinkRequestEntity(BoxSharedLinkRequestEntity sharedLink) {
+    public static BoxItemRequestEntity createSharedLinkRequestEntity(BoxSharedLinkEntity sharedLink) {
         return (BoxItemRequestEntity) BoxSharedLinkRequestEntity.createSharedLinkRequestEntity(sharedLink);
     }
 

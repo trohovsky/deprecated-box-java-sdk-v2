@@ -7,6 +7,7 @@ import org.junit.Test;
 import com.box.boxjavalibv2.jsonentities.MapJSONStringEntity;
 import com.box.boxjavalibv2.jsonparsing.BoxJSONParser;
 import com.box.boxjavalibv2.jsonparsing.BoxResourceHub;
+import com.box.boxjavalibv2.requests.requestentities.BoxOAuthRequestEntity;
 import com.box.boxjavalibv2.requests.requestobjects.BoxOAuthRequestObject;
 import com.box.restclientv2.exceptions.BoxRestException;
 
@@ -18,7 +19,8 @@ public class BoxOAuthRequestObjectTest {
     @Test
     public void testRevokeRequestObject() throws BoxRestException {
         String token = "testtoken1212";
-        BoxOAuthRequestObject obj = BoxOAuthRequestObject.revokeOAuthRequestObject(token, CLIENT_ID, CLIENT_SECRET, new BoxJSONParser(new BoxResourceHub()));
+        BoxOAuthRequestEntity entity = BoxOAuthRequestEntity.revokeOAuthRequestEntity(token, CLIENT_ID, CLIENT_SECRET);
+        BoxOAuthRequestObject obj = BoxOAuthRequestObject.getRequestObject(new BoxJSONParser(new BoxResourceHub()), entity);
         MapJSONStringEntity jEntity = obj.getJSONEntity();
         Assert.assertEquals(CLIENT_ID, jEntity.get("client_id"));
         Assert.assertEquals(CLIENT_SECRET, jEntity.get("client_secret"));
@@ -29,8 +31,9 @@ public class BoxOAuthRequestObjectTest {
     public void testCreateRequestObject() throws BoxRestException {
         String code = "testcode";
         String url = "testurl";
-        BoxOAuthRequestObject obj = BoxOAuthRequestObject
-            .createOAuthRequestObject(code, CLIENT_ID, CLIENT_SECRET, url, new BoxJSONParser(new BoxResourceHub()));
+        BoxOAuthRequestEntity entity = BoxOAuthRequestEntity.createOAuthRequestEntity(code, CLIENT_ID, CLIENT_SECRET, url);
+        BoxOAuthRequestObject obj = BoxOAuthRequestObject.getRequestObject(new BoxJSONParser(new BoxResourceHub()), entity);
+
         MapJSONStringEntity jEntity = obj.getJSONEntity();
         Assert.assertEquals(CLIENT_ID, jEntity.get("client_id"));
         Assert.assertEquals(CLIENT_SECRET, jEntity.get("client_secret"));
@@ -41,7 +44,9 @@ public class BoxOAuthRequestObjectTest {
     @Test
     public void testRefreshRequestObject() throws BoxRestException {
         String token = "testrefreshtoken";
-        BoxOAuthRequestObject obj = BoxOAuthRequestObject.refreshOAuthRequestObject(token, CLIENT_ID, CLIENT_SECRET, new BoxJSONParser(new BoxResourceHub()));
+        BoxOAuthRequestEntity entity = BoxOAuthRequestEntity.refreshOAuthRequestEntity(token, CLIENT_ID, CLIENT_SECRET);
+        BoxOAuthRequestObject obj = BoxOAuthRequestObject.getRequestObject(new BoxJSONParser(new BoxResourceHub()), entity);
+
         MapJSONStringEntity jEntity = obj.getJSONEntity();
         Assert.assertEquals(CLIENT_ID, jEntity.get("client_id"));
         Assert.assertEquals(CLIENT_SECRET, jEntity.get("client_secret"));

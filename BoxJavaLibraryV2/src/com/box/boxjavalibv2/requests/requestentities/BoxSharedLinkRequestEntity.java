@@ -1,6 +1,7 @@
 package com.box.boxjavalibv2.requests.requestentities;
 
 import com.box.boxjavalibv2.dao.BoxFile;
+import com.box.boxjavalibv2.jsonentities.BoxSharedLinkEntity;
 
 // CHECKSTYLE:OFF
 /**
@@ -17,7 +18,7 @@ public class BoxSharedLinkRequestEntity extends BoxDefaultRequestEntity {
         return entity;
     }
 
-    public static BoxSharedLinkRequestEntity createSharedLinkRequestEntity(BoxSharedLinkRequestEntity sharedLink) {
+    public static BoxSharedLinkRequestEntity createSharedLinkRequestEntity(BoxSharedLinkEntity sharedLink) {
         BoxSharedLinkRequestEntity entity = new BoxSharedLinkRequestEntity();
         entity.setSharedLink(sharedLink);
         return entity;
@@ -29,7 +30,7 @@ public class BoxSharedLinkRequestEntity extends BoxDefaultRequestEntity {
      * @param sharedLink
      * @return
      */
-    protected void setSharedLink(BoxSharedLinkRequestEntity sharedLink) {
+    protected void setSharedLink(BoxSharedLinkEntity sharedLink) {
         put(BoxFile.FIELD_SHARED_LINK, sharedLink);
     }
 }

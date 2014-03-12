@@ -36,7 +36,7 @@ public class BoxCommentRequestEntity extends BoxDefaultRequestEntity {
      *            comment message
      * @return BoxCommentRequestObject
      */
-    public static BoxCommentRequestEntity updateCommentRequestEntity(final String message, final IBoxJSONParser parser) {
+    public static BoxCommentRequestEntity updateCommentRequestEntity(final String message) {
         BoxCommentRequestEntity entity = new BoxCommentRequestEntity();
         entity.setMessage(message);
         return entity;
