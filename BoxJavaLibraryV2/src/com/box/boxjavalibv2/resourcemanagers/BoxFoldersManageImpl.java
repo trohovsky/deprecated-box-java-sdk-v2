@@ -18,13 +18,13 @@ import com.box.boxjavalibv2.requests.CreateNewFolderRequest;
 import com.box.boxjavalibv2.requests.DeleteFolderRequest;
 import com.box.boxjavalibv2.requests.GetFolderCollaborationsRequest;
 import com.box.boxjavalibv2.requests.GetFolderItemsRequest;
+import com.box.boxjavalibv2.requests.requestentities.BoxFolderRequestEntity;
+import com.box.boxjavalibv2.requests.requestentities.BoxItemCopyRequestEntity;
+import com.box.boxjavalibv2.requests.requestentities.BoxSharedLinkRequestEntity;
 import com.box.boxjavalibv2.requests.requestobjects.BoxDefaultRequestObject;
+import com.box.boxjavalibv2.requests.requestobjects.BoxEntityRequestObject;
 import com.box.boxjavalibv2.requests.requestobjects.BoxFolderDeleteRequestObject;
-import com.box.boxjavalibv2.requests.requestobjects.BoxFolderRequestObject;
-import com.box.boxjavalibv2.requests.requestobjects.BoxFolderUpdateRequestObject;
-import com.box.boxjavalibv2.requests.requestobjects.BoxItemCopyRequestObject;
 import com.box.boxjavalibv2.requests.requestobjects.BoxPagingRequestObject;
-import com.box.boxjavalibv2.requests.requestobjects.SharedLinkRequestObject;
 import com.box.boxjavalibv2.utils.Utils;
 import com.box.restclientv2.IBoxRESTClient;
 import com.box.restclientv2.authorization.IBoxRequestAuth;
@@ -58,7 +58,8 @@ public class BoxFoldersManageImpl extends BoxItemsManagerImpl implements IBoxFol
     }
 
     @Override
-    public BoxFolder createFolder(BoxFolderRequestObject requestObject) throws BoxRestException, BoxServerException, AuthFatalFailureException {
+    public BoxFolder createFolder(BoxEntityRequestObject<BoxFolderRequestEntity> requestObject) throws BoxRestException, BoxServerException,
+        AuthFatalFailureException {
         CreateNewFolderRequest request = new CreateNewFolderRequest(getConfig(), getJSONParser(), requestObject);
         return (BoxFolder) getResponseAndParseAndTryCast(request, BoxResourceType.FOLDER, getJSONParser());
     }
@@ -71,8 +72,8 @@ public class BoxFoldersManageImpl extends BoxItemsManagerImpl implements IBoxFol
     }
 
     @Override
-    public BoxFolder copyFolder(final String folderId, BoxItemCopyRequestObject requestObject) throws BoxRestException, BoxServerException,
-        AuthFatalFailureException {
+    public BoxFolder copyFolder(final String folderId, BoxEntityRequestObject<BoxItemCopyRequestEntity> requestObject) throws BoxRestException,
+        BoxServerException, AuthFatalFailureException {
         return (BoxFolder) super.copyItem(folderId, requestObject, BoxResourceType.FOLDER);
     }
 
@@ -84,14 +85,14 @@ public class BoxFoldersManageImpl extends BoxItemsManagerImpl implements IBoxFol
     }
 
     @Override
-    public BoxFolder updateFolderInfo(final String folderId, final BoxFolderUpdateRequestObject requestObject) throws UnsupportedEncodingException,
-        BoxRestException, BoxServerException, AuthFatalFailureException {
+    public BoxFolder updateFolderInfo(final String folderId, final BoxEntityRequestObject<BoxFolderRequestEntity> requestObject)
+        throws UnsupportedEncodingException, BoxRestException, BoxServerException, AuthFatalFailureException {
         return (BoxFolder) super.updateItemInfo(folderId, requestObject, BoxResourceType.FOLDER);
     }
 
     @Override
-    public BoxFolder createSharedLink(final String folderId, SharedLinkRequestObject requestObject) throws BoxRestException, BoxServerException,
-        AuthFatalFailureException {
+    public BoxFolder createSharedLink(final String folderId, BoxEntityRequestObject<BoxSharedLinkRequestEntity> requestObject) throws BoxRestException,
+        BoxServerException, AuthFatalFailureException {
         return (BoxFolder) super.createSharedLink(folderId, requestObject, BoxResourceType.FOLDER);
     }
 

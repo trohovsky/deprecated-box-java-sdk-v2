@@ -10,6 +10,7 @@ import com.box.boxjavalibv2.dao.BoxSharedLinkAccess;
 import com.box.boxjavalibv2.exceptions.BoxJSONException;
 import com.box.boxjavalibv2.jsonparsing.BoxJSONParser;
 import com.box.boxjavalibv2.jsonparsing.BoxResourceHub;
+import com.box.boxjavalibv2.requests.requestentities.BoxSharedLinkRequestEntity;
 import com.box.boxjavalibv2.utils.ISO8601DateParser;
 
 public class SharedLinkRequestObjectTest {

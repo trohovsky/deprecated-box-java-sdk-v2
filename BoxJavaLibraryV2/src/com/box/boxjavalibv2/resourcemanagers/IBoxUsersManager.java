@@ -7,10 +7,11 @@ import com.box.boxjavalibv2.dao.BoxFolder;
 import com.box.boxjavalibv2.dao.BoxUser;
 import com.box.boxjavalibv2.exceptions.AuthFatalFailureException;
 import com.box.boxjavalibv2.exceptions.BoxServerException;
+import com.box.boxjavalibv2.requests.requestentities.BoxEmailAliasRequestEntity;
+import com.box.boxjavalibv2.requests.requestentities.BoxSimpleUserRequestEntity;
+import com.box.boxjavalibv2.requests.requestentities.BoxUserRequestEntity;
 import com.box.boxjavalibv2.requests.requestobjects.BoxDefaultRequestObject;
-import com.box.boxjavalibv2.requests.requestobjects.BoxEmailAliasRequestObject;
-import com.box.boxjavalibv2.requests.requestobjects.BoxSimpleUserRequestObject;
-import com.box.boxjavalibv2.requests.requestobjects.BoxUserRequestObject;
+import com.box.boxjavalibv2.requests.requestobjects.BoxEntityRequestObject;
 import com.box.boxjavalibv2.requests.requestobjects.BoxUserUpdateLoginRequestObject;
 import com.box.restclientv2.exceptions.BoxRestException;
 
@@ -69,8 +70,8 @@ public interface IBoxUsersManager extends IBoxResourceManager {
      * @throws AuthFatalFailureException
      *             See {@link com.box.restclientv2.exceptions.AuthFatalFailureException} for more info.
      */
-    public BoxFolder moveFolderToAnotherUser(String userId, String folderId, BoxSimpleUserRequestObject requestObject) throws BoxRestException,
-        BoxServerException, AuthFatalFailureException;
+    public BoxFolder moveFolderToAnotherUser(String userId, String folderId, BoxEntityRequestObject<BoxSimpleUserRequestEntity> requestObject)
+        throws BoxRestException, BoxServerException, AuthFatalFailureException;
 
     /**
      * Used to provision a new user in an enterprise. This method only works for enterprise admins.
@@ -86,7 +87,8 @@ public interface IBoxUsersManager extends IBoxResourceManager {
      * @throws AuthFatalFailureException
      *             See {@link com.box.restclientv2.exceptions.AuthFatalFailureException} for more info.
      */
-    public BoxUser createEnterpriseUser(BoxUserRequestObject requestObject) throws BoxRestException, BoxServerException, AuthFatalFailureException;
+    public BoxUser createEnterpriseUser(BoxEntityRequestObject<BoxUserRequestEntity> requestObject) throws BoxRestException, BoxServerException,
+        AuthFatalFailureException;
 
     /**
      * Used to edit the settings and information about a user. This method only works for enterprise admins.
@@ -103,8 +105,8 @@ public interface IBoxUsersManager extends IBoxResourceManager {
      * @throws AuthFatalFailureException
      *             See {@link com.box.restclientv2.exceptions.AuthFatalFailureException} for more info.
      */
-    public BoxUser updateUserInformaiton(String userId, BoxUserRequestObject requestObject) throws BoxRestException, BoxServerException,
-        AuthFatalFailureException;
+    public BoxUser updateUserInformaiton(String userId, BoxEntityRequestObject<BoxUserRequestEntity> requestObject) throws BoxRestException,
+        BoxServerException, AuthFatalFailureException;
 
     /**
      * Retrieves all email aliases for this user. The collection of email aliases does not include the primary login for the user
@@ -140,8 +142,8 @@ public interface IBoxUsersManager extends IBoxResourceManager {
      * @throws AuthFatalFailureException
      *             See {@link com.box.restclientv2.exceptions.AuthFatalFailureException} for more info.
      */
-    public BoxEmailAlias addEmailAlias(String userId, BoxEmailAliasRequestObject requestObject) throws BoxServerException, BoxRestException,
-        AuthFatalFailureException;
+    public BoxEmailAlias addEmailAlias(String userId, BoxEntityRequestObject<BoxEmailAliasRequestEntity> requestObject) throws BoxServerException,
+        BoxRestException, AuthFatalFailureException;
 
     /**
      * Removes an email alias from a user.

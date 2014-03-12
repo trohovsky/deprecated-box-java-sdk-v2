@@ -2,7 +2,8 @@ package com.box.boxjavalibv2.requests;
 
 import com.box.boxjavalibv2.IBoxConfig;
 import com.box.boxjavalibv2.jsonparsing.IBoxJSONParser;
-import com.box.boxjavalibv2.requests.requestobjects.BoxCollabRequestObject;
+import com.box.boxjavalibv2.requests.requestentities.BoxCollabRequestEntity;
+import com.box.boxjavalibv2.requests.requestobjects.BoxEntityRequestObject;
 import com.box.restclientv2.RestMethod;
 import com.box.restclientv2.exceptions.BoxRestException;
 import com.box.restclientv2.requests.DefaultBoxRequest;
@@ -28,8 +29,8 @@ public class UpdateCollaborationRequest extends DefaultBoxRequest {
      * @throws BoxRestException
      *             exception
      */
-    public UpdateCollaborationRequest(final IBoxConfig config, final IBoxJSONParser parser, String id, BoxCollabRequestObject requestObject)
-        throws BoxRestException {
+    public UpdateCollaborationRequest(final IBoxConfig config, final IBoxJSONParser parser, String id,
+        BoxEntityRequestObject<BoxCollabRequestEntity> requestObject) throws BoxRestException {
         super(config, parser, getUri(id), RestMethod.PUT, requestObject);
     }
 

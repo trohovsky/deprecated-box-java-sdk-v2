@@ -9,7 +9,7 @@ import com.box.boxjavalibv2.utils.ISO8601DateParser;
 /**
  * Entity for shared link.
  */
-public class BoxSharedLinkRequestEntity extends MapJSONStringEntity {
+public class BoxSharedLinkEntity extends MapJSONStringEntity {
 
     private static final long serialVersionUID = 1L;
 
@@ -17,7 +17,7 @@ public class BoxSharedLinkRequestEntity extends MapJSONStringEntity {
      * @param accessLevel
      *            access(String can be the strings defined in {@link com.box.boxjavalibv2.dao.BoxSharedLinkAccess}.)
      */
-    public BoxSharedLinkRequestEntity(final String accessLevel) {
+    public BoxSharedLinkEntity(final String accessLevel) {
         setAccess(accessLevel);
     }
 
@@ -28,7 +28,7 @@ public class BoxSharedLinkRequestEntity extends MapJSONStringEntity {
      *            access
      * @return
      */
-    public BoxSharedLinkRequestEntity setAccess(final String accessLevel) {
+    public BoxSharedLinkEntity setAccess(final String accessLevel) {
         put(BoxSharedLink.FIELD_ACCESS, accessLevel);
         return this;
     }

@@ -1,6 +1,7 @@
 package com.box.boxjavalibv2.jsonentities;
 
-public class BoxEnterpriseRequestEntity extends MapJSONStringEntity {
+
+public class BoxEnterpriseEntity extends MapJSONStringEntity {
 
     private static final long serialVersionUID = 1L;
 

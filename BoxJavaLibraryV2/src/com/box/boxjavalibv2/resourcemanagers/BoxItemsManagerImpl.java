@@ -13,10 +13,11 @@ import com.box.boxjavalibv2.requests.CopyItemRequest;
 import com.box.boxjavalibv2.requests.CreateSharedLinkRequest;
 import com.box.boxjavalibv2.requests.GetItemRequest;
 import com.box.boxjavalibv2.requests.UpdateItemInfoRequest;
+import com.box.boxjavalibv2.requests.requestentities.BoxItemCopyRequestEntity;
+import com.box.boxjavalibv2.requests.requestentities.BoxItemRequestEntity;
+import com.box.boxjavalibv2.requests.requestentities.BoxSharedLinkRequestEntity;
 import com.box.boxjavalibv2.requests.requestobjects.BoxDefaultRequestObject;
-import com.box.boxjavalibv2.requests.requestobjects.BoxItemCopyRequestObject;
-import com.box.boxjavalibv2.requests.requestobjects.BoxItemRequestObject;
-import com.box.boxjavalibv2.requests.requestobjects.SharedLinkRequestObject;
+import com.box.boxjavalibv2.requests.requestobjects.BoxEntityRequestObject;
 import com.box.restclientv2.IBoxRESTClient;
 import com.box.restclientv2.authorization.IBoxRequestAuth;
 import com.box.restclientv2.exceptions.BoxRestException;
@@ -57,22 +58,22 @@ public class BoxItemsManagerImpl extends AbstractBoxResourceManager implements I
     }
 
     @Override
-    public BoxItem copyItem(final String id, BoxItemCopyRequestObject requestObject, final BoxResourceType type) throws BoxRestException, BoxServerException,
-        AuthFatalFailureException {
+    public BoxItem copyItem(final String id, BoxEntityRequestObject<BoxItemCopyRequestEntity> requestObject, final BoxResourceType type)
+        throws BoxRestException, BoxServerException, AuthFatalFailureException {
         CopyItemRequest request = new CopyItemRequest(getConfig(), getJSONParser(), id, requestObject, type);
         return (BoxItem) getResponseAndParseAndTryCast(request, type, getJSONParser());
     }
 
     @Override
-    public BoxItem updateItemInfo(final String id, BoxItemRequestObject requestObject, final BoxResourceType type) throws UnsupportedEncodingException,
-        BoxRestException, BoxServerException, AuthFatalFailureException {
+    public BoxItem updateItemInfo(final String id, BoxEntityRequestObject<? extends BoxItemRequestEntity> requestObject, final BoxResourceType type)
+        throws UnsupportedEncodingException, BoxRestException, BoxServerException, AuthFatalFailureException {
         UpdateItemInfoRequest request = new UpdateItemInfoRequest(getConfig(), getJSONParser(), id, requestObject, type);
         return (BoxItem) getResponseAndParseAndTryCast(request, type, getJSONParser());
     }
 
     @Override
-    public BoxItem createSharedLink(final String id, SharedLinkRequestObject requestObject, final BoxResourceType type) throws BoxRestException,
-        BoxServerException, AuthFatalFailureException {
+    public BoxItem createSharedLink(final String id, BoxEntityRequestObject<BoxSharedLinkRequestEntity> requestObject, final BoxResourceType type)
+        throws BoxRestException, BoxServerException, AuthFatalFailureException {
         CreateSharedLinkRequest request = new CreateSharedLinkRequest(getConfig(), getJSONParser(), id, requestObject, type);
 
         return (BoxItem) getResponseAndParseAndTryCast(request, type, getJSONParser());

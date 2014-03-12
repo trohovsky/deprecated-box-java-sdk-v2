@@ -14,6 +14,7 @@ import com.box.boxjavalibv2.exceptions.BoxJSONException;
 import com.box.boxjavalibv2.jsonentities.IBoxJSONStringEntity;
 import com.box.boxjavalibv2.jsonentities.MapJSONStringEntity;
 import com.box.boxjavalibv2.jsonparsing.IBoxJSONParser;
+import com.box.boxjavalibv2.requests.requestentities.IBoxRequestEntity;
 import com.box.restclientv2.exceptions.BoxRestException;
 
 /**
@@ -22,7 +23,7 @@ import com.box.restclientv2.exceptions.BoxRestException;
 public class BoxDefaultRequestObject implements IBoxRequestObject {
 
     private final IBoxJSONParser mParser;
-    private final MapJSONStringEntity jsonEntity = new MapJSONStringEntity();
+    private MapJSONStringEntity jsonEntity;
     private final List<String> fields = new ArrayList<String>();
     private final Map<String, String> queryParams = new HashMap<String, String>();
     private final Map<String, String> headers = new HashMap<String, String>();
@@ -37,21 +38,28 @@ public class BoxDefaultRequestObject implements IBoxRequestObject {
 
     @Override
     public HttpEntity getEntity() throws BoxRestException, BoxJSONException {
+        MapJSONStringEntity en = getJSONEntity();
+        if (en == null) {
+            return null;
+        }
         try {
-            return new StringEntity(getJSONEntity().toJSONString(getJSONParser()), CharEncoding.UTF_8);
+            return new StringEntity(en.toJSONString(getJSONParser()), CharEncoding.UTF_8);
         }
         catch (UnsupportedEncodingException e) {
             throw new BoxRestException(e);
         }
     }
 
-    /**
-     * Get JSON entity.
-     * 
-     * @return JSON entity
-     */
     public MapJSONStringEntity getJSONEntity() {
         return jsonEntity;
+    }
+
+    public void setJSONEntity(MapJSONStringEntity entity) {
+        this.jsonEntity = entity;
+    }
+
+    protected void takeRequestEntity(IBoxRequestEntity entity) {
+        entity.applyToRequestObject(this);
     }
 
     @Override
@@ -121,6 +129,7 @@ public class BoxDefaultRequestObject implements IBoxRequestObject {
         return queryParams;
     }
 
+    // TODO: remove these put's
     /**
      * Add a key value pair to the request body.
      * 
@@ -155,17 +164,6 @@ public class BoxDefaultRequestObject implements IBoxRequestObject {
      */
     public String[] put(String key, String[] value) {
         return (String[]) getJSONEntity().put(key, value);
-    }
-
-    /**
-     * Get value.
-     * 
-     * @param key
-     *            key
-     * @return value
-     */
-    public Object get(String key) {
-        return getJSONEntity().get(key);
     }
 
     /**

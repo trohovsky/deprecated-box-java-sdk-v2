@@ -17,8 +17,9 @@ import com.box.boxjavalibv2.requests.DeleteCollaborationRequest;
 import com.box.boxjavalibv2.requests.GetAllCollaborationsRequest;
 import com.box.boxjavalibv2.requests.GetCollaborationRequest;
 import com.box.boxjavalibv2.requests.UpdateCollaborationRequest;
-import com.box.boxjavalibv2.requests.requestobjects.BoxCollabRequestObject;
+import com.box.boxjavalibv2.requests.requestentities.BoxCollabRequestEntity;
 import com.box.boxjavalibv2.requests.requestobjects.BoxDefaultRequestObject;
+import com.box.boxjavalibv2.requests.requestobjects.BoxEntityRequestObject;
 import com.box.boxjavalibv2.requests.requestobjects.BoxGetAllCollabsRequestObject;
 import com.box.restclientv2.IBoxRESTClient;
 import com.box.restclientv2.authorization.IBoxRequestAuth;
@@ -60,8 +61,8 @@ public final class BoxCollaborationsManagerImpl extends AbstractBoxResourceManag
     }
 
     @Override
-    public BoxCollaboration createCollaboration(final String folderId, final BoxCollabRequestObject collabObject) throws BoxRestException, BoxServerException,
-        AuthFatalFailureException {
+    public BoxCollaboration createCollaboration(final String folderId, final BoxEntityRequestObject<BoxCollabRequestEntity> collabObject)
+        throws BoxRestException, BoxServerException, AuthFatalFailureException {
         CreateCollaborationRequest request = new CreateCollaborationRequest(getConfig(), getJSONParser(), folderId, collabObject);
 
         return (BoxCollaboration) getResponseAndParseAndTryCast(request, BoxResourceType.COLLABORATION, getJSONParser());
@@ -84,8 +85,8 @@ public final class BoxCollaborationsManagerImpl extends AbstractBoxResourceManag
     }
 
     @Override
-    public BoxCollaboration updateCollaboration(final String collabId, BoxCollabRequestObject requestObject) throws BoxRestException,
-        AuthFatalFailureException, BoxServerException {
+    public BoxCollaboration updateCollaboration(final String collabId, final BoxEntityRequestObject<BoxCollabRequestEntity> requestObject)
+        throws BoxRestException, AuthFatalFailureException, BoxServerException {
         UpdateCollaborationRequest request = new UpdateCollaborationRequest(getConfig(), getJSONParser(), collabId, requestObject);
         return (BoxCollaboration) super.getResponseAndParseAndTryCast(request, BoxResourceType.COLLABORATION, getJSONParser());
     }

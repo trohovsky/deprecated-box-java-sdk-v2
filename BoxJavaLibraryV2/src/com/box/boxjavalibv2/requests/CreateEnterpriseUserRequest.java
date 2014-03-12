@@ -4,7 +4,8 @@ import org.apache.http.HttpStatus;
 
 import com.box.boxjavalibv2.IBoxConfig;
 import com.box.boxjavalibv2.jsonparsing.IBoxJSONParser;
-import com.box.boxjavalibv2.requests.requestobjects.BoxUserRequestObject;
+import com.box.boxjavalibv2.requests.requestentities.BoxUserRequestEntity;
+import com.box.boxjavalibv2.requests.requestobjects.BoxEntityRequestObject;
 import com.box.restclientv2.RestMethod;
 import com.box.restclientv2.exceptions.BoxRestException;
 import com.box.restclientv2.requests.DefaultBoxRequest;
@@ -28,7 +29,8 @@ public class CreateEnterpriseUserRequest extends DefaultBoxRequest {
      * @throws BoxRestException
      *             exception
      */
-    public CreateEnterpriseUserRequest(final IBoxConfig config, final IBoxJSONParser parser, BoxUserRequestObject requestObject) throws BoxRestException {
+    public CreateEnterpriseUserRequest(final IBoxConfig config, final IBoxJSONParser parser, BoxEntityRequestObject<BoxUserRequestEntity> requestObject)
+        throws BoxRestException {
         super(config, parser, getUri(), RestMethod.POST, requestObject);
         setExpectedResponseCode(HttpStatus.SC_CREATED);
     }

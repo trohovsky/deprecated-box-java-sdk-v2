@@ -1,15 +1,11 @@
-package com.box.boxjavalibv2.requests.requestobjects;
+package com.box.boxjavalibv2.requests.requestentities;
 
 import com.box.boxjavalibv2.dao.BoxEmail;
 import com.box.boxjavalibv2.dao.BoxFolder;
 import com.box.boxjavalibv2.jsonentities.MapJSONStringEntity;
 import com.box.boxjavalibv2.jsonparsing.IBoxJSONParser;
 
-public class BoxFolderUpdateRequestObject extends BoxFolderRequestObject {
-
-    private BoxFolderUpdateRequestObject(IBoxJSONParser parser) {
-        super(parser);
-    }
+public class BoxFolderRequestEntity extends BoxItemRequestEntity {
 
     /**
      * Set the email-to-upload address for this folder.
@@ -20,15 +16,21 @@ public class BoxFolderUpdateRequestObject extends BoxFolderRequestObject {
      *            email address
      * @return
      */
-    public BoxFolderRequestObject setUploadEmail(String access, String email) {
+    public void setUploadEmail(String access, String email) {
         MapJSONStringEntity entity = new MapJSONStringEntity();
         entity.put(BoxEmail.FIELD_ACCESS, access);
         entity.put(BoxEmail.FIELD_EMAIL, email);
         put(BoxFolder.FIELD_FOLDER_UPLOAD_EMAIL, entity);
-        return this;
     }
 
-    public static BoxFolderUpdateRequestObject updateFolderInfoRequestObject(final IBoxJSONParser parser) {
-        return (new BoxFolderUpdateRequestObject(parser));
+    public static BoxFolderRequestEntity getRequestEntity() {
+        return (new BoxFolderRequestEntity());
+    }
+
+    public static BoxFolderRequestEntity createFolderRequestEntity(String name, String parentId, final IBoxJSONParser parser) {
+        BoxFolderRequestEntity entity = new BoxFolderRequestEntity();
+        entity.setName(name);
+        entity.setParent(parentId);
+        return entity;
     }
 }

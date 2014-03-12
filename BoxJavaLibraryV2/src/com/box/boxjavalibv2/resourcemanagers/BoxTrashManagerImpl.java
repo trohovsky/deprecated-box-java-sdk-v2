@@ -14,8 +14,9 @@ import com.box.boxjavalibv2.requests.DeleteTrashItemRequest;
 import com.box.boxjavalibv2.requests.GetFolderTrashItemsRequest;
 import com.box.boxjavalibv2.requests.GetTrashItemRequest;
 import com.box.boxjavalibv2.requests.RestoreTrashItemRequest;
+import com.box.boxjavalibv2.requests.requestentities.BoxItemRestoreRequestEntity;
 import com.box.boxjavalibv2.requests.requestobjects.BoxDefaultRequestObject;
-import com.box.boxjavalibv2.requests.requestobjects.BoxItemRestoreRequestObject;
+import com.box.boxjavalibv2.requests.requestobjects.BoxEntityRequestObject;
 import com.box.boxjavalibv2.requests.requestobjects.BoxPagingRequestObject;
 import com.box.restclientv2.IBoxRESTClient;
 import com.box.restclientv2.authorization.IBoxRequestAuth;
@@ -34,8 +35,8 @@ public class BoxTrashManagerImpl extends AbstractBoxResourceManager implements I
     }
 
     @Override
-    public BoxFile restoreTrashFile(final String id, final BoxItemRestoreRequestObject requestObject) throws BoxRestException, AuthFatalFailureException,
-        BoxServerException {
+    public BoxFile restoreTrashFile(final String id, final BoxEntityRequestObject<BoxItemRestoreRequestEntity> requestObject) throws BoxRestException,
+        AuthFatalFailureException, BoxServerException {
         return (BoxFile) restoreTrashItem(id, BoxResourceType.FILE, requestObject);
     }
 
@@ -65,8 +66,8 @@ public class BoxTrashManagerImpl extends AbstractBoxResourceManager implements I
     }
 
     @Override
-    public BoxFolder restoreTrashFolder(final String id, final BoxItemRestoreRequestObject requestObject) throws BoxRestException, AuthFatalFailureException,
-        BoxServerException {
+    public BoxFolder restoreTrashFolder(final String id, final BoxEntityRequestObject<BoxItemRestoreRequestEntity> requestObject) throws BoxRestException,
+        AuthFatalFailureException, BoxServerException {
         return (BoxFolder) restoreTrashItem(id, BoxResourceType.FOLDER, requestObject);
     }
 
@@ -83,8 +84,8 @@ public class BoxTrashManagerImpl extends AbstractBoxResourceManager implements I
         executeRequestWithNoResponseBody(request);
     }
 
-    private BoxItem restoreTrashItem(final String id, final BoxResourceType type, final BoxItemRestoreRequestObject requestObject) throws BoxRestException,
-        AuthFatalFailureException, BoxServerException {
+    private BoxItem restoreTrashItem(final String id, final BoxResourceType type, final BoxEntityRequestObject<BoxItemRestoreRequestEntity> requestObject)
+        throws BoxRestException, AuthFatalFailureException, BoxServerException {
         RestoreTrashItemRequest request = new RestoreTrashItemRequest(getConfig(), getJSONParser(), id, type, requestObject);
         return (BoxItem) getResponseAndParseAndTryCast(request, type, getJSONParser());
     }

@@ -28,13 +28,13 @@ public class UpdateCommentRequestTest extends RequestTestBase {
         String id = "testid123";
         String message = "testmessage456";
 
-        UpdateCommentRequest request = new UpdateCommentRequest(CONFIG, JSON_PARSER, id, BoxCommentRequestObject.updateCommentRequestObject(message,
+        UpdateCommentRequest request = new UpdateCommentRequest(CONFIG, JSON_PARSER, id, BoxCommentRequestObject.updateCommentRequestEntity(message,
             TestUtils.getJsonParser()));
         testRequestIsWellFormed(request, TestUtils.getConfig().getApiUrlAuthority(),
             TestUtils.getConfig().getApiUrlPath().concat(UpdateCommentRequest.getUri(id)), HttpStatus.SC_OK, RestMethod.PUT);
 
         HttpEntity entity = request.getRequestEntity();
         Assert.assertTrue(entity instanceof StringEntity);
-        assertEqualStringEntity(BoxCommentRequestObject.updateCommentRequestObject(message, TestUtils.getJsonParser()).getJSONEntity(), entity);
+        assertEqualStringEntity(BoxCommentRequestObject.updateCommentRequestEntity(message, TestUtils.getJsonParser()).getJSONEntity(), entity);
     }
 }

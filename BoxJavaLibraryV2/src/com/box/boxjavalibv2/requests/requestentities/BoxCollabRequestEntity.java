@@ -1,27 +1,22 @@
-package com.box.boxjavalibv2.requests.requestobjects;
+package com.box.boxjavalibv2.requests.requestentities;
 
 import org.apache.commons.lang.StringUtils;
 
 import com.box.boxjavalibv2.dao.BoxCollaboration;
 import com.box.boxjavalibv2.dao.BoxResourceType;
 import com.box.boxjavalibv2.jsonentities.MapJSONStringEntity;
-import com.box.boxjavalibv2.jsonparsing.IBoxJSONParser;
+import com.box.boxjavalibv2.requests.requestobjects.BoxDefaultRequestObject;
+import com.box.boxjavalibv2.requests.requestobjects.IBoxRequestObject;
 
-/**
- * Entity for adding collaboration request.
- */
-public class BoxCollabRequestObject extends BoxDefaultRequestObject {
+public class BoxCollabRequestEntity extends BoxDefaultRequestEntity {
 
-    /**
-     * Constructor.
-     * 
-     */
-    private BoxCollabRequestObject(IBoxJSONParser parser) {
-        super(parser);
+    private String status;
+
+    private BoxCollabRequestEntity() {
     }
 
     /**
-     * Create an request object used to do create Collaboration request.
+     * Entity to create a collaboration.
      * 
      * @param folderId
      *            id of the folder
@@ -31,46 +26,55 @@ public class BoxCollabRequestObject extends BoxDefaultRequestObject {
      *            login email of the collaborator(Can be non-box email.)
      * @param role
      *            role/access level of this collaboration(This is a String defined in {@link com.box.boxjavalibv2.dao.CollaborationRole}
-     * @return BoxCollabRequestObject
+     * @return BoxCollabRequestEntity
      */
-    public static BoxCollabRequestObject createCollaborationObject(final String folderId, final String userId, final String login, final String role,
-        final IBoxJSONParser parser) {
+    public static BoxCollabRequestEntity createCollabEntity(final String folderId, final String userId, final String login, final String role) {
+        BoxCollabRequestEntity entity = new BoxCollabRequestEntity();
         MapJSONStringEntity item = getItemEntity(folderId);
         MapJSONStringEntity accessibleBy = getAccessibilityEntity(userId, login);
-        return (new BoxCollabRequestObject(parser)).setItem(item).setAccessibleBy(accessibleBy).setRole(role);
+        entity.setItem(item);
+        entity.setAccessibleBy(accessibleBy);
+        entity.setRole(role);
+        return entity;
     }
 
     /**
-     * Create an v used to make update collaboration request.
+     * Entity to update a collaboration.
      * 
      * @param role
-     *            role/access level of this collaboration(This is a String defined in {@link com.box.boxjavalibv2.dao.CollaborationRole}
-     * @return BoxCollabRequestObject
+     *            role/access level of this collaboration(This is a String defined in {@link com.box.boxjavalibv2.dao.CollaborationRole}.
+     * @return
      */
-    public static BoxCollabRequestObject updateCollaborationObject(final String role, final IBoxJSONParser parser) {
-        return (new BoxCollabRequestObject(parser)).setRole(role);
-    }
-
-    public BoxCollabRequestObject setStatus(String status) {
-        this.addQueryParam(BoxCollaboration.FIELD_STATUS, status);
-        return this;
+    public static BoxCollabRequestEntity updateCollabEntity(final String role) {
+        BoxCollabRequestEntity entity = new BoxCollabRequestEntity();
+        entity.setRole(role);
+        return entity;
     }
 
     /** Set the item. */
-    public BoxCollabRequestObject setItem(MapJSONStringEntity item) {
+    public void setItem(MapJSONStringEntity item) {
         put(BoxCollaboration.FIELD_FOLDER, item);
-        return this;
     }
 
-    public BoxCollabRequestObject setAccessibleBy(MapJSONStringEntity accessibleBy) {
+    @Override
+    public void applyToRequestObject(IBoxRequestObject obj) {
+        super.applyToRequestObject(obj);
+        if (StringUtils.isNotEmpty(status)) {
+            ((BoxDefaultRequestObject) obj).addQueryParam(BoxCollaboration.FIELD_STATUS, status);
+        }
+    }
+
+    public void setAccessibleBy(MapJSONStringEntity accessibleBy) {
         super.put(BoxCollaboration.FIELD_ACCESSIBLE_BY, accessibleBy);
-        return this;
     }
 
     /** Set the role. */
-    public BoxCollabRequestObject setRole(String role) {
+    public void setRole(String role) {
         put(BoxCollaboration.FIELD_ROLE, role);
-        return this;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     private static MapJSONStringEntity getItemEntity(String folderId) {

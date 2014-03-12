@@ -1,23 +1,17 @@
-package com.box.boxjavalibv2.requests.requestobjects;
+package com.box.boxjavalibv2.requests.requestentities;
 
 import com.box.boxjavalibv2.dao.BoxComment;
 import com.box.boxjavalibv2.dao.BoxResourceType;
 import com.box.boxjavalibv2.jsonentities.MapJSONStringEntity;
 import com.box.boxjavalibv2.jsonparsing.IBoxJSONParser;
 
-/**
- * Entity for a comment message.
- */
-public class BoxCommentRequestObject extends BoxDefaultRequestObject {
+public class BoxCommentRequestEntity extends BoxDefaultRequestEntity {
 
-    private static final String MESSAGE = BoxComment.FIELD_MESSAGE;
-
-    private BoxCommentRequestObject(IBoxJSONParser parser) {
-        super(parser);
+    private BoxCommentRequestEntity() {
     }
 
     /**
-     * A BoxCommentRequestObject for AddCommentRequest.
+     * A BoxCommentRequestEntity to add a comment.
      * 
      * @param type
      *            type of the item to be commented
@@ -27,20 +21,25 @@ public class BoxCommentRequestObject extends BoxDefaultRequestObject {
      *            comment message
      * @return BoxCommentRequestObject
      */
-    public static BoxCommentRequestObject addCommentRequestObject(final BoxResourceType type, final String itemId, final String message,
+    public static BoxCommentRequestEntity addCommentRequestEntity(final BoxResourceType type, final String itemId, final String message,
         final IBoxJSONParser parser) {
-        return (new BoxCommentRequestObject(parser)).setItem(type, itemId).setMessage(message);
+        BoxCommentRequestEntity entity = new BoxCommentRequestEntity();
+        entity.setItem(type, itemId);
+        entity.setMessage(message);
+        return entity;
     }
 
     /**
-     * A BoxCommentRequestObject for UpdateCommentRequest.
+     * A BoxCommentRequestEntity to update comment.
      * 
      * @param message
      *            comment message
      * @return BoxCommentRequestObject
      */
-    public static BoxCommentRequestObject updateCommentRequestObject(final String message, final IBoxJSONParser parser) {
-        return (new BoxCommentRequestObject(parser)).setMessage(message);
+    public static BoxCommentRequestEntity updateCommentRequestEntity(final String message, final IBoxJSONParser parser) {
+        BoxCommentRequestEntity entity = new BoxCommentRequestEntity();
+        entity.setMessage(message);
+        return entity;
     }
 
     /**
@@ -50,9 +49,8 @@ public class BoxCommentRequestObject extends BoxDefaultRequestObject {
      *            comment message
      * @return BoxCommentRequestObject
      */
-    public BoxCommentRequestObject setMessage(final String message) {
-        put(MESSAGE, message);
-        return this;
+    public void setMessage(final String message) {
+        put(BoxComment.FIELD_MESSAGE, message);
     }
 
     /**
@@ -64,9 +62,8 @@ public class BoxCommentRequestObject extends BoxDefaultRequestObject {
      *            id of the item
      * @return BoxCommentRequestObject
      */
-    public BoxCommentRequestObject setItem(final BoxResourceType type, final String itemId) {
+    public void setItem(final BoxResourceType type, final String itemId) {
         put(BoxComment.FIELD_ITEM, getItemEntity(type, itemId));
-        return this;
     }
 
     private static MapJSONStringEntity getItemEntity(final BoxResourceType type, final String itemId) {

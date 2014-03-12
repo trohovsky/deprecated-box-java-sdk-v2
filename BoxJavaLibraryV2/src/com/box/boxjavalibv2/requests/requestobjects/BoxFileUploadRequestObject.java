@@ -178,19 +178,6 @@ public class BoxFileUploadRequestObject extends BoxDefaultRequestObject {
         return this;
     }
 
-    /**
-     * This is for upload new version request only. Set the If-Match header can be included to ensure that client only overwrites the file if it knows about the
-     * latest version.
-     * 
-     * @param etag
-     *            etag
-     * @return BoxFileUploadRequestObject
-     */
-    public BoxFileUploadRequestObject setIfMatch(String etag) {
-        addHeader(Constants.IF_MATCH, etag);
-        return this;
-    }
-
     @Override
     public HttpEntity getEntity() {
         entity.prepareParts();

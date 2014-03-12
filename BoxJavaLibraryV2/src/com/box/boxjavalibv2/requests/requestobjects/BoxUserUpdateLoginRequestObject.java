@@ -26,7 +26,7 @@ public class BoxUserUpdateLoginRequestObject extends BoxDefaultRequestObject {
      *            login
      * @return
      */
-    public BoxUserUpdateLoginRequestObject setLogin(final String login) {
+    private BoxUserUpdateLoginRequestObject setLogin(final String login) {
         put(BoxUser.FIELD_LOGIN, login);
         return this;
     }

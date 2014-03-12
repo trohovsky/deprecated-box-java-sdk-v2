@@ -12,99 +12,17 @@ import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.message.BasicNameValuePair;
 
 import com.box.boxjavalibv2.jsonparsing.IBoxJSONParser;
+import com.box.boxjavalibv2.requests.requestentities.BoxOAuthRequestEntity;
 import com.box.restclientv2.exceptions.BoxRestException;
 
-public class BoxOAuthRequestObject extends BoxDefaultRequestObject {
+public class BoxOAuthRequestObject extends BoxEntityRequestObject<BoxOAuthRequestEntity> {
 
-    private BoxOAuthRequestObject(IBoxJSONParser parser) {
-        super(parser);
+    private BoxOAuthRequestObject(IBoxJSONParser parser, BoxOAuthRequestEntity entity) {
+        super(parser, entity);
     }
 
-    private final static String GRANT_TYPE = "grant_type";
-    private final static String CODE = "code";
-    private final static String CLIENT_ID = "client_id";
-    private final static String CLIENT_SECRET = "client_secret";
-    private final static String REDIRECT_URL = "redirect_url";
-    private final static String REFRESH_TOKEN = "refresh_token";
-    private final static String AUTHORIZATION_CODE = "authorization_code";
-    private final static String REVOKE_TOKEN = "token";
-
-    /**
-     * Request object to create OAUth.
-     * 
-     * @param code
-     *            The authorization code you retrieved previously used to create OAuth.
-     * @param clientId
-     *            client id
-     * @param clientSecret
-     *            client secret
-     * @param redirectUri
-     *            optional, required only if a redirect URI is not configured at <a href="http://box.com/developers/services">Box Developers Services</a>, use
-     *            null if don't want to supply this field.
-     * @return BoxOAuthRequestObject
-     */
-    public static BoxOAuthRequestObject createOAuthRequestObject(final String code, final String clientId, final String clientSecret, final String redirectUrl,
-        final IBoxJSONParser parser) {
-        return (new BoxOAuthRequestObject(parser)).setAuthCode(code).setClient(clientId, clientSecret).setRedirectUrl(redirectUrl);
-    }
-
-    public static BoxOAuthRequestObject refreshOAuthRequestObject(final String refreshToken, final String clientId, final String clientSecret,
-        final IBoxJSONParser parser) {
-        return (new BoxOAuthRequestObject(parser)).setRefreshToken(refreshToken).setClient(clientId, clientSecret);
-    }
-
-    /**
-     * Request object to revoke OAuth.
-     * 
-     * @param revokeToken
-     *            The access_token or refresh_token to be destroyed. Only one is required, though both will be destroyed.
-     * @param clientId
-     * @param clientSecret
-     * @return
-     */
-    public static BoxOAuthRequestObject revokeOAuthRequestObject(final String revokeToken, final String clientId, final String clientSecret,
-        final IBoxJSONParser parser) {
-        return (new BoxOAuthRequestObject(parser)).setRevokeToken(revokeToken).setClient(clientId, clientSecret);
-    }
-
-    /**
-     * Set the token to revoke.
-     * 
-     * @param token
-     *            The access_token or refresh_token to be destroyed. Only one is required, though both will be destroyed.
-     * @return
-     */
-    public BoxOAuthRequestObject setRevokeToken(final String token) {
-        put(REVOKE_TOKEN, token);
-        return this;
-    }
-
-    public BoxOAuthRequestObject setRefreshToken(final String refreshToken) {
-        put(GRANT_TYPE, REFRESH_TOKEN);
-        put(REFRESH_TOKEN, refreshToken);
-        return this;
-    }
-
-    /**
-     * @param code
-     *            The authorization code you retrieved previously used to create OAuth.
-     * @return
-     */
-    public BoxOAuthRequestObject setAuthCode(String code) {
-        put(GRANT_TYPE, AUTHORIZATION_CODE);
-        put(CODE, code);
-        return this;
-    }
-
-    public BoxOAuthRequestObject setClient(String clientId, String clientSecret) {
-        put(CLIENT_ID, clientId);
-        put(CLIENT_SECRET, clientSecret);
-        return this;
-    }
-
-    public BoxOAuthRequestObject setRedirectUrl(String redirectUrl) {
-        put(REDIRECT_URL, redirectUrl);
-        return this;
+    public static BoxOAuthRequestObject getRequestObject(IBoxJSONParser parser, BoxOAuthRequestEntity entity) {
+        return new BoxOAuthRequestObject(parser, entity);
     }
 
     @Override

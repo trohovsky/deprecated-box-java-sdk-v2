@@ -7,6 +7,7 @@ import org.junit.Test;
 import com.box.boxjavalibv2.exceptions.BoxJSONException;
 import com.box.boxjavalibv2.jsonparsing.BoxJSONParser;
 import com.box.boxjavalibv2.jsonparsing.BoxResourceHub;
+import com.box.boxjavalibv2.requests.requestentities.BoxCollabRequestEntity;
 import com.box.boxjavalibv2.requests.requestobjects.BoxCollabRequestObject;
 import com.box.restclientv2.exceptions.BoxRestException;
 
@@ -23,9 +24,9 @@ public class BoxCollaborationRequestObjectTest {
         String login = "abc@box.com";
         String role = "testrole789";
 
-        BoxCollabRequestObject entity = BoxCollabRequestObject
-            .createCollaborationObject(folderId, userId, login, role, new BoxJSONParser(new BoxResourceHub()));
-        String jsonStr = entity.getJSONEntity().toJSONString(new BoxJSONParser(new BoxResourceHub()));
+        BoxCollabRequestEntity en = BoxCollabRequestEntity.createCollabEntity(folderId, userId, login, role);
+        BoxCollabRequestObject obj = BoxCollabRequestObject.getInstance(new BoxJSONParser(new BoxResourceHub()), en);
+        String jsonStr = obj.getJSONEntity().toJSONString(new BoxJSONParser(new BoxResourceHub()));
         Assert.assertTrue(jsonStr.contains(ITEM_STR));
         Assert.assertTrue(jsonStr.contains(ACCESSIBLE_STR));
         Assert.assertTrue(jsonStr.contains(String.format(ROLE_STR, role)));

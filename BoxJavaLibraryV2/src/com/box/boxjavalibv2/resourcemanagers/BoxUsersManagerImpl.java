@@ -23,10 +23,11 @@ import com.box.boxjavalibv2.requests.GetEmailAliasesRequest;
 import com.box.boxjavalibv2.requests.MoveFolderToAnotherUserRequest;
 import com.box.boxjavalibv2.requests.UpdateUserLoginRequest;
 import com.box.boxjavalibv2.requests.UpdateUserRequest;
+import com.box.boxjavalibv2.requests.requestentities.BoxEmailAliasRequestEntity;
+import com.box.boxjavalibv2.requests.requestentities.BoxSimpleUserRequestEntity;
+import com.box.boxjavalibv2.requests.requestentities.BoxUserRequestEntity;
 import com.box.boxjavalibv2.requests.requestobjects.BoxDefaultRequestObject;
-import com.box.boxjavalibv2.requests.requestobjects.BoxEmailAliasRequestObject;
-import com.box.boxjavalibv2.requests.requestobjects.BoxSimpleUserRequestObject;
-import com.box.boxjavalibv2.requests.requestobjects.BoxUserRequestObject;
+import com.box.boxjavalibv2.requests.requestobjects.BoxEntityRequestObject;
 import com.box.boxjavalibv2.requests.requestobjects.BoxUserUpdateLoginRequestObject;
 import com.box.restclientv2.IBoxRESTClient;
 import com.box.restclientv2.authorization.IBoxRequestAuth;
@@ -74,21 +75,22 @@ public final class BoxUsersManagerImpl extends AbstractBoxResourceManager implem
     }
 
     @Override
-    public BoxFolder moveFolderToAnotherUser(final String userId, final String folderId, final BoxSimpleUserRequestObject requestObject)
+    public BoxFolder moveFolderToAnotherUser(final String userId, final String folderId, final BoxEntityRequestObject<BoxSimpleUserRequestEntity> requestObject)
         throws BoxRestException, BoxServerException, AuthFatalFailureException {
         MoveFolderToAnotherUserRequest request = new MoveFolderToAnotherUserRequest(getConfig(), getJSONParser(), userId, folderId, requestObject);
         return (BoxFolder) getResponseAndParseAndTryCast(request, BoxResourceType.FOLDER, getJSONParser());
     }
 
     @Override
-    public BoxUser createEnterpriseUser(BoxUserRequestObject requestObject) throws BoxRestException, BoxServerException, AuthFatalFailureException {
+    public BoxUser createEnterpriseUser(BoxEntityRequestObject<BoxUserRequestEntity> requestObject) throws BoxRestException, BoxServerException,
+        AuthFatalFailureException {
         CreateEnterpriseUserRequest request = new CreateEnterpriseUserRequest(getConfig(), getJSONParser(), requestObject);
         return (BoxUser) getResponseAndParseAndTryCast(request, BoxResourceType.USER, getJSONParser());
     }
 
     @Override
-    public BoxUser updateUserInformaiton(final String userId, BoxUserRequestObject requestObject) throws BoxRestException, BoxServerException,
-        AuthFatalFailureException {
+    public BoxUser updateUserInformaiton(final String userId, BoxEntityRequestObject<BoxUserRequestEntity> requestObject) throws BoxRestException,
+        BoxServerException, AuthFatalFailureException {
         UpdateUserRequest request = new UpdateUserRequest(getConfig(), getJSONParser(), userId, requestObject);
         return (BoxUser) getResponseAndParseAndTryCast(request, BoxResourceType.USER, getJSONParser());
     }
@@ -102,8 +104,8 @@ public final class BoxUsersManagerImpl extends AbstractBoxResourceManager implem
     }
 
     @Override
-    public BoxEmailAlias addEmailAlias(final String userId, BoxEmailAliasRequestObject requestObject) throws BoxServerException, BoxRestException,
-        AuthFatalFailureException {
+    public BoxEmailAlias addEmailAlias(final String userId, BoxEntityRequestObject<BoxEmailAliasRequestEntity> requestObject) throws BoxServerException,
+        BoxRestException, AuthFatalFailureException {
         CreateEmailAliasRequest request = new CreateEmailAliasRequest(getConfig(), getJSONParser(), userId, requestObject);
         return (BoxEmailAlias) getResponseAndParseAndTryCast(request, BoxResourceType.EMAIL_ALIAS, getJSONParser());
     }

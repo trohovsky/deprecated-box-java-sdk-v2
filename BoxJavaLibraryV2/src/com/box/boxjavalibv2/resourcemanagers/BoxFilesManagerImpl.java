@@ -31,12 +31,13 @@ import com.box.boxjavalibv2.requests.GetFileCommentsRequest;
 import com.box.boxjavalibv2.requests.GetFileVersionsRequest;
 import com.box.boxjavalibv2.requests.GetPreviewRequest;
 import com.box.boxjavalibv2.requests.ThumbnailRequest;
+import com.box.boxjavalibv2.requests.requestentities.BoxFileRequestEntity;
+import com.box.boxjavalibv2.requests.requestentities.BoxItemCopyRequestEntity;
+import com.box.boxjavalibv2.requests.requestentities.BoxSharedLinkRequestEntity;
 import com.box.boxjavalibv2.requests.requestobjects.BoxDefaultRequestObject;
-import com.box.boxjavalibv2.requests.requestobjects.BoxFileRequestObject;
+import com.box.boxjavalibv2.requests.requestobjects.BoxEntityRequestObject;
 import com.box.boxjavalibv2.requests.requestobjects.BoxFileUploadRequestObject;
 import com.box.boxjavalibv2.requests.requestobjects.BoxImageRequestObject;
-import com.box.boxjavalibv2.requests.requestobjects.BoxItemCopyRequestObject;
-import com.box.boxjavalibv2.requests.requestobjects.SharedLinkRequestObject;
 import com.box.boxjavalibv2.responseparsers.ErrorResponseParser;
 import com.box.boxjavalibv2.responseparsers.PreviewResponseParser;
 import com.box.boxjavalibv2.responseparsers.ThumbnailResponseParser;
@@ -135,8 +136,8 @@ public class BoxFilesManagerImpl extends BoxItemsManagerImpl implements IBoxFile
     }
 
     @Override
-    public BoxFile copyFile(final String fileId, final BoxItemCopyRequestObject requestObject) throws BoxRestException, BoxServerException,
-        AuthFatalFailureException {
+    public BoxFile copyFile(final String fileId, final BoxEntityRequestObject<BoxItemCopyRequestEntity> requestObject) throws BoxRestException,
+        BoxServerException, AuthFatalFailureException {
         return (BoxFile) super.copyItem(fileId, requestObject, BoxResourceType.FILE);
     }
 
@@ -179,14 +180,14 @@ public class BoxFilesManagerImpl extends BoxItemsManagerImpl implements IBoxFile
     }
 
     @Override
-    public BoxFile updateFileInfo(final String fileId, BoxFileRequestObject requestObject) throws UnsupportedEncodingException, BoxRestException,
-        BoxServerException, AuthFatalFailureException {
+    public BoxFile updateFileInfo(final String fileId, final BoxEntityRequestObject<BoxFileRequestEntity> requestObject) throws UnsupportedEncodingException,
+        BoxRestException, BoxServerException, AuthFatalFailureException {
         return (BoxFile) super.updateItemInfo(fileId, requestObject, BoxResourceType.FILE);
     }
 
     @Override
-    public BoxFile createSharedLink(final String fileId, SharedLinkRequestObject requestObject) throws BoxRestException, BoxServerException,
-        AuthFatalFailureException {
+    public BoxFile createSharedLink(final String fileId, BoxEntityRequestObject<BoxSharedLinkRequestEntity> requestObject) throws BoxRestException,
+        BoxServerException, AuthFatalFailureException {
         return (BoxFile) super.createSharedLink(fileId, requestObject, BoxResourceType.FILE);
     }
 

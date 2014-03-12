@@ -15,12 +15,13 @@ import com.box.boxjavalibv2.dao.BoxThumbnail;
 import com.box.boxjavalibv2.exceptions.AuthFatalFailureException;
 import com.box.boxjavalibv2.exceptions.BoxServerException;
 import com.box.boxjavalibv2.filetransfer.IFileTransferListener;
+import com.box.boxjavalibv2.requests.requestentities.BoxFileRequestEntity;
+import com.box.boxjavalibv2.requests.requestentities.BoxItemCopyRequestEntity;
+import com.box.boxjavalibv2.requests.requestentities.BoxSharedLinkRequestEntity;
 import com.box.boxjavalibv2.requests.requestobjects.BoxDefaultRequestObject;
-import com.box.boxjavalibv2.requests.requestobjects.BoxFileRequestObject;
+import com.box.boxjavalibv2.requests.requestobjects.BoxEntityRequestObject;
 import com.box.boxjavalibv2.requests.requestobjects.BoxFileUploadRequestObject;
 import com.box.boxjavalibv2.requests.requestobjects.BoxImageRequestObject;
-import com.box.boxjavalibv2.requests.requestobjects.BoxItemCopyRequestObject;
-import com.box.boxjavalibv2.requests.requestobjects.SharedLinkRequestObject;
 import com.box.restclientv2.exceptions.BoxRestException;
 
 public interface IBoxFilesManager extends IBoxResourceManager {
@@ -138,7 +139,8 @@ public interface IBoxFilesManager extends IBoxResourceManager {
      * @throws AuthFatalFailureException
      *             See {@link com.box.restclientv2.exceptions.AuthFatalFailureException} for more info.
      */
-    public BoxFile copyFile(String fileId, BoxItemCopyRequestObject requestObject) throws BoxRestException, BoxServerException, AuthFatalFailureException;
+    public BoxFile copyFile(String fileId, BoxEntityRequestObject<BoxItemCopyRequestEntity> requestObject) throws BoxRestException, BoxServerException,
+        AuthFatalFailureException;
 
     /**
      * Download a file.
@@ -265,8 +267,8 @@ public interface IBoxFilesManager extends IBoxResourceManager {
      * @throws AuthFatalFailureException
      *             See {@link com.box.restclientv2.exceptions.AuthFatalFailureException} for more info.
      */
-    public BoxFile updateFileInfo(String fileId, BoxFileRequestObject requestObject) throws UnsupportedEncodingException, BoxRestException, BoxServerException,
-        AuthFatalFailureException;
+    public BoxFile updateFileInfo(String fileId, BoxEntityRequestObject<BoxFileRequestEntity> requestObject) throws UnsupportedEncodingException,
+        BoxRestException, BoxServerException, AuthFatalFailureException;
 
     /**
      * Create a shared link for a file, given the id of the file/folder.
@@ -283,8 +285,8 @@ public interface IBoxFilesManager extends IBoxResourceManager {
      * @throws AuthFatalFailureException
      *             See {@link com.box.restclientv2.exceptions.AuthFatalFailureException} for more info.
      */
-    public BoxFile createSharedLink(String fileId, SharedLinkRequestObject requestObject) throws BoxRestException, BoxServerException,
-        AuthFatalFailureException;
+    public BoxFile createSharedLink(String fileId, BoxEntityRequestObject<BoxSharedLinkRequestEntity> requestObject) throws BoxRestException,
+        BoxServerException, AuthFatalFailureException;
 
     /**
      * Get comments on a file.

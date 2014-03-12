@@ -1,6 +1,7 @@
 package com.box.boxjavalibv2.jsonentities;
 
 
+
 public class BoxSharedLinkPermissionsRequestEntity extends MapJSONStringEntity {
 
     private static final long serialVersionUID = 1L;

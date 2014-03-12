@@ -3,8 +3,9 @@ package com.box.boxjavalibv2.resourcemanagers;
 import com.box.boxjavalibv2.dao.BoxComment;
 import com.box.boxjavalibv2.exceptions.AuthFatalFailureException;
 import com.box.boxjavalibv2.exceptions.BoxServerException;
-import com.box.boxjavalibv2.requests.requestobjects.BoxCommentRequestObject;
+import com.box.boxjavalibv2.requests.requestentities.BoxCommentRequestEntity;
 import com.box.boxjavalibv2.requests.requestobjects.BoxDefaultRequestObject;
+import com.box.boxjavalibv2.requests.requestobjects.BoxEntityRequestObject;
 import com.box.restclientv2.exceptions.BoxRestException;
 
 public interface IBoxCommentsManager extends IBoxResourceManager {
@@ -21,7 +22,8 @@ public interface IBoxCommentsManager extends IBoxResourceManager {
      * @throws AuthFatalFailureException
      *             See {@link com.box.restclientv2.exceptions.AuthFatalFailureException} for more info.
      */
-    public BoxComment addComment(BoxCommentRequestObject requestObject) throws BoxRestException, BoxServerException, AuthFatalFailureException;
+    public BoxComment addComment(BoxEntityRequestObject<BoxCommentRequestEntity> requestObject) throws BoxRestException, BoxServerException,
+        AuthFatalFailureException;
 
     /**
      * Get a comment, given a comment id.
@@ -56,8 +58,8 @@ public interface IBoxCommentsManager extends IBoxResourceManager {
      * @throws AuthFatalFailureException
      *             See {@link com.box.restclientv2.exceptions.AuthFatalFailureException} for more info.
      */
-    public BoxComment updateComment(String commentId, BoxCommentRequestObject requestObject) throws BoxRestException, BoxServerException,
-        AuthFatalFailureException;
+    public BoxComment updateComment(String commentId, BoxEntityRequestObject<BoxCommentRequestEntity> requestObject) throws BoxRestException,
+        BoxServerException, AuthFatalFailureException;
 
     /**
      * Delete a comment.

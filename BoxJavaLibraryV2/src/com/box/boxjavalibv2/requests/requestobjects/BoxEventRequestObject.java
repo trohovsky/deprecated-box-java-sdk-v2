@@ -2,7 +2,7 @@ package com.box.boxjavalibv2.requests.requestobjects;
 
 import com.box.boxjavalibv2.jsonparsing.IBoxJSONParser;
 
-public class BoxEventRequestObject extends BoxItemRequestObject {
+public class BoxEventRequestObject extends BoxDefaultRequestObject {
 
     private BoxEventRequestObject(IBoxJSONParser parser) {
         super(parser);

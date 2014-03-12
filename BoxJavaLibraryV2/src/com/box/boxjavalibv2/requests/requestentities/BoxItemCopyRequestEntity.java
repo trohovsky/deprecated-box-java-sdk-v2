@@ -1,19 +1,19 @@
-package com.box.boxjavalibv2.requests.requestobjects;
+package com.box.boxjavalibv2.requests.requestentities;
 
 import com.box.boxjavalibv2.dao.BoxFile;
 import com.box.boxjavalibv2.dao.BoxFolder;
 import com.box.boxjavalibv2.dao.BoxItem;
 import com.box.boxjavalibv2.jsonentities.MapJSONStringEntity;
-import com.box.boxjavalibv2.jsonparsing.IBoxJSONParser;
 
-public class BoxItemCopyRequestObject extends BoxDefaultRequestObject {
+public class BoxItemCopyRequestEntity extends BoxDefaultRequestEntity {
 
-    protected BoxItemCopyRequestObject(IBoxJSONParser parser) {
-        super(parser);
+    private BoxItemCopyRequestEntity() {
     }
 
-    public static BoxItemCopyRequestObject copyItemRequestObject(String parentId, IBoxJSONParser parser) {
-        return (new BoxItemCopyRequestObject(parser)).setParent(parentId);
+    public static BoxItemCopyRequestEntity getRequestEntity(String parentId) {
+        BoxItemCopyRequestEntity entity = new BoxItemCopyRequestEntity();
+        entity.setParent(parentId);
+        return entity;
     }
 
     /**
@@ -23,11 +23,10 @@ public class BoxItemCopyRequestObject extends BoxDefaultRequestObject {
      *            id of parent
      * @return
      */
-    private BoxItemCopyRequestObject setParent(String parentId) {
+    private void setParent(String parentId) {
         MapJSONStringEntity entity = new MapJSONStringEntity();
         entity.put(BoxFolder.FIELD_ID, parentId);
         put(BoxItem.FIELD_PARENT, entity);
-        return this;
     }
 
     /**
@@ -37,8 +36,7 @@ public class BoxItemCopyRequestObject extends BoxDefaultRequestObject {
      *            name
      * @return
      */
-    public BoxItemCopyRequestObject setName(String name) {
+    public void setName(String name) {
         put(BoxFile.FIELD_NAME, name);
-        return this;
     }
 }
