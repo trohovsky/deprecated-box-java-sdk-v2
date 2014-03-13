@@ -10,7 +10,7 @@ public class BoxItemCopyRequestObject extends BoxDefaultRequestObject {
     private BoxItemCopyRequestObject() {
     }
 
-    public static BoxItemCopyRequestObject getRequestEntity(String parentId) {
+    public static BoxItemCopyRequestObject copyItemRequestObject(String parentId) {
         BoxItemCopyRequestObject entity = new BoxItemCopyRequestObject();
         entity.setParent(parentId);
         return entity;

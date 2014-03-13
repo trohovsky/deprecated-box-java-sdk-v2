@@ -34,6 +34,10 @@ public class BoxFolderRequestObject extends BoxItemRequestObject {
         return obj;
     }
 
+    public static BoxFolderRequestObject updateFolderRequestObject() {
+        return new BoxFolderRequestObject();
+    }
+
     /**
      * Set the email-to-upload address for this folder.
      * 

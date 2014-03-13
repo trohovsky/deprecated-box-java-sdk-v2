@@ -69,6 +69,10 @@ public class MultipartEntityWithProgressListener extends MultipartEntity {
         stringParts.put(name, entity);
     }
 
+    public IBoxJSONStringEntity getJSONStringEntityPart(String name) {
+        return stringParts.get(name);
+    }
+
     /**
      * Method to put all parts in to the multipart entity.
      * 
