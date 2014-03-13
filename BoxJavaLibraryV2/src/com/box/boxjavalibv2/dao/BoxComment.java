@@ -52,7 +52,7 @@ public class BoxComment extends BoxTypedObject {
     /**
      * Setter. This is only used by {@see <a href="http://jackson.codehaus.org">Jackson JSON processer</a>}
      * 
-     * @param is_reply_comment
+     * @param isReplyComment
      *            whether it's reply comment
      */
     @JsonProperty(FIELD_IS_REPLY_COMMENT)
@@ -94,7 +94,7 @@ public class BoxComment extends BoxTypedObject {
     /**
      * Setter. This is only used by {@see <a href="http://jackson.codehaus.org">Jackson JSON processer</a>}
      * 
-     * @param created_by
+     * @param createdBy
      *            user creating this comment
      */
     @JsonProperty(FIELD_CREATED_BY)

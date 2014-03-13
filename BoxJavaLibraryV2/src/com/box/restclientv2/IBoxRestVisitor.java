@@ -13,7 +13,7 @@ public interface IBoxRestVisitor {
      * 
      * @param request
      *            http request
-     * @param sequence
+     * @param sequenceId
      *            id of the api request
      */
     void visitRequestBeforeSend(HttpRequest request, int sequenceId);
@@ -23,7 +23,7 @@ public interface IBoxRestVisitor {
      * 
      * @param response
      *            http response.
-     * @param sequence
+     * @param sequenceId
      *            id of the api request
      */
     void visitResponseUponReceiving(HttpResponse response, int sequenceId);
@@ -33,7 +33,7 @@ public interface IBoxRestVisitor {
      * 
      * @param e
      *            Exception.
-     * @param sequence
+     * @param sequenceId
      *            id of the api request
      */
     void visitException(Exception e, int sequenceId);

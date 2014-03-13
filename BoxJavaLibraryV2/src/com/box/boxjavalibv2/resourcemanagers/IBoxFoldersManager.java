@@ -107,7 +107,7 @@ public interface IBoxFoldersManager extends IBoxResourceManager {
     /**
      * Update info for a folder.
      * 
-     * @param fileFolderId
+     * @param folderId
      *            id of the folder
      * @param requestObject
      *            request object
@@ -127,17 +127,11 @@ public interface IBoxFoldersManager extends IBoxResourceManager {
     /**
      * Create a shared link for a folder, given the id of the file/folder.
      * 
-     * @param fileFolderId
+     * @param folderId
      *            id of the folder
-     * @param isFolder
-     *            whether this is a folder.
-     * @param perm
-     *            SharedLinkPermissions
-     * @param access
-     *            SharedLinkAccess, String can be the strings defined in {@link com.box.boxjavalibv2.dao.BoxSharedLinkAccess}.
-     * @param unsharedAt
-     *            the time the created shared link expires.
-     * @return the file/folder, with shared link related fields filled in.
+     * @param requestObject
+     *            request object
+     * @return the folder, with shared link related fields filled in.
      * @throws BoxRestException
      *             See {@link com.box.restclientv2.exceptions.BoxRestException} for more info.
      * @throws BoxServerException

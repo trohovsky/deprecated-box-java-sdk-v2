@@ -18,23 +18,7 @@ public class OAuthWebViewData {
     private String mOptionalState;
     private String redirectUrl;
 
-    /**
-     * Constructor.
-     * 
-     * @param redirectUrl
-     *            redirection url
-     * @param clientId
-     *            client id
-     * @param clientSecret
-     *            client secret
-     * @param responseType
-     *            response type, currently only supports {@link #CODE_RESPONSE}
-     * @param scheme
-     *            scheme for oauth
-     * @param host
-     *            host for oauth
-     */
-    public OAuthWebViewData(final OAuthDataController oAuthDataController) {
+   public OAuthWebViewData(final OAuthDataController oAuthDataController) {
         this.mOAuthDataController = oAuthDataController;
     }
 

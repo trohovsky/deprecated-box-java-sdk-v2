@@ -16,20 +16,6 @@ public class UploadNewVersionFileRequest extends DefaultBoxRequest {
 
     private static final String URI = "/files/%s/content";
 
-    /**
-     * Constructor.
-     * 
-     * @param config
-     *            config
-     * @param parser
-     *            json parser
-     * @param fileId
-     *            id of the file to be updated
-     * @param BoxFileUploadRequestObject
-     *            requestObject
-     * @throws BoxRestException
-     *             exception
-     */
     public UploadNewVersionFileRequest(final IBoxConfig config, final IBoxJSONParser parser, final String fileId, BoxFileUploadRequestObject requestObject)
         throws BoxRestException {
         super(config, parser, getUri(fileId), RestMethod.POST, requestObject);

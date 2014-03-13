@@ -26,7 +26,7 @@ public class BoxBigPayloadObject extends BoxObject {
      * Get content of the preview. Caller is responsible for closing the InputStream.
      * 
      * @return preview input stream.
-     * @throws BoxException
+     * @throws BoxRestException
      */
     public InputStream getContent() throws BoxRestException {
         return content;

@@ -11,8 +11,8 @@ public interface IBoxSearchManager extends IBoxResourceManager {
     /**
      * Perform a search against the user's account.
      * 
-     * @param folderId
-     *            id of the folder.
+     * @param searchQuery
+     *            search query string
      * @param requestObject
      *            request object
      * @return Items(subfolders, files, weblinks...) under the folder.

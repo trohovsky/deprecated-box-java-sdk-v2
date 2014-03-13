@@ -13,9 +13,6 @@ public class BoxObjectResponseParser extends DefaultBoxJSONResponseParser {
     /**
      * Constructor.
      * 
-     * @param type
-     *            type of the box resource
-     * 
      * @param cls
      *            Object class.
      */

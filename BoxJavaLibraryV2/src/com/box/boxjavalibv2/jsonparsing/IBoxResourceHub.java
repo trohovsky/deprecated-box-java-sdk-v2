@@ -19,7 +19,7 @@ public interface IBoxResourceHub {
     /**
      * Get the IBoxType from a lower case string value. For example "file" would return BoxResourceType.FILE
      * 
-     * @param string
+     * @param type
      * @return
      */
     IBoxType getTypeFromLowercaseString(String type);

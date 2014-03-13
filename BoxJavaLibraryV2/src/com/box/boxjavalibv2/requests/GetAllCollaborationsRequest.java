@@ -14,19 +14,6 @@ public class GetAllCollaborationsRequest extends DefaultBoxRequest {
 
     private static final String URI = "/collaborations";
 
-    /**
-     * Constructor.
-     * 
-     * @param config
-     *            config
-     * @param parser
-     *            json parser
-     * @param status
-     *            status of the collaborations requested( This field is required and currently only support
-     *            {@link com.box.boxjavalibv2.dao.CollaborationV2.STATUS_PENDING}
-     * @throws BoxRestException
-     *             exception
-     */
     public GetAllCollaborationsRequest(final IBoxConfig config, final IBoxJSONParser parser, BoxGetAllCollabsRequestObject collabObject)
         throws BoxRestException {
         super(config, parser, getUri(), RestMethod.GET, collabObject);

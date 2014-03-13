@@ -17,22 +17,6 @@ public class UpdateItemInfoRequest extends DefaultBoxRequest {
 
     private static final String URI = "/%s/%s";
 
-    /**
-     * Constructor.
-     * 
-     * @param config
-     *            config
-     * @param parser
-     *            json parser
-     * @param id
-     *            id of the item
-     * @param requestObject
-     *            request object
-     * @param type
-     *            resource type of the objects
-     * @throws BoxRestException
-     * @throws UnsupportedEncodingException
-     */
     public UpdateItemInfoRequest(final IBoxConfig config, final IBoxJSONParser parser, final String fileFolderId, final BoxItemRequestObject requestObject,
         final BoxResourceType type) throws BoxRestException, UnsupportedEncodingException {
         super(config, parser, getUri(fileFolderId, type), RestMethod.PUT, requestObject);

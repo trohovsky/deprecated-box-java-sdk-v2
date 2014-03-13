@@ -12,10 +12,6 @@ public interface IBoxEventsManager extends IBoxResourceManager {
 
     /**
      * Get Events.
-     * 
-     * @param stream_position
-     * @param stream_type
-     * @param limit
      * @param requestObject
      * @return
      * @throws BoxRestException

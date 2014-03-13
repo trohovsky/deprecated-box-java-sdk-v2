@@ -45,14 +45,6 @@ public class MultipartEntityWithProgressListener extends MultipartEntity {
 
     private final HashMap<String, IBoxJSONStringEntity> stringParts = new HashMap<String, IBoxJSONStringEntity>();
 
-    /**
-     * base constructor.
-     * 
-     * @param mode
-     *            mode
-     * @param listener
-     *            listener monitoring the writing progress of the MultipartMime
-     */
     public MultipartEntityWithProgressListener(final HttpMultipartMode mode) {
         super(mode, null, Charset.forName(CharEncoding.UTF_8));
     }
@@ -79,7 +71,6 @@ public class MultipartEntityWithProgressListener extends MultipartEntity {
      * @return
      * @throws BoxJSONException
      * @throws UnsupportedEncodingException
-     * @throws ParseException
      */
     public void prepareParts(IBoxJSONParser parser) throws UnsupportedEncodingException, BoxJSONException {
         for (Map.Entry<String, ContentBody> entry : parts.entrySet()) {

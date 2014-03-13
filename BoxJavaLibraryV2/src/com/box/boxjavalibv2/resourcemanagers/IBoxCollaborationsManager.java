@@ -69,7 +69,7 @@ public interface IBoxCollaborationsManager extends IBoxResourceManager {
      * 
      * @param collabId
      *            id of the collaboration
-     * @param collabObject
+     * @param requestObject
      *            object that goes into request.
      * @throws BoxRestException
      *             See {@link com.box.restclientv2.exceptions.BoxRestException} for more info.

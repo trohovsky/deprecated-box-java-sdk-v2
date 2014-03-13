@@ -14,21 +14,6 @@ public class GetPreviewRequest extends DefaultBoxRequest {
 
     private final static String URI = "/files/%s/preview.%s";
 
-    /**
-     * Constructor.
-     * 
-     * @param config
-     *            config
-     * @param parser
-     *            json parser
-     * @param fileId
-     *            id of the file
-     * @param fileExtension
-     *            extension of the preview file to be fetched
-     * @param requstObject
-     *            request object
-     * @throws BoxRestException
-     */
     public GetPreviewRequest(final IBoxConfig config, final IBoxJSONParser parser, final String fileId, final String fileExtension,
         final BoxImageRequestObject requestObject) throws BoxRestException {
         super(config, parser, getUri(fileId, fileExtension), RestMethod.GET, requestObject);

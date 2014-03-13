@@ -40,7 +40,7 @@ public class BoxServerException extends BoxSDKException {
     /**
      * Constructor.
      * 
-     * @param result
+     * @param error
      *            API response error.
      */
     public BoxServerException(BoxServerError error) {

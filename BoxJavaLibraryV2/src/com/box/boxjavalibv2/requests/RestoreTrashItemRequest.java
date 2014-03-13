@@ -35,15 +35,6 @@ public class RestoreTrashItemRequest extends DefaultBoxRequest {
         this.setExpectedResponseCode(HttpStatus.SC_CREATED);
     }
 
-    /**
-     * Get uri.
-     * 
-     * @param id
-     *            id of the item
-     * @param itemType
-     *            type of the item
-     * @return uri
-     */
     public static String getUri(final String id, final BoxResourceType type) {
         return String.format(URI, type.toPluralString(), id);
     }

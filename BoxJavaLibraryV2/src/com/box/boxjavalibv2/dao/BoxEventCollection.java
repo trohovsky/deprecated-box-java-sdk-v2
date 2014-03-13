@@ -39,7 +39,7 @@ public class BoxEventCollection extends BoxCollectionBase {
     }
 
     /**
-     * @param chunk
+     * @param chunkSize
      *            size the chunk size
      */
     @JsonProperty(FIELD_CHUNK_SIZE)

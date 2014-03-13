@@ -14,15 +14,7 @@ public class OAuthAuthorization extends DefaultRequestAuth {
     private static final String BEARER = "Bearer";
     private final OAuthDataController mOAuth;
 
-    /**
-     * Constructor.
-     * 
-     * @param oAuth
-     *            OAuth
-     * @param autoRefresh
-     *            Whether allow auto refresh the OAuth token when it's expired.
-     */
-    public OAuthAuthorization(final OAuthDataController oAuth) {
+   public OAuthAuthorization(final OAuthDataController oAuth) {
         this.mOAuth = oAuth;
     }
 

@@ -441,7 +441,7 @@ public class BoxUser extends BoxUserBase {
     /**
      * Setter. This is only used by {@see <a href="http://jackson.codehaus.org">Jackson JSON processer</a>}
      * 
-     * @param my_tags
+     * @param myTags
      *            my_tags
      */
     @JsonProperty(FIELD_MY_TAGS)

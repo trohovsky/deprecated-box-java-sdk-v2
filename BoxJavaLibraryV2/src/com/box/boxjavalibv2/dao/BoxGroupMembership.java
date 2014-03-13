@@ -50,8 +50,8 @@ public class BoxGroupMembership extends BoxTypedObject {
     /**
      * Setter. This is only used by {@see <a href="http://jackson.codehaus.org">Jackson JSON processer</a>}.
      * 
-     * @param createdBy
-     *            the created_by to set
+     * @param user
+     *            the user to set
      */
     @JsonProperty(FIELD_USER)
     private void setUser(BoxUser user) {
@@ -66,8 +66,8 @@ public class BoxGroupMembership extends BoxTypedObject {
     /**
      * Setter. This is only used by {@see <a href="http://jackson.codehaus.org">Jackson JSON processer</a>}.
      * 
-     * @param createdBy
-     *            the created_by to set
+     * @param group
+     *            the group to set
      */
     @JsonProperty(FIELD_GROUP)
     private void setGroup(BoxGroup group) {

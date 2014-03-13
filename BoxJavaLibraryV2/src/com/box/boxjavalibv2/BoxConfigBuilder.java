@@ -134,7 +134,7 @@ public class BoxConfigBuilder {
     }
 
     /**
-     * @param OAuthUrlScheme
+     * @param oAuthUrlScheme
      *            the OAuthUrlScheme to set
      */
     public void setAuthUrlScheme(String oAuthUrlScheme) {
@@ -142,7 +142,7 @@ public class BoxConfigBuilder {
     }
 
     /**
-     * @param OAuthUrlAuthority
+     * @param oAuthUrlAuthority
      *            the OAuthUrlAuthority to set
      */
     public void setOAuthUrlAuthority(String oAuthUrlAuthority) {
@@ -150,7 +150,7 @@ public class BoxConfigBuilder {
     }
 
     /**
-     * @param OAuthUrlPath
+     * @param oAuthUrlPath
      *            the OAuthUrlPath to set
      */
     public void setOAuthUrlPath(String oAuthUrlPath) {
@@ -158,7 +158,7 @@ public class BoxConfigBuilder {
     }
 
     /**
-     * @param mOAuthApiUrlPath
+     * @param oAuthApiUrlPath
      *            the mOAuthApiUrlPath to set
      */
     public void setOAuthApiUrlPath(String oAuthApiUrlPath) {
@@ -166,7 +166,7 @@ public class BoxConfigBuilder {
     }
 
     /**
-     * @param mUploadUrlPath
+     * @param uploadUrlPath
      *            the mUploadUrlPath to set
      */
     public void setUploadUrlPath(String uploadUrlPath) {

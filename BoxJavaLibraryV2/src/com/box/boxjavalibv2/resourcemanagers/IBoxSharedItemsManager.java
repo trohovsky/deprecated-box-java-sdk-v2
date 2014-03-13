@@ -10,9 +10,7 @@ public interface IBoxSharedItemsManager extends IBoxResourceManager {
 
     /**
      * Get the shared item given a SharedItemAuth.
-     * 
-     * @param auth
-     *            SharedItemAuth, which contains information of the shared link.
+     *
      * @param requestObject
      *            request object
      * @return the shared object referred to by the shared link.

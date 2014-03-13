@@ -16,23 +16,6 @@ public class UploadFileRequest extends DefaultBoxRequest {
 
     private static final String URI = "/files/content";
 
-    /**
-     * Constructor.
-     * 
-     * @param config
-     *            config
-     * @param parser
-     *            json parser
-     * @param parentId
-     *            id of the parent folder
-     * @param files
-     *            a LinkedHashMap, each entry is for one file, key of the entry is the name of the file after uploaded to box, value of the entry is the local
-     *            file to be uploaded
-     * @param listener
-     *            listener to monitor file upload progress
-     * @throws BoxRestException
-     *             exception
-     */
     public UploadFileRequest(final IBoxConfig config, final IBoxJSONParser parser, final BoxFileUploadRequestObject requestObject) throws BoxRestException {
         super(config, parser, getUri(), RestMethod.POST, requestObject);
         this.setExpectedResponseCode(HttpStatus.SC_CREATED);

@@ -19,13 +19,6 @@ public class DeleteGroupRequest extends DefaultBoxRequest {
         setExpectedResponseCode(HttpStatus.SC_NO_CONTENT);
     }
 
-    /**
-     * Get uri.
-     * 
-     * @param commentId
-     *            id of the comment
-     * @return uri
-     */
     public static String getUri(final String groupId) {
         return String.format(URI, groupId);
     }

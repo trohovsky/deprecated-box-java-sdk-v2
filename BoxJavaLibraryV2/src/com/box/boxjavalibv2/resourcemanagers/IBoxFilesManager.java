@@ -216,7 +216,7 @@ public interface IBoxFilesManager extends IBoxResourceManager {
      * 
      * @param fileId
      *            id of the file
-     * @param BoxFileUploadRequestObject
+     * @param requestObject
      *            requestObject
      * @return a FileVersion object
      * @throws BoxRestException

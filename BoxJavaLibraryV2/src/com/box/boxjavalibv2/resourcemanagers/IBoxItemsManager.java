@@ -19,7 +19,7 @@ public interface IBoxItemsManager extends IBoxResourceManager {
      * 
      * @param id
      *            id of the item
-     * @param BoxBasicRequestObject
+     * @param requestObject
      *            requestObject
      * @param type
      *            resource type
@@ -78,9 +78,7 @@ public interface IBoxItemsManager extends IBoxResourceManager {
 
     /**
      * Create a shared link for an item, given the id .
-     * 
-     * @param auth
-     *            authorization
+     *
      * @param id
      *            id of the item
      * @param requestObject

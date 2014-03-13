@@ -457,7 +457,7 @@ public class BoxClient extends BoxBase implements IAuthFlowListener {
     /**
      * Get authenticated using a Auth object, this could be a previously stored data.
      * 
-     * @param token
+     * @param authData
      */
     public synchronized void authenticate(IAuthData authData) {
         OAuthDataController oauthController = getOAuthDataController();

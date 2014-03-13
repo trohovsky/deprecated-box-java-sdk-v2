@@ -14,7 +14,7 @@ public interface IBoxOAuthManager extends IBoxResourceManager {
      *            client id
      * @param clientSecret
      *            client secret
-     * @param redirectUri
+     * @param redirectUrl
      *            optional, required only if a redirect URI is not configured at <a href="http://box.com/developers/services">Box Developers Services</a>, use
      *            null if don't want to supply this field.
      * @return
@@ -36,7 +36,7 @@ public interface IBoxOAuthManager extends IBoxResourceManager {
      *            client id
      * @param clientSecret
      *            client secret
-     * @param redirectUri
+     * @param redirectUrl
      *            optional, required only if a redirect URI is not configured at <a href="http://box.com/developers/services">Box Developers Services</a>, use
      *            null if don't want to supply this field.
      * @param deviceId

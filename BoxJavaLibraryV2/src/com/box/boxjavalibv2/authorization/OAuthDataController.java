@@ -38,21 +38,7 @@ public class OAuthDataController implements IAuthDataController {
 
     private OAuthRefreshListener refreshListener;
 
-    /**
-     * Constructor.
-     * 
-     * @param config
-     *            BoxConfig
-     * @param resourceHub
-     *            resource hub
-     * @par restClient rest client to make api calls.
-     * @param clientId
-     *            client id
-     * @param clientSecret
-     *            client secret
-     * 
-     */
-    public OAuthDataController(BoxClient boxClient, final String clientId, final String clientSecret, final boolean autoRefresh) {
+  public OAuthDataController(BoxClient boxClient, final String clientId, final String clientSecret, final boolean autoRefresh) {
         this.mClient = boxClient;
         this.mClientId = clientId;
         this.mClientSecret = clientSecret;

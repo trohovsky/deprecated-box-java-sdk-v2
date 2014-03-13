@@ -29,8 +29,8 @@ public class DefaultBoxJSONResponseParser implements IBoxResponseParser {
      *            class of the wrapped object. Response from API will be parsed into this object, caller needs to make sure this class has fields with same
      *            names as the JSON part of API response. If class contains more fields than the JSON, those fields will be left null. If the class contains
      *            less fields than the JSON, the parsing will error out.
-     * @param objectMapper
-     *            ObjectMapper to be used when parsing.
+     * @param parser
+     *            IBoxJSONParser
      */
     public DefaultBoxJSONResponseParser(Class objectClass, IBoxJSONParser parser) {
         this.objectClass = objectClass;
