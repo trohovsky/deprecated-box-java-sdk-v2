@@ -51,8 +51,7 @@ public class CreateEnterpriseUserRequestTest extends RequestTestBase {
 
         BoxUserRequestEntity reqEntity = getUserRequestEntity(login, name, role, language, sync, title, phone, address, space, codes, seeManaged, status,
             exemptLimit, exemptLogin);
-        CreateEnterpriseUserRequest request = new CreateEnterpriseUserRequest(CONFIG, JSON_PARSER, BoxEntityRequestObject.getRequestEntity(
-            TestUtils.getJsonParser(), reqEntity));
+        CreateEnterpriseUserRequest request = new CreateEnterpriseUserRequest(CONFIG, JSON_PARSER, BoxEntityRequestObject.getRequestEntity(reqEntity));
         testRequestIsWellFormed(request, TestUtils.getConfig().getApiUrlAuthority(),
             TestUtils.getConfig().getApiUrlPath().concat(CreateEnterpriseUserRequest.getUri()), HttpStatus.SC_CREATED, RestMethod.POST);
 

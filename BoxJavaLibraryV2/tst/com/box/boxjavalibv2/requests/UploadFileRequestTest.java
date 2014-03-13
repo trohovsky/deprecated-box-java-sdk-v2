@@ -47,8 +47,7 @@ public class UploadFileRequestTest extends RequestTestBase {
 
         String fileName = "testfilename998";
 
-        UploadFileRequest request = new UploadFileRequest(CONFIG, JSON_PARSER, BoxFileUploadRequestObject.uploadFileRequestObject(parentId, fileName, f,
-            JSON_PARSER));
+        UploadFileRequest request = new UploadFileRequest(CONFIG, JSON_PARSER, BoxFileUploadRequestObject.uploadFileRequestObject(parentId, fileName, f));
         testRequestIsWellFormed(request, TestUtils.getConfig().getUploadUrlAuthority(),
             TestUtils.getConfig().getUploadUrlPath().concat(UploadFileRequest.getUri()), HttpStatus.SC_CREATED, RestMethod.POST);
     }

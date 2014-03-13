@@ -34,7 +34,7 @@ public class GetFolderItemsRequestTest extends RequestTestBase {
         fields.add(fieldB);
 
         GetFolderItemsRequest request = new GetFolderItemsRequest(CONFIG, JSON_PARSER, id, (BoxPagingRequestObject) BoxPagingRequestObject.pagingRequestObject(
-            limit, offset, TestUtils.getJsonParser()).addFields(fields));
+            limit, offset).addFields(fields));
         testRequestIsWellFormed(request, TestUtils.getConfig().getApiUrlAuthority(),
             TestUtils.getConfig().getApiUrlPath().concat(GetFolderItemsRequest.getUri(id)), HttpStatus.SC_OK, RestMethod.GET);
 

@@ -2,8 +2,8 @@ package com.box.boxjavalibv2.requests.requestentities;
 
 import com.box.boxjavalibv2.dao.BoxComment;
 import com.box.boxjavalibv2.dao.BoxResourceType;
+import com.box.boxjavalibv2.dao.IBoxType;
 import com.box.boxjavalibv2.jsonentities.MapJSONStringEntity;
-import com.box.boxjavalibv2.jsonparsing.IBoxJSONParser;
 
 public class BoxCommentRequestEntity extends BoxDefaultRequestEntity {
 
@@ -21,8 +21,7 @@ public class BoxCommentRequestEntity extends BoxDefaultRequestEntity {
      *            comment message
      * @return BoxCommentRequestObject
      */
-    public static BoxCommentRequestEntity addCommentRequestEntity(final BoxResourceType type, final String itemId, final String message,
-        final IBoxJSONParser parser) {
+    public static BoxCommentRequestEntity addCommentRequestEntity(final IBoxType type, final String itemId, final String message) {
         BoxCommentRequestEntity entity = new BoxCommentRequestEntity();
         entity.setItem(type, itemId);
         entity.setMessage(message);
@@ -62,11 +61,11 @@ public class BoxCommentRequestEntity extends BoxDefaultRequestEntity {
      *            id of the item
      * @return BoxCommentRequestObject
      */
-    public void setItem(final BoxResourceType type, final String itemId) {
+    public void setItem(final IBoxType type, final String itemId) {
         put(BoxComment.FIELD_ITEM, getItemEntity(type, itemId));
     }
 
-    private static MapJSONStringEntity getItemEntity(final BoxResourceType type, final String itemId) {
+    private static MapJSONStringEntity getItemEntity(final IBoxType type, final String itemId) {
         MapJSONStringEntity entity = new MapJSONStringEntity();
         entity.put("type", type.toString());
         entity.put("id", itemId);

@@ -2,12 +2,11 @@ package com.box.boxjavalibv2.requests.requestobjects;
 
 import com.box.boxjavalibv2.dao.BoxUser;
 import com.box.boxjavalibv2.jsonentities.MapJSONStringEntity;
-import com.box.boxjavalibv2.jsonparsing.IBoxJSONParser;
 
 public class BoxUserUpdateLoginRequestObject extends BoxDefaultRequestObject {
 
-    public BoxUserUpdateLoginRequestObject(IBoxJSONParser parser) {
-        super(parser);
+    public BoxUserUpdateLoginRequestObject() {
+        super();
         setJSONEntity(new MapJSONStringEntity());
     }
 
@@ -17,8 +16,8 @@ public class BoxUserUpdateLoginRequestObject extends BoxDefaultRequestObject {
      * @param login
      * @return
      */
-    public static BoxUserUpdateLoginRequestObject updateUserPrimaryLoginRequestObject(final String login, final IBoxJSONParser parser) {
-        return (new BoxUserUpdateLoginRequestObject(parser)).setLogin(login);
+    public static BoxUserUpdateLoginRequestObject updateUserPrimaryLoginRequestObject(final String login) {
+        return (new BoxUserUpdateLoginRequestObject()).setLogin(login);
     }
 
     /**

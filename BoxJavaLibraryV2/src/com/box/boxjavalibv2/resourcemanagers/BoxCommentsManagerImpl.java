@@ -8,6 +8,7 @@ import com.box.boxjavalibv2.dao.BoxCollection;
 import com.box.boxjavalibv2.dao.BoxComment;
 import com.box.boxjavalibv2.dao.BoxResourceType;
 import com.box.boxjavalibv2.dao.BoxTypedObject;
+import com.box.boxjavalibv2.dao.IBoxType;
 import com.box.boxjavalibv2.exceptions.AuthFatalFailureException;
 import com.box.boxjavalibv2.exceptions.BoxServerException;
 import com.box.boxjavalibv2.jsonparsing.IBoxJSONParser;
@@ -55,6 +56,13 @@ public final class BoxCommentsManagerImpl extends AbstractBoxResourceManager imp
         AuthFatalFailureException {
         CreateCommentRequest request = new CreateCommentRequest(getConfig(), getJSONParser(), requestObject);
         return (BoxComment) getResponseAndParseAndTryCast(request, BoxResourceType.COMMENT, getJSONParser());
+    }
+
+    @Override
+    public BoxComment addComment(String commentedItemId, IBoxType commentedItemType, String message) throws BoxRestException, BoxServerException,
+        AuthFatalFailureException {
+        BoxCommentRequestEntity entity = BoxCommentRequestEntity.addCommentRequestEntity(commentedItemType, commentedItemId, message);
+        return addComment(BoxEntityRequestObject.getRequestEntity(entity));
     }
 
     @Override

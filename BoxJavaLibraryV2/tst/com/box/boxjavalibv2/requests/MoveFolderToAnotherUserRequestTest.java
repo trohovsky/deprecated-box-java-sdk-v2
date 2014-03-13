@@ -31,7 +31,7 @@ public class MoveFolderToAnotherUserRequestTest extends RequestTestBase {
         boolean notify = true;
         BoxSimpleUserRequestEntity entity = BoxSimpleUserRequestEntity.moveFolderToAnotherUserRequestEntity(folderId, notify);
         MoveFolderToAnotherUserRequest request = new MoveFolderToAnotherUserRequest(CONFIG, JSON_PARSER, userId, folderId,
-            BoxEntityRequestObject.getRequestEntity(TestUtils.getJsonParser(), entity));
+            BoxEntityRequestObject.getRequestEntity(entity));
         testRequestIsWellFormed(request, TestUtils.getConfig().getApiUrlAuthority(),
             TestUtils.getConfig().getApiUrlPath().concat(MoveFolderToAnotherUserRequest.getUri(userId, folderId)), HttpStatus.SC_OK, RestMethod.PUT);
         Assert.assertEquals(Boolean.toString(notify), request.getQueryParams().get("notify"));

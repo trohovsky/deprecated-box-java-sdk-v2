@@ -1,20 +1,19 @@
 package com.box.boxjavalibv2.requests.requestobjects;
 
 import com.box.boxjavalibv2.dao.BoxGroup;
-import com.box.boxjavalibv2.jsonparsing.IBoxJSONParser;
 
 public class BoxGroupRequestObject extends BoxDefaultRequestObject {
 
-    private BoxGroupRequestObject(IBoxJSONParser parser) {
-        super(parser);
+    private BoxGroupRequestObject() {
+        super();
     }
 
-    public static BoxGroupRequestObject createGroupRequestObject(final String name, final IBoxJSONParser parser) {
-        return updateGroupRequestObject(name, parser);
+    public static BoxGroupRequestObject createGroupRequestObject(final String name) {
+        return updateGroupRequestObject(name);
     }
 
-    public static BoxGroupRequestObject updateGroupRequestObject(final String name, final IBoxJSONParser parser) {
-        BoxGroupRequestObject obj = new BoxGroupRequestObject(parser);
+    public static BoxGroupRequestObject updateGroupRequestObject(final String name) {
+        BoxGroupRequestObject obj = new BoxGroupRequestObject();
         obj.put(BoxGroup.FIELD_NAME, name);
         return obj;
     }

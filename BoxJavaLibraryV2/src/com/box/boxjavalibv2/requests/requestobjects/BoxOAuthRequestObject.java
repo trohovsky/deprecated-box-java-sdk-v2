@@ -17,16 +17,16 @@ import com.box.restclientv2.exceptions.BoxRestException;
 
 public class BoxOAuthRequestObject extends BoxEntityRequestObject<BoxOAuthRequestEntity> {
 
-    private BoxOAuthRequestObject(IBoxJSONParser parser, BoxOAuthRequestEntity entity) {
-        super(parser, entity);
+    private BoxOAuthRequestObject(BoxOAuthRequestEntity entity) {
+        super(entity);
     }
 
-    public static BoxOAuthRequestObject getRequestObject(IBoxJSONParser parser, BoxOAuthRequestEntity entity) {
-        return new BoxOAuthRequestObject(parser, entity);
+    public static BoxOAuthRequestObject getRequestObject(BoxOAuthRequestEntity entity) {
+        return new BoxOAuthRequestObject(entity);
     }
 
     @Override
-    public UrlEncodedFormEntity getEntity() throws BoxRestException {
+    public UrlEncodedFormEntity getEntity(IBoxJSONParser parser) throws BoxRestException {
         List<NameValuePair> pairs = new ArrayList<NameValuePair>();
         for (Map.Entry<String, Object> entry : getJSONEntity().entrySet()) {
             Object value = entry.getValue();

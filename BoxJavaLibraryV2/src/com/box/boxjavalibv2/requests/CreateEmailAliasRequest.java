@@ -53,7 +53,7 @@ public class CreateEmailAliasRequest extends DefaultBoxRequest {
      *             exception
      */
     public CreateEmailAliasRequest(final IBoxConfig config, final IBoxJSONParser parser, final String userId, final String email) throws BoxRestException {
-        this(config, parser, userId, BoxEntityRequestObject.getRequestEntity(parser, BoxEmailAliasRequestEntity.addEmailAliasRequestEntity(email)));
+        this(config, parser, userId, BoxEntityRequestObject.getRequestEntity(BoxEmailAliasRequestEntity.addEmailAliasRequestEntity(email)));
     }
 
     /**

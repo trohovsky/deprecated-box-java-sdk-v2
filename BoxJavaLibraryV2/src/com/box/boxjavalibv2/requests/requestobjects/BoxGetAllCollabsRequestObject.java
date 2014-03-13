@@ -1,12 +1,11 @@
 package com.box.boxjavalibv2.requests.requestobjects;
 
 import com.box.boxjavalibv2.dao.BoxCollaboration;
-import com.box.boxjavalibv2.jsonparsing.IBoxJSONParser;
 
 public class BoxGetAllCollabsRequestObject extends BoxDefaultRequestObject {
 
-    private BoxGetAllCollabsRequestObject(IBoxJSONParser parser) {
-        super(parser);
+    private BoxGetAllCollabsRequestObject() {
+        super();
     }
 
     /**
@@ -17,8 +16,8 @@ public class BoxGetAllCollabsRequestObject extends BoxDefaultRequestObject {
      *            {@link com.box.boxjavalibv2.dao.BoxCollaboration.STATUS_PENDING}
      * @return BoxCollabRequestObject
      */
-    public static BoxGetAllCollabsRequestObject getAllCollaborationsRequestObject(final String status, final IBoxJSONParser parser) {
-        return (new BoxGetAllCollabsRequestObject(parser)).setStatus(status);
+    public static BoxGetAllCollabsRequestObject getAllCollaborationsRequestObject(final String status) {
+        return (new BoxGetAllCollabsRequestObject()).setStatus(status);
     }
 
     private BoxGetAllCollabsRequestObject setStatus(String status) {

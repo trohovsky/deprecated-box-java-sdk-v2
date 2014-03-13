@@ -1,5 +1,6 @@
 package com.box.restclientv2.requests;
 
+import java.io.UnsupportedEncodingException;
 import java.lang.ref.WeakReference;
 import java.net.URISyntaxException;
 import java.util.HashMap;
@@ -85,10 +86,13 @@ public class DefaultBoxRequest implements IBoxRequest {
         getHeaders().put("User-Agent", getConfig().getUserAgent());
         if (requestObject != null) {
             try {
-                setEntity(requestObject.getEntity());
+                setEntity(requestObject.getEntity(parser));
             }
             catch (BoxJSONException e) {
                 throw new BoxRestException(e, "Cannot parse entity of the request object.");
+            }
+            catch (UnsupportedEncodingException e) {
+                throw new BoxRestException(e, "UnsupportedEncodingException in the request object.");
             }
             setRequestFields(requestObject.getFields());
             getQueryParams().putAll(requestObject.getQueryParams());

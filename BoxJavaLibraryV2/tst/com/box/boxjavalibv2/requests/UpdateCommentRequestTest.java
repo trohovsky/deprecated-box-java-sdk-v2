@@ -31,8 +31,7 @@ public class UpdateCommentRequestTest extends RequestTestBase {
 
         BoxCommentRequestEntity entity = BoxCommentRequestEntity.updateCommentRequestEntity(message);
 
-        UpdateCommentRequest request = new UpdateCommentRequest(CONFIG, JSON_PARSER, id, BoxEntityRequestObject.getRequestEntity(TestUtils.getJsonParser(),
-            entity));
+        UpdateCommentRequest request = new UpdateCommentRequest(CONFIG, JSON_PARSER, id, BoxEntityRequestObject.getRequestEntity(entity));
         testRequestIsWellFormed(request, TestUtils.getConfig().getApiUrlAuthority(),
             TestUtils.getConfig().getApiUrlPath().concat(UpdateCommentRequest.getUri(id)), HttpStatus.SC_OK, RestMethod.PUT);
 

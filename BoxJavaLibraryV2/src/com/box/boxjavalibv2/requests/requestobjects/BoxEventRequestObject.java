@@ -1,11 +1,10 @@
 package com.box.boxjavalibv2.requests.requestobjects;
 
-import com.box.boxjavalibv2.jsonparsing.IBoxJSONParser;
 
 public class BoxEventRequestObject extends BoxDefaultRequestObject {
 
-    private BoxEventRequestObject(IBoxJSONParser parser) {
-        super(parser);
+    private BoxEventRequestObject() {
+        super();
     }
 
     /**
@@ -26,8 +25,8 @@ public class BoxEventRequestObject extends BoxDefaultRequestObject {
      *            events(admin_logs),STREAM_POSITION_NOW is only supported for regular events.
      * @return BoxEventRequestObject.
      */
-    public static BoxEventRequestObject getEventsRequestObject(final long streamPosition, final IBoxJSONParser parser) {
-        BoxEventRequestObject req = new BoxEventRequestObject(parser);
+    public static BoxEventRequestObject getEventsRequestObject(final long streamPosition) {
+        BoxEventRequestObject req = new BoxEventRequestObject();
         if (streamPosition == STREAM_POSITION_NOW) {
             req.addQueryParam("stream_position", "now");
         }

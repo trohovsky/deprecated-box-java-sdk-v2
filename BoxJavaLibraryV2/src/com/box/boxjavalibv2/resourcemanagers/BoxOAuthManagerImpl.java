@@ -51,7 +51,7 @@ public class BoxOAuthManagerImpl extends AbstractBoxResourceManager implements I
     public BoxOAuthToken createOAuth(final String code, final String clientId, final String clientSecret, final String redirectUrl) throws BoxRestException,
         BoxServerException, AuthFatalFailureException {
         BoxOAuthRequestEntity entity = BoxOAuthRequestEntity.createOAuthRequestEntity(code, clientId, clientSecret, redirectUrl);
-        BoxOAuthRequestObject obj = BoxOAuthRequestObject.getRequestObject(getJSONParser(), entity);
+        BoxOAuthRequestObject obj = BoxOAuthRequestObject.getRequestObject(entity);
         return createOAuth(obj);
     }
 
@@ -76,7 +76,7 @@ public class BoxOAuthManagerImpl extends AbstractBoxResourceManager implements I
         final String deviceName) throws BoxRestException, BoxServerException, AuthFatalFailureException {
         BoxOAuthRequestEntity entity = BoxOAuthRequestEntity.createOAuthRequestEntity(code, clientId, clientSecret, redirectUrl);
         entity.setDevice(deviceId, deviceName);
-        BoxOAuthRequestObject obj = BoxOAuthRequestObject.getRequestObject(getJSONParser(), entity);
+        BoxOAuthRequestObject obj = BoxOAuthRequestObject.getRequestObject(entity);
 
         return createOAuth(obj);
     }
@@ -91,7 +91,7 @@ public class BoxOAuthManagerImpl extends AbstractBoxResourceManager implements I
         BoxServerException, AuthFatalFailureException {
         BoxOAuthRequestEntity entity = BoxOAuthRequestEntity.refreshOAuthRequestEntity(refreshToken, clientId, clientSecret);
         entity.setDevice(deviceId, deviceName);
-        BoxOAuthRequestObject obj = BoxOAuthRequestObject.getRequestObject(getJSONParser(), entity);
+        BoxOAuthRequestObject obj = BoxOAuthRequestObject.getRequestObject(entity);
 
         return createOAuth(obj);
     }
@@ -100,7 +100,7 @@ public class BoxOAuthManagerImpl extends AbstractBoxResourceManager implements I
     public BoxOAuthToken refreshOAuth(String refreshToken, String clientId, String clientSecret) throws BoxRestException, BoxServerException,
         AuthFatalFailureException {
         BoxOAuthRequestEntity entity = BoxOAuthRequestEntity.refreshOAuthRequestEntity(refreshToken, clientId, clientSecret);
-        BoxOAuthRequestObject obj = BoxOAuthRequestObject.getRequestObject(getJSONParser(), entity);
+        BoxOAuthRequestObject obj = BoxOAuthRequestObject.getRequestObject(entity);
 
         return createOAuth(obj);
     }
@@ -108,7 +108,7 @@ public class BoxOAuthManagerImpl extends AbstractBoxResourceManager implements I
     @Override
     public void revokeOAuth(String accessToken, String clientId, String clientSecret) throws BoxServerException, BoxRestException, AuthFatalFailureException {
         BoxOAuthRequestEntity entity = BoxOAuthRequestEntity.revokeOAuthRequestEntity(accessToken, clientId, clientSecret);
-        revokeOAuth(BoxOAuthRequestObject.getRequestObject(getJSONParser(), entity));
+        revokeOAuth(BoxOAuthRequestObject.getRequestObject(entity));
     }
 
     public BoxOAuthToken refreshOAuth(final BoxOAuthRequestObject requestObject) throws BoxRestException, BoxServerException, AuthFatalFailureException {

@@ -22,28 +22,22 @@ import com.box.restclientv2.exceptions.BoxRestException;
  */
 public class BoxDefaultRequestObject implements IBoxRequestObject {
 
-    private final IBoxJSONParser mParser;
     private MapJSONStringEntity jsonEntity;
     private final List<String> fields = new ArrayList<String>();
     private final Map<String, String> queryParams = new HashMap<String, String>();
     private final Map<String, String> headers = new HashMap<String, String>();
 
-    public BoxDefaultRequestObject(IBoxJSONParser parser) {
-        this.mParser = parser;
-    }
-
-    protected IBoxJSONParser getJSONParser() {
-        return mParser;
+    public BoxDefaultRequestObject() {
     }
 
     @Override
-    public HttpEntity getEntity() throws BoxRestException, BoxJSONException {
+    public HttpEntity getEntity(IBoxJSONParser parser) throws BoxRestException, BoxJSONException, UnsupportedEncodingException {
         MapJSONStringEntity en = getJSONEntity();
         if (en == null) {
             return null;
         }
         try {
-            return new StringEntity(en.toJSONString(getJSONParser()), CharEncoding.UTF_8);
+            return new StringEntity(en.toJSONString(parser), CharEncoding.UTF_8);
         }
         catch (UnsupportedEncodingException e) {
             throw new BoxRestException(e);

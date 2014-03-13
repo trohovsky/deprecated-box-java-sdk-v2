@@ -34,7 +34,7 @@ public class GetFolderTrashItemsRequestTest extends RequestTestBase {
         fields.add(fieldB);
 
         GetFolderTrashItemsRequest request = new GetFolderTrashItemsRequest(CONFIG, JSON_PARSER, id, (BoxPagingRequestObject) BoxPagingRequestObject
-            .pagingRequestObject(limit, offset, TestUtils.getJsonParser()).addFields(fields));
+            .pagingRequestObject(limit, offset).addFields(fields));
         testRequestIsWellFormed(request, TestUtils.getConfig().getApiUrlAuthority(),
             TestUtils.getConfig().getApiUrlPath().concat(GetFolderTrashItemsRequest.getUri(id)), HttpStatus.SC_OK, RestMethod.GET);
 

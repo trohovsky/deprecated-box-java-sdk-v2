@@ -44,8 +44,7 @@ public class UpdateItemInfoRequestTest extends RequestTestBase {
         BoxItemRequestEntity entity = BoxItemRequestEntity.getRequestEntity();
         entity.setParent(parentId);
 
-        UpdateItemInfoRequest request = new UpdateItemInfoRequest(CONFIG, JSON_PARSER, id, BoxEntityRequestObject.getRequestEntity(TestUtils.getJsonParser(),
-            entity), type);
+        UpdateItemInfoRequest request = new UpdateItemInfoRequest(CONFIG, JSON_PARSER, id, BoxEntityRequestObject.getRequestEntity(entity), type);
         testRequestIsWellFormed(request, TestUtils.getConfig().getApiUrlAuthority(),
             TestUtils.getConfig().getApiUrlPath().concat(UpdateItemInfoRequest.getUri(id, type)), HttpStatus.SC_OK, RestMethod.PUT);
 

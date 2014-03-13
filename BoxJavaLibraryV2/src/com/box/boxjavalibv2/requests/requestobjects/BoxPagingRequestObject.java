@@ -1,11 +1,10 @@
 package com.box.boxjavalibv2.requests.requestobjects;
 
-import com.box.boxjavalibv2.jsonparsing.IBoxJSONParser;
 
 public class BoxPagingRequestObject extends BoxDefaultRequestObject {
 
-    public BoxPagingRequestObject(IBoxJSONParser parser) {
-        super(parser);
+    public BoxPagingRequestObject() {
+        super();
     }
 
     /**
@@ -17,7 +16,7 @@ public class BoxPagingRequestObject extends BoxDefaultRequestObject {
      *            the item at which to begin the response, default is 0.
      * @return BoxFolderRequestObject
      */
-    public static BoxPagingRequestObject pagingRequestObject(final int limit, final int offset, final IBoxJSONParser parser) {
-        return (BoxPagingRequestObject) (new BoxPagingRequestObject(parser)).setPage(limit, offset);
+    public static BoxPagingRequestObject pagingRequestObject(final int limit, final int offset) {
+        return (BoxPagingRequestObject) (new BoxPagingRequestObject()).setPage(limit, offset);
     }
 }

@@ -29,7 +29,7 @@ public class UpdateUserLoginRequestTest extends RequestTestBase {
         String userId = "testuserid";
         String newLogin = "testnewlogin";
         UpdateUserLoginRequest request = new UpdateUserLoginRequest(CONFIG, JSON_PARSER, userId,
-            BoxUserUpdateLoginRequestObject.updateUserPrimaryLoginRequestObject(newLogin, TestUtils.getJsonParser()));
+            BoxUserUpdateLoginRequestObject.updateUserPrimaryLoginRequestObject(newLogin));
 
         testRequestIsWellFormed(request, TestUtils.getConfig().getApiUrlAuthority(),
             TestUtils.getConfig().getApiUrlPath().concat(UpdateUserLoginRequest.getUri(userId)), HttpStatus.SC_OK, RestMethod.PUT);

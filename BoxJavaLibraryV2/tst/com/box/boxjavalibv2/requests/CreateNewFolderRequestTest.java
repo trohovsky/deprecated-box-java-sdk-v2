@@ -31,8 +31,7 @@ public class CreateNewFolderRequestTest extends RequestTestBase {
 
         BoxFolderRequestEntity entity = BoxFolderRequestEntity.createFolderRequestEntity(name, parentId);
 
-        CreateNewFolderRequest request = new CreateNewFolderRequest(CONFIG, JSON_PARSER, BoxEntityRequestObject.getRequestEntity(TestUtils.getJsonParser(),
-            entity));
+        CreateNewFolderRequest request = new CreateNewFolderRequest(CONFIG, JSON_PARSER, BoxEntityRequestObject.getRequestEntity(entity));
         testRequestIsWellFormed(request, TestUtils.getConfig().getApiUrlAuthority(),
             TestUtils.getConfig().getApiUrlPath().concat(CreateNewFolderRequest.getUri()), HttpStatus.SC_CREATED, RestMethod.POST);
         HttpEntity en = request.getRequestEntity();

@@ -1,6 +1,7 @@
 package com.box.boxjavalibv2.resourcemanagers;
 
 import com.box.boxjavalibv2.dao.BoxComment;
+import com.box.boxjavalibv2.dao.IBoxType;
 import com.box.boxjavalibv2.exceptions.AuthFatalFailureException;
 import com.box.boxjavalibv2.exceptions.BoxServerException;
 import com.box.boxjavalibv2.requests.requestentities.BoxCommentRequestEntity;
@@ -23,6 +24,9 @@ public interface IBoxCommentsManager extends IBoxResourceManager {
      *             See {@link com.box.restclientv2.exceptions.AuthFatalFailureException} for more info.
      */
     public BoxComment addComment(BoxEntityRequestObject<BoxCommentRequestEntity> requestObject) throws BoxRestException, BoxServerException,
+        AuthFatalFailureException;
+
+    public BoxComment addComment(String commentedItemId, IBoxType commentedItemType, String message) throws BoxRestException, BoxServerException,
         AuthFatalFailureException;
 
     /**

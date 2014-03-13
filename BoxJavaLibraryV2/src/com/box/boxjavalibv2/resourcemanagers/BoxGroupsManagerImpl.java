@@ -47,7 +47,7 @@ public class BoxGroupsManagerImpl extends AbstractBoxResourceManager implements 
 
     @Override
     public BoxGroup createGroup(String name) throws BoxRestException, AuthFatalFailureException, BoxServerException {
-        BoxGroupRequestObject requestObj = BoxGroupRequestObject.createGroupRequestObject(name, getJSONParser());
+        BoxGroupRequestObject requestObj = BoxGroupRequestObject.createGroupRequestObject(name);
         return createGroup(requestObj);
     }
 
@@ -88,7 +88,7 @@ public class BoxGroupsManagerImpl extends AbstractBoxResourceManager implements 
     public BoxGroupMembership createMembership(String groupId, String userId, String role) throws BoxRestException, AuthFatalFailureException,
         BoxServerException {
         BoxGroupMembershipRequestEntity entity = BoxGroupMembershipRequestEntity.addMembershipRequestEntity(groupId, userId, role);
-        BoxEntityRequestObject<BoxGroupMembershipRequestEntity> obj = BoxEntityRequestObject.getRequestEntity(getJSONParser(), entity);
+        BoxEntityRequestObject<BoxGroupMembershipRequestEntity> obj = BoxEntityRequestObject.getRequestEntity(entity);
         return createMembership(obj);
     }
 
@@ -102,7 +102,7 @@ public class BoxGroupsManagerImpl extends AbstractBoxResourceManager implements 
     @Override
     public BoxGroupMembership updateMembership(String membershipId, String role) throws BoxRestException, AuthFatalFailureException, BoxServerException {
         BoxGroupMembershipRequestEntity entity = BoxGroupMembershipRequestEntity.updateMembershipRequestEntity(role);
-        BoxEntityRequestObject<BoxGroupMembershipRequestEntity> obj = BoxEntityRequestObject.getRequestEntity(getJSONParser(), entity);
+        BoxEntityRequestObject<BoxGroupMembershipRequestEntity> obj = BoxEntityRequestObject.getRequestEntity(entity);
         return updateMembership(membershipId, obj);
     }
 

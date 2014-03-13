@@ -26,7 +26,7 @@ public class GetAllCollaborationsRequestTest extends RequestTestBase {
         String status = "teststatus789";
 
         GetAllCollaborationsRequest request = new GetAllCollaborationsRequest(CONFIG, JSON_PARSER,
-            BoxGetAllCollabsRequestObject.getAllCollaborationsRequestObject(status, TestUtils.getJsonParser()));
+            BoxGetAllCollabsRequestObject.getAllCollaborationsRequestObject(status));
         testRequestIsWellFormed(request, TestUtils.getConfig().getApiUrlAuthority(),
             TestUtils.getConfig().getApiUrlPath().concat(GetAllCollaborationsRequest.getUri()), HttpStatus.SC_OK, RestMethod.GET);
 

@@ -25,8 +25,7 @@ public class GetFolderCollaborationsRequestTest extends RequestTestBase {
     public void testRequestIsWellFormed() throws BoxRestException, IllegalStateException, IOException, AuthFatalFailureException {
         String folderId = "testfolderid123";
 
-        GetFolderCollaborationsRequest request = new GetFolderCollaborationsRequest(CONFIG, JSON_PARSER, folderId, new BoxDefaultRequestObject(
-            TestUtils.getJsonParser()));
+        GetFolderCollaborationsRequest request = new GetFolderCollaborationsRequest(CONFIG, JSON_PARSER, folderId, new BoxDefaultRequestObject());
         testRequestIsWellFormed(request, TestUtils.getConfig().getApiUrlAuthority(),
             TestUtils.getConfig().getApiUrlPath().concat(GetFolderCollaborationsRequest.getUri(folderId)), HttpStatus.SC_OK, RestMethod.GET);
     }

@@ -32,8 +32,7 @@ public class AddEmailAliasRequestTest extends RequestTestBase {
 
         BoxEmailAliasRequestEntity entity = BoxEmailAliasRequestEntity.addEmailAliasRequestEntity(email);
 
-        CreateEmailAliasRequest request = new CreateEmailAliasRequest(CONFIG, JSON_PARSER, userId, BoxEntityRequestObject.getRequestEntity(
-            TestUtils.getJsonParser(), entity));
+        CreateEmailAliasRequest request = new CreateEmailAliasRequest(CONFIG, JSON_PARSER, userId, BoxEntityRequestObject.getRequestEntity(entity));
 
         testRequestIsWellFormed(request, TestUtils.getConfig().getApiUrlAuthority(),
             TestUtils.getConfig().getApiUrlPath().concat(CreateEmailAliasRequest.getUri(userId)), HttpStatus.SC_CREATED, RestMethod.POST);
