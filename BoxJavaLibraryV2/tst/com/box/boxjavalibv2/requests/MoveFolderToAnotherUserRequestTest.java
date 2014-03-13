@@ -11,8 +11,7 @@ import org.junit.Test;
 
 import com.box.boxjavalibv2.exceptions.AuthFatalFailureException;
 import com.box.boxjavalibv2.exceptions.BoxJSONException;
-import com.box.boxjavalibv2.requests.requestentities.BoxSimpleUserRequestEntity;
-import com.box.boxjavalibv2.requests.requestobjects.BoxEntityRequestObject;
+import com.box.boxjavalibv2.requests.requestobjects.BoxSimpleUserRequestObject;
 import com.box.boxjavalibv2.testutils.TestUtils;
 import com.box.restclientv2.RestMethod;
 import com.box.restclientv2.exceptions.BoxRestException;
@@ -29,15 +28,14 @@ public class MoveFolderToAnotherUserRequestTest extends RequestTestBase {
         String userId = "testuserid";
         String folderId = "testfolderid";
         boolean notify = true;
-        BoxSimpleUserRequestEntity entity = BoxSimpleUserRequestEntity.moveFolderToAnotherUserRequestEntity(folderId, notify);
-        MoveFolderToAnotherUserRequest request = new MoveFolderToAnotherUserRequest(CONFIG, JSON_PARSER, userId, folderId,
-            BoxEntityRequestObject.getRequestEntity(entity));
+        BoxSimpleUserRequestObject obj = BoxSimpleUserRequestObject.moveFolderToAnotherUserRequestEntity(folderId, notify);
+        MoveFolderToAnotherUserRequest request = new MoveFolderToAnotherUserRequest(CONFIG, JSON_PARSER, userId, folderId, obj);
         testRequestIsWellFormed(request, TestUtils.getConfig().getApiUrlAuthority(),
             TestUtils.getConfig().getApiUrlPath().concat(MoveFolderToAnotherUserRequest.getUri(userId, folderId)), HttpStatus.SC_OK, RestMethod.PUT);
         Assert.assertEquals(Boolean.toString(notify), request.getQueryParams().get("notify"));
 
         HttpEntity en = request.getRequestEntity();
         Assert.assertTrue(en instanceof StringEntity);
-        assertEqualStringEntity(entity.getMap(), en);
+        assertEqualStringEntity(obj.getJSONEntity(), en);
     }
 }

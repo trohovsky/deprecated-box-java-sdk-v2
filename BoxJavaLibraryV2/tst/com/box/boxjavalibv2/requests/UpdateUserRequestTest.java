@@ -12,8 +12,7 @@ import org.junit.Test;
 
 import com.box.boxjavalibv2.exceptions.AuthFatalFailureException;
 import com.box.boxjavalibv2.exceptions.BoxJSONException;
-import com.box.boxjavalibv2.requests.requestentities.BoxUserRequestEntity;
-import com.box.boxjavalibv2.requests.requestobjects.BoxEntityRequestObject;
+import com.box.boxjavalibv2.requests.requestobjects.BoxUserRequestObject;
 import com.box.boxjavalibv2.testutils.TestUtils;
 import com.box.restclientv2.RestMethod;
 import com.box.restclientv2.exceptions.BoxRestException;
@@ -49,12 +48,12 @@ public class UpdateUserRequestTest extends RequestTestBase {
         LinkedHashMap<String, String> codes = new LinkedHashMap<String, String>();
         codes.put(key1, value1);
         codes.put(key2, value2);
-        BoxUserRequestEntity entity = this.getUserRequestEntity(notify, name, role, language, sync, title, phone, address, space, codes, seeManaged,
-            exemptLimit, exemptLogin);
+        BoxUserRequestObject obj = getUserRequestObject(notify, name, role, language, sync, title, phone, address, space, codes, seeManaged, exemptLimit,
+            exemptLogin);
         if (removeEnterprise) {
-            entity.setEnterprise(null);
+            obj.setEnterprise(null);
         }
-        UpdateUserRequest request = new UpdateUserRequest(CONFIG, JSON_PARSER, userId, BoxEntityRequestObject.getRequestEntity(entity));
+        UpdateUserRequest request = new UpdateUserRequest(CONFIG, JSON_PARSER, userId, obj);
         testRequestIsWellFormed(request, TestUtils.getConfig().getApiUrlAuthority(),
             TestUtils.getConfig().getApiUrlPath().concat(UpdateUserRequest.getUri(userId)), HttpStatus.SC_OK, RestMethod.PUT);
 
@@ -63,23 +62,23 @@ public class UpdateUserRequestTest extends RequestTestBase {
         HttpEntity en = request.getRequestEntity();
         Assert.assertTrue(en instanceof StringEntity);
 
-        assertEqualStringEntity(entity.getMap(), en);
+        assertEqualStringEntity(obj.getJSONEntity(), en);
     }
 
-    private BoxUserRequestEntity getUserRequestEntity(boolean notify, String name, String role, String language, boolean sync, String title, String phone,
+    private BoxUserRequestObject getUserRequestObject(boolean notify, String name, String role, String language, boolean sync, String title, String phone,
         String address, double space, LinkedHashMap<String, String> codes, boolean seeManaged, boolean exemptLimit, boolean exemptLogin) {
-        BoxUserRequestEntity rentity = BoxUserRequestEntity.updateUserInfoRequestObject(notify);
-        rentity.setRole(role);
-        rentity.setLanguage(language);
-        rentity.setSyncEnabled(sync);
-        rentity.setJobTitle(title);
-        rentity.setPhone(phone);
-        rentity.setAddress(address);
-        rentity.setSpaceAmount(space);
-        rentity.setTrackingCodes(codes);
-        rentity.setCanSeeManagedUsers(seeManaged);
-        rentity.setExemptFromDeviceLimits(exemptLimit);
-        rentity.setExemptFromLoginVerification(exemptLogin);
-        return rentity;
+        BoxUserRequestObject obj = BoxUserRequestObject.updateUserInfoRequestObject(notify);
+        obj.setRole(role);
+        obj.setLanguage(language);
+        obj.setSyncEnabled(sync);
+        obj.setJobTitle(title);
+        obj.setPhone(phone);
+        obj.setAddress(address);
+        obj.setSpaceAmount(space);
+        obj.setTrackingCodes(codes);
+        obj.setCanSeeManagedUsers(seeManaged);
+        obj.setExemptFromDeviceLimits(exemptLimit);
+        obj.setExemptFromLoginVerification(exemptLogin);
+        return obj;
     }
 }

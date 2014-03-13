@@ -17,9 +17,8 @@ import com.box.boxjavalibv2.requests.CreateCommentRequest;
 import com.box.boxjavalibv2.requests.DeleteCommentRequest;
 import com.box.boxjavalibv2.requests.GetCommentRequest;
 import com.box.boxjavalibv2.requests.UpdateCommentRequest;
-import com.box.boxjavalibv2.requests.requestentities.BoxCommentRequestEntity;
+import com.box.boxjavalibv2.requests.requestobjects.BoxCommentRequestObject;
 import com.box.boxjavalibv2.requests.requestobjects.BoxDefaultRequestObject;
-import com.box.boxjavalibv2.requests.requestobjects.BoxEntityRequestObject;
 import com.box.restclientv2.IBoxRESTClient;
 import com.box.restclientv2.authorization.IBoxRequestAuth;
 import com.box.restclientv2.exceptions.BoxRestException;
@@ -52,8 +51,7 @@ public final class BoxCommentsManagerImpl extends AbstractBoxResourceManager imp
     }
 
     @Override
-    public BoxComment addComment(final BoxEntityRequestObject<BoxCommentRequestEntity> requestObject) throws BoxRestException, BoxServerException,
-        AuthFatalFailureException {
+    public BoxComment addComment(final BoxCommentRequestObject requestObject) throws BoxRestException, BoxServerException, AuthFatalFailureException {
         CreateCommentRequest request = new CreateCommentRequest(getConfig(), getJSONParser(), requestObject);
         return (BoxComment) getResponseAndParseAndTryCast(request, BoxResourceType.COMMENT, getJSONParser());
     }
@@ -61,8 +59,8 @@ public final class BoxCommentsManagerImpl extends AbstractBoxResourceManager imp
     @Override
     public BoxComment addComment(String commentedItemId, IBoxType commentedItemType, String message) throws BoxRestException, BoxServerException,
         AuthFatalFailureException {
-        BoxCommentRequestEntity entity = BoxCommentRequestEntity.addCommentRequestEntity(commentedItemType, commentedItemId, message);
-        return addComment(BoxEntityRequestObject.getRequestEntity(entity));
+        BoxCommentRequestObject obj = BoxCommentRequestObject.addCommentRequestObject(commentedItemType, commentedItemId, message);
+        return addComment(obj);
     }
 
     @Override
@@ -73,8 +71,8 @@ public final class BoxCommentsManagerImpl extends AbstractBoxResourceManager imp
     }
 
     @Override
-    public BoxComment updateComment(final String commentId, final BoxEntityRequestObject<BoxCommentRequestEntity> requestObject) throws BoxRestException,
-        BoxServerException, AuthFatalFailureException {
+    public BoxComment updateComment(final String commentId, final BoxCommentRequestObject requestObject) throws BoxRestException, BoxServerException,
+        AuthFatalFailureException {
         UpdateCommentRequest request = new UpdateCommentRequest(getConfig(), getJSONParser(), commentId, requestObject);
         return (BoxComment) getResponseAndParseAndTryCast(request, BoxResourceType.COMMENT, getJSONParser());
     }

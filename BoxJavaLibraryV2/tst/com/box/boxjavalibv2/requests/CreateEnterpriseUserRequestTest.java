@@ -12,8 +12,7 @@ import org.junit.Test;
 
 import com.box.boxjavalibv2.exceptions.AuthFatalFailureException;
 import com.box.boxjavalibv2.exceptions.BoxJSONException;
-import com.box.boxjavalibv2.requests.requestentities.BoxUserRequestEntity;
-import com.box.boxjavalibv2.requests.requestobjects.BoxEntityRequestObject;
+import com.box.boxjavalibv2.requests.requestobjects.BoxUserRequestObject;
 import com.box.boxjavalibv2.testutils.TestUtils;
 import com.box.restclientv2.RestMethod;
 import com.box.restclientv2.exceptions.BoxRestException;
@@ -25,7 +24,6 @@ public class CreateEnterpriseUserRequestTest extends RequestTestBase {
         Assert.assertEquals("/users", CreateEnterpriseUserRequest.getUri());
     }
 
-    @SuppressWarnings("unchecked")
     @Test
     public void testRequestIsWellFormed() throws BoxRestException, IllegalStateException, IOException, AuthFatalFailureException, BoxJSONException {
         String name = "testname";
@@ -48,36 +46,33 @@ public class CreateEnterpriseUserRequestTest extends RequestTestBase {
         LinkedHashMap<String, String> codes = new LinkedHashMap<String, String>();
         codes.put(key1, value1);
         codes.put(key2, value2);
-
-        BoxUserRequestEntity reqEntity = getUserRequestEntity(login, name, role, language, sync, title, phone, address, space, codes, seeManaged, status,
+        BoxUserRequestObject obj = getUserRequestObject(login, name, role, language, sync, title, phone, address, space, codes, seeManaged, status,
             exemptLimit, exemptLogin);
-        CreateEnterpriseUserRequest request = new CreateEnterpriseUserRequest(CONFIG, JSON_PARSER, BoxEntityRequestObject.getRequestEntity(reqEntity));
+        CreateEnterpriseUserRequest request = new CreateEnterpriseUserRequest(CONFIG, JSON_PARSER, obj);
         testRequestIsWellFormed(request, TestUtils.getConfig().getApiUrlAuthority(),
             TestUtils.getConfig().getApiUrlPath().concat(CreateEnterpriseUserRequest.getUri()), HttpStatus.SC_CREATED, RestMethod.POST);
 
         HttpEntity entity = request.getRequestEntity();
         Assert.assertTrue(entity instanceof StringEntity);
-        BoxUserRequestEntity rentity = getUserRequestEntity(login, name, role, language, sync, title, phone, address, space, codes, seeManaged, status,
-            exemptLimit, exemptLogin);
 
-        assertEqualStringEntity(reqEntity.getMap(), entity);
+        assertEqualStringEntity(obj.getJSONEntity(), entity);
     }
 
-    private BoxUserRequestEntity getUserRequestEntity(String login, String name, String role, String language, boolean sync, String title, String phone,
+    private BoxUserRequestObject getUserRequestObject(String login, String name, String role, String language, boolean sync, String title, String phone,
         String address, double space, LinkedHashMap<String, String> codes, boolean seeManaged, String status, boolean exemptLimit, boolean exemptLogin) {
-        BoxUserRequestEntity rentity = BoxUserRequestEntity.createEnterpriseUserRequestObject(login, name);
-        rentity.setRole(role);
-        rentity.setLanguage(language);
-        rentity.setSyncEnabled(sync);
-        rentity.setJobTitle(title);
-        rentity.setPhone(phone);
-        rentity.setAddress(address);
-        rentity.setSpaceAmount(space);
-        rentity.setTrackingCodes(codes);
-        rentity.setCanSeeManagedUsers(seeManaged);
-        rentity.setStatus(status);
-        rentity.setExemptFromDeviceLimits(exemptLimit);
-        rentity.setExemptFromLoginVerification(exemptLogin);
-        return rentity;
+        BoxUserRequestObject obj = BoxUserRequestObject.createEnterpriseUserRequestObject(login, name);
+        obj.setRole(role);
+        obj.setLanguage(language);
+        obj.setSyncEnabled(sync);
+        obj.setJobTitle(title);
+        obj.setPhone(phone);
+        obj.setAddress(address);
+        obj.setSpaceAmount(space);
+        obj.setTrackingCodes(codes);
+        obj.setCanSeeManagedUsers(seeManaged);
+        obj.setStatus(status);
+        obj.setExemptFromDeviceLimits(exemptLimit);
+        obj.setExemptFromLoginVerification(exemptLogin);
+        return obj;
     }
 }

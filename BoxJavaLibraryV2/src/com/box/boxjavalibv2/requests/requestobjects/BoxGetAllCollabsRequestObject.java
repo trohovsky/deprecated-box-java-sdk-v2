@@ -21,7 +21,7 @@ public class BoxGetAllCollabsRequestObject extends BoxDefaultRequestObject {
     }
 
     private BoxGetAllCollabsRequestObject setStatus(String status) {
-        this.addQueryParam(BoxCollaboration.FIELD_STATUS, status);
+        getRequestExtras().addQueryParam(BoxCollaboration.FIELD_STATUS, status);
         return this;
     }
 }

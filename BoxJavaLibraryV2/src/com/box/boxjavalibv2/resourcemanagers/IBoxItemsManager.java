@@ -6,11 +6,10 @@ import com.box.boxjavalibv2.dao.BoxItem;
 import com.box.boxjavalibv2.dao.BoxResourceType;
 import com.box.boxjavalibv2.exceptions.AuthFatalFailureException;
 import com.box.boxjavalibv2.exceptions.BoxServerException;
-import com.box.boxjavalibv2.requests.requestentities.BoxItemCopyRequestEntity;
-import com.box.boxjavalibv2.requests.requestentities.BoxItemRequestEntity;
-import com.box.boxjavalibv2.requests.requestentities.BoxSharedLinkRequestEntity;
 import com.box.boxjavalibv2.requests.requestobjects.BoxDefaultRequestObject;
-import com.box.boxjavalibv2.requests.requestobjects.BoxEntityRequestObject;
+import com.box.boxjavalibv2.requests.requestobjects.BoxItemCopyRequestObject;
+import com.box.boxjavalibv2.requests.requestobjects.BoxItemRequestObject;
+import com.box.boxjavalibv2.requests.requestobjects.BoxSharedLinkRequestObject;
 import com.box.restclientv2.exceptions.BoxRestException;
 
 public interface IBoxItemsManager extends IBoxResourceManager {
@@ -52,8 +51,8 @@ public interface IBoxItemsManager extends IBoxResourceManager {
      * @throws AuthFatalFailureException
      *             See {@link com.box.restclientv2.exceptions.AuthFatalFailureException} for more info.
      */
-    public BoxItem copyItem(String id, BoxEntityRequestObject<BoxItemCopyRequestEntity> requestObject, BoxResourceType type) throws BoxRestException,
-        BoxServerException, AuthFatalFailureException;
+    public BoxItem copyItem(String id, BoxItemCopyRequestObject requestObject, BoxResourceType type) throws BoxRestException, BoxServerException,
+        AuthFatalFailureException;
 
     /**
      * Update info for an item
@@ -74,8 +73,8 @@ public interface IBoxItemsManager extends IBoxResourceManager {
      * @throws AuthFatalFailureException
      *             See {@link com.box.restclientv2.exceptions.AuthFatalFailureException} for more info.
      */
-    public BoxItem updateItemInfo(String id, BoxEntityRequestObject<? extends BoxItemRequestEntity> requestObject, BoxResourceType type)
-        throws UnsupportedEncodingException, BoxRestException, BoxServerException, AuthFatalFailureException;
+    public BoxItem updateItemInfo(String id, BoxItemRequestObject requestObject, BoxResourceType type) throws UnsupportedEncodingException, BoxRestException,
+        BoxServerException, AuthFatalFailureException;
 
     /**
      * Create a shared link for an item, given the id .
@@ -96,6 +95,6 @@ public interface IBoxItemsManager extends IBoxResourceManager {
      * @throws AuthFatalFailureException
      *             See {@link com.box.restclientv2.exceptions.AuthFatalFailureException} for more info.
      */
-    public BoxItem createSharedLink(String id, BoxEntityRequestObject<BoxSharedLinkRequestEntity> requestObject, BoxResourceType type) throws BoxRestException,
-        BoxServerException, AuthFatalFailureException;
+    public BoxItem createSharedLink(String id, BoxSharedLinkRequestObject requestObject, BoxResourceType type) throws BoxRestException, BoxServerException,
+        AuthFatalFailureException;
 }

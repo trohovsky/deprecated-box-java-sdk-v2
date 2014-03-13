@@ -19,9 +19,8 @@ import com.box.boxjavalibv2.requests.GetGroupMembershipRequest;
 import com.box.boxjavalibv2.requests.GetGroupMembershipsRequest;
 import com.box.boxjavalibv2.requests.UpdateGroupMembershipRequest;
 import com.box.boxjavalibv2.requests.UpdateGroupRequest;
-import com.box.boxjavalibv2.requests.requestentities.BoxGroupMembershipRequestEntity;
 import com.box.boxjavalibv2.requests.requestobjects.BoxDefaultRequestObject;
-import com.box.boxjavalibv2.requests.requestobjects.BoxEntityRequestObject;
+import com.box.boxjavalibv2.requests.requestobjects.BoxGroupMembershipRequestObject;
 import com.box.boxjavalibv2.requests.requestobjects.BoxGroupRequestObject;
 import com.box.restclientv2.IBoxRESTClient;
 import com.box.restclientv2.authorization.IBoxRequestAuth;
@@ -78,8 +77,8 @@ public class BoxGroupsManagerImpl extends AbstractBoxResourceManager implements 
     }
 
     @Override
-    public BoxGroupMembership createMembership(BoxEntityRequestObject<BoxGroupMembershipRequestEntity> requestObject) throws BoxRestException,
-        AuthFatalFailureException, BoxServerException {
+    public BoxGroupMembership createMembership(BoxGroupMembershipRequestObject requestObject) throws BoxRestException, AuthFatalFailureException,
+        BoxServerException {
         CreateGroupMembershipRequest request = new CreateGroupMembershipRequest(getConfig(), getJSONParser(), requestObject);
         return (BoxGroupMembership) getResponseAndParseAndTryCast(request, BoxResourceType.GROUP_MEMBERSHIP, getJSONParser());
     }
@@ -87,22 +86,20 @@ public class BoxGroupsManagerImpl extends AbstractBoxResourceManager implements 
     @Override
     public BoxGroupMembership createMembership(String groupId, String userId, String role) throws BoxRestException, AuthFatalFailureException,
         BoxServerException {
-        BoxGroupMembershipRequestEntity entity = BoxGroupMembershipRequestEntity.addMembershipRequestEntity(groupId, userId, role);
-        BoxEntityRequestObject<BoxGroupMembershipRequestEntity> obj = BoxEntityRequestObject.getRequestEntity(entity);
+        BoxGroupMembershipRequestObject obj = BoxGroupMembershipRequestObject.addMembershipRequestObject(groupId, userId, role);
         return createMembership(obj);
     }
 
     @Override
-    public BoxGroupMembership updateMembership(String membershipId, BoxEntityRequestObject<BoxGroupMembershipRequestEntity> requestObject)
-        throws BoxRestException, AuthFatalFailureException, BoxServerException {
+    public BoxGroupMembership updateMembership(String membershipId, BoxGroupMembershipRequestObject requestObject) throws BoxRestException,
+        AuthFatalFailureException, BoxServerException {
         UpdateGroupMembershipRequest request = new UpdateGroupMembershipRequest(getConfig(), getJSONParser(), membershipId, requestObject);
         return (BoxGroupMembership) getResponseAndParseAndTryCast(request, BoxResourceType.GROUP_MEMBERSHIP, getJSONParser());
     }
 
     @Override
     public BoxGroupMembership updateMembership(String membershipId, String role) throws BoxRestException, AuthFatalFailureException, BoxServerException {
-        BoxGroupMembershipRequestEntity entity = BoxGroupMembershipRequestEntity.updateMembershipRequestEntity(role);
-        BoxEntityRequestObject<BoxGroupMembershipRequestEntity> obj = BoxEntityRequestObject.getRequestEntity(entity);
+        BoxGroupMembershipRequestObject obj = BoxGroupMembershipRequestObject.updateMembershipRequestObject(role);
         return updateMembership(membershipId, obj);
     }
 

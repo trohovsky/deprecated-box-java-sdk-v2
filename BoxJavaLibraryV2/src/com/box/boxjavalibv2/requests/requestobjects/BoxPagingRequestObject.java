@@ -1,9 +1,8 @@
 package com.box.boxjavalibv2.requests.requestobjects;
 
-
 public class BoxPagingRequestObject extends BoxDefaultRequestObject {
 
-    public BoxPagingRequestObject() {
+    private BoxPagingRequestObject() {
         super();
     }
 

@@ -5,9 +5,8 @@ import java.util.List;
 import com.box.boxjavalibv2.dao.BoxCollaboration;
 import com.box.boxjavalibv2.exceptions.AuthFatalFailureException;
 import com.box.boxjavalibv2.exceptions.BoxServerException;
-import com.box.boxjavalibv2.requests.requestentities.BoxCollabRequestEntity;
+import com.box.boxjavalibv2.requests.requestobjects.BoxCollabRequestObject;
 import com.box.boxjavalibv2.requests.requestobjects.BoxDefaultRequestObject;
-import com.box.boxjavalibv2.requests.requestobjects.BoxEntityRequestObject;
 import com.box.boxjavalibv2.requests.requestobjects.BoxGetAllCollabsRequestObject;
 import com.box.restclientv2.exceptions.BoxRestException;
 
@@ -46,8 +45,8 @@ public interface IBoxCollaborationsManager extends IBoxResourceManager {
      * @throws AuthFatalFailureException
      *             See {@link com.box.restclientv2.exceptions.AuthFatalFailureException} for more info.
      */
-    public BoxCollaboration createCollaboration(String folderId, final BoxEntityRequestObject<BoxCollabRequestEntity> collabObject) throws BoxRestException,
-        BoxServerException, AuthFatalFailureException;
+    public BoxCollaboration createCollaboration(String folderId, final BoxCollabRequestObject collabObject) throws BoxRestException, BoxServerException,
+        AuthFatalFailureException;
 
     /**
      * Get all collaborations. (Currently only support getting all pending collaborations.)
@@ -98,6 +97,6 @@ public interface IBoxCollaborationsManager extends IBoxResourceManager {
      * @throws AuthFatalFailureException
      *             See {@link com.box.restclientv2.exceptions.AuthFatalFailureException} for more info.
      */
-    public BoxCollaboration updateCollaboration(String collabId, BoxEntityRequestObject<BoxCollabRequestEntity> requestObject) throws BoxRestException,
-        AuthFatalFailureException, BoxServerException;
+    public BoxCollaboration updateCollaboration(String collabId, BoxCollabRequestObject requestObject) throws BoxRestException, AuthFatalFailureException,
+        BoxServerException;
 }

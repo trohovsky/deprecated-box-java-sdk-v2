@@ -1,17 +1,16 @@
-package com.box.boxjavalibv2.requests.requestentities;
+package com.box.boxjavalibv2.requests.requestobjects;
 
 import com.box.boxjavalibv2.dao.BoxComment;
-import com.box.boxjavalibv2.dao.BoxResourceType;
 import com.box.boxjavalibv2.dao.IBoxType;
 import com.box.boxjavalibv2.jsonentities.MapJSONStringEntity;
 
-public class BoxCommentRequestEntity extends BoxDefaultRequestEntity {
+public class BoxCommentRequestObject extends BoxDefaultRequestObject {
 
-    private BoxCommentRequestEntity() {
+    private BoxCommentRequestObject() {
     }
 
     /**
-     * A BoxCommentRequestEntity to add a comment.
+     * A BoxCommentRequestObject to add a comment.
      * 
      * @param type
      *            type of the item to be commented
@@ -21,11 +20,9 @@ public class BoxCommentRequestEntity extends BoxDefaultRequestEntity {
      *            comment message
      * @return BoxCommentRequestObject
      */
-    public static BoxCommentRequestEntity addCommentRequestEntity(final IBoxType type, final String itemId, final String message) {
-        BoxCommentRequestEntity entity = new BoxCommentRequestEntity();
-        entity.setItem(type, itemId);
-        entity.setMessage(message);
-        return entity;
+    public static BoxCommentRequestObject addCommentRequestObject(final IBoxType type, final String itemId, final String message) {
+        BoxCommentRequestObject obj = new BoxCommentRequestObject();
+        return obj.setItem(type, itemId).setMessage(message);
     }
 
     /**
@@ -35,10 +32,9 @@ public class BoxCommentRequestEntity extends BoxDefaultRequestEntity {
      *            comment message
      * @return BoxCommentRequestObject
      */
-    public static BoxCommentRequestEntity updateCommentRequestEntity(final String message) {
-        BoxCommentRequestEntity entity = new BoxCommentRequestEntity();
-        entity.setMessage(message);
-        return entity;
+    public static BoxCommentRequestObject updateCommentRequestObject(final String message) {
+        BoxCommentRequestObject obj = new BoxCommentRequestObject();
+        return obj.setMessage(message);
     }
 
     /**
@@ -48,8 +44,9 @@ public class BoxCommentRequestEntity extends BoxDefaultRequestEntity {
      *            comment message
      * @return BoxCommentRequestObject
      */
-    public void setMessage(final String message) {
+    public BoxCommentRequestObject setMessage(final String message) {
         put(BoxComment.FIELD_MESSAGE, message);
+        return this;
     }
 
     /**
@@ -61,8 +58,9 @@ public class BoxCommentRequestEntity extends BoxDefaultRequestEntity {
      *            id of the item
      * @return BoxCommentRequestObject
      */
-    public void setItem(final IBoxType type, final String itemId) {
+    public BoxCommentRequestObject setItem(final IBoxType type, final String itemId) {
         put(BoxComment.FIELD_ITEM, getItemEntity(type, itemId));
+        return this;
     }
 
     private static MapJSONStringEntity getItemEntity(final IBoxType type, final String itemId) {

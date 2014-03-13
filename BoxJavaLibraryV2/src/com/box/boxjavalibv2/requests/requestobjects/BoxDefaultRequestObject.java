@@ -1,20 +1,14 @@
 package com.box.boxjavalibv2.requests.requestobjects;
 
 import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 import org.apache.commons.codec.CharEncoding;
 import org.apache.http.HttpEntity;
 import org.apache.http.entity.StringEntity;
 
 import com.box.boxjavalibv2.exceptions.BoxJSONException;
-import com.box.boxjavalibv2.jsonentities.IBoxJSONStringEntity;
 import com.box.boxjavalibv2.jsonentities.MapJSONStringEntity;
 import com.box.boxjavalibv2.jsonparsing.IBoxJSONParser;
-import com.box.boxjavalibv2.requests.requestentities.IBoxRequestEntity;
 import com.box.restclientv2.exceptions.BoxRestException;
 
 /**
@@ -22,10 +16,8 @@ import com.box.restclientv2.exceptions.BoxRestException;
  */
 public class BoxDefaultRequestObject implements IBoxRequestObject {
 
-    private MapJSONStringEntity jsonEntity;
-    private final List<String> fields = new ArrayList<String>();
-    private final Map<String, String> queryParams = new HashMap<String, String>();
-    private final Map<String, String> headers = new HashMap<String, String>();
+    private MapJSONStringEntity jsonEntity = new MapJSONStringEntity();
+    private final BoxRequestExtras requestExtras = new BoxRequestExtras();
 
     public BoxDefaultRequestObject() {
     }
@@ -52,112 +44,23 @@ public class BoxDefaultRequestObject implements IBoxRequestObject {
         this.jsonEntity = entity;
     }
 
-    protected void takeRequestEntity(IBoxRequestEntity entity) {
-        entity.applyToRequestObject(this);
-    }
-
-    @Override
-    public List<String> getFields() {
-        return fields;
-    }
-
     /**
-     * Add a field in the request, these fields (Please check "Fields" part in <a href="http://developers.box.com/docs/">developer doc</a> will end up as fields
-     * query parameter in the url.
-     * 
-     * @param field
-     *            field to add. Currently supported fields are the Strings defined in {@link com.box.boxjavalibv2.dao#BoxCollaboration}, for example:
-     *            {@link com.box.boxjavalibv2.dao.BoxCollaboration#FIELD_ROLE}, {@link com.box.boxjavalibv2.dao.BoxCollaboration#FIELD_CREATED_BY}...
-     */
-    public BoxDefaultRequestObject addField(String field) {
-        getFields().add(field);
-        return this;
-    }
-
-    /**
-     * Add fields in the request, these fields (Please check "Fields" part in <a href="http://developers.box.com/docs/">developer doc</a> will end up as fields
-     * query parameter in the url.
-     * 
-     * @param fields
-     *            fields to add. Currently supported fields are the Strings defined in {@link com.box.boxjavalibv2.dao#BoxCollaboration}, for example:
-     *            {@link com.box.boxjavalibv2.dao.BoxCollaboration#FIELD_ROLE}, {@link com.box.boxjavalibv2.dao.BoxCollaboration#FIELD_CREATED_BY}...
-     */
-    public BoxDefaultRequestObject addFields(List<String> fields) {
-        getFields().addAll(fields);
-        return this;
-    }
-
-    /**
-     * Add a query parameter. Which eventually will go into url.
+     * Add a key value pair to the request body. Not recommended to use. If possible, use provided setters.
      * 
      * @param key
      *            key
      * @param value
      *            value
      */
-    public BoxDefaultRequestObject addQueryParam(String key, String value) {
-        queryParams.put(key, value);
-        return this;
+    public Object put(String key, Object value) {
+        return getJSONEntity().put(key, value);
     }
 
     /**
-     * Add a header.
-     * 
-     * @param key
-     *            key
-     * @param value
-     *            value
+     * Get value from enitity.
      */
-    public BoxDefaultRequestObject addHeader(String key, String value) {
-        headers.put(key, value);
-        return this;
-    }
-
-    @Override
-    public Map<String, String> getHeaders() {
-        return headers;
-    }
-
-    @Override
-    public Map<String, String> getQueryParams() {
-        return queryParams;
-    }
-
-    // TODO: remove these put's
-    /**
-     * Add a key value pair to the request body.
-     * 
-     * @param key
-     *            key
-     * @param value
-     *            value
-     */
-    public IBoxJSONStringEntity put(String key, IBoxJSONStringEntity value) {
-        return (IBoxJSONStringEntity) getJSONEntity().put(key, value);
-    }
-
-    /**
-     * Add a key value string pair to the request body.
-     * 
-     * @param key
-     *            key
-     * @param value
-     *            value
-     */
-    public String put(String key, String value) {
-        return (String) getJSONEntity().put(key, value);
-    }
-
-    /**
-     * Add a key value string pair to the request body.
-     * 
-     * @param key
-     *            key
-     * @param value
-     *            value
-     */
-    public String[] put(String key, String[] value) {
-        return (String[]) getJSONEntity().put(key, value);
+    public Object getFromEntity(String key) {
+        return getJSONEntity().get(key);
     }
 
     /**
@@ -168,20 +71,16 @@ public class BoxDefaultRequestObject implements IBoxRequestObject {
      * @return BoxFolderRequestObject
      */
     public BoxDefaultRequestObject setPage(final int limit, final int offset) {
-        addQueryParam("limit", Integer.toString(limit));
-        addQueryParam("offset", Integer.toString(offset));
+        getRequestExtras().addQueryParam("limit", Integer.toString(limit));
+        getRequestExtras().addQueryParam("offset", Integer.toString(offset));
         return this;
     }
 
     /**
-     * Set etag.
-     * 
-     * @param etag
-     *            etag
-     * @return BoxFileRequestObject
+     * a mutator to the request. This allows you to add any extra header, query params into the request. Use with caution because we don't block anything you
+     * set here. e.g., getRequestExtras().addHeader("key", "value");
      */
-    public BoxDefaultRequestObject setIfMatch(String etag) {
-        addHeader("If-Match", etag);
-        return this;
+    public BoxRequestExtras getRequestExtras() {
+        return requestExtras;
     }
 }

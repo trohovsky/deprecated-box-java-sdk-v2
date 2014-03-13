@@ -12,8 +12,7 @@ import org.junit.Test;
 import com.box.boxjavalibv2.dao.BoxResourceType;
 import com.box.boxjavalibv2.exceptions.AuthFatalFailureException;
 import com.box.boxjavalibv2.exceptions.BoxJSONException;
-import com.box.boxjavalibv2.requests.requestentities.BoxItemRequestEntity;
-import com.box.boxjavalibv2.requests.requestobjects.BoxEntityRequestObject;
+import com.box.boxjavalibv2.requests.requestobjects.BoxItemRequestObject;
 import com.box.boxjavalibv2.testutils.TestUtils;
 import com.box.restclientv2.RestMethod;
 import com.box.restclientv2.exceptions.BoxRestException;
@@ -41,15 +40,15 @@ public class UpdateItemInfoRequestTest extends RequestTestBase {
         String id = "testid123";
         String parentId = "testparentid456";
 
-        BoxItemRequestEntity entity = BoxItemRequestEntity.getRequestEntity();
-        entity.setParent(parentId);
+        BoxItemRequestObject obj = BoxItemRequestObject.getRequestObject();
+        obj.setParent(parentId);
 
-        UpdateItemInfoRequest request = new UpdateItemInfoRequest(CONFIG, JSON_PARSER, id, BoxEntityRequestObject.getRequestEntity(entity), type);
+        UpdateItemInfoRequest request = new UpdateItemInfoRequest(CONFIG, JSON_PARSER, id, obj, type);
         testRequestIsWellFormed(request, TestUtils.getConfig().getApiUrlAuthority(),
             TestUtils.getConfig().getApiUrlPath().concat(UpdateItemInfoRequest.getUri(id, type)), HttpStatus.SC_OK, RestMethod.PUT);
 
         HttpEntity en = request.getRequestEntity();
         Assert.assertTrue(en instanceof StringEntity);
-        assertEqualStringEntity(entity.getMap(), en);
+        assertEqualStringEntity(obj.getJSONEntity(), en);
     }
 }

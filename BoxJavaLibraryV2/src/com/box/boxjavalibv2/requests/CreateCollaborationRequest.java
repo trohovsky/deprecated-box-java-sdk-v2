@@ -4,8 +4,7 @@ import org.apache.http.HttpStatus;
 
 import com.box.boxjavalibv2.IBoxConfig;
 import com.box.boxjavalibv2.jsonparsing.IBoxJSONParser;
-import com.box.boxjavalibv2.requests.requestentities.BoxCollabRequestEntity;
-import com.box.boxjavalibv2.requests.requestobjects.BoxEntityRequestObject;
+import com.box.boxjavalibv2.requests.requestobjects.BoxCollabRequestObject;
 import com.box.restclientv2.RestMethod;
 import com.box.restclientv2.exceptions.BoxRestException;
 import com.box.restclientv2.requests.DefaultBoxRequest;
@@ -30,8 +29,8 @@ public class CreateCollaborationRequest extends DefaultBoxRequest {
      *            object that goes into request body.
      * @throws BoxRestException
      */
-    public CreateCollaborationRequest(final IBoxConfig config, final IBoxJSONParser parser, final String folderId,
-        final BoxEntityRequestObject<BoxCollabRequestEntity> collabObject) throws BoxRestException {
+    public CreateCollaborationRequest(final IBoxConfig config, final IBoxJSONParser parser, final String folderId, final BoxCollabRequestObject collabObject)
+        throws BoxRestException {
         super(config, parser, getUri(folderId), RestMethod.POST, collabObject);
         this.setExpectedResponseCode(HttpStatus.SC_CREATED);
     }

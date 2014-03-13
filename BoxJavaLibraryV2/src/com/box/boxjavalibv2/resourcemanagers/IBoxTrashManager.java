@@ -6,9 +6,8 @@ import com.box.boxjavalibv2.dao.BoxFolder;
 import com.box.boxjavalibv2.exceptions.AuthFatalFailureException;
 import com.box.boxjavalibv2.exceptions.BoxServerException;
 import com.box.boxjavalibv2.requests.GetFolderItemsRequest;
-import com.box.boxjavalibv2.requests.requestentities.BoxItemRestoreRequestEntity;
 import com.box.boxjavalibv2.requests.requestobjects.BoxDefaultRequestObject;
-import com.box.boxjavalibv2.requests.requestobjects.BoxEntityRequestObject;
+import com.box.boxjavalibv2.requests.requestobjects.BoxItemRestoreRequestObject;
 import com.box.boxjavalibv2.requests.requestobjects.BoxPagingRequestObject;
 import com.box.restclientv2.exceptions.BoxRestException;
 
@@ -61,8 +60,8 @@ public interface IBoxTrashManager extends IBoxResourceManager {
      * @throws AuthFatalFailureException
      *             See {@link com.box.restclientv2.exceptions.AuthFatalFailureException} for more info.
      */
-    public BoxFile restoreTrashFile(String id, BoxEntityRequestObject<BoxItemRestoreRequestEntity> requestObject) throws BoxRestException,
-        AuthFatalFailureException, BoxServerException;
+    public BoxFile restoreTrashFile(String id, BoxItemRestoreRequestObject requestObject) throws BoxRestException, AuthFatalFailureException,
+        BoxServerException;
 
     /**
      * Get trash folder given a folder id.
@@ -131,6 +130,6 @@ public interface IBoxTrashManager extends IBoxResourceManager {
      * @throws AuthFatalFailureException
      *             See {@link com.box.restclientv2.exceptions.AuthFatalFailureException} for more info.
      */
-    public BoxFolder restoreTrashFolder(String id, BoxEntityRequestObject<BoxItemRestoreRequestEntity> requestObject) throws BoxRestException,
-        AuthFatalFailureException, BoxServerException;
+    public BoxFolder restoreTrashFolder(String id, BoxItemRestoreRequestObject requestObject) throws BoxRestException, AuthFatalFailureException,
+        BoxServerException;
 }

@@ -33,8 +33,9 @@ public class GetFolderItemsRequestTest extends RequestTestBase {
         fields.add(fieldA);
         fields.add(fieldB);
 
-        GetFolderItemsRequest request = new GetFolderItemsRequest(CONFIG, JSON_PARSER, id, (BoxPagingRequestObject) BoxPagingRequestObject.pagingRequestObject(
-            limit, offset).addFields(fields));
+        BoxPagingRequestObject obj = BoxPagingRequestObject.pagingRequestObject(limit, offset);
+        obj.getRequestExtras().addFields(fields);
+        GetFolderItemsRequest request = new GetFolderItemsRequest(CONFIG, JSON_PARSER, id, obj);
         testRequestIsWellFormed(request, TestUtils.getConfig().getApiUrlAuthority(),
             TestUtils.getConfig().getApiUrlPath().concat(GetFolderItemsRequest.getUri(id)), HttpStatus.SC_OK, RestMethod.GET);
 
@@ -42,6 +43,5 @@ public class GetFolderItemsRequestTest extends RequestTestBase {
         Assert.assertEquals(Integer.toString(limit), queries.get("limit"));
         Assert.assertEquals(Integer.toString(offset), queries.get("offset"));
         Assert.assertEquals(fieldA + "," + fieldB, queries.get("fields"));
-
     }
 }

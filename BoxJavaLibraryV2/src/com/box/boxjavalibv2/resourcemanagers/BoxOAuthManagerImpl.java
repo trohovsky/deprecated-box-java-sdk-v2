@@ -10,7 +10,6 @@ import com.box.boxjavalibv2.jsonparsing.IBoxResourceHub;
 import com.box.boxjavalibv2.requests.CreateOAuthRequest;
 import com.box.boxjavalibv2.requests.RefreshOAuthRequest;
 import com.box.boxjavalibv2.requests.RevokeOAuthRequest;
-import com.box.boxjavalibv2.requests.requestentities.BoxOAuthRequestEntity;
 import com.box.boxjavalibv2.requests.requestobjects.BoxOAuthRequestObject;
 import com.box.restclientv2.IBoxRESTClient;
 import com.box.restclientv2.exceptions.BoxRestException;
@@ -50,8 +49,7 @@ public class BoxOAuthManagerImpl extends AbstractBoxResourceManager implements I
     @Override
     public BoxOAuthToken createOAuth(final String code, final String clientId, final String clientSecret, final String redirectUrl) throws BoxRestException,
         BoxServerException, AuthFatalFailureException {
-        BoxOAuthRequestEntity entity = BoxOAuthRequestEntity.createOAuthRequestEntity(code, clientId, clientSecret, redirectUrl);
-        BoxOAuthRequestObject obj = BoxOAuthRequestObject.getRequestObject(entity);
+        BoxOAuthRequestObject obj = BoxOAuthRequestObject.createOAuthRequestObject(code, clientId, clientSecret, redirectUrl);
         return createOAuth(obj);
     }
 
@@ -74,10 +72,7 @@ public class BoxOAuthManagerImpl extends AbstractBoxResourceManager implements I
     @Override
     public BoxOAuthToken createOAuth(final String code, final String clientId, final String clientSecret, final String redirectUrl, final String deviceId,
         final String deviceName) throws BoxRestException, BoxServerException, AuthFatalFailureException {
-        BoxOAuthRequestEntity entity = BoxOAuthRequestEntity.createOAuthRequestEntity(code, clientId, clientSecret, redirectUrl);
-        entity.setDevice(deviceId, deviceName);
-        BoxOAuthRequestObject obj = BoxOAuthRequestObject.getRequestObject(entity);
-
+        BoxOAuthRequestObject obj = BoxOAuthRequestObject.createOAuthRequestObject(code, clientId, clientSecret, redirectUrl).setDevice(deviceId, deviceName);
         return createOAuth(obj);
     }
 
@@ -89,26 +84,21 @@ public class BoxOAuthManagerImpl extends AbstractBoxResourceManager implements I
     @Override
     public BoxOAuthToken refreshOAuth(String refreshToken, String clientId, String clientSecret, String deviceId, String deviceName) throws BoxRestException,
         BoxServerException, AuthFatalFailureException {
-        BoxOAuthRequestEntity entity = BoxOAuthRequestEntity.refreshOAuthRequestEntity(refreshToken, clientId, clientSecret);
-        entity.setDevice(deviceId, deviceName);
-        BoxOAuthRequestObject obj = BoxOAuthRequestObject.getRequestObject(entity);
-
+        BoxOAuthRequestObject obj = BoxOAuthRequestObject.refreshOAuthRequestObject(refreshToken, clientId, clientSecret).setDevice(deviceId, deviceName);
         return createOAuth(obj);
     }
 
     @Override
     public BoxOAuthToken refreshOAuth(String refreshToken, String clientId, String clientSecret) throws BoxRestException, BoxServerException,
         AuthFatalFailureException {
-        BoxOAuthRequestEntity entity = BoxOAuthRequestEntity.refreshOAuthRequestEntity(refreshToken, clientId, clientSecret);
-        BoxOAuthRequestObject obj = BoxOAuthRequestObject.getRequestObject(entity);
-
+        BoxOAuthRequestObject obj = BoxOAuthRequestObject.refreshOAuthRequestObject(refreshToken, clientId, clientSecret);
         return createOAuth(obj);
     }
 
     @Override
     public void revokeOAuth(String accessToken, String clientId, String clientSecret) throws BoxServerException, BoxRestException, AuthFatalFailureException {
-        BoxOAuthRequestEntity entity = BoxOAuthRequestEntity.revokeOAuthRequestEntity(accessToken, clientId, clientSecret);
-        revokeOAuth(BoxOAuthRequestObject.getRequestObject(entity));
+        BoxOAuthRequestObject obj = BoxOAuthRequestObject.revokeOAuthRequestObject(accessToken, clientId, clientSecret);
+        revokeOAuth(obj);
     }
 
     public BoxOAuthToken refreshOAuth(final BoxOAuthRequestObject requestObject) throws BoxRestException, BoxServerException, AuthFatalFailureException {

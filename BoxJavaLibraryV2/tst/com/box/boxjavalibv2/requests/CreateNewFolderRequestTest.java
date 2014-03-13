@@ -11,8 +11,7 @@ import org.junit.Test;
 
 import com.box.boxjavalibv2.exceptions.AuthFatalFailureException;
 import com.box.boxjavalibv2.exceptions.BoxJSONException;
-import com.box.boxjavalibv2.requests.requestentities.BoxFolderRequestEntity;
-import com.box.boxjavalibv2.requests.requestobjects.BoxEntityRequestObject;
+import com.box.boxjavalibv2.requests.requestobjects.BoxFolderRequestObject;
 import com.box.boxjavalibv2.testutils.TestUtils;
 import com.box.restclientv2.RestMethod;
 import com.box.restclientv2.exceptions.BoxRestException;
@@ -29,13 +28,13 @@ public class CreateNewFolderRequestTest extends RequestTestBase {
         String name = "foldername123";
         String parentId = "parentid456";
 
-        BoxFolderRequestEntity entity = BoxFolderRequestEntity.createFolderRequestEntity(name, parentId);
+        BoxFolderRequestObject obj = BoxFolderRequestObject.createFolderRequestObject(name, parentId);
 
-        CreateNewFolderRequest request = new CreateNewFolderRequest(CONFIG, JSON_PARSER, BoxEntityRequestObject.getRequestEntity(entity));
+        CreateNewFolderRequest request = new CreateNewFolderRequest(CONFIG, JSON_PARSER, obj);
         testRequestIsWellFormed(request, TestUtils.getConfig().getApiUrlAuthority(),
             TestUtils.getConfig().getApiUrlPath().concat(CreateNewFolderRequest.getUri()), HttpStatus.SC_CREATED, RestMethod.POST);
         HttpEntity en = request.getRequestEntity();
         Assert.assertTrue(en instanceof StringEntity);
-        assertEqualStringEntity(entity.getMap(), en);
+        assertEqualStringEntity(obj.getJSONEntity(), en);
     }
 }

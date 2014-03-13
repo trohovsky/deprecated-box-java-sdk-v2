@@ -25,9 +25,9 @@ public class DeleteFolderRequestTest extends RequestTestBase {
         boolean recursive = true;
         String etag = "testetag123";
         String id = "testid456";
-
-        DeleteFolderRequest request = new DeleteFolderRequest(CONFIG, JSON_PARSER, id, (BoxFolderDeleteRequestObject) BoxFolderDeleteRequestObject
-            .deleteFolderRequestObject(recursive).setIfMatch(etag));
+        BoxFolderDeleteRequestObject obj = BoxFolderDeleteRequestObject.deleteFolderRequestObject(recursive);
+        obj.getRequestExtras().setIfMatch(etag);
+        DeleteFolderRequest request = new DeleteFolderRequest(CONFIG, JSON_PARSER, id, obj);
         testRequestIsWellFormed(request, TestUtils.getConfig().getApiUrlAuthority(),
             TestUtils.getConfig().getApiUrlPath().concat(DeleteFolderRequest.getUri(id)), HttpStatus.SC_NO_CONTENT, RestMethod.DELETE);
 

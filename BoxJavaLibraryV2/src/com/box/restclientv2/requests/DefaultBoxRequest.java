@@ -25,6 +25,7 @@ import com.box.boxjavalibv2.exceptions.AuthFatalFailureException;
 import com.box.boxjavalibv2.exceptions.BoxJSONException;
 import com.box.boxjavalibv2.jsonparsing.IBoxJSONParser;
 import com.box.boxjavalibv2.requests.requestobjects.BoxDefaultRequestObject;
+import com.box.boxjavalibv2.requests.requestobjects.BoxRequestExtras;
 import com.box.restclientv2.RestMethod;
 import com.box.restclientv2.authorization.IBoxRequestAuth;
 import com.box.restclientv2.exceptions.BoxRestException;
@@ -94,9 +95,11 @@ public class DefaultBoxRequest implements IBoxRequest {
             catch (UnsupportedEncodingException e) {
                 throw new BoxRestException(e, "UnsupportedEncodingException in the request object.");
             }
-            setRequestFields(requestObject.getFields());
-            getQueryParams().putAll(requestObject.getQueryParams());
-            getHeaders().putAll(requestObject.getHeaders());
+
+            BoxRequestExtras mutator = requestObject.getRequestExtras();
+            setRequestFields(mutator.getFields());
+            getQueryParams().putAll(mutator.getQueryParams());
+            getHeaders().putAll(mutator.getHeaders());
         }
     }
 

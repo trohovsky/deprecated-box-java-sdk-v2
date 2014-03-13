@@ -38,27 +38,27 @@ public class BoxImageRequestObject extends BoxDefaultRequestObject {
     }
 
     public BoxImageRequestObject setMinWidth(int minWidth) {
-        addQueryParam(BoxPreview.MIN_WIDTH, Integer.toString(minWidth));
+        getRequestExtras().addQueryParam(BoxPreview.MIN_WIDTH, Integer.toString(minWidth));
         return this;
     }
 
     public BoxImageRequestObject setMaxWidth(int maxWidth) {
-        addQueryParam(BoxPreview.MAX_WIDTH, Integer.toString(maxWidth));
+        getRequestExtras().addQueryParam(BoxPreview.MAX_WIDTH, Integer.toString(maxWidth));
         return this;
     }
 
     public BoxImageRequestObject setMinHeight(int minHeight) {
-        addQueryParam(BoxPreview.MIN_HEIGHT, Integer.toString(minHeight));
+        getRequestExtras().addQueryParam(BoxPreview.MIN_HEIGHT, Integer.toString(minHeight));
         return this;
     }
 
     public BoxImageRequestObject setMaxHeight(int maxHeight) {
-        addQueryParam(BoxPreview.MAX_HEIGHT, Integer.toString(maxHeight));
+        getRequestExtras().addQueryParam(BoxPreview.MAX_HEIGHT, Integer.toString(maxHeight));
         return this;
     }
 
     public BoxImageRequestObject setPage(int page) {
-        addQueryParam(BoxPreview.PAGE, Integer.toString(page));
+        getRequestExtras().addQueryParam(BoxPreview.PAGE, Integer.toString(page));
         return this;
     }
 }

@@ -1,4 +1,4 @@
-package com.box.boxjavalibv2.requests.requestentities;
+package com.box.boxjavalibv2.requests.requestobjects;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -7,7 +7,7 @@ import com.box.boxjavalibv2.dao.BoxUser;
 import com.box.boxjavalibv2.jsonentities.BoxEnterpriseEntity;
 import com.box.boxjavalibv2.jsonentities.PairArrayJSONStringEntity;
 
-public class BoxUserRequestEntity extends BoxSimpleUserRequestEntity {
+public class BoxUserRequestObject extends BoxSimpleUserRequestObject {
 
     /**
      * Request entity to create an enterprise user.
@@ -18,11 +18,9 @@ public class BoxUserRequestEntity extends BoxSimpleUserRequestEntity {
      *            name of the user
      * @return
      */
-    public static BoxUserRequestEntity createEnterpriseUserRequestObject(final String login, final String name) {
-        BoxUserRequestEntity entity = new BoxUserRequestEntity();
-        entity.setLogin(login);
-        entity.setName(name);
-        return entity;
+    public static BoxUserRequestObject createEnterpriseUserRequestObject(final String login, final String name) {
+        BoxUserRequestObject obj = new BoxUserRequestObject();
+        return obj.setLogin(login).setName(name);
     }
 
     /**
@@ -33,14 +31,15 @@ public class BoxUserRequestEntity extends BoxSimpleUserRequestEntity {
      *            whether to notify user if user is rolled out of enterprise
      * @return
      */
-    public static BoxUserRequestEntity updateUserInfoRequestObject(boolean notify) {
-        BoxUserRequestEntity entity = new BoxUserRequestEntity();
-        entity.setNotifyUser(notify);
-        return entity;
+    public static BoxUserRequestObject updateUserInfoRequestObject(boolean notify) {
+        BoxUserRequestObject obj = new BoxUserRequestObject();
+        obj.setNotifyUser(notify);
+        return obj;
     }
 
-    public void setName(String name) {
+    public BoxUserRequestObject setName(String name) {
         put(BoxUser.FIELD_NAME, name);
+        return this;
     }
 
     /**
@@ -50,8 +49,9 @@ public class BoxUserRequestEntity extends BoxSimpleUserRequestEntity {
      *            login
      * @return
      */
-    public void setLogin(final String login) {
+    public BoxUserRequestObject setLogin(final String login) {
         put(BoxUser.FIELD_LOGIN, login);
+        return this;
     }
 
     /**
@@ -60,8 +60,9 @@ public class BoxUserRequestEntity extends BoxSimpleUserRequestEntity {
      * @param role
      * @return
      */
-    public void setRole(String role) {
+    public BoxUserRequestObject setRole(String role) {
         put(BoxUser.FIELD_ROLE, role);
+        return this;
     }
 
     /**
@@ -69,8 +70,9 @@ public class BoxUserRequestEntity extends BoxSimpleUserRequestEntity {
      *            the language to set
      * @return
      */
-    public void setLanguage(String language) {
+    public BoxUserRequestObject setLanguage(String language) {
         put(BoxUser.FIELD_LANGUAGE, language);
+        return this;
     }
 
     /**
@@ -78,8 +80,9 @@ public class BoxUserRequestEntity extends BoxSimpleUserRequestEntity {
      *            the isSyncEnabled to set
      * @return
      */
-    public void setSyncEnabled(boolean isSyncEnabled) {
+    public BoxUserRequestObject setSyncEnabled(boolean isSyncEnabled) {
         put(BoxUser.FIELD_IS_SYNC_ENABLED, Boolean.toString(isSyncEnabled));
+        return this;
     }
 
     /**
@@ -87,8 +90,9 @@ public class BoxUserRequestEntity extends BoxSimpleUserRequestEntity {
      *            the jobTitle to set
      * @return
      */
-    public void setJobTitle(String jobTitle) {
+    public BoxUserRequestObject setJobTitle(String jobTitle) {
         put(BoxUser.FIELD_JOB_TITLE, jobTitle);
+        return this;
     }
 
     /**
@@ -96,8 +100,9 @@ public class BoxUserRequestEntity extends BoxSimpleUserRequestEntity {
      *            the phone to set
      * @return
      */
-    public void setPhone(String phone) {
+    public BoxUserRequestObject setPhone(String phone) {
         put(BoxUser.FIELD_PHONE, phone);
+        return this;
     }
 
     /**
@@ -105,8 +110,9 @@ public class BoxUserRequestEntity extends BoxSimpleUserRequestEntity {
      *            the address to set
      * @return
      */
-    public void setAddress(String address) {
+    public BoxUserRequestObject setAddress(String address) {
         put(BoxUser.FIELD_ADDRESS, address);
+        return this;
     }
 
     /**
@@ -114,8 +120,9 @@ public class BoxUserRequestEntity extends BoxSimpleUserRequestEntity {
      *            the spaceAmount to set
      * @return
      */
-    public void setSpaceAmount(double spaceAmount) {
+    public BoxUserRequestObject setSpaceAmount(double spaceAmount) {
         put(BoxUser.FIELD_SPACE_AMOUNT, Double.toString(spaceAmount));
+        return this;
     }
 
     /**
@@ -123,12 +130,13 @@ public class BoxUserRequestEntity extends BoxSimpleUserRequestEntity {
      *            the trackingCodes to set
      * @return
      */
-    public void setTrackingCodes(final LinkedHashMap<String, String> trackingCodes) {
+    public BoxUserRequestObject setTrackingCodes(final LinkedHashMap<String, String> trackingCodes) {
         PairArrayJSONStringEntity list = new PairArrayJSONStringEntity();
         for (Map.Entry<String, String> entry : trackingCodes.entrySet()) {
             list.put(entry.getKey(), entry.getValue());
         }
         put(BoxUser.FIELD_TRACKING_CODES, list);
+        return this;
     }
 
     /**
@@ -136,8 +144,9 @@ public class BoxUserRequestEntity extends BoxSimpleUserRequestEntity {
      *            the canSeeManagedUsers to set
      * @return
      */
-    public void setCanSeeManagedUsers(final boolean canSeeManagedUsers) {
+    public BoxUserRequestObject setCanSeeManagedUsers(final boolean canSeeManagedUsers) {
         put(BoxUser.FIELD_CAN_SEE_MANAGED_USERS, Boolean.toString(canSeeManagedUsers));
+        return this;
     }
 
     /**
@@ -146,8 +155,9 @@ public class BoxUserRequestEntity extends BoxSimpleUserRequestEntity {
      *            {@link com.box.boxjavalibv2.dao.BoxUser#STATUS_INACTIVE}
      * @return
      */
-    public void setStatus(final String status) {
+    public BoxUserRequestObject setStatus(final String status) {
         put(BoxUser.FIELD_STATUS, status);
+        return this;
     }
 
     /**
@@ -155,8 +165,9 @@ public class BoxUserRequestEntity extends BoxSimpleUserRequestEntity {
      *            the exemptFromDeviceLimits to set
      * @return
      */
-    public void setExemptFromDeviceLimits(final boolean exemptFromDeviceLimits) {
+    public BoxUserRequestObject setExemptFromDeviceLimits(final boolean exemptFromDeviceLimits) {
         put(BoxUser.FIELD_EXEMPT_FROM_DEVICE_LIMITS, Boolean.toString(exemptFromDeviceLimits));
+        return this;
     }
 
     /**
@@ -164,8 +175,9 @@ public class BoxUserRequestEntity extends BoxSimpleUserRequestEntity {
      *            the exemptFromLoginVerification to set
      * @return
      */
-    public void setExemptFromLoginVerification(final boolean exemptFromLoginVerification) {
+    public BoxUserRequestObject setExemptFromLoginVerification(final boolean exemptFromLoginVerification) {
         put(BoxUser.FIELD_EXEMPT_FROM_LOGIN_VERIFICATION, Boolean.toString(exemptFromLoginVerification));
+        return this;
     }
 
     /**
@@ -173,7 +185,8 @@ public class BoxUserRequestEntity extends BoxSimpleUserRequestEntity {
      *            the enterprise to set. Note when updating user information you can set this to null in order to roll the user out from enterprise.
      * @return
      */
-    public void setEnterprise(final BoxEnterpriseEntity enterprise) {
+    public BoxUserRequestObject setEnterprise(final BoxEnterpriseEntity enterprise) {
         put(BoxUser.FIELD_ENTERPRISE, enterprise);
+        return this;
     }
 }

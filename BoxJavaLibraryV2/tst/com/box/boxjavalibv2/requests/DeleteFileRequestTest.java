@@ -24,8 +24,9 @@ public class DeleteFileRequestTest extends RequestTestBase {
     public void testRequestIsWellFormed() throws BoxRestException, AuthFatalFailureException {
         String id = "testid123";
         String sha1 = "testsha1456";
-
-        DeleteFileRequest request = new DeleteFileRequest(CONFIG, JSON_PARSER, id, (new BoxDefaultRequestObject().setIfMatch(sha1)));
+        BoxDefaultRequestObject obj = new BoxDefaultRequestObject();
+        obj.getRequestExtras().setIfMatch(sha1);
+        DeleteFileRequest request = new DeleteFileRequest(CONFIG, JSON_PARSER, id, obj);
         testRequestIsWellFormed(request, TestUtils.getConfig().getApiUrlAuthority(),
             TestUtils.getConfig().getApiUrlPath().concat(DeleteFileRequest.getUri(id)), HttpStatus.SC_NO_CONTENT, RestMethod.DELETE);
 

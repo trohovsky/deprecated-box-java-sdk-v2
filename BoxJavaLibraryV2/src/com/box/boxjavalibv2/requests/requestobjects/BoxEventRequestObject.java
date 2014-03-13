@@ -1,6 +1,5 @@
 package com.box.boxjavalibv2.requests.requestobjects;
 
-
 public class BoxEventRequestObject extends BoxDefaultRequestObject {
 
     private BoxEventRequestObject() {
@@ -28,10 +27,10 @@ public class BoxEventRequestObject extends BoxDefaultRequestObject {
     public static BoxEventRequestObject getEventsRequestObject(final long streamPosition) {
         BoxEventRequestObject req = new BoxEventRequestObject();
         if (streamPosition == STREAM_POSITION_NOW) {
-            req.addQueryParam("stream_position", "now");
+            req.getRequestExtras().addQueryParam("stream_position", "now");
         }
         else {
-            req.addQueryParam("stream_position", String.valueOf(streamPosition));
+            req.getRequestExtras().addQueryParam("stream_position", String.valueOf(streamPosition));
         }
         return req;
     }
@@ -44,7 +43,7 @@ public class BoxEventRequestObject extends BoxDefaultRequestObject {
      * @return BoxEventRequestObject.
      */
     public BoxEventRequestObject setStreamType(String streamType) {
-        addQueryParam("stream_type", streamType);
+        getRequestExtras().addQueryParam("stream_type", streamType);
         return this;
     }
 
@@ -56,7 +55,7 @@ public class BoxEventRequestObject extends BoxDefaultRequestObject {
      * @return BoxEventRequestObject.
      */
     public BoxEventRequestObject setLimit(int limit) {
-        addQueryParam("limit", String.valueOf(limit));
+        getRequestExtras().addQueryParam("limit", String.valueOf(limit));
         return this;
     }
 

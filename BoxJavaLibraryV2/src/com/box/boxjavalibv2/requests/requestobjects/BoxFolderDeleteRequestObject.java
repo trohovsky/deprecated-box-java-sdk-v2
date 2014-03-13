@@ -4,7 +4,7 @@ import com.box.boxjavalibv2.utils.Constants;
 
 public class BoxFolderDeleteRequestObject extends BoxDefaultRequestObject {
 
-    public BoxFolderDeleteRequestObject() {
+    private BoxFolderDeleteRequestObject() {
         super();
     }
 
@@ -19,7 +19,7 @@ public class BoxFolderDeleteRequestObject extends BoxDefaultRequestObject {
      * @return
      */
     private BoxFolderDeleteRequestObject setRecursive(final boolean recursive) {
-        addQueryParam(Constants.RECURSIVE, Boolean.toString(recursive));
+        getRequestExtras().addQueryParam(Constants.RECURSIVE, Boolean.toString(recursive));
         return this;
     }
 }

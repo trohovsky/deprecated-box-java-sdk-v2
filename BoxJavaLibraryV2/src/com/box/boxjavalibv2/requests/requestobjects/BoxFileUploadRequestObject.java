@@ -148,7 +148,7 @@ public class BoxFileUploadRequestObject extends BoxDefaultRequestObject {
      *            sha1
      */
     public BoxFileUploadRequestObject setContentMD5(String sha1) {
-        addHeader(Constants.CONTENT_MD5, sha1);
+        getRequestExtras().addHeader(Constants.CONTENT_MD5, sha1);
         return this;
     }
 

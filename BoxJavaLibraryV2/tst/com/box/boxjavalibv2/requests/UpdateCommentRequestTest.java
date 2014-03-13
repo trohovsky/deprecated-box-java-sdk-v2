@@ -11,8 +11,7 @@ import org.junit.Test;
 
 import com.box.boxjavalibv2.exceptions.AuthFatalFailureException;
 import com.box.boxjavalibv2.exceptions.BoxJSONException;
-import com.box.boxjavalibv2.requests.requestentities.BoxCommentRequestEntity;
-import com.box.boxjavalibv2.requests.requestobjects.BoxEntityRequestObject;
+import com.box.boxjavalibv2.requests.requestobjects.BoxCommentRequestObject;
 import com.box.boxjavalibv2.testutils.TestUtils;
 import com.box.restclientv2.RestMethod;
 import com.box.restclientv2.exceptions.BoxRestException;
@@ -29,14 +28,14 @@ public class UpdateCommentRequestTest extends RequestTestBase {
         String id = "testid123";
         String message = "testmessage456";
 
-        BoxCommentRequestEntity entity = BoxCommentRequestEntity.updateCommentRequestEntity(message);
+        BoxCommentRequestObject obj = BoxCommentRequestObject.updateCommentRequestObject(message);
 
-        UpdateCommentRequest request = new UpdateCommentRequest(CONFIG, JSON_PARSER, id, BoxEntityRequestObject.getRequestEntity(entity));
+        UpdateCommentRequest request = new UpdateCommentRequest(CONFIG, JSON_PARSER, id, obj);
         testRequestIsWellFormed(request, TestUtils.getConfig().getApiUrlAuthority(),
             TestUtils.getConfig().getApiUrlPath().concat(UpdateCommentRequest.getUri(id)), HttpStatus.SC_OK, RestMethod.PUT);
 
         HttpEntity en = request.getRequestEntity();
         Assert.assertTrue(en instanceof StringEntity);
-        assertEqualStringEntity(entity.getMap(), en);
+        assertEqualStringEntity(obj.getJSONEntity(), en);
     }
 }

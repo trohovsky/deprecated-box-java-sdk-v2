@@ -4,8 +4,7 @@ import org.apache.http.HttpStatus;
 
 import com.box.boxjavalibv2.IBoxConfig;
 import com.box.boxjavalibv2.jsonparsing.IBoxJSONParser;
-import com.box.boxjavalibv2.requests.requestentities.BoxFolderRequestEntity;
-import com.box.boxjavalibv2.requests.requestobjects.BoxEntityRequestObject;
+import com.box.boxjavalibv2.requests.requestobjects.BoxFolderRequestObject;
 import com.box.restclientv2.RestMethod;
 import com.box.restclientv2.exceptions.BoxRestException;
 import com.box.restclientv2.requests.DefaultBoxRequest;
@@ -27,8 +26,7 @@ public class CreateNewFolderRequest extends DefaultBoxRequest {
      * @throws BoxRestException
      *             exception
      */
-    public CreateNewFolderRequest(final IBoxConfig config, final IBoxJSONParser parser, BoxEntityRequestObject<BoxFolderRequestEntity> requestObject)
-        throws BoxRestException {
+    public CreateNewFolderRequest(final IBoxConfig config, final IBoxJSONParser parser, BoxFolderRequestObject requestObject) throws BoxRestException {
         super(config, parser, getUri(), RestMethod.POST, requestObject);
         setExpectedResponseCode(HttpStatus.SC_CREATED);
     }

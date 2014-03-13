@@ -1,16 +1,16 @@
-package com.box.boxjavalibv2.requests.requestentities;
+package com.box.boxjavalibv2.requests.requestobjects;
 
 import com.box.boxjavalibv2.dao.BoxFolder;
 import com.box.boxjavalibv2.dao.BoxItem;
 import com.box.boxjavalibv2.jsonentities.MapJSONStringEntity;
 
-public class BoxItemRestoreRequestEntity extends BoxDefaultRequestEntity {
+public class BoxItemRestoreRequestObject extends BoxDefaultRequestObject {
 
-    private BoxItemRestoreRequestEntity() {
+    private BoxItemRestoreRequestObject() {
     }
 
-    public static BoxItemRestoreRequestEntity getRequestEntity() {
-        return new BoxItemRestoreRequestEntity();
+    public static BoxItemRestoreRequestObject restoreItemRequestObject() {
+        return new BoxItemRestoreRequestObject();
     }
 
     /**
@@ -19,8 +19,9 @@ public class BoxItemRestoreRequestEntity extends BoxDefaultRequestEntity {
      * @param newName
      * @return
      */
-    public void setNewName(final String newName) {
+    public BoxItemRestoreRequestObject setNewName(final String newName) {
         put(BoxItem.FIELD_NAME, newName);
+        return this;
     }
 
     /**
@@ -29,9 +30,10 @@ public class BoxItemRestoreRequestEntity extends BoxDefaultRequestEntity {
      * @param parentId
      * @return
      */
-    public void setNewParent(final String parentId) {
+    public BoxItemRestoreRequestObject setNewParent(final String parentId) {
         MapJSONStringEntity id = new MapJSONStringEntity();
         id.put(BoxFolder.FIELD_ID, parentId);
         put(BoxItem.FIELD_PARENT, id);
+        return this;
     }
 }
