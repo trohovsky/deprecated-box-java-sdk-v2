@@ -1,6 +1,7 @@
 package com.box.boxjavalibv2.requests;
 
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 
 import junit.framework.Assert;
 
@@ -24,7 +25,8 @@ public class UpdateCommentRequestTest extends RequestTestBase {
     }
 
     @Test
-    public void testRequestIsWellFormed() throws BoxRestException, IllegalStateException, IOException, AuthFatalFailureException, BoxJSONException {
+    public void testRequestIsWellFormed() throws BoxRestException, IllegalStateException, IOException, AuthFatalFailureException, BoxJSONException,
+        NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
         String id = "testid123";
         String message = "testmessage456";
 
@@ -36,6 +38,6 @@ public class UpdateCommentRequestTest extends RequestTestBase {
 
         HttpEntity en = request.getRequestEntity();
         Assert.assertTrue(en instanceof StringEntity);
-        assertEqualStringEntity(obj.getJSONEntity(), en);
+        assertEqualStringEntity(obj, en);
     }
 }

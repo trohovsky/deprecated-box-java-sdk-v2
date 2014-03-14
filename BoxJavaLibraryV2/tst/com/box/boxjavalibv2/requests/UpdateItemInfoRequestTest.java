@@ -1,6 +1,7 @@
 package com.box.boxjavalibv2.requests;
 
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 
 import junit.framework.Assert;
 
@@ -26,17 +27,19 @@ public class UpdateItemInfoRequestTest extends RequestTestBase {
     }
 
     @Test
-    public void testFolderRequestIsWellFormed() throws IllegalStateException, BoxRestException, IOException, AuthFatalFailureException, BoxJSONException {
+    public void testFolderRequestIsWellFormed() throws IllegalStateException, BoxRestException, IOException, AuthFatalFailureException, BoxJSONException,
+        NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
         testRequestIsWellFormed(BoxResourceType.FOLDER);
     }
 
     @Test
-    public void testFileRequestIsWellFormed() throws IllegalStateException, BoxRestException, IOException, AuthFatalFailureException, BoxJSONException {
+    public void testFileRequestIsWellFormed() throws IllegalStateException, BoxRestException, IOException, AuthFatalFailureException, BoxJSONException,
+        NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
         testRequestIsWellFormed(BoxResourceType.FILE);
     }
 
     public void testRequestIsWellFormed(BoxResourceType type) throws BoxRestException, IllegalStateException, IOException, AuthFatalFailureException,
-        BoxJSONException {
+        BoxJSONException, NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
         String id = "testid123";
         String parentId = "testparentid456";
 
@@ -49,6 +52,6 @@ public class UpdateItemInfoRequestTest extends RequestTestBase {
 
         HttpEntity en = request.getRequestEntity();
         Assert.assertTrue(en instanceof StringEntity);
-        assertEqualStringEntity(obj.getJSONEntity(), en);
+        assertEqualStringEntity(obj, en);
     }
 }

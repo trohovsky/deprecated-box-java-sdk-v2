@@ -16,7 +16,7 @@ import com.box.restclientv2.exceptions.BoxRestException;
  */
 public class BoxDefaultRequestObject implements IBoxRequestObject {
 
-    private MapJSONStringEntity jsonEntity = new MapJSONStringEntity();
+    private final MapJSONStringEntity jsonEntity = new MapJSONStringEntity();
     private final BoxRequestExtras requestExtras = new BoxRequestExtras();
 
     public BoxDefaultRequestObject() {
@@ -36,12 +36,8 @@ public class BoxDefaultRequestObject implements IBoxRequestObject {
         }
     }
 
-    public MapJSONStringEntity getJSONEntity() {
+    protected MapJSONStringEntity getJSONEntity() {
         return jsonEntity;
-    }
-
-    public void setJSONEntity(MapJSONStringEntity entity) {
-        this.jsonEntity = entity;
     }
 
     /**
@@ -57,7 +53,7 @@ public class BoxDefaultRequestObject implements IBoxRequestObject {
     }
 
     /**
-     * Get value from enitity.
+     * Get value from entity.
      */
     public Object getFromEntity(String key) {
         return getJSONEntity().get(key);

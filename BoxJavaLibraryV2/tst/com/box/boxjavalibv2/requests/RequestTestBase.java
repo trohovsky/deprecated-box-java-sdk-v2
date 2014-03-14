@@ -1,6 +1,8 @@
 package com.box.boxjavalibv2.requests;
 
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.net.URI;
 
 import junit.framework.Assert;
@@ -14,6 +16,7 @@ import com.box.boxjavalibv2.exceptions.BoxJSONException;
 import com.box.boxjavalibv2.jsonentities.IBoxJSONStringEntity;
 import com.box.boxjavalibv2.jsonparsing.BoxJSONParser;
 import com.box.boxjavalibv2.jsonparsing.BoxResourceHub;
+import com.box.boxjavalibv2.requests.requestobjects.BoxDefaultRequestObject;
 import com.box.boxjavalibv2.testutils.TestUtils;
 import com.box.restclientv2.RestMethod;
 import com.box.restclientv2.exceptions.BoxRestException;
@@ -43,5 +46,18 @@ public class RequestTestBase {
 
         Assert.assertEquals(expected.toJSONString(JSON_PARSER), IOUtils.toString(current.getContent()));
 
+    }
+
+    protected void assertEqualStringEntity(BoxDefaultRequestObject obj, HttpEntity current) throws IllegalStateException, BoxRestException, BoxJSONException,
+        NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, IOException {
+        assertEqualStringEntity(getEntity(obj), current);
+    }
+
+    private IBoxJSONStringEntity getEntity(BoxDefaultRequestObject obj) throws NoSuchMethodException, SecurityException, IllegalAccessException,
+        IllegalArgumentException, InvocationTargetException {
+        Method m = BoxDefaultRequestObject.class.getDeclaredMethod("getJSONEntity");
+        m.setAccessible(true);
+        IBoxJSONStringEntity entity = (IBoxJSONStringEntity) m.invoke(obj, (Object[]) null);
+        return entity;
     }
 }

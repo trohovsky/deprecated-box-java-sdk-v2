@@ -1,6 +1,7 @@
 package com.box.boxjavalibv2.requests;
 
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.util.LinkedHashMap;
 
 import junit.framework.Assert;
@@ -25,7 +26,8 @@ public class CreateEnterpriseUserRequestTest extends RequestTestBase {
     }
 
     @Test
-    public void testRequestIsWellFormed() throws BoxRestException, IllegalStateException, IOException, AuthFatalFailureException, BoxJSONException {
+    public void testRequestIsWellFormed() throws BoxRestException, IllegalStateException, IOException, AuthFatalFailureException, BoxJSONException,
+        NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
         String name = "testname";
         String login = "testlogin";
         String role = "testrole";
@@ -55,7 +57,7 @@ public class CreateEnterpriseUserRequestTest extends RequestTestBase {
         HttpEntity entity = request.getRequestEntity();
         Assert.assertTrue(entity instanceof StringEntity);
 
-        assertEqualStringEntity(obj.getJSONEntity(), entity);
+        assertEqualStringEntity(obj, entity);
     }
 
     private BoxUserRequestObject getUserRequestObject(String login, String name, String role, String language, boolean sync, String title, String phone,

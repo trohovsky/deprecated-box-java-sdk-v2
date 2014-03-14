@@ -1,6 +1,7 @@
 package com.box.boxjavalibv2.requests;
 
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 
 import junit.framework.Assert;
 
@@ -24,7 +25,8 @@ public class CreateNewFolderRequestTest extends RequestTestBase {
     }
 
     @Test
-    public void testRequestIsWellFormed() throws BoxRestException, IllegalStateException, IOException, AuthFatalFailureException, BoxJSONException {
+    public void testRequestIsWellFormed() throws BoxRestException, IllegalStateException, IOException, AuthFatalFailureException, BoxJSONException,
+        NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
         String name = "foldername123";
         String parentId = "parentid456";
 
@@ -35,6 +37,6 @@ public class CreateNewFolderRequestTest extends RequestTestBase {
             TestUtils.getConfig().getApiUrlPath().concat(CreateNewFolderRequest.getUri()), HttpStatus.SC_CREATED, RestMethod.POST);
         HttpEntity en = request.getRequestEntity();
         Assert.assertTrue(en instanceof StringEntity);
-        assertEqualStringEntity(obj.getJSONEntity(), en);
+        assertEqualStringEntity(obj, en);
     }
 }

@@ -1,6 +1,7 @@
 package com.box.boxjavalibv2.requests;
 
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.util.Date;
 
 import org.apache.http.HttpEntity;
@@ -32,17 +33,19 @@ public class CreateSharedLinkRequestTest extends RequestTestBase {
     }
 
     @Test
-    public void testFileRequestWellFormed() throws BoxRestException, IllegalStateException, IOException, AuthFatalFailureException, BoxJSONException {
+    public void testFileRequestWellFormed() throws BoxRestException, IllegalStateException, IOException, AuthFatalFailureException, BoxJSONException,
+        NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
         testRequestIsWellFormed(BoxResourceType.FILE);
     }
 
     @Test
-    public void testFolderRequestWellFormed() throws BoxRestException, IllegalStateException, IOException, AuthFatalFailureException, BoxJSONException {
+    public void testFolderRequestWellFormed() throws BoxRestException, IllegalStateException, IOException, AuthFatalFailureException, BoxJSONException,
+        NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
         testRequestIsWellFormed(BoxResourceType.FOLDER);
     }
 
     private void testRequestIsWellFormed(final BoxResourceType type) throws BoxRestException, IllegalStateException, IOException, AuthFatalFailureException,
-        BoxJSONException {
+        BoxJSONException, NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
         String id = "testid123";
         String access = BoxSharedLinkAccess.COLLABORATORS;
         Date unsharedAt = new Date();
@@ -58,6 +61,6 @@ public class CreateSharedLinkRequestTest extends RequestTestBase {
         HttpEntity en = request.getRequestEntity();
         Assert.assertTrue(en instanceof StringEntity);
 
-        super.assertEqualStringEntity(obj.getJSONEntity(), en);
+        super.assertEqualStringEntity(obj, en);
     }
 }
