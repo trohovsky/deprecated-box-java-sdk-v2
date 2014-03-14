@@ -64,7 +64,7 @@ public class BoxDefaultRequestObject implements IBoxRequestObject {
      *            the number of items to return. default is 100, max is 1000.
      * @param offset
      *            the item at which to begin the response, default is 0.
-     * @return BoxFolderRequestObject
+     * @return BoxDefaultRequestObject
      */
     public BoxDefaultRequestObject setPage(final int limit, final int offset) {
         getRequestExtras().addQueryParam("limit", Integer.toString(limit));
