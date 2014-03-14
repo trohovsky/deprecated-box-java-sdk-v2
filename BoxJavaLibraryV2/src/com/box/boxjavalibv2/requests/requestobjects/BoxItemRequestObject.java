@@ -3,7 +3,7 @@ package com.box.boxjavalibv2.requests.requestobjects;
 import com.box.boxjavalibv2.dao.BoxFile;
 import com.box.boxjavalibv2.dao.BoxFolder;
 import com.box.boxjavalibv2.dao.BoxItem;
-import com.box.boxjavalibv2.jsonentities.BoxSharedLinkEntity;
+import com.box.boxjavalibv2.jsonentities.BoxSharedLinkRequestEntity;
 import com.box.boxjavalibv2.jsonentities.MapJSONStringEntity;
 
 public class BoxItemRequestObject extends BoxSharedLinkRequestObject {
@@ -12,7 +12,7 @@ public class BoxItemRequestObject extends BoxSharedLinkRequestObject {
         super();
     }
 
-    public BoxItemRequestObject(BoxSharedLinkEntity sharedLink) {
+    public BoxItemRequestObject(BoxSharedLinkRequestEntity sharedLink) {
         super(sharedLink);
     }
 
@@ -24,7 +24,7 @@ public class BoxItemRequestObject extends BoxSharedLinkRequestObject {
         return new BoxItemRequestObject(null);
     }
 
-    public static BoxItemRequestObject createSharedLinkRequestObject(BoxSharedLinkEntity sharedLink) {
+    public static BoxItemRequestObject createSharedLinkRequestObject(BoxSharedLinkRequestEntity sharedLink) {
         return new BoxItemRequestObject(sharedLink);
     }
 

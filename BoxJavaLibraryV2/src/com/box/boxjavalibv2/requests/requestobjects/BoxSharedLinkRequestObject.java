@@ -1,14 +1,14 @@
 package com.box.boxjavalibv2.requests.requestobjects;
 
 import com.box.boxjavalibv2.dao.BoxFile;
-import com.box.boxjavalibv2.jsonentities.BoxSharedLinkEntity;
+import com.box.boxjavalibv2.jsonentities.BoxSharedLinkRequestEntity;
 
 public class BoxSharedLinkRequestObject extends BoxDefaultRequestObject {
 
     protected BoxSharedLinkRequestObject() {
     }
 
-    protected BoxSharedLinkRequestObject(BoxSharedLinkEntity sharedLink) {
+    protected BoxSharedLinkRequestObject(BoxSharedLinkRequestEntity sharedLink) {
         setSharedLink(sharedLink);
     }
 
@@ -16,7 +16,7 @@ public class BoxSharedLinkRequestObject extends BoxDefaultRequestObject {
         return new BoxSharedLinkRequestObject(null);
     }
 
-    public static BoxSharedLinkRequestObject createSharedLinkRequestObject(BoxSharedLinkEntity sharedLink) {
+    public static BoxSharedLinkRequestObject createSharedLinkRequestObject(BoxSharedLinkRequestEntity sharedLink) {
         return new BoxSharedLinkRequestObject(sharedLink);
     }
 
@@ -26,7 +26,7 @@ public class BoxSharedLinkRequestObject extends BoxDefaultRequestObject {
      * @param sharedLink
      * @return
      */
-    protected BoxSharedLinkRequestObject setSharedLink(BoxSharedLinkEntity sharedLink) {
+    protected BoxSharedLinkRequestObject setSharedLink(BoxSharedLinkRequestEntity sharedLink) {
         put(BoxFile.FIELD_SHARED_LINK, sharedLink);
         return this;
     }

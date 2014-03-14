@@ -22,7 +22,7 @@ public class SharedLinkRequestObjectTest {
     public void testFull() throws BoxJSONException {
         Date date = new Date();
         String access = BoxSharedLinkAccess.OPEN;
-        BoxSharedLinkEntity entity = new BoxSharedLinkEntity(access);
+        BoxSharedLinkRequestEntity entity = new BoxSharedLinkRequestEntity(access);
         entity.setPermissions(true);
         entity.setUnshared_at(date);
 
@@ -38,7 +38,7 @@ public class SharedLinkRequestObjectTest {
     @Test
     public void testNoUnsharedAt() throws BoxJSONException {
         String access = BoxSharedLinkAccess.OPEN;
-        BoxSharedLinkEntity entity = new BoxSharedLinkEntity(access);
+        BoxSharedLinkRequestEntity entity = new BoxSharedLinkRequestEntity(access);
         entity.setPermissions(true);
         String accessStr = String.format(ACCESS_STR, access);
 

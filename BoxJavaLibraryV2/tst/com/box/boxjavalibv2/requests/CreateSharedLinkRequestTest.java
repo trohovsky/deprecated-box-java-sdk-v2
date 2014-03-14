@@ -14,7 +14,7 @@ import com.box.boxjavalibv2.dao.BoxResourceType;
 import com.box.boxjavalibv2.dao.BoxSharedLinkAccess;
 import com.box.boxjavalibv2.exceptions.AuthFatalFailureException;
 import com.box.boxjavalibv2.exceptions.BoxJSONException;
-import com.box.boxjavalibv2.jsonentities.BoxSharedLinkEntity;
+import com.box.boxjavalibv2.jsonentities.BoxSharedLinkRequestEntity;
 import com.box.boxjavalibv2.requests.requestobjects.BoxSharedLinkRequestObject;
 import com.box.boxjavalibv2.testutils.TestUtils;
 import com.box.restclientv2.RestMethod;
@@ -50,7 +50,7 @@ public class CreateSharedLinkRequestTest extends RequestTestBase {
         String access = BoxSharedLinkAccess.COLLABORATORS;
         Date unsharedAt = new Date();
 
-        BoxSharedLinkEntity sEntity = new BoxSharedLinkEntity(access);
+        BoxSharedLinkRequestEntity sEntity = new BoxSharedLinkRequestEntity(access);
         sEntity.setPermissions(true);
         sEntity.setUnshared_at(unsharedAt);
         BoxSharedLinkRequestObject obj = BoxSharedLinkRequestObject.createSharedLinkRequestObject(sEntity);

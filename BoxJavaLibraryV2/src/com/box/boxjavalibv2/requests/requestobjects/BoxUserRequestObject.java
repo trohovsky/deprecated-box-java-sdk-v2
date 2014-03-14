@@ -4,7 +4,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 import com.box.boxjavalibv2.dao.BoxUser;
-import com.box.boxjavalibv2.jsonentities.BoxEnterpriseEntity;
+import com.box.boxjavalibv2.jsonentities.BoxEnterpriseRequestEntity;
 import com.box.boxjavalibv2.jsonentities.PairArrayJSONStringEntity;
 
 public class BoxUserRequestObject extends BoxSimpleUserRequestObject {
@@ -185,7 +185,7 @@ public class BoxUserRequestObject extends BoxSimpleUserRequestObject {
      *            the enterprise to set. Note when updating user information you can set this to null in order to roll the user out from enterprise.
      * @return
      */
-    public BoxUserRequestObject setEnterprise(final BoxEnterpriseEntity enterprise) {
+    public BoxUserRequestObject setEnterprise(final BoxEnterpriseRequestEntity enterprise) {
         put(BoxUser.FIELD_ENTERPRISE, enterprise);
         return this;
     }

@@ -1,6 +1,6 @@
 package com.box.boxjavalibv2.requests.requestobjects;
 
-import com.box.boxjavalibv2.jsonentities.BoxSharedLinkEntity;
+import com.box.boxjavalibv2.jsonentities.BoxSharedLinkRequestEntity;
 
 public class BoxFileRequestObject extends BoxItemRequestObject {
 
@@ -8,7 +8,7 @@ public class BoxFileRequestObject extends BoxItemRequestObject {
         super();
     }
 
-    public BoxFileRequestObject(BoxSharedLinkEntity sharedLink) {
+    public BoxFileRequestObject(BoxSharedLinkRequestEntity sharedLink) {
         super(sharedLink);
     }
 
@@ -20,7 +20,7 @@ public class BoxFileRequestObject extends BoxItemRequestObject {
         return new BoxFileRequestObject(null);
     }
 
-    public static BoxFileRequestObject createSharedLinkRequestObject(BoxSharedLinkEntity sharedLink) {
+    public static BoxFileRequestObject createSharedLinkRequestObject(BoxSharedLinkRequestEntity sharedLink) {
         return new BoxFileRequestObject(sharedLink);
     }
 }
