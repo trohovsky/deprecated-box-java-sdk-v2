@@ -6,7 +6,7 @@ import com.box.boxjavalibv2.jsonparsing.IBoxJSONParser;
 import com.box.boxjavalibv2.requests.requestobjects.BoxSharedLinkRequestObject;
 import com.box.restclientv2.RestMethod;
 import com.box.restclientv2.exceptions.BoxRestException;
-import com.box.restclientv2.requests.DefaultBoxRequest;
+import com.box.restclientv2.requestsbase.DefaultBoxRequest;
 
 /**
  * Request to create a shared link for a file or folder.

@@ -18,11 +18,11 @@ import com.box.boxjavalibv2.requests.GetAllCollaborationsRequest;
 import com.box.boxjavalibv2.requests.GetCollaborationRequest;
 import com.box.boxjavalibv2.requests.UpdateCollaborationRequest;
 import com.box.boxjavalibv2.requests.requestobjects.BoxCollabRequestObject;
-import com.box.boxjavalibv2.requests.requestobjects.BoxDefaultRequestObject;
 import com.box.boxjavalibv2.requests.requestobjects.BoxGetAllCollabsRequestObject;
 import com.box.restclientv2.IBoxRESTClient;
 import com.box.restclientv2.authorization.IBoxRequestAuth;
 import com.box.restclientv2.exceptions.BoxRestException;
+import com.box.restclientv2.requestsbase.BoxDefaultRequestObject;
 
 /**
  * Use this class to execute requests <b>synchronously</b> against the Box REST API(V2), collaborations endpints. Full details about the Box API can be found at

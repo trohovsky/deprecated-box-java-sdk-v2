@@ -15,11 +15,11 @@ import com.box.boxjavalibv2.exceptions.AuthFatalFailureException;
 import com.box.boxjavalibv2.exceptions.BoxServerException;
 import com.box.boxjavalibv2.jsonparsing.IBoxJSONParser;
 import com.box.boxjavalibv2.requests.DownloadFileRequest;
-import com.box.boxjavalibv2.requests.requestobjects.BoxDefaultRequestObject;
 import com.box.boxjavalibv2.responseparsers.ErrorResponseParser;
 import com.box.restclientv2.IBoxRESTClient;
 import com.box.restclientv2.authorization.IBoxRequestAuth;
 import com.box.restclientv2.exceptions.BoxRestException;
+import com.box.restclientv2.requestsbase.BoxDefaultRequestObject;
 import com.box.restclientv2.responseparsers.DefaultFileResponseParser;
 import com.box.restclientv2.responses.DefaultBoxResponse;
 

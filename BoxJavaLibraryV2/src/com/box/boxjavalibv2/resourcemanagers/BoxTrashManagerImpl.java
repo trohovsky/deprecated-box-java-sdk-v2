@@ -14,12 +14,12 @@ import com.box.boxjavalibv2.requests.DeleteTrashItemRequest;
 import com.box.boxjavalibv2.requests.GetFolderTrashItemsRequest;
 import com.box.boxjavalibv2.requests.GetTrashItemRequest;
 import com.box.boxjavalibv2.requests.RestoreTrashItemRequest;
-import com.box.boxjavalibv2.requests.requestobjects.BoxDefaultRequestObject;
 import com.box.boxjavalibv2.requests.requestobjects.BoxItemRestoreRequestObject;
 import com.box.boxjavalibv2.requests.requestobjects.BoxPagingRequestObject;
 import com.box.restclientv2.IBoxRESTClient;
 import com.box.restclientv2.authorization.IBoxRequestAuth;
 import com.box.restclientv2.exceptions.BoxRestException;
+import com.box.restclientv2.requestsbase.BoxDefaultRequestObject;
 
 public class BoxTrashManagerImpl extends AbstractBoxResourceManager implements IBoxTrashManager {
 

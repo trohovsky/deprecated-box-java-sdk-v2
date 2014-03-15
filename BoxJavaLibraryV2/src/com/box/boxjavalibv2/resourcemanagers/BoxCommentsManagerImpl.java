@@ -18,10 +18,10 @@ import com.box.boxjavalibv2.requests.DeleteCommentRequest;
 import com.box.boxjavalibv2.requests.GetCommentRequest;
 import com.box.boxjavalibv2.requests.UpdateCommentRequest;
 import com.box.boxjavalibv2.requests.requestobjects.BoxCommentRequestObject;
-import com.box.boxjavalibv2.requests.requestobjects.BoxDefaultRequestObject;
 import com.box.restclientv2.IBoxRESTClient;
 import com.box.restclientv2.authorization.IBoxRequestAuth;
 import com.box.restclientv2.exceptions.BoxRestException;
+import com.box.restclientv2.requestsbase.BoxDefaultRequestObject;
 
 /**
  * Use this class to execute requests <b>synchronously</b> against the Box REST API(V2), comments endpints. Full details about the Box API can be found at <a

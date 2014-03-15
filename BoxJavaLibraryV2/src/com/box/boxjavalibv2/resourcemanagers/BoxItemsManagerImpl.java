@@ -13,13 +13,13 @@ import com.box.boxjavalibv2.requests.CopyItemRequest;
 import com.box.boxjavalibv2.requests.CreateSharedLinkRequest;
 import com.box.boxjavalibv2.requests.GetItemRequest;
 import com.box.boxjavalibv2.requests.UpdateItemInfoRequest;
-import com.box.boxjavalibv2.requests.requestobjects.BoxDefaultRequestObject;
 import com.box.boxjavalibv2.requests.requestobjects.BoxItemCopyRequestObject;
 import com.box.boxjavalibv2.requests.requestobjects.BoxItemRequestObject;
 import com.box.boxjavalibv2.requests.requestobjects.BoxSharedLinkRequestObject;
 import com.box.restclientv2.IBoxRESTClient;
 import com.box.restclientv2.authorization.IBoxRequestAuth;
 import com.box.restclientv2.exceptions.BoxRestException;
+import com.box.restclientv2.requestsbase.BoxDefaultRequestObject;
 
 /**
  * Use this class to execute requests <b>synchronously</b> against the Box REST API(V2). Full details about the Box API can be found at {@see <a

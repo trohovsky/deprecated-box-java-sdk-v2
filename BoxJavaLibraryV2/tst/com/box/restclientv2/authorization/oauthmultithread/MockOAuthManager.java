@@ -6,9 +6,9 @@ import java.util.Map;
 import com.box.boxjavalibv2.dao.BoxOAuthToken;
 import com.box.boxjavalibv2.exceptions.AuthFatalFailureException;
 import com.box.boxjavalibv2.exceptions.BoxServerException;
-import com.box.boxjavalibv2.requests.requestobjects.BoxOAuthRequestObject;
 import com.box.boxjavalibv2.resourcemanagers.BoxOAuthManagerImpl;
 import com.box.restclientv2.exceptions.BoxRestException;
+import com.box.restclientv2.requestsbase.BoxOAuthRequestObject;
 
 public class MockOAuthManager extends BoxOAuthManagerImpl {
 

@@ -16,7 +16,7 @@ import com.box.boxjavalibv2.utils.Utils;
 import com.box.restclientv2.IBoxRESTClient;
 import com.box.restclientv2.authorization.IBoxRequestAuth;
 import com.box.restclientv2.exceptions.BoxRestException;
-import com.box.restclientv2.requests.DefaultBoxRequest;
+import com.box.restclientv2.requestsbase.DefaultBoxRequest;
 import com.box.restclientv2.responses.DefaultBoxResponse;
 
 /**

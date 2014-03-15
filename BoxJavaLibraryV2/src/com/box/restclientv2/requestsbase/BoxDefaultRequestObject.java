@@ -1,4 +1,4 @@
-package com.box.boxjavalibv2.requests.requestobjects;
+package com.box.restclientv2.requestsbase;
 
 import java.io.UnsupportedEncodingException;
 
@@ -9,6 +9,7 @@ import org.apache.http.entity.StringEntity;
 import com.box.boxjavalibv2.exceptions.BoxJSONException;
 import com.box.boxjavalibv2.jsonentities.MapJSONStringEntity;
 import com.box.boxjavalibv2.jsonparsing.IBoxJSONParser;
+import com.box.boxjavalibv2.requests.requestobjects.BoxRequestExtras;
 import com.box.restclientv2.exceptions.BoxRestException;
 
 /**
@@ -22,8 +23,10 @@ public class BoxDefaultRequestObject implements IBoxRequestObject {
     public BoxDefaultRequestObject() {
     }
 
-    @Override
-    public HttpEntity getEntity(IBoxJSONParser parser) throws BoxRestException, BoxJSONException, UnsupportedEncodingException {
+    /**
+     * This is package protected, any class overriding this should be in a same package.
+     */
+    HttpEntity getEntity(IBoxJSONParser parser) throws BoxRestException, BoxJSONException, UnsupportedEncodingException {
         MapJSONStringEntity en = getJSONEntity();
         if (en == null) {
             return null;

@@ -5,7 +5,7 @@ import com.box.boxjavalibv2.jsonparsing.IBoxJSONParser;
 import com.box.boxjavalibv2.requests.requestobjects.BoxSimpleUserRequestObject;
 import com.box.restclientv2.RestMethod;
 import com.box.restclientv2.exceptions.BoxRestException;
-import com.box.restclientv2.requests.DefaultBoxRequest;
+import com.box.restclientv2.requestsbase.DefaultBoxRequest;
 
 /**
  * Moves all of the content from within one user's folder into a new folder in another user's account. You can move folders across users as long as the you have

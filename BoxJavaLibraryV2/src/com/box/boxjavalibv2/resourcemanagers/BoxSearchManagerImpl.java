@@ -8,10 +8,10 @@ import com.box.boxjavalibv2.exceptions.BoxServerException;
 import com.box.boxjavalibv2.jsonparsing.IBoxJSONParser;
 import com.box.boxjavalibv2.jsonparsing.IBoxResourceHub;
 import com.box.boxjavalibv2.requests.SearchRequest;
-import com.box.boxjavalibv2.requests.requestobjects.BoxDefaultRequestObject;
 import com.box.restclientv2.IBoxRESTClient;
 import com.box.restclientv2.authorization.IBoxRequestAuth;
 import com.box.restclientv2.exceptions.BoxRestException;
+import com.box.restclientv2.requestsbase.BoxDefaultRequestObject;
 
 public class BoxSearchManagerImpl extends BoxItemsManagerImpl implements IBoxSearchManager {
 

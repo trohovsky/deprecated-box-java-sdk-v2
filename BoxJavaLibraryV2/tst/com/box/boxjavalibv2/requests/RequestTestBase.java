@@ -16,11 +16,11 @@ import com.box.boxjavalibv2.exceptions.BoxJSONException;
 import com.box.boxjavalibv2.jsonentities.IBoxJSONStringEntity;
 import com.box.boxjavalibv2.jsonparsing.BoxJSONParser;
 import com.box.boxjavalibv2.jsonparsing.BoxResourceHub;
-import com.box.boxjavalibv2.requests.requestobjects.BoxDefaultRequestObject;
 import com.box.boxjavalibv2.testutils.TestUtils;
 import com.box.restclientv2.RestMethod;
 import com.box.restclientv2.exceptions.BoxRestException;
-import com.box.restclientv2.requests.DefaultBoxRequest;
+import com.box.restclientv2.requestsbase.BoxDefaultRequestObject;
+import com.box.restclientv2.requestsbase.DefaultBoxRequest;
 
 public class RequestTestBase {
 

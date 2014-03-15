@@ -19,8 +19,8 @@ import com.box.restclientv2.IBoxRESTClient;
 import com.box.restclientv2.RestMethod;
 import com.box.restclientv2.authorization.IBoxRequestAuth;
 import com.box.restclientv2.exceptions.BoxRestException;
-import com.box.restclientv2.requests.IBoxRequest;
-import com.box.restclientv2.requests.ICookie;
+import com.box.restclientv2.requestsbase.IBoxRequest;
+import com.box.restclientv2.requestsbase.ICookie;
 import com.box.restclientv2.responseparsers.IBoxResponseParser;
 import com.box.restclientv2.responses.IBoxResponse;
 

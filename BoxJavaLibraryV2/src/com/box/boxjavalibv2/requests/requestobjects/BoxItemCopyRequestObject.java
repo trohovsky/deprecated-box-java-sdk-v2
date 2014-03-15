@@ -4,6 +4,7 @@ import com.box.boxjavalibv2.dao.BoxFile;
 import com.box.boxjavalibv2.dao.BoxFolder;
 import com.box.boxjavalibv2.dao.BoxItem;
 import com.box.boxjavalibv2.jsonentities.MapJSONStringEntity;
+import com.box.restclientv2.requestsbase.BoxDefaultRequestObject;
 
 public class BoxItemCopyRequestObject extends BoxDefaultRequestObject {
 

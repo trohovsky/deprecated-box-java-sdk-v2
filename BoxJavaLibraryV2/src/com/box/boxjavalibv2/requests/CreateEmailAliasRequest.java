@@ -7,7 +7,7 @@ import com.box.boxjavalibv2.jsonparsing.IBoxJSONParser;
 import com.box.boxjavalibv2.requests.requestobjects.BoxEmailAliasRequestObject;
 import com.box.restclientv2.RestMethod;
 import com.box.restclientv2.exceptions.BoxRestException;
-import com.box.restclientv2.requests.DefaultBoxRequest;
+import com.box.restclientv2.requestsbase.DefaultBoxRequest;
 
 /**
  * Request to adds a new email alias to the given user's account. This feature is currently only available to enterprise admins and the new email must be in a

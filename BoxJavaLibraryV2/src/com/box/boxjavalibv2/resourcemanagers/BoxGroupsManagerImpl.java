@@ -19,12 +19,12 @@ import com.box.boxjavalibv2.requests.GetGroupMembershipRequest;
 import com.box.boxjavalibv2.requests.GetGroupMembershipsRequest;
 import com.box.boxjavalibv2.requests.UpdateGroupMembershipRequest;
 import com.box.boxjavalibv2.requests.UpdateGroupRequest;
-import com.box.boxjavalibv2.requests.requestobjects.BoxDefaultRequestObject;
 import com.box.boxjavalibv2.requests.requestobjects.BoxGroupMembershipRequestObject;
 import com.box.boxjavalibv2.requests.requestobjects.BoxGroupRequestObject;
 import com.box.restclientv2.IBoxRESTClient;
 import com.box.restclientv2.authorization.IBoxRequestAuth;
 import com.box.restclientv2.exceptions.BoxRestException;
+import com.box.restclientv2.requestsbase.BoxDefaultRequestObject;
 
 public class BoxGroupsManagerImpl extends AbstractBoxResourceManager implements IBoxGroupsManager {
 

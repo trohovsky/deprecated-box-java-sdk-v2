@@ -10,9 +10,9 @@ import com.box.boxjavalibv2.jsonparsing.IBoxResourceHub;
 import com.box.boxjavalibv2.requests.CreateOAuthRequest;
 import com.box.boxjavalibv2.requests.RefreshOAuthRequest;
 import com.box.boxjavalibv2.requests.RevokeOAuthRequest;
-import com.box.boxjavalibv2.requests.requestobjects.BoxOAuthRequestObject;
 import com.box.restclientv2.IBoxRESTClient;
 import com.box.restclientv2.exceptions.BoxRestException;
+import com.box.restclientv2.requestsbase.BoxOAuthRequestObject;
 
 /**
  * API for OAuth. Full details about the Box API can be found at <a href="http://developers.box.com/oauth/">http://developers.box.com/docs</a>

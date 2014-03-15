@@ -1,6 +1,7 @@
 package com.box.boxjavalibv2.requests.requestobjects;
 
 import com.box.boxjavalibv2.dao.BoxGroup;
+import com.box.restclientv2.requestsbase.BoxDefaultRequestObject;
 
 public class BoxGroupRequestObject extends BoxDefaultRequestObject {
 

@@ -31,9 +31,7 @@ import com.box.boxjavalibv2.requests.GetFileCommentsRequest;
 import com.box.boxjavalibv2.requests.GetFileVersionsRequest;
 import com.box.boxjavalibv2.requests.GetPreviewRequest;
 import com.box.boxjavalibv2.requests.ThumbnailRequest;
-import com.box.boxjavalibv2.requests.requestobjects.BoxDefaultRequestObject;
 import com.box.boxjavalibv2.requests.requestobjects.BoxFileRequestObject;
-import com.box.boxjavalibv2.requests.requestobjects.BoxFileUploadRequestObject;
 import com.box.boxjavalibv2.requests.requestobjects.BoxImageRequestObject;
 import com.box.boxjavalibv2.requests.requestobjects.BoxItemCopyRequestObject;
 import com.box.boxjavalibv2.requests.requestobjects.BoxSharedLinkRequestObject;
@@ -43,6 +41,8 @@ import com.box.boxjavalibv2.responseparsers.ThumbnailResponseParser;
 import com.box.restclientv2.IBoxRESTClient;
 import com.box.restclientv2.authorization.IBoxRequestAuth;
 import com.box.restclientv2.exceptions.BoxRestException;
+import com.box.restclientv2.requestsbase.BoxDefaultRequestObject;
+import com.box.restclientv2.requestsbase.BoxFileUploadRequestObject;
 import com.box.restclientv2.responseparsers.DefaultFileResponseParser;
 import com.box.restclientv2.responses.DefaultBoxResponse;
 

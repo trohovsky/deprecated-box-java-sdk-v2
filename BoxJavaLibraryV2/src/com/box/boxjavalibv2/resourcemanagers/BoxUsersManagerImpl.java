@@ -23,7 +23,6 @@ import com.box.boxjavalibv2.requests.GetEmailAliasesRequest;
 import com.box.boxjavalibv2.requests.MoveFolderToAnotherUserRequest;
 import com.box.boxjavalibv2.requests.UpdateUserLoginRequest;
 import com.box.boxjavalibv2.requests.UpdateUserRequest;
-import com.box.boxjavalibv2.requests.requestobjects.BoxDefaultRequestObject;
 import com.box.boxjavalibv2.requests.requestobjects.BoxEmailAliasRequestObject;
 import com.box.boxjavalibv2.requests.requestobjects.BoxSimpleUserRequestObject;
 import com.box.boxjavalibv2.requests.requestobjects.BoxUserRequestObject;
@@ -31,6 +30,7 @@ import com.box.boxjavalibv2.requests.requestobjects.BoxUserUpdateLoginRequestObj
 import com.box.restclientv2.IBoxRESTClient;
 import com.box.restclientv2.authorization.IBoxRequestAuth;
 import com.box.restclientv2.exceptions.BoxRestException;
+import com.box.restclientv2.requestsbase.BoxDefaultRequestObject;
 
 /**
  * Use this class to execute requests <b>synchronously</b> against the Box REST API(V2), users endpints. Full details about the Box API can be found at <a

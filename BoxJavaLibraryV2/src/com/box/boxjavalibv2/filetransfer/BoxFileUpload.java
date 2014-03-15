@@ -10,10 +10,10 @@ import com.box.boxjavalibv2.exceptions.BoxServerException;
 import com.box.boxjavalibv2.httpentities.MultipartEntityWithProgressListener.InterruptedMultipartException;
 import com.box.boxjavalibv2.requests.UploadFileRequest;
 import com.box.boxjavalibv2.requests.UploadNewVersionFileRequest;
-import com.box.boxjavalibv2.requests.requestobjects.BoxFileUploadRequestObject;
 import com.box.boxjavalibv2.resourcemanagers.BoxFilesManagerImpl;
 import com.box.boxjavalibv2.utils.Utils;
 import com.box.restclientv2.exceptions.BoxRestException;
+import com.box.restclientv2.requestsbase.BoxFileUploadRequestObject;
 
 /**
  * Contains logic for uploading a user's file via Box API and supports using {@link IFileTransferListener} to monitor uploading progress.

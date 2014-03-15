@@ -7,7 +7,7 @@ import com.box.boxjavalibv2.jsonparsing.IBoxJSONParser;
 import com.box.boxjavalibv2.requests.requestobjects.BoxCollabRequestObject;
 import com.box.restclientv2.RestMethod;
 import com.box.restclientv2.exceptions.BoxRestException;
-import com.box.restclientv2.requests.DefaultBoxRequest;
+import com.box.restclientv2.requestsbase.DefaultBoxRequest;
 
 /**
  * Request to add a collaboration for a single user to a folder.

@@ -1,4 +1,4 @@
-package com.box.boxjavalibv2.requests.requestobjects;
+package com.box.restclientv2.requestsbase;
 
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;

@@ -1,4 +1,4 @@
-package com.box.restclientv2.requests;
+package com.box.restclientv2.requestsbase;
 
 
 /**

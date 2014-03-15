@@ -10,7 +10,7 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import com.box.boxjavalibv2.BoxConnectionManagerBuilder.BoxConnectionManager;
 import com.box.boxjavalibv2.exceptions.AuthFatalFailureException;
 import com.box.restclientv2.exceptions.BoxRestException;
-import com.box.restclientv2.requests.IBoxRequest;
+import com.box.restclientv2.requestsbase.IBoxRequest;
 import com.box.restclientv2.responses.DefaultBoxResponse;
 import com.box.restclientv2.responses.IBoxResponse;
 

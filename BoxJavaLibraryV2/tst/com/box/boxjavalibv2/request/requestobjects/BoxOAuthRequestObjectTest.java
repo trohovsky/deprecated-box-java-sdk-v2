@@ -4,8 +4,8 @@ import junit.framework.Assert;
 
 import org.junit.Test;
 
-import com.box.boxjavalibv2.requests.requestobjects.BoxOAuthRequestObject;
 import com.box.restclientv2.exceptions.BoxRestException;
+import com.box.restclientv2.requestsbase.BoxOAuthRequestObject;
 
 public class BoxOAuthRequestObjectTest {
 

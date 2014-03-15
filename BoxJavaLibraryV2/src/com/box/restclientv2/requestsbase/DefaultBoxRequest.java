@@ -1,4 +1,4 @@
-package com.box.restclientv2.requests;
+package com.box.restclientv2.requestsbase;
 
 import java.io.UnsupportedEncodingException;
 import java.lang.ref.WeakReference;
@@ -24,7 +24,6 @@ import com.box.boxjavalibv2.IBoxConfig;
 import com.box.boxjavalibv2.exceptions.AuthFatalFailureException;
 import com.box.boxjavalibv2.exceptions.BoxJSONException;
 import com.box.boxjavalibv2.jsonparsing.IBoxJSONParser;
-import com.box.boxjavalibv2.requests.requestobjects.BoxDefaultRequestObject;
 import com.box.boxjavalibv2.requests.requestobjects.BoxRequestExtras;
 import com.box.restclientv2.RestMethod;
 import com.box.restclientv2.authorization.IBoxRequestAuth;

@@ -9,10 +9,10 @@ import org.apache.http.HttpStatus;
 import org.junit.Test;
 
 import com.box.boxjavalibv2.exceptions.AuthFatalFailureException;
-import com.box.boxjavalibv2.requests.requestobjects.BoxDefaultRequestObject;
 import com.box.boxjavalibv2.testutils.TestUtils;
 import com.box.restclientv2.RestMethod;
 import com.box.restclientv2.exceptions.BoxRestException;
+import com.box.restclientv2.requestsbase.BoxDefaultRequestObject;
 
 public class GetFolderCollaborationsRequestTest extends RequestTestBase {
 

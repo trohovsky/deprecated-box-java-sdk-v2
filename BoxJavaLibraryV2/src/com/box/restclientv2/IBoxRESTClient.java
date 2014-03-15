@@ -2,7 +2,7 @@ package com.box.restclientv2;
 
 import com.box.boxjavalibv2.exceptions.AuthFatalFailureException;
 import com.box.restclientv2.exceptions.BoxRestException;
-import com.box.restclientv2.requests.IBoxRequest;
+import com.box.restclientv2.requestsbase.IBoxRequest;
 import com.box.restclientv2.responses.IBoxResponse;
 
 /**

@@ -7,7 +7,7 @@ import com.box.boxjavalibv2.jsonparsing.IBoxJSONParser;
 import com.box.boxjavalibv2.requests.requestobjects.BoxUserRequestObject;
 import com.box.restclientv2.RestMethod;
 import com.box.restclientv2.exceptions.BoxRestException;
-import com.box.restclientv2.requests.DefaultBoxRequest;
+import com.box.restclientv2.requestsbase.DefaultBoxRequest;
 
 /**
  * Request used to provision a new user in an enterprise. This method only works for enterprise admins.

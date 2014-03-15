@@ -15,13 +15,13 @@ import com.box.boxjavalibv2.dao.BoxThumbnail;
 import com.box.boxjavalibv2.exceptions.AuthFatalFailureException;
 import com.box.boxjavalibv2.exceptions.BoxServerException;
 import com.box.boxjavalibv2.filetransfer.IFileTransferListener;
-import com.box.boxjavalibv2.requests.requestobjects.BoxDefaultRequestObject;
 import com.box.boxjavalibv2.requests.requestobjects.BoxFileRequestObject;
-import com.box.boxjavalibv2.requests.requestobjects.BoxFileUploadRequestObject;
 import com.box.boxjavalibv2.requests.requestobjects.BoxImageRequestObject;
 import com.box.boxjavalibv2.requests.requestobjects.BoxItemCopyRequestObject;
 import com.box.boxjavalibv2.requests.requestobjects.BoxSharedLinkRequestObject;
 import com.box.restclientv2.exceptions.BoxRestException;
+import com.box.restclientv2.requestsbase.BoxDefaultRequestObject;
+import com.box.restclientv2.requestsbase.BoxFileUploadRequestObject;
 
 public interface IBoxFilesManager extends IBoxResourceManager {
 

@@ -7,7 +7,7 @@ import org.apache.commons.codec.CharEncoding;
 
 import com.box.boxjavalibv2.exceptions.AuthFatalFailureException;
 import com.box.restclientv2.exceptions.BoxRestException;
-import com.box.restclientv2.requests.IBoxRequest;
+import com.box.restclientv2.requestsbase.IBoxRequest;
 
 /**
  * Auth to be set in http request header.

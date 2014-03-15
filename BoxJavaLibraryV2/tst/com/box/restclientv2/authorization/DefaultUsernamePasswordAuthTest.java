@@ -11,7 +11,7 @@ import com.box.boxjavalibv2.jsonparsing.BoxJSONParser;
 import com.box.boxjavalibv2.jsonparsing.BoxResourceHub;
 import com.box.boxjavalibv2.testutils.TestUtils;
 import com.box.restclientv2.RestMethod;
-import com.box.restclientv2.requests.DefaultBoxRequest;
+import com.box.restclientv2.requestsbase.DefaultBoxRequest;
 
 public class DefaultUsernamePasswordAuthTest {
 

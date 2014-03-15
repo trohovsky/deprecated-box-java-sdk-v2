@@ -5,6 +5,7 @@ import org.apache.commons.lang.StringUtils;
 import com.box.boxjavalibv2.dao.BoxCollaboration;
 import com.box.boxjavalibv2.dao.BoxResourceType;
 import com.box.boxjavalibv2.jsonentities.MapJSONStringEntity;
+import com.box.restclientv2.requestsbase.BoxDefaultRequestObject;
 
 public class BoxCollabRequestObject extends BoxDefaultRequestObject {
 
@@ -27,11 +28,22 @@ public class BoxCollabRequestObject extends BoxDefaultRequestObject {
     public static BoxCollabRequestObject createCollabObject(final String folderId, final String userId, final String login, final String role) {
         BoxCollabRequestObject entity = new BoxCollabRequestObject();
         MapJSONStringEntity item = getItemEntity(folderId);
-        MapJSONStringEntity accessibleBy = getAccessibilityEntity(userId, login);
+        entity.setAccessibleBy(userId, login);
         entity.setItem(item);
-        entity.setAccessibleBy(accessibleBy);
         entity.setRole(role);
         return entity;
+    }
+
+    /**
+     * @param userId
+     *            id of the user to collaborate, this is optional, if you don't want to supply a user id, use null.
+     * @param login
+     *            login email of the collaborator(Can be non-box email.)
+     */
+    public BoxCollabRequestObject setAccessibleBy(final String userId, final String login) {
+        MapJSONStringEntity accessibleBy = getAccessibilityEntity(userId, login);
+        put(BoxCollaboration.FIELD_ACCESSIBLE_BY, accessibleBy);
+        return this;
     }
 
     /**
@@ -47,13 +59,8 @@ public class BoxCollabRequestObject extends BoxDefaultRequestObject {
     }
 
     /** Set the item. */
-    public BoxCollabRequestObject setItem(MapJSONStringEntity item) {
+    private BoxCollabRequestObject setItem(MapJSONStringEntity item) {
         put(BoxCollaboration.FIELD_FOLDER, item);
-        return this;
-    }
-
-    public BoxCollabRequestObject setAccessibleBy(MapJSONStringEntity accessibleBy) {
-        super.put(BoxCollaboration.FIELD_ACCESSIBLE_BY, accessibleBy);
         return this;
     }
 

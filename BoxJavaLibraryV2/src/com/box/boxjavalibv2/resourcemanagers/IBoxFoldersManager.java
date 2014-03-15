@@ -9,13 +9,13 @@ import com.box.boxjavalibv2.dao.BoxFolder;
 import com.box.boxjavalibv2.exceptions.AuthFatalFailureException;
 import com.box.boxjavalibv2.exceptions.BoxServerException;
 import com.box.boxjavalibv2.requests.GetFolderItemsRequest;
-import com.box.boxjavalibv2.requests.requestobjects.BoxDefaultRequestObject;
 import com.box.boxjavalibv2.requests.requestobjects.BoxFolderDeleteRequestObject;
 import com.box.boxjavalibv2.requests.requestobjects.BoxFolderRequestObject;
 import com.box.boxjavalibv2.requests.requestobjects.BoxItemCopyRequestObject;
 import com.box.boxjavalibv2.requests.requestobjects.BoxPagingRequestObject;
 import com.box.boxjavalibv2.requests.requestobjects.BoxSharedLinkRequestObject;
 import com.box.restclientv2.exceptions.BoxRestException;
+import com.box.restclientv2.requestsbase.BoxDefaultRequestObject;
 
 public interface IBoxFoldersManager extends IBoxResourceManager {
 

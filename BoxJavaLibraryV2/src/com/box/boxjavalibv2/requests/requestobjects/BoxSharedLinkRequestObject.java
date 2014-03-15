@@ -2,6 +2,7 @@ package com.box.boxjavalibv2.requests.requestobjects;
 
 import com.box.boxjavalibv2.dao.BoxFile;
 import com.box.boxjavalibv2.jsonentities.BoxSharedLinkRequestEntity;
+import com.box.restclientv2.requestsbase.BoxDefaultRequestObject;
 
 public class BoxSharedLinkRequestObject extends BoxDefaultRequestObject {
 

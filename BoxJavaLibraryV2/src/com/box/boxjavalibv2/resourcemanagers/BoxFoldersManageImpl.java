@@ -18,7 +18,6 @@ import com.box.boxjavalibv2.requests.CreateNewFolderRequest;
 import com.box.boxjavalibv2.requests.DeleteFolderRequest;
 import com.box.boxjavalibv2.requests.GetFolderCollaborationsRequest;
 import com.box.boxjavalibv2.requests.GetFolderItemsRequest;
-import com.box.boxjavalibv2.requests.requestobjects.BoxDefaultRequestObject;
 import com.box.boxjavalibv2.requests.requestobjects.BoxFolderDeleteRequestObject;
 import com.box.boxjavalibv2.requests.requestobjects.BoxFolderRequestObject;
 import com.box.boxjavalibv2.requests.requestobjects.BoxItemCopyRequestObject;
@@ -28,6 +27,7 @@ import com.box.boxjavalibv2.utils.Utils;
 import com.box.restclientv2.IBoxRESTClient;
 import com.box.restclientv2.authorization.IBoxRequestAuth;
 import com.box.restclientv2.exceptions.BoxRestException;
+import com.box.restclientv2.requestsbase.BoxDefaultRequestObject;
 
 public class BoxFoldersManageImpl extends BoxItemsManagerImpl implements IBoxFoldersManager {
 

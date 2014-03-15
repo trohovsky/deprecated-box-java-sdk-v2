@@ -4,6 +4,7 @@ import com.box.boxjavalibv2.dao.BoxGroup;
 import com.box.boxjavalibv2.dao.BoxGroupMembership;
 import com.box.boxjavalibv2.dao.BoxUser;
 import com.box.boxjavalibv2.jsonentities.MapJSONStringEntity;
+import com.box.restclientv2.requestsbase.BoxDefaultRequestObject;
 
 public class BoxGroupMembershipRequestObject extends BoxDefaultRequestObject {
 

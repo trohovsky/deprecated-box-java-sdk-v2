@@ -24,7 +24,7 @@ import com.box.restclientv2.BoxBasicRestClient;
 import com.box.restclientv2.IBoxRestVisitor;
 import com.box.restclientv2.authorization.IBoxRequestAuth;
 import com.box.restclientv2.exceptions.BoxRestException;
-import com.box.restclientv2.requests.IBoxRequest;
+import com.box.restclientv2.requestsbase.IBoxRequest;
 import com.box.restclientv2.responses.DefaultBoxResponse;
 import com.box.restclientv2.responses.IBoxResponse;
 

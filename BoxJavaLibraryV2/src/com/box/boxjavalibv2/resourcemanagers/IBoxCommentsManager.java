@@ -5,8 +5,8 @@ import com.box.boxjavalibv2.dao.IBoxType;
 import com.box.boxjavalibv2.exceptions.AuthFatalFailureException;
 import com.box.boxjavalibv2.exceptions.BoxServerException;
 import com.box.boxjavalibv2.requests.requestobjects.BoxCommentRequestObject;
-import com.box.boxjavalibv2.requests.requestobjects.BoxDefaultRequestObject;
 import com.box.restclientv2.exceptions.BoxRestException;
+import com.box.restclientv2.requestsbase.BoxDefaultRequestObject;
 
 public interface IBoxCommentsManager extends IBoxResourceManager {
 

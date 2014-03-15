@@ -1,4 +1,4 @@
-package com.box.restclientv2.requests;
+package com.box.restclientv2.requestsbase;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URI;
@@ -22,6 +22,7 @@ import com.box.boxjavalibv2.jsonparsing.BoxResourceHub;
 import com.box.boxjavalibv2.testutils.TestUtils;
 import com.box.restclientv2.RestMethod;
 import com.box.restclientv2.exceptions.BoxRestException;
+import com.box.restclientv2.requestsbase.DefaultBoxRequest;
 
 public class DefaultBoxRequestTest {
 

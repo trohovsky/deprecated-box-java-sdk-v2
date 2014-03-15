@@ -5,10 +5,10 @@ import com.box.boxjavalibv2.dao.BoxGroup;
 import com.box.boxjavalibv2.dao.BoxGroupMembership;
 import com.box.boxjavalibv2.exceptions.AuthFatalFailureException;
 import com.box.boxjavalibv2.exceptions.BoxServerException;
-import com.box.boxjavalibv2.requests.requestobjects.BoxDefaultRequestObject;
 import com.box.boxjavalibv2.requests.requestobjects.BoxGroupMembershipRequestObject;
 import com.box.boxjavalibv2.requests.requestobjects.BoxGroupRequestObject;
 import com.box.restclientv2.exceptions.BoxRestException;
+import com.box.restclientv2.requestsbase.BoxDefaultRequestObject;
 
 public interface IBoxGroupsManager extends IBoxResourceManager {
 
