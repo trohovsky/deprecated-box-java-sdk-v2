@@ -145,7 +145,7 @@ public class BoxClient extends BoxBase implements IAuthFlowListener {
         this.resourceHub = hub == null ? createResourceHub() : hub;
         this.jsonParser = parser == null ? createJSONParser(resourceHub) : parser;
         this.restClient = restClient;
-        this.config = config;
+        this.config = config == null ? (new BoxConfigBuilder()).build() : config;
         authController = createAuthDataController(clientId, clientSecret);
         auth = createAuthorization(authController);
 
