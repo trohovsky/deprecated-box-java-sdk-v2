@@ -49,6 +49,7 @@ API Calls Quickstart
 ### Hello World
 
 You can find a hello world example [here][hello-world].
+For migration to V3 from earlier version, please see "Migration to V3" section at the end of this README
 
 ### Authenticate
 
@@ -87,9 +88,9 @@ BoxFile boxFile = boxClient.getFilesManager().getFile(fileId, null);
 Get default file info plus its description and SHA1.
 
 ```java
-BoxDefaultRequestObject requestObj =
-  (new BoxDefaultRequestObject()).addField(BoxFile.FIELD_SHA1);
-		.addField(BoxFile.FIELD_DESCRIPTION);
+BoxDefaultRequestObject requestObj = new BoxDefaultRequestObject();
+requestObj.getRequestExtras().addField(BoxFile.FIELD_SHA1);
+requestObj.getRequestExtras().addField(BoxFile.FIELD_DESCRIPTION);
 BoxFile boxFile = boxClient.getFilesManager().getFile(fileId, requestObj);
 ```
 
@@ -99,11 +100,10 @@ Get 30 child items, starting from the 20th one, requiring etag, description, and
 name to be included.
 
 ```java
-BoxFolderRequestObject requestObj = 
-	BoxFolderRequestObject.getFolderItemsRequestObject(30, 20)
-		.addField(BoxFolder.FIELD_NAME)
-		.addField(BoxFolder.FIELD_DESCRIPTION)
-		.addField(BoxFolder.FIELD_ETAG);
+BoxPagingRequestObject requestObj = BoxPagingRequestObject.BpagingRequestObject(30, 20);
+requestObj.getRequestExtras().addField(BoxFolder.FIELD_NAME);
+requestObj.getRequestExtras().addField(BoxFolder.FIELD_DESCRIPTION);
+requestObj.getRequestExtras().addField(BoxFolder.FIELD_ETAG);
 BoxCollection collection = 
 	boxClient.getFoldersManager().getFolderItems(folderId, requestObj);
 ```
@@ -136,15 +136,15 @@ boxClient.getFilesManager().downloadFile(fileId, null);
 Delete a file, but only if the etag matches.
 
 ```java
-BoxFileRequestObject requestObj =
-	BoxFileRequestObject.deleteFileRequestObject().setIfMatch(etag);
+BoxDefaultRequestObject requestObj = new BoxDefaultRequestObject();
+requestObject.getRequestExtras.setIfMatch(etag);
 boxClient.getFilesManager().deleteFile(fileId, requestObj);
 ```
 
 ### Configure raw httpclient (e.g., set proxy)
 You need to override the createRestClient() method in BoxClient so that it returns a configured rest client.
 ```java
-BoxClient client = new BoxClient(clientId, clientSecret) {
+BoxClient client = new BoxClient(clientId, clientSecret, null, null, BoxConfigBuilder.build()) {
     @Override
     public IBoxRESTClient createRestClient() {
         return new BoxRESTClient() {
@@ -169,6 +169,84 @@ The SDK provides an OAuth UI using javafx, this is a seperate java project in ou
 To install javafx, you can either follow [javafx instruction](http://www.oracle.com/technetwork/java/javafx/overview/index.html) or install the [javafx eclipse plugin](http://www.eclipse.org/efxclipse/install.html)
 
 You can find a sample using this oauth UI [here](https://github.com/box/box-java-sdk-v2/blob/master/BoxJavaFxOAuth/src/com/box/boxjavalibv2/javafxoauth/sample/SampleOAuthCaller.java). One thing to pay extra attention is that the call backs in the IAuthFlowListener() will all run on javafx thread, they cannot trigger java swing data change directly, the trigger need to be done in java swing thread. In the sample, this is done by SwingUtilities.invokeLater(runnable) method.
+
+Migration to V3
+------------
+
+- Resource manager interfaces.
+pre-v3, our boxClient.get***Manager() method returns concrete class of resource managers. For the purpose of a cleaner interface, in v3, they return resource manager interfaces.
+```java
+old code:
+BoxFilesManager filesManager = boxClient.getFilesManager();
+filesManager.doSomething(...);
+new code:
+IBoxFilesManager filesManager = boxClient.getFilesManager();
+filesManager.doSomething(...);
+```
+- Made certain methods more convenient, e.g., OAuth api related methods:
+```java
+old code:
+BoxOAuthRequestObject obj = BoxOAuthRequestObject.crateOAuthRequestObject(code, clientId, clientSecret, redirectUrl);
+BoxOAuthData oauth = oauthManager.createOAuth(obj);
+new Code:
+BoxOAuthData oauth = oauthManager.createOAuth(code, clientId, clientSecret, redirectUrl);
+```
+- BoxFilesManager/BoxFoldersManager. Methods acting upon BoxItems are moved to BoxItemsManager to avoid confusion.
+Example, get a BoxFile.
+```java
+Old code:
+Two ways to get it:
+1. boxClient.getFilesManager.getFile(fileId, null);
+2. boxClient.getFilesManager.getItem(fileId, null, BoxResourceType.FILE);
+New code:
+Two ways to get it:
+1. same as old code.
+2. boxClient.getBoxItemsManager.getItem(fileId, null, BoxResourceType.FILE);
+```
+- Trash Manager: old code has methods for trashed files/folders in FilesManager/FoldersManager, new code moved them into a trash manager.
+Example:
+```java
+old code:
+boxClient.getFilesManager.getTrashFile(fileId, null);
+new code:
+boxClient.getTrashManager.getTrashFile(fileId, null);
+```
+- request objects: To avoid confusion, request objects now are more api specific. There are some type changes, however the way you used to write the code remain the same. One example:
+```java
+Old code of create a shared link.
+BoxFileRequestObject  obj = BoxFileRequestObject. createSharedLinkRequestObject(......);
+filesManager.createSharedLink(fileId, obj);
+New code:
+BoxSharedLinkRequestObject obj = 
+   BoxSharedLinkRequestObject.
+   createSharedLinkRequestObject(sharedLinkEntity);
+filesManager.createSharedLink(fileId, obj);
+```
+Also in order to provide cleaner interface, we moved the setters for basic http requests in the request objects to a "requestExtra".
+```java
+Old code:
+requestObject.addField("some field");
+new code:
+requestObject.getRequestExtras().addField("some field");
+```
+(Optional/Deprecated)
+- utils methods in resource managers.
+In case you were using the utils methods in resource managers to filter for specific items from collection, they are now deprecated and moved to util methods.
+```java
+old code:
+List<BoxFile> filesInCollection = BoxFilesManager.getFiles(collection);
+new code:
+List<BoxFile> filesInCollection = Utils.getTypedObjects(collection, BoxFile.class);
+```
+- get thumbnail.
+```java
+old code: 
+InputStream is = filesManager.downloadThumbnail(fileId, extension, null);
+new code:
+BoxThumbnail thumbnail = filesManager.downloadThumbnail(fileId, extension, null);
+```
+
+
 
 
 [hello-world]: https://github.com/box/box-java-sdk-private/wiki/HelloWorld
