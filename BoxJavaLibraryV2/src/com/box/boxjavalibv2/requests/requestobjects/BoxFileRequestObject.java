@@ -1,39 +1,26 @@
 package com.box.boxjavalibv2.requests.requestobjects;
 
+import com.box.boxjavalibv2.jsonentities.BoxSharedLinkRequestEntity;
+
 public class BoxFileRequestObject extends BoxItemRequestObject {
 
-    private BoxFileRequestObject() {
+    public BoxFileRequestObject() {
+        super();
     }
 
-    /**
-     * BoxFileRequestObject for delete file request.
-     * 
-     * @return BoxFileRequestObject
-     */
-    public static BoxFileRequestObject deleteFileRequestObject() {
+    public BoxFileRequestObject(BoxSharedLinkRequestEntity sharedLink) {
+        super(sharedLink);
+    }
+
+    public static BoxFileRequestObject getRequestObject() {
         return new BoxFileRequestObject();
-    }
-
-    /**
-     * BoxFileRequestObject for copy file request.
-     * 
-     * @param parentId
-     *            id of destination parent folder.
-     * @return
-     */
-    public static BoxFileRequestObject copyFileRequestObject(String parentId) {
-        return (BoxFileRequestObject) (new BoxFileRequestObject()).setParent(parentId);
     }
 
     public static BoxFileRequestObject deleteSharedLinkRequestObject() {
-        return (BoxFileRequestObject) (new BoxFileRequestObject()).setSharedLink(null);
+        return new BoxFileRequestObject(null);
     }
 
-    public static BoxFileRequestObject createSharedLinkRequestObject(BoxSharedLinkRequestObject sharedLinkObject) {
-        return (BoxFileRequestObject) (new BoxFileRequestObject()).setSharedLink(sharedLinkObject);
-    }
-
-    public static BoxFileRequestObject updateFileRequestObject() {
-        return new BoxFileRequestObject();
+    public static BoxFileRequestObject createSharedLinkRequestObject(BoxSharedLinkRequestEntity sharedLink) {
+        return new BoxFileRequestObject(sharedLink);
     }
 }

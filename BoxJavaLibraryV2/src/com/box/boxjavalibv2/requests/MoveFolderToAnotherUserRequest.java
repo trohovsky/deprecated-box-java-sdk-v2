@@ -1,11 +1,11 @@
 package com.box.boxjavalibv2.requests;
 
-import com.box.boxjavalibv2.interfaces.IBoxJSONParser;
-import com.box.boxjavalibv2.requests.requestobjects.BoxUserRequestObject;
+import com.box.boxjavalibv2.IBoxConfig;
+import com.box.boxjavalibv2.jsonparsing.IBoxJSONParser;
+import com.box.boxjavalibv2.requests.requestobjects.BoxSimpleUserRequestObject;
 import com.box.restclientv2.RestMethod;
 import com.box.restclientv2.exceptions.BoxRestException;
-import com.box.restclientv2.interfaces.IBoxConfig;
-import com.box.restclientv2.requests.DefaultBoxRequest;
+import com.box.restclientv2.requestsbase.DefaultBoxRequest;
 
 /**
  * Moves all of the content from within one user's folder into a new folder in another user's account. You can move folders across users as long as the you have
@@ -32,7 +32,7 @@ public class MoveFolderToAnotherUserRequest extends DefaultBoxRequest {
      *             exception
      */
     public MoveFolderToAnotherUserRequest(final IBoxConfig config, final IBoxJSONParser parser, final String userId, final String folderId,
-        final BoxUserRequestObject requestObject) throws BoxRestException {
+        final BoxSimpleUserRequestObject requestObject) throws BoxRestException {
         super(config, parser, getUri(userId, folderId), RestMethod.PUT, requestObject);
     }
 

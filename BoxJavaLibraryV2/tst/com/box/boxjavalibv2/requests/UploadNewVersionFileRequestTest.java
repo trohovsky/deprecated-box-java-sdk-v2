@@ -9,13 +9,12 @@ import org.apache.http.Header;
 import org.apache.http.HttpStatus;
 import org.junit.Test;
 
-import com.box.boxjavalibv2.BoxConfig;
 import com.box.boxjavalibv2.exceptions.AuthFatalFailureException;
-import com.box.boxjavalibv2.requests.requestobjects.BoxFileUploadRequestObject;
 import com.box.boxjavalibv2.testutils.TestUtils;
 import com.box.boxjavalibv2.utils.Constants;
 import com.box.restclientv2.RestMethod;
 import com.box.restclientv2.exceptions.BoxRestException;
+import com.box.restclientv2.requestsbase.BoxFileUploadRequestObject;
 
 /**
  * Test UploadNewVersionFileRequest.
@@ -49,11 +48,11 @@ public class UploadNewVersionFileRequestTest extends RequestTestBase {
         f = TestUtils.createTempFile(content);
 
         String fileName = "testfilename998";
-
-        UploadNewVersionFileRequest request = new UploadNewVersionFileRequest(CONFIG, JSON_PARSER, fileId, BoxFileUploadRequestObject
-            .uploadNewVersionRequestObject(fileName, f).setIfMatch(sha1));
-        testRequestIsWellFormed(request, BoxConfig.getInstance().getUploadUrlAuthority(),
-            BoxConfig.getInstance().getUploadUrlPath().concat(UploadNewVersionFileRequest.getUri(fileId)), HttpStatus.SC_CREATED, RestMethod.POST);
+        BoxFileUploadRequestObject obj = BoxFileUploadRequestObject.uploadNewVersionRequestObject(fileName, f);
+        obj.getRequestExtras().setIfMatch(sha1);
+        UploadNewVersionFileRequest request = new UploadNewVersionFileRequest(CONFIG, JSON_PARSER, fileId, obj);
+        testRequestIsWellFormed(request, TestUtils.getConfig().getUploadUrlAuthority(),
+            TestUtils.getConfig().getUploadUrlPath().concat(UploadNewVersionFileRequest.getUri(fileId)), HttpStatus.SC_CREATED, RestMethod.POST);
 
         Header header = request.getRawRequest().getFirstHeader(Constants.IF_MATCH);
         Assert.assertNotNull(header);

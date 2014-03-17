@@ -1,5 +1,6 @@
 package com.box.boxjavalibv2.responseparsers;
 
+import java.io.IOException;
 import java.io.InputStream;
 
 import org.apache.commons.io.IOUtils;
@@ -10,13 +11,14 @@ import org.apache.http.HttpStatus;
 
 import com.box.boxjavalibv2.dao.BoxGenericServerError;
 import com.box.boxjavalibv2.dao.BoxServerError;
+import com.box.boxjavalibv2.exceptions.BoxJSONException;
 import com.box.boxjavalibv2.exceptions.BoxUnexpectedStatus;
-import com.box.boxjavalibv2.interfaces.IBoxJSONParser;
+import com.box.boxjavalibv2.jsonparsing.IBoxJSONParser;
 import com.box.boxjavalibv2.utils.Utils;
 import com.box.restclientv2.exceptions.BoxRestException;
-import com.box.restclientv2.interfaces.IBoxResponse;
 import com.box.restclientv2.responseparsers.DefaultBoxJSONResponseParser;
 import com.box.restclientv2.responses.DefaultBoxResponse;
+import com.box.restclientv2.responses.IBoxResponse;
 
 /**
  * Parser to parse {@link com.box.restclientv2.responses.DefaultBoxResponse} into {@link com.box.boxjavalibv2.dao.BoxServerError} objects. It analyse the
@@ -75,10 +77,13 @@ public class ErrorResponseParser extends DefaultBoxJSONResponseParser {
                 return obj;
             }
         }
-        catch (Exception e) {
+        catch (BoxJSONException e) {
             if (StringUtils.isEmpty(errorStr)) {
                 errorStr = e.getMessage();
             }
+        }
+        catch (IOException e) {
+            errorStr = "Fail to read response.";
         }
 
         BoxGenericServerError genericE = new BoxGenericServerError();

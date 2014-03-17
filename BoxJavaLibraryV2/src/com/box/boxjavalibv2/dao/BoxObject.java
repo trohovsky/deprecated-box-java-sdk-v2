@@ -6,13 +6,10 @@ import java.util.Map;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 
-import com.box.boxjavalibv2.interfaces.IBoxParcelWrapper;
-import com.box.boxjavalibv2.interfaces.IBoxParcelable;
-import com.box.boxjavalibv2.jsonentities.DefaultJSONStringEntity;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 
-public class BoxObject extends DefaultJSONStringEntity implements IBoxParcelable {
+public class BoxObject extends BoxBase implements IBoxParcelable {
 
     private final Map<String, Object> extraMap = new BoxHashMap<String, Object>();
 
@@ -30,7 +27,6 @@ public class BoxObject extends DefaultJSONStringEntity implements IBoxParcelable
         cloneMap(this.map, map);
     }
 
-    
     /**
      * Whether the two objects are equal. This strictly compares all the fields in the two objects, if any fields are different this returns false.
      * 
@@ -51,8 +47,6 @@ public class BoxObject extends DefaultJSONStringEntity implements IBoxParcelable
         return new EqualsBuilder().append(map, bObj.map).append(extraMap, bObj.extraMap).isEquals();
     }
 
-  
-
     @Override
     public int hashCode() {
         return new HashCodeBuilder().append(map).append(extraMap).toHashCode();
@@ -68,7 +62,7 @@ public class BoxObject extends DefaultJSONStringEntity implements IBoxParcelable
         cloneMap(extraMap, obj.extraMap);
     }
 
-    public void put(String key, Object value) {
+    protected void put(String key, Object value) {
         map.put(key, value);
     }
 
@@ -87,7 +81,7 @@ public class BoxObject extends DefaultJSONStringEntity implements IBoxParcelable
     }
 
     @JsonAnyGetter
-    public Map<String, Object> extraProperties() {
+    protected Map<String, Object> extraProperties() {
         return extraMap;
     }
 
@@ -102,7 +96,7 @@ public class BoxObject extends DefaultJSONStringEntity implements IBoxParcelable
     }
 
     @JsonAnySetter
-    public void handleUnknown(String key, Object value) {
+    protected void handleUnknown(String key, Object value) {
         if (value instanceof String) {
             extraMap.put(key, value);
         }
@@ -134,6 +128,7 @@ public class BoxObject extends DefaultJSONStringEntity implements IBoxParcelable
                     destination.put(entry.getKey(), value.getClass().getConstructor(value.getClass()).newInstance(value));
                 }
                 catch (Exception e) {
+                    // Exception is swallowed.
                 }
             }
             else if (value instanceof ArrayList<?>) {
@@ -160,6 +155,7 @@ public class BoxObject extends DefaultJSONStringEntity implements IBoxParcelable
                     destination.add(obj.getClass().getConstructor(obj.getClass()).newInstance(obj));
                 }
                 catch (Exception e) {
+                    // Exception is swallowed.
                 }
             }
             else {

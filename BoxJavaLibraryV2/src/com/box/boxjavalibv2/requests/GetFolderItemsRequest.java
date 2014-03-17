@@ -1,11 +1,11 @@
 package com.box.boxjavalibv2.requests;
 
-import com.box.boxjavalibv2.interfaces.IBoxJSONParser;
-import com.box.boxjavalibv2.requests.requestobjects.BoxFolderRequestObject;
+import com.box.boxjavalibv2.IBoxConfig;
+import com.box.boxjavalibv2.jsonparsing.IBoxJSONParser;
+import com.box.boxjavalibv2.requests.requestobjects.BoxPagingRequestObject;
 import com.box.restclientv2.RestMethod;
 import com.box.restclientv2.exceptions.BoxRestException;
-import com.box.restclientv2.interfaces.IBoxConfig;
-import com.box.restclientv2.requests.DefaultBoxRequest;
+import com.box.restclientv2.requestsbase.DefaultBoxRequest;
 
 /**
  * Request to get the items inside a folder. These items can be files, sub-folders, weblinks, and etc.
@@ -28,7 +28,7 @@ public class GetFolderItemsRequest extends DefaultBoxRequest {
      * @throws BoxRestException
      *             exception
      */
-    public GetFolderItemsRequest(final IBoxConfig config, final IBoxJSONParser parser, final String folderId, BoxFolderRequestObject requestObject)
+    public GetFolderItemsRequest(final IBoxConfig config, final IBoxJSONParser parser, final String folderId, BoxPagingRequestObject requestObject)
         throws BoxRestException {
         super(config, parser, getUri(folderId), RestMethod.GET, requestObject);
     }

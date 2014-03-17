@@ -1,6 +1,7 @@
 package com.box.boxjavalibv2.requests;
 
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 
 import junit.framework.Assert;
 
@@ -9,11 +10,11 @@ import org.apache.http.HttpStatus;
 import org.apache.http.entity.StringEntity;
 import org.junit.Test;
 
-import com.box.boxjavalibv2.BoxConfig;
 import com.box.boxjavalibv2.dao.BoxResourceType;
 import com.box.boxjavalibv2.exceptions.AuthFatalFailureException;
 import com.box.boxjavalibv2.exceptions.BoxJSONException;
-import com.box.boxjavalibv2.requests.requestobjects.BoxFileRequestObject;
+import com.box.boxjavalibv2.requests.requestobjects.BoxItemRequestObject;
+import com.box.boxjavalibv2.testutils.TestUtils;
 import com.box.restclientv2.RestMethod;
 import com.box.restclientv2.exceptions.BoxRestException;
 
@@ -26,27 +27,31 @@ public class UpdateItemInfoRequestTest extends RequestTestBase {
     }
 
     @Test
-    public void testFolderRequestIsWellFormed() throws IllegalStateException, BoxRestException, IOException, AuthFatalFailureException, BoxJSONException {
+    public void testFolderRequestIsWellFormed() throws IllegalStateException, BoxRestException, IOException, AuthFatalFailureException, BoxJSONException,
+        NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
         testRequestIsWellFormed(BoxResourceType.FOLDER);
     }
 
     @Test
-    public void testFileRequestIsWellFormed() throws IllegalStateException, BoxRestException, IOException, AuthFatalFailureException, BoxJSONException {
+    public void testFileRequestIsWellFormed() throws IllegalStateException, BoxRestException, IOException, AuthFatalFailureException, BoxJSONException,
+        NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
         testRequestIsWellFormed(BoxResourceType.FILE);
     }
 
     public void testRequestIsWellFormed(BoxResourceType type) throws BoxRestException, IllegalStateException, IOException, AuthFatalFailureException,
-        BoxJSONException {
+        BoxJSONException, NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
         String id = "testid123";
         String parentId = "testparentid456";
 
-        UpdateItemInfoRequest request = new UpdateItemInfoRequest(CONFIG, JSON_PARSER, id, BoxFileRequestObject.updateFileRequestObject().setParent(parentId),
-            type);
-        testRequestIsWellFormed(request, BoxConfig.getInstance().getApiUrlAuthority(),
-            BoxConfig.getInstance().getApiUrlPath().concat(UpdateItemInfoRequest.getUri(id, type)), HttpStatus.SC_OK, RestMethod.PUT);
+        BoxItemRequestObject obj = BoxItemRequestObject.getRequestObject();
+        obj.setParent(parentId);
 
-        HttpEntity entity = request.getRequestEntity();
-        Assert.assertTrue(entity instanceof StringEntity);
-        assertEqualStringEntity(BoxFileRequestObject.updateFileRequestObject().setParent(parentId).getJSONEntity(), entity);
+        UpdateItemInfoRequest request = new UpdateItemInfoRequest(CONFIG, JSON_PARSER, id, obj, type);
+        testRequestIsWellFormed(request, TestUtils.getConfig().getApiUrlAuthority(),
+            TestUtils.getConfig().getApiUrlPath().concat(UpdateItemInfoRequest.getUri(id, type)), HttpStatus.SC_OK, RestMethod.PUT);
+
+        HttpEntity en = request.getRequestEntity();
+        Assert.assertTrue(en instanceof StringEntity);
+        assertEqualStringEntity(obj, en);
     }
 }

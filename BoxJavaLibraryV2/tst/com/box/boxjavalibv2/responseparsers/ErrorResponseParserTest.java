@@ -47,7 +47,7 @@ public class ErrorResponseParserTest {
     public void testCanParseBoxServerError() throws BoxRestException, IllegalStateException, IOException, BoxJSONException {
         BoxJSONParser jsonParser = new BoxJSONParser(new BoxResourceHub());
         EasyMock.reset(boxResponse, response, entity);
-        inputStream = new ByteArrayInputStream(error.toJSONString(jsonParser).getBytes());
+        inputStream = new ByteArrayInputStream(jsonParser.convertBoxObjectToJSONString(error).getBytes());
         EasyMock.expect(boxResponse.getHttpResponse()).andStubReturn(response);
         EasyMock.expect(response.getEntity()).andStubReturn(entity);
         EasyMock.expect(entity.getContent()).andStubReturn(inputStream);
@@ -62,7 +62,7 @@ public class ErrorResponseParserTest {
         Object object = parser.parse(boxResponse);
         Assert.assertEquals(BoxServerError.class, object.getClass());
 
-        Assert.assertEquals(error.toJSONString(jsonParser), ((BoxServerError) object).toJSONString(jsonParser));
+        Assert.assertEquals(jsonParser.convertBoxObjectToJSONString(error), jsonParser.convertBoxObjectToJSONString(object));
         EasyMock.verify(boxResponse, response, entity, statusLine);
     }
 }

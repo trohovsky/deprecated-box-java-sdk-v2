@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.box.boxjavalibv2.interfaces.IBoxParcelWrapper;
-import com.box.boxjavalibv2.interfaces.IBoxParcelable;
 
 public class TestParcel implements IBoxParcelWrapper {
 

@@ -2,7 +2,6 @@ package com.box.boxjavalibv2.dao;
 
 import java.util.Map;
 
-import com.box.boxjavalibv2.interfaces.IBoxParcelWrapper;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
@@ -207,7 +206,7 @@ public class BoxItem extends BoxTypedObject {
     /**
      * Set the user creating this item.
      * 
-     * @param created_by
+     * @param createdBy
      *            created by
      */
     @JsonProperty(FIELD_CREATED_BY)
@@ -331,9 +330,6 @@ public class BoxItem extends BoxTypedObject {
 
     /**
      * Setter. This is only used by {@see <a href="http://jackson.codehaus.org">Jackson JSON processer</a>}
-     * 
-     * @param itemStatus
-     *            the allowed_shared_link_access_levels to set
      */
     @JsonProperty(FIELD_ALLOWED_SHARED_LINK_ACCESS_LEVELS)
     private void setAllowedSharedLinkAccessLevels(final String[] allowedSharedLinkAccessLevels) {

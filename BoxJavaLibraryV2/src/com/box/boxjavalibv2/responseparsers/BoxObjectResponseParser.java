@@ -1,6 +1,6 @@
 package com.box.boxjavalibv2.responseparsers;
 
-import com.box.boxjavalibv2.interfaces.IBoxJSONParser;
+import com.box.boxjavalibv2.jsonparsing.IBoxJSONParser;
 import com.box.restclientv2.responseparsers.DefaultBoxJSONResponseParser;
 
 /**
@@ -12,9 +12,6 @@ public class BoxObjectResponseParser extends DefaultBoxJSONResponseParser {
 
     /**
      * Constructor.
-     * 
-     * @param type
-     *            type of the box resource
      * 
      * @param cls
      *            Object class.

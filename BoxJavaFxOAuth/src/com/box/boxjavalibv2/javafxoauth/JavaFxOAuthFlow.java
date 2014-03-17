@@ -17,13 +17,13 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.http.NameValuePair;
 
 import com.box.boxjavalibv2.BoxClient;
+import com.box.boxjavalibv2.BoxConfigBuilder;
+import com.box.boxjavalibv2.authorization.IAuthFlowListener;
+import com.box.boxjavalibv2.authorization.IAuthFlowUI;
 import com.box.boxjavalibv2.authorization.OAuthDataMessage;
 import com.box.boxjavalibv2.authorization.OAuthWebViewData;
 import com.box.boxjavalibv2.dao.BoxOAuthToken;
 import com.box.boxjavalibv2.events.OAuthEvent;
-import com.box.boxjavalibv2.interfaces.IAuthFlowListener;
-import com.box.boxjavalibv2.interfaces.IAuthFlowUI;
-import com.box.boxjavalibv2.requests.requestobjects.BoxOAuthRequestObject;
 import com.box.restclientv2.httpclientsupport.HttpClientURIBuilder;
 
 /**
@@ -87,7 +87,7 @@ public class JavaFxOAuthFlow implements IAuthFlowUI {
 
     @Override
     public void initializeAuthFlow(Object activity, String clientId, String clientSecret, String redirectUrl) {
-        client = new BoxClient(clientId, clientSecret, null, null);
+        client = new BoxClient(clientId, clientSecret, null, null, (new BoxConfigBuilder()).build());
         mWebViewData = new OAuthWebViewData(client.getOAuthDataController());
         if (StringUtils.isNotEmpty(redirectUrl)) {
             mWebViewData.setRedirectUrl(redirectUrl);
@@ -167,9 +167,8 @@ public class JavaFxOAuthFlow implements IAuthFlowUI {
             public void run() {
                 BoxOAuthToken oauth = null;
                 try {
-                    oauth = client.getOAuthManager().createOAuth(
-                        BoxOAuthRequestObject.createOAuthRequestObject(code, mWebViewData.getClientId(), mWebViewData.getClientSecret(),
-                            mWebViewData.getRedirectUrl()));
+                    oauth = client.getOAuthManager().createOAuth(code, mWebViewData.getClientId(), mWebViewData.getClientSecret(),
+                        mWebViewData.getRedirectUrl());
                     exitSuccess(oauth);
                 }
                 catch (Exception e) {

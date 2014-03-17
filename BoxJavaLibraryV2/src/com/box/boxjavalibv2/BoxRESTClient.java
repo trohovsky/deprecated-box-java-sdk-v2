@@ -14,17 +14,19 @@ import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.params.HttpParams;
 
+import com.box.boxjavalibv2.BoxConnectionManagerBuilder.BoxConnectionManager;
 import com.box.boxjavalibv2.authorization.OAuthAuthorization;
 import com.box.boxjavalibv2.exceptions.AuthFatalFailureException;
+import com.box.boxjavalibv2.exceptions.BoxServerException;
 import com.box.boxjavalibv2.exceptions.BoxUnexpectedHttpStatusException;
 import com.box.boxjavalibv2.utils.Utils;
 import com.box.restclientv2.BoxBasicRestClient;
+import com.box.restclientv2.IBoxRestVisitor;
+import com.box.restclientv2.authorization.IBoxRequestAuth;
 import com.box.restclientv2.exceptions.BoxRestException;
-import com.box.restclientv2.interfaces.IBoxRequest;
-import com.box.restclientv2.interfaces.IBoxRequestAuth;
-import com.box.restclientv2.interfaces.IBoxResponse;
-import com.box.restclientv2.interfaces.IBoxRestVisitor;
+import com.box.restclientv2.requestsbase.IBoxRequest;
 import com.box.restclientv2.responses.DefaultBoxResponse;
+import com.box.restclientv2.responses.IBoxResponse;
 
 /**
  * API v2 client. By default, DefaultHttpClient is used as underlying http client. This takes visitors for requests and handles OAuth failures.
@@ -46,8 +48,8 @@ public class BoxRESTClient extends BoxBasicRestClient {
         super();
     }
 
-    public BoxRESTClient(final int maxConnection, final int maxConnectionPerRoute, final long timePeriodCleanUpIdleConnection, final long idleTimeThreshold) {
-        super(maxConnection, maxConnectionPerRoute, timePeriodCleanUpIdleConnection, idleTimeThreshold);
+    public BoxRESTClient(final BoxConnectionManager connectionManager) {
+        super(connectionManager);
     }
 
     /**
@@ -188,19 +190,17 @@ public class BoxRESTClient extends BoxBasicRestClient {
      *            auth
      * @param boxRequest
      *            request
-     * @return response
+     * @return response@throws BoxRestException See {@link com.box.restclientv2.exceptions.BoxRestException} for more info.
+     * @throws BoxServerException
+     *             See {@link com.box.restclientv2.exceptions.BoxServerException} for more info.
      * @throws AuthFatalFailureException
-     *             exception
-     * @throws BoxRestException
-     *             exception
-     * @throws BoxUnexpectedHttpStatusException
-     *             exception
+     *             See {@link com.box.restclientv2.exceptions.AuthFatalFailureException} for more info.
      */
     private IBoxResponse handleOAuthTokenExpire(final OAuthAuthorization auth, final IBoxRequest boxRequest) throws AuthFatalFailureException,
         BoxRestException, BoxUnexpectedHttpStatusException {
         auth.refresh();
         HttpEntity entity = boxRequest.getRequestEntity();
-        if (entity.isRepeatable()) {
+        if (entity == null || entity.isRepeatable()) {
             return execute(boxRequest, true);
         }
         throw new BoxRestException(ENTITY_CANNOT_BE_RETRIED);

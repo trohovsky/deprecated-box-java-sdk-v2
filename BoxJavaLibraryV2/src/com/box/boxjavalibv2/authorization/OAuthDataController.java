@@ -4,8 +4,6 @@ import com.box.boxjavalibv2.BoxClient;
 import com.box.boxjavalibv2.dao.BoxOAuthToken;
 import com.box.boxjavalibv2.exceptions.AuthFatalFailureException;
 import com.box.boxjavalibv2.exceptions.BoxServerException;
-import com.box.boxjavalibv2.interfaces.IAuthDataController;
-import com.box.boxjavalibv2.requests.requestobjects.BoxOAuthRequestObject;
 import com.box.restclientv2.exceptions.BoxRestException;
 
 /**
@@ -40,21 +38,7 @@ public class OAuthDataController implements IAuthDataController {
 
     private OAuthRefreshListener refreshListener;
 
-    /**
-     * Constructor.
-     * 
-     * @param config
-     *            BoxConfig
-     * @param resourceHub
-     *            resource hub
-     * @par restClient rest client to make api calls.
-     * @param clientId
-     *            client id
-     * @param clientSecret
-     *            client secret
-     * 
-     */
-    public OAuthDataController(BoxClient boxClient, final String clientId, final String clientSecret, final boolean autoRefresh) {
+  public OAuthDataController(BoxClient boxClient, final String clientId, final String clientSecret, final boolean autoRefresh) {
         this.mClient = boxClient;
         this.mClientId = clientId;
         this.mClientSecret = clientSecret;
@@ -272,17 +256,18 @@ public class OAuthDataController implements IAuthDataController {
     private void doRefresh() throws AuthFatalFailureException {
         setTokenState(OAuthTokenState.REFRESHING);
         try {
-            BoxOAuthRequestObject requestObj = BoxOAuthRequestObject.refreshOAuthRequestObject(mOAuthToken.getRefreshToken(), mClientId, mClientSecret);
-            requestObj.put("device_id", mDeviceId);
-            requestObj.put("device_name", mDeviceName);
-            mOAuthToken = mClient.getOAuthManager().refreshOAuth(requestObj);
+            mOAuthToken = mClient.getOAuthManager().refreshOAuth(mOAuthToken.getRefreshToken(), mClientId, mClientSecret, mDeviceId, mDeviceName);
             setTokenState(OAuthTokenState.AVAILABLE);
             setRefreshFail(null);
             if (refreshListener != null) {
                 refreshListener.onRefresh(mOAuthToken);
             }
         }
-        catch (Exception e) {
+        catch (BoxRestException e) {
+            setRefreshFail(e);
+            throw new AuthFatalFailureException(getRefreshFailException());
+        }
+        catch (BoxServerException e) {
             setRefreshFail(e);
             throw new AuthFatalFailureException(getRefreshFailException());
         }

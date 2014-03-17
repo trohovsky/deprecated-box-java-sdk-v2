@@ -4,7 +4,6 @@ import java.text.ParseException;
 import java.util.Date;
 import java.util.Map;
 
-import com.box.boxjavalibv2.interfaces.IBoxParcelWrapper;
 import com.box.boxjavalibv2.utils.ISO8601DateParser;
 import com.fasterxml.jackson.annotation.JsonProperty;
 

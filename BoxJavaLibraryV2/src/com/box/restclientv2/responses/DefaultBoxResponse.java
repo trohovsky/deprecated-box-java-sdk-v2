@@ -1,10 +1,10 @@
 package com.box.restclientv2.responses;
 
+import org.apache.http.Header;
 import org.apache.http.HttpResponse;
 
 import com.box.restclientv2.exceptions.BoxRestException;
-import com.box.restclientv2.interfaces.IBoxResponse;
-import com.box.restclientv2.interfaces.IBoxResponseParser;
+import com.box.restclientv2.responseparsers.IBoxResponseParser;
 
 /**
  * Default implementation for BOX JSON response. This implementation uses <a href="http://jackson.codehaus.org/">Jackson JSON processor</a> to parse response
@@ -72,5 +72,20 @@ public class DefaultBoxResponse implements IBoxResponse {
      */
     public int getExpectedResponseCode() {
         return this.expectedResponseCode;
+    }
+
+    @Override
+    public double getContentLength() {
+        Header header = getHttpResponse().getFirstHeader("Content-Length");
+        if (header != null) {
+
+            try {
+                return Double.parseDouble(header.getValue());
+            }
+            catch (NumberFormatException e) {
+                // Something wrong with response, content length is unknown in this case.
+            }
+        }
+        return 0;
     }
 }

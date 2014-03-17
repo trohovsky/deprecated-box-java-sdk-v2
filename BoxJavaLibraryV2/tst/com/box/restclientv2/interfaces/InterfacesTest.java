@@ -15,8 +15,14 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.box.boxjavalibv2.exceptions.AuthFatalFailureException;
+import com.box.restclientv2.IBoxRESTClient;
 import com.box.restclientv2.RestMethod;
+import com.box.restclientv2.authorization.IBoxRequestAuth;
 import com.box.restclientv2.exceptions.BoxRestException;
+import com.box.restclientv2.requestsbase.IBoxRequest;
+import com.box.restclientv2.requestsbase.ICookie;
+import com.box.restclientv2.responseparsers.IBoxResponseParser;
+import com.box.restclientv2.responses.IBoxResponse;
 
 /**
  * This is a unit test class to test and guarantee interfaces of the REST client. No concrete implemented classes are tested.
@@ -142,6 +148,12 @@ public class InterfacesTest {
             @Override
             public Object parseResponse(IBoxResponseParser responseParser, IBoxResponseParser errorParser) throws BoxRestException {
                 return parsedResponse;
+            }
+
+            @Override
+            public double getContentLength() {
+                // TODO Auto-generated method stub
+                return 0;
             }
 
         };

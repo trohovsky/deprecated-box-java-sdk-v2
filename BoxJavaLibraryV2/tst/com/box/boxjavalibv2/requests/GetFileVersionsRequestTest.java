@@ -5,8 +5,8 @@ import junit.framework.Assert;
 import org.apache.http.HttpStatus;
 import org.junit.Test;
 
-import com.box.boxjavalibv2.BoxConfig;
 import com.box.boxjavalibv2.exceptions.AuthFatalFailureException;
+import com.box.boxjavalibv2.testutils.TestUtils;
 import com.box.restclientv2.RestMethod;
 import com.box.restclientv2.exceptions.BoxRestException;
 
@@ -21,7 +21,7 @@ public class GetFileVersionsRequestTest extends RequestTestBase {
         String id = "testid123";
 
         GetFileVersionsRequest request = new GetFileVersionsRequest(CONFIG, JSON_PARSER, id, null);
-        testRequestIsWellFormed(request, BoxConfig.getInstance().getApiUrlAuthority(), GetFileVersionsRequest.getUri(id), HttpStatus.SC_OK, RestMethod.GET);
+        testRequestIsWellFormed(request, TestUtils.getConfig().getApiUrlAuthority(), GetFileVersionsRequest.getUri(id), HttpStatus.SC_OK, RestMethod.GET);
 
     }
 

@@ -2,10 +2,14 @@ package com.box.boxjavalibv2.utils;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.http.HttpEntity;
 
+import com.box.boxjavalibv2.dao.BoxCollection;
 import com.box.boxjavalibv2.dao.BoxResourceType;
+import com.box.boxjavalibv2.dao.BoxTypedObject;
 
 /**
  * Utils class.
@@ -32,6 +36,29 @@ public final class Utils {
             default:
                 return type.toPluralString();
         }
+    }
+
+    /**
+     * Filter out a list of specified type BoxTypedObject's from a Collection
+     * 
+     * @param collection
+     *            collection to be filtered.
+     * @param cls
+     *            class of the type to be filtered. e.g. BoxFile.class.
+     * @return
+     */
+    @SuppressWarnings("unchecked")
+    public static <T extends BoxTypedObject> List<T> getTypedObjects(BoxCollection collection, Class<T> cls) {
+        List<T> objects = new ArrayList<T>();
+
+        List<BoxTypedObject> list = collection.getEntries();
+        for (BoxTypedObject object : list) {
+            if (cls.isInstance(object)) {
+                objects.add((T) object);
+            }
+        }
+
+        return objects;
     }
 
     /**
@@ -73,5 +100,4 @@ public final class Utils {
             }
         }
     }
-
 }

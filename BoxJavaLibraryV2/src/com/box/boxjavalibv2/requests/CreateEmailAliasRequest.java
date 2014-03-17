@@ -2,12 +2,12 @@ package com.box.boxjavalibv2.requests;
 
 import org.apache.http.HttpStatus;
 
-import com.box.boxjavalibv2.interfaces.IBoxJSONParser;
-import com.box.boxjavalibv2.requests.requestobjects.BoxUserRequestObject;
+import com.box.boxjavalibv2.IBoxConfig;
+import com.box.boxjavalibv2.jsonparsing.IBoxJSONParser;
+import com.box.boxjavalibv2.requests.requestobjects.BoxEmailAliasRequestObject;
 import com.box.restclientv2.RestMethod;
 import com.box.restclientv2.exceptions.BoxRestException;
-import com.box.restclientv2.interfaces.IBoxConfig;
-import com.box.restclientv2.requests.DefaultBoxRequest;
+import com.box.restclientv2.requestsbase.DefaultBoxRequest;
 
 /**
  * Request to adds a new email alias to the given user's account. This feature is currently only available to enterprise admins and the new email must be in a
@@ -31,10 +31,28 @@ public class CreateEmailAliasRequest extends DefaultBoxRequest {
      * @throws BoxRestException
      *             exception
      */
-    public CreateEmailAliasRequest(final IBoxConfig config, final IBoxJSONParser parser, final String userId, BoxUserRequestObject requestObject)
+    public CreateEmailAliasRequest(final IBoxConfig config, final IBoxJSONParser parser, final String userId, final BoxEmailAliasRequestObject requestObject)
         throws BoxRestException {
         super(config, parser, getUri(userId), RestMethod.POST, requestObject);
         setExpectedResponseCode(HttpStatus.SC_CREATED);
+    }
+
+    /**
+     * Constructor.
+     * 
+     * @param config
+     *            config
+     * @param parser
+     *            json parser
+     * @param userId
+     *            id of the user
+     * @param email
+     *            email alias
+     * @throws BoxRestException
+     *             exception
+     */
+    public CreateEmailAliasRequest(final IBoxConfig config, final IBoxJSONParser parser, final String userId, final String email) throws BoxRestException {
+        this(config, parser, userId, BoxEmailAliasRequestObject.addEmailAliasRequestObject(email));
     }
 
     /**

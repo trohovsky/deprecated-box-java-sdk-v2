@@ -20,10 +20,11 @@ import com.box.boxjavalibv2.dao.BoxPreview;
 import com.box.boxjavalibv2.dao.BoxRealTimeServer;
 import com.box.boxjavalibv2.dao.BoxResourceType;
 import com.box.boxjavalibv2.dao.BoxServerError;
+import com.box.boxjavalibv2.dao.BoxThumbnail;
 import com.box.boxjavalibv2.dao.BoxTypedObject;
 import com.box.boxjavalibv2.dao.BoxUser;
 import com.box.boxjavalibv2.dao.BoxWebLink;
-import com.box.boxjavalibv2.interfaces.IBoxType;
+import com.box.boxjavalibv2.dao.IBoxType;
 
 public class BoxResourceHub extends BaseBoxResourceHub {
 
@@ -32,7 +33,7 @@ public class BoxResourceHub extends BaseBoxResourceHub {
     }
 
     @Override
-    @SuppressWarnings("rawtypes")
+    @SuppressWarnings({"rawtypes", "unchecked"})
     public Class getClass(IBoxType type) {
         if (getConcreteClassForIBoxType().equals(type.getClass())) {
             return getObjectClassGivenConcreteIBoxType(type);
@@ -47,6 +48,7 @@ public class BoxResourceHub extends BaseBoxResourceHub {
         return getLowerCaseStringToTypeMap().values();
     }
 
+    @SuppressWarnings("rawtypes")
     @Override
     protected Class getObjectClassGivenConcreteIBoxType(IBoxType type) {
         switch ((BoxResourceType) type) {
@@ -54,6 +56,8 @@ public class BoxResourceHub extends BaseBoxResourceHub {
                 return BoxFile.class;
             case PREVIEW:
                 return BoxPreview.class;
+            case THUMBNAIL:
+                return BoxThumbnail.class;
             case FOLDER:
                 return BoxFolder.class;
             case WEB_LINK:

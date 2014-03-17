@@ -1,5 +1,6 @@
 package com.box.boxjavalibv2.filetransfer;
 
+import com.box.boxjavalibv2.IBoxConfig;
 import com.box.boxjavalibv2.dao.BoxCollection;
 import com.box.boxjavalibv2.dao.BoxFile;
 import com.box.boxjavalibv2.dao.BoxResourceType;
@@ -7,13 +8,12 @@ import com.box.boxjavalibv2.exceptions.AuthFatalFailureException;
 import com.box.boxjavalibv2.exceptions.BoxMalformedResponseException;
 import com.box.boxjavalibv2.exceptions.BoxServerException;
 import com.box.boxjavalibv2.httpentities.MultipartEntityWithProgressListener.InterruptedMultipartException;
-import com.box.boxjavalibv2.interfaces.IFileTransferListener;
 import com.box.boxjavalibv2.requests.UploadFileRequest;
 import com.box.boxjavalibv2.requests.UploadNewVersionFileRequest;
-import com.box.boxjavalibv2.requests.requestobjects.BoxFileUploadRequestObject;
-import com.box.boxjavalibv2.resourcemanagers.BoxFilesManager;
+import com.box.boxjavalibv2.resourcemanagers.BoxFilesManagerImpl;
+import com.box.boxjavalibv2.utils.Utils;
 import com.box.restclientv2.exceptions.BoxRestException;
-import com.box.restclientv2.interfaces.IBoxConfig;
+import com.box.restclientv2.requestsbase.BoxFileUploadRequestObject;
 
 /**
  * Contains logic for uploading a user's file via Box API and supports using {@link IFileTransferListener} to monitor uploading progress.
@@ -50,13 +50,15 @@ public class BoxFileUpload {
      * @throws InterruptedException
      *             interrupted exception.
      */
-    public BoxFile execute(BoxFilesManager manager, BoxFileUploadRequestObject requestObject) throws BoxServerException, BoxRestException,
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public BoxFile execute(BoxFilesManagerImpl manager, BoxFileUploadRequestObject requestObject) throws BoxServerException, BoxRestException,
         AuthFatalFailureException, InterruptedException {
         UploadFileRequest request = new UploadFileRequest(mConfig, manager.getJSONParser(), requestObject);
         try {
             Object result = manager.getResponseAndParse(request, BoxResourceType.FILES, manager.getJSONParser());
             BoxCollection collection = (BoxCollection) manager.tryCastObject(BoxResourceType.FILES, result);
-            return BoxFilesManager.getFiles(collection).get(0);
+            Class cls = manager.getResourceHub().getClass(BoxResourceType.FILE);
+            return (BoxFile) Utils.getTypedObjects(collection, cls).get(0);
         }
         catch (BoxRestException e) {
             if (isInterruptedMultipartException(e)) {
@@ -85,8 +87,8 @@ public class BoxFileUpload {
      * @throws InterruptedException
      *             interrupted exception.
      */
-    public BoxFile execute(final String fileId, BoxFilesManager manager, BoxFileUploadRequestObject requestObject) throws BoxServerException, BoxRestException,
-        AuthFatalFailureException, InterruptedException {
+    public BoxFile execute(final String fileId, BoxFilesManagerImpl manager, BoxFileUploadRequestObject requestObject) throws BoxServerException,
+        BoxRestException, AuthFatalFailureException, InterruptedException {
         UploadNewVersionFileRequest request = new UploadNewVersionFileRequest(mConfig, manager.getJSONParser(), fileId, requestObject);
         try {
             Object result = manager.getResponseAndParse(request, BoxResourceType.FILE_VERSIONS, manager.getJSONParser());

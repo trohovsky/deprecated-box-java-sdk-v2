@@ -2,13 +2,13 @@ package com.box.boxjavalibv2.requests;
 
 import org.apache.http.HttpStatus;
 
+import com.box.boxjavalibv2.IBoxConfig;
 import com.box.boxjavalibv2.dao.BoxResourceType;
-import com.box.boxjavalibv2.interfaces.IBoxJSONParser;
+import com.box.boxjavalibv2.jsonparsing.IBoxJSONParser;
 import com.box.boxjavalibv2.requests.requestobjects.BoxItemRestoreRequestObject;
 import com.box.restclientv2.RestMethod;
 import com.box.restclientv2.exceptions.BoxRestException;
-import com.box.restclientv2.interfaces.IBoxConfig;
-import com.box.restclientv2.requests.DefaultBoxRequest;
+import com.box.restclientv2.requestsbase.DefaultBoxRequest;
 
 public class RestoreTrashItemRequest extends DefaultBoxRequest {
 
@@ -35,15 +35,6 @@ public class RestoreTrashItemRequest extends DefaultBoxRequest {
         this.setExpectedResponseCode(HttpStatus.SC_CREATED);
     }
 
-    /**
-     * Get uri.
-     * 
-     * @param id
-     *            id of the item
-     * @param itemType
-     *            type of the item
-     * @return uri
-     */
     public static String getUri(final String id, final BoxResourceType type) {
         return String.format(URI, type.toPluralString(), id);
     }

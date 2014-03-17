@@ -1,7 +1,8 @@
 package com.box.restclientv2.exceptions;
 
 /**
- * BoxException, this is an exception thrown from executing the api requests.
+ * BoxRestException, this is an exception thrown from executing the api requests. This exception could be issue building api requests, or network issue, or
+ * issue parsing api responses.
  */
 public class BoxRestException extends BoxSDKException {
 

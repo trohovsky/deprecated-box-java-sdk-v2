@@ -1,14 +1,9 @@
 package com.box.boxjavalibv2.dao;
 
-import java.io.InputStream;
-
-import com.box.boxjavalibv2.interfaces.IBoxParcelWrapper;
-import com.box.restclientv2.exceptions.BoxRestException;
-
 /**
  * Preview of a file.
  */
-public class BoxPreview extends BoxObject {
+public class BoxPreview extends BoxBigPayloadObject {
 
     public final static String MIN_WIDTH = "min_width";
     public final static String MIN_HEIGHT = "min_height";
@@ -18,8 +13,6 @@ public class BoxPreview extends BoxObject {
 
     private int firstPage = 1;
     private int lastPage = 1;
-
-    private InputStream content;
 
     /**
      * @param firstPage
@@ -58,36 +51,11 @@ public class BoxPreview extends BoxObject {
     }
 
     /**
-     * Get content of the preview. Caller is responsible for closing the InputStream.
-     * 
-     * @return preview input stream.
-     * @throws BoxException
-     */
-    public InputStream getContent() throws BoxRestException {
-        return content;
-    }
-
-    /**
      * Get number of pages.
      * 
      * @return number of pages
      */
     public Integer getNumPages() {
         return getLastPage() - getFirstPage() + 1;
-    }
-
-    /**
-     * Set content.
-     * 
-     * @param content
-     *            content
-     */
-    public void setContent(InputStream content) {
-        this.content = content;
-    }
-
-    @Override
-    public void writeToParcel(IBoxParcelWrapper parcelWrapper, int flags) {
-        throw new UnsupportedOperationException("Writing Preview to parcel is not supported!");
     }
 }

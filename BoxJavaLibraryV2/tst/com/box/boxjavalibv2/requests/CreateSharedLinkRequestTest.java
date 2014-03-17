@@ -1,6 +1,7 @@
 package com.box.boxjavalibv2.requests;
 
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.util.Date;
 
 import org.apache.http.HttpEntity;
@@ -9,13 +10,13 @@ import org.apache.http.entity.StringEntity;
 import org.junit.Assert;
 import org.junit.Test;
 
-import com.box.boxjavalibv2.BoxConfig;
 import com.box.boxjavalibv2.dao.BoxResourceType;
 import com.box.boxjavalibv2.dao.BoxSharedLinkAccess;
-import com.box.boxjavalibv2.dao.BoxSharedLinkPermissions;
 import com.box.boxjavalibv2.exceptions.AuthFatalFailureException;
 import com.box.boxjavalibv2.exceptions.BoxJSONException;
+import com.box.boxjavalibv2.jsonentities.BoxSharedLinkRequestEntity;
 import com.box.boxjavalibv2.requests.requestobjects.BoxSharedLinkRequestObject;
+import com.box.boxjavalibv2.testutils.TestUtils;
 import com.box.restclientv2.RestMethod;
 import com.box.restclientv2.exceptions.BoxRestException;
 
@@ -32,31 +33,34 @@ public class CreateSharedLinkRequestTest extends RequestTestBase {
     }
 
     @Test
-    public void testFileRequestWellFormed() throws BoxRestException, IllegalStateException, IOException, AuthFatalFailureException, BoxJSONException {
+    public void testFileRequestWellFormed() throws BoxRestException, IllegalStateException, IOException, AuthFatalFailureException, BoxJSONException,
+        NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
         testRequestIsWellFormed(BoxResourceType.FILE);
     }
 
     @Test
-    public void testFolderRequestWellFormed() throws BoxRestException, IllegalStateException, IOException, AuthFatalFailureException, BoxJSONException {
+    public void testFolderRequestWellFormed() throws BoxRestException, IllegalStateException, IOException, AuthFatalFailureException, BoxJSONException,
+        NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
         testRequestIsWellFormed(BoxResourceType.FOLDER);
     }
 
     private void testRequestIsWellFormed(final BoxResourceType type) throws BoxRestException, IllegalStateException, IOException, AuthFatalFailureException,
-        BoxJSONException {
+        BoxJSONException, NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
         String id = "testid123";
-        BoxSharedLinkPermissions permissions = new BoxSharedLinkPermissions(true);
         String access = BoxSharedLinkAccess.COLLABORATORS;
         Date unsharedAt = new Date();
 
-        CreateSharedLinkRequest request = new CreateSharedLinkRequest(CONFIG, JSON_PARSER, id, BoxSharedLinkRequestObject.createSharedLinkRequestObject(access)
-            .setPermissions(permissions).setUnshared_at(unsharedAt), type);
-        testRequestIsWellFormed(request, BoxConfig.getInstance().getApiUrlAuthority(),
-            BoxConfig.getInstance().getApiUrlPath().concat(CreateSharedLinkRequest.getUri(id, type)), HttpStatus.SC_OK, RestMethod.PUT);
-        HttpEntity entity = request.getRequestEntity();
-        Assert.assertTrue(entity instanceof StringEntity);
+        BoxSharedLinkRequestEntity sEntity = new BoxSharedLinkRequestEntity(access);
+        sEntity.setPermissions(true);
+        sEntity.setUnshared_at(unsharedAt);
+        BoxSharedLinkRequestObject obj = BoxSharedLinkRequestObject.createSharedLinkRequestObject(sEntity);
 
-        BoxSharedLinkRequestObject sEntity = BoxSharedLinkRequestObject.createSharedLinkRequestObject(access).setPermissions(permissions)
-            .setUnshared_at(unsharedAt);
-        super.assertEqualStringEntity(sEntity.getJSONEntity(), entity);
+        CreateSharedLinkRequest request = new CreateSharedLinkRequest(CONFIG, JSON_PARSER, id, obj, type);
+        testRequestIsWellFormed(request, TestUtils.getConfig().getApiUrlAuthority(),
+            TestUtils.getConfig().getApiUrlPath().concat(CreateSharedLinkRequest.getUri(id, type)), HttpStatus.SC_OK, RestMethod.PUT);
+        HttpEntity en = request.getRequestEntity();
+        Assert.assertTrue(en instanceof StringEntity);
+
+        super.assertEqualStringEntity(obj, en);
     }
 }

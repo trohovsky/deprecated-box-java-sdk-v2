@@ -26,7 +26,7 @@ public class MockRestClient extends BoxRESTClient {
             response = new BasicHttpResponse(createStatusLine(HttpStatus.SC_OK));
         }
         else {
-            response = new BasicHttpResponse(createStatusLine(HttpStatus.SC_FORBIDDEN));
+            response = new BasicHttpResponse(createStatusLine(HttpStatus.SC_UNAUTHORIZED));
             response.addHeader(WWW_AUTHENTICATE, OAUTH_ERROR_HEADER + "=" + OAUTH_INVALID_TOKEN);
             response.addHeader(request.getHeaders("Authorization")[0]);
         }
@@ -39,6 +39,10 @@ public class MockRestClient extends BoxRESTClient {
     }
 
     private boolean checkOAuth(HttpUriRequest request) {
+        if (!request.containsHeader("Authorization")) {
+            System.out.println("no auth:" + request.getURI());
+            return true;
+        }
         String header = request.getHeaders("Authorization")[0].getValue();
         return header.contains(accessToken);
     }

@@ -3,6 +3,7 @@ package com.box.boxjavalibv2.httpentities;
 import java.io.FilterOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
 import java.nio.charset.Charset;
 import java.util.Date;
 import java.util.HashMap;
@@ -12,8 +13,12 @@ import org.apache.commons.codec.CharEncoding;
 import org.apache.http.entity.mime.HttpMultipartMode;
 import org.apache.http.entity.mime.MultipartEntity;
 import org.apache.http.entity.mime.content.ContentBody;
+import org.apache.http.entity.mime.content.StringBody;
 
-import com.box.boxjavalibv2.interfaces.IFileTransferListener;
+import com.box.boxjavalibv2.exceptions.BoxJSONException;
+import com.box.boxjavalibv2.filetransfer.IFileTransferListener;
+import com.box.boxjavalibv2.jsonentities.IBoxJSONStringEntity;
+import com.box.boxjavalibv2.jsonparsing.IBoxJSONParser;
 
 /**
  * This is a class wrappying MultipartEntity with a IFIleTransferListener so the writing progress of the entity can be monitored.
@@ -38,36 +43,41 @@ public class MultipartEntityWithProgressListener extends MultipartEntity {
 
     private final HashMap<String, ContentBody> parts = new HashMap<String, ContentBody>();
 
-    /**
-     * base constructor.
-     * 
-     * @param mode
-     *            mode
-     * @param listener
-     *            listener monitoring the writing progress of the MultipartMime
-     */
+    private final HashMap<String, IBoxJSONStringEntity> stringParts = new HashMap<String, IBoxJSONStringEntity>();
+
     public MultipartEntityWithProgressListener(final HttpMultipartMode mode) {
         super(mode, null, Charset.forName(CharEncoding.UTF_8));
     }
 
-    @Override
-    public void addPart(String name, ContentBody contentBody) {
+    public void addContentBodyPart(String name, ContentBody contentBody) {
         parts.put(name, contentBody);
     }
 
-    public ContentBody getPart(String name) {
+    public ContentBody getContentBodyPart(String name) {
         return parts.get(name);
+    }
+
+    public void addBoxJSONStringEntityPart(String name, IBoxJSONStringEntity entity) {
+        stringParts.put(name, entity);
+    }
+
+    public IBoxJSONStringEntity getJSONStringEntityPart(String name) {
+        return stringParts.get(name);
     }
 
     /**
      * Method to put all parts in to the multipart entity.
      * 
      * @return
-     * @throws ParseException
+     * @throws BoxJSONException
+     * @throws UnsupportedEncodingException
      */
-    public void prepareParts() {
+    public void prepareParts(IBoxJSONParser parser) throws UnsupportedEncodingException, BoxJSONException {
         for (Map.Entry<String, ContentBody> entry : parts.entrySet()) {
             super.addPart(entry.getKey(), entry.getValue());
+        }
+        for (Map.Entry<String, IBoxJSONStringEntity> entry : stringParts.entrySet()) {
+            super.addPart(entry.getKey(), new StringBody(entry.getValue().toJSONString(parser), Charset.forName(CharEncoding.UTF_8)));
         }
     }
 

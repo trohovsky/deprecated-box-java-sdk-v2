@@ -6,12 +6,12 @@ import org.apache.http.Header;
 import org.apache.http.HttpStatus;
 import org.junit.Test;
 
-import com.box.boxjavalibv2.BoxConfig;
 import com.box.boxjavalibv2.exceptions.AuthFatalFailureException;
-import com.box.boxjavalibv2.requests.requestobjects.BoxFileRequestObject;
+import com.box.boxjavalibv2.testutils.TestUtils;
 import com.box.boxjavalibv2.utils.Constants;
 import com.box.restclientv2.RestMethod;
 import com.box.restclientv2.exceptions.BoxRestException;
+import com.box.restclientv2.requestsbase.BoxDefaultRequestObject;
 
 public class DeleteFileRequestTest extends RequestTestBase {
 
@@ -24,11 +24,11 @@ public class DeleteFileRequestTest extends RequestTestBase {
     public void testRequestIsWellFormed() throws BoxRestException, AuthFatalFailureException {
         String id = "testid123";
         String sha1 = "testsha1456";
-
-        DeleteFileRequest request = new DeleteFileRequest(CONFIG, JSON_PARSER, id, (BoxFileRequestObject) BoxFileRequestObject.deleteFileRequestObject()
-            .setIfMatch(sha1));
-        testRequestIsWellFormed(request, BoxConfig.getInstance().getApiUrlAuthority(),
-            BoxConfig.getInstance().getApiUrlPath().concat(DeleteFileRequest.getUri(id)), HttpStatus.SC_NO_CONTENT, RestMethod.DELETE);
+        BoxDefaultRequestObject obj = new BoxDefaultRequestObject();
+        obj.getRequestExtras().setIfMatch(sha1);
+        DeleteFileRequest request = new DeleteFileRequest(CONFIG, JSON_PARSER, id, obj);
+        testRequestIsWellFormed(request, TestUtils.getConfig().getApiUrlAuthority(),
+            TestUtils.getConfig().getApiUrlPath().concat(DeleteFileRequest.getUri(id)), HttpStatus.SC_NO_CONTENT, RestMethod.DELETE);
 
         Header header = request.getRawRequest().getFirstHeader(Constants.IF_MATCH);
         Assert.assertNotNull(header);

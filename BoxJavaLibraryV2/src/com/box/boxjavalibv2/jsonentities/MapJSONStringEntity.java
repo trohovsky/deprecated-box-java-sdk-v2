@@ -3,8 +3,7 @@ package com.box.boxjavalibv2.jsonentities;
 import java.util.LinkedHashMap;
 
 import com.box.boxjavalibv2.exceptions.BoxJSONException;
-import com.box.boxjavalibv2.interfaces.IBoxJSONParser;
-import com.box.boxjavalibv2.interfaces.IBoxJSONStringEntity;
+import com.box.boxjavalibv2.jsonparsing.IBoxJSONParser;
 
 /**
  * Implemenation of {@link IBoxJSONStringEntity} based on LinkedHashMap.

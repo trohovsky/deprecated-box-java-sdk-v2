@@ -2,7 +2,6 @@ package com.box.boxjavalibv2.dao;
 
 import java.util.Map;
 
-import com.box.boxjavalibv2.interfaces.IBoxParcelWrapper;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class BoxEventCollection extends BoxCollectionBase {
@@ -40,7 +39,7 @@ public class BoxEventCollection extends BoxCollectionBase {
     }
 
     /**
-     * @param chunk
+     * @param chunkSize
      *            size the chunk size
      */
     @JsonProperty(FIELD_CHUNK_SIZE)

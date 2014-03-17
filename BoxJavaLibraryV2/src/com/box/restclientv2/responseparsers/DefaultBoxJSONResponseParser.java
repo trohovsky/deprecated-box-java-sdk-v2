@@ -1,16 +1,16 @@
 package com.box.restclientv2.responseparsers;
 
+import java.io.IOException;
 import java.io.InputStream;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.http.HttpResponse;
 
 import com.box.boxjavalibv2.exceptions.BoxJSONException;
-import com.box.boxjavalibv2.interfaces.IBoxJSONParser;
+import com.box.boxjavalibv2.jsonparsing.IBoxJSONParser;
 import com.box.restclientv2.exceptions.BoxRestException;
-import com.box.restclientv2.interfaces.IBoxResponse;
-import com.box.restclientv2.interfaces.IBoxResponseParser;
 import com.box.restclientv2.responses.DefaultBoxResponse;
+import com.box.restclientv2.responses.IBoxResponse;
 
 /**
  * This class is a wrapper class in order for <a href="http://jackson.codehaus.org/">Jackson JSON processor</a> to parse response JSON into the wrapped objects.
@@ -29,8 +29,8 @@ public class DefaultBoxJSONResponseParser implements IBoxResponseParser {
      *            class of the wrapped object. Response from API will be parsed into this object, caller needs to make sure this class has fields with same
      *            names as the JSON part of API response. If class contains more fields than the JSON, those fields will be left null. If the class contains
      *            less fields than the JSON, the parsing will error out.
-     * @param objectMapper
-     *            ObjectMapper to be used when parsing.
+     * @param parser
+     *            IBoxJSONParser
      */
     public DefaultBoxJSONResponseParser(Class objectClass, IBoxJSONParser parser) {
         this.objectClass = objectClass;
@@ -74,7 +74,7 @@ public class DefaultBoxJSONResponseParser implements IBoxResponseParser {
             }
         }
         catch (Exception e) {
-            throw new BoxRestException(e.getMessage());
+            throw new BoxRestException(e, "Failed to parse response.");
         }
         finally {
             IOUtils.closeQuietly(in);
@@ -87,9 +87,10 @@ public class DefaultBoxJSONResponseParser implements IBoxResponseParser {
      * @param in
      *            input stream.
      * @throws BoxRestException
+     * @throws IOException
      */
     @SuppressWarnings("unchecked")
-    protected Object parseInputStream(InputStream in) throws BoxRestException, BoxJSONException {
+    protected Object parseInputStream(InputStream in) throws BoxRestException, BoxJSONException, IOException {
         return mParser.parseIntoBoxObject(in, objectClass);
     }
 }

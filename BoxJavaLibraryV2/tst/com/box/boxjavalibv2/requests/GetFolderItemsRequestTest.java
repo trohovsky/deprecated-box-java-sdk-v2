@@ -9,9 +9,9 @@ import junit.framework.Assert;
 import org.apache.http.HttpStatus;
 import org.junit.Test;
 
-import com.box.boxjavalibv2.BoxConfig;
 import com.box.boxjavalibv2.exceptions.AuthFatalFailureException;
-import com.box.boxjavalibv2.requests.requestobjects.BoxFolderRequestObject;
+import com.box.boxjavalibv2.requests.requestobjects.BoxPagingRequestObject;
+import com.box.boxjavalibv2.testutils.TestUtils;
 import com.box.restclientv2.RestMethod;
 import com.box.restclientv2.exceptions.BoxRestException;
 
@@ -33,15 +33,15 @@ public class GetFolderItemsRequestTest extends RequestTestBase {
         fields.add(fieldA);
         fields.add(fieldB);
 
-        GetFolderItemsRequest request = new GetFolderItemsRequest(CONFIG, JSON_PARSER, id, (BoxFolderRequestObject) BoxFolderRequestObject
-            .getFolderItemsRequestObject(limit, offset).addFields(fields));
-        testRequestIsWellFormed(request, BoxConfig.getInstance().getApiUrlAuthority(),
-            BoxConfig.getInstance().getApiUrlPath().concat(GetFolderItemsRequest.getUri(id)), HttpStatus.SC_OK, RestMethod.GET);
+        BoxPagingRequestObject obj = BoxPagingRequestObject.pagingRequestObject(limit, offset);
+        obj.getRequestExtras().addFields(fields);
+        GetFolderItemsRequest request = new GetFolderItemsRequest(CONFIG, JSON_PARSER, id, obj);
+        testRequestIsWellFormed(request, TestUtils.getConfig().getApiUrlAuthority(),
+            TestUtils.getConfig().getApiUrlPath().concat(GetFolderItemsRequest.getUri(id)), HttpStatus.SC_OK, RestMethod.GET);
 
         Map<String, String> queries = request.getQueryParams();
         Assert.assertEquals(Integer.toString(limit), queries.get("limit"));
         Assert.assertEquals(Integer.toString(offset), queries.get("offset"));
         Assert.assertEquals(fieldA + "," + fieldB, queries.get("fields"));
-
     }
 }

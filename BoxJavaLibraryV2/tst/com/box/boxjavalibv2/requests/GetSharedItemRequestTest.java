@@ -5,8 +5,8 @@ import junit.framework.Assert;
 import org.apache.http.HttpStatus;
 import org.junit.Test;
 
-import com.box.boxjavalibv2.BoxConfig;
 import com.box.boxjavalibv2.exceptions.AuthFatalFailureException;
+import com.box.boxjavalibv2.testutils.TestUtils;
 import com.box.restclientv2.RestMethod;
 import com.box.restclientv2.exceptions.BoxRestException;
 
@@ -21,8 +21,8 @@ public class GetSharedItemRequestTest extends RequestTestBase {
     public void testRequestIsWellFormed() throws BoxRestException, AuthFatalFailureException {
 
         GetSharedItemRequest request = new GetSharedItemRequest(CONFIG, JSON_PARSER, null);
-        testRequestIsWellFormed(request, BoxConfig.getInstance().getApiUrlAuthority(),
-            BoxConfig.getInstance().getApiUrlPath().concat(GetSharedItemRequest.getUri()), HttpStatus.SC_OK, RestMethod.GET);
+        testRequestIsWellFormed(request, TestUtils.getConfig().getApiUrlAuthority(), TestUtils.getConfig().getApiUrlPath()
+            .concat(GetSharedItemRequest.getUri()), HttpStatus.SC_OK, RestMethod.GET);
 
     }
 }

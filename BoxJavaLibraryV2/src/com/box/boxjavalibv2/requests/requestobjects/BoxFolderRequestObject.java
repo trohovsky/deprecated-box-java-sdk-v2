@@ -2,71 +2,40 @@ package com.box.boxjavalibv2.requests.requestobjects;
 
 import com.box.boxjavalibv2.dao.BoxEmail;
 import com.box.boxjavalibv2.dao.BoxFolder;
+import com.box.boxjavalibv2.jsonentities.BoxSharedLinkRequestEntity;
 import com.box.boxjavalibv2.jsonentities.MapJSONStringEntity;
-import com.box.boxjavalibv2.utils.Constants;
 
 public class BoxFolderRequestObject extends BoxItemRequestObject {
 
-    private BoxFolderRequestObject() {
+    public BoxFolderRequestObject() {
+        super();
+    }
+
+    public BoxFolderRequestObject(BoxSharedLinkRequestEntity sharedLink) {
+        super(sharedLink);
+    }
+
+    public static BoxFolderRequestObject getRequestObject() {
+        return new BoxFolderRequestObject();
     }
 
     public static BoxFolderRequestObject deleteSharedLinkRequestObject() {
-        return (BoxFolderRequestObject) (new BoxFolderRequestObject()).setSharedLink(null);
+        return new BoxFolderRequestObject(null);
     }
 
-    public static BoxFolderRequestObject createSharedLinkRequestObject(BoxSharedLinkRequestObject sharedLink) {
-        return (BoxFolderRequestObject) (new BoxFolderRequestObject()).setSharedLink(sharedLink);
+    public static BoxFolderRequestObject createSharedLinkRequestObject(BoxSharedLinkRequestEntity sharedLink) {
+        return new BoxFolderRequestObject(sharedLink);
     }
 
     public static BoxFolderRequestObject createFolderRequestObject(String name, String parentId) {
-        return (BoxFolderRequestObject) (new BoxFolderRequestObject()).setName(name).setParent(parentId);
+        BoxFolderRequestObject obj = new BoxFolderRequestObject();
+        obj.setName(name);
+        obj.setParent(parentId);
+        return obj;
     }
 
-    public static BoxFolderRequestObject deleteFolderRequestObject(boolean recursive) {
-        return (new BoxFolderRequestObject()).setRecursive(recursive);
-    }
-
-    public static BoxFolderRequestObject getTrashItemsRequestObject(final int limit, final int offset) {
-        return getFolderItemsRequestObject(limit, offset);
-    }
-
-    /**
-     * BoxFolderRequestObject for get folder items request.
-     * 
-     * @param limit
-     *            the number of items to return. default is 100, max is 1000.
-     * @param offset
-     *            the item at which to begin the response, default is 0.
-     * @return BoxFolderRequestObject
-     */
-    public static BoxFolderRequestObject getFolderItemsRequestObject(final int limit, final int offset) {
-        return (BoxFolderRequestObject) (new BoxFolderRequestObject()).setPage(limit, offset);
-    }
-
-    /**
-     * BoxFolderRequestObject for copy folder request.
-     * 
-     * @param parentId
-     *            id of destination parent folder.
-     * @return BoxFolderRequestObject
-     */
-    public static BoxFolderRequestObject copyFolderRequestObject(String parentId) {
-        return (BoxFolderRequestObject) (new BoxFolderRequestObject()).setParent(parentId);
-    }
-
-    public static BoxFolderRequestObject updateFolderInfoRequestObject() {
-        return (new BoxFolderRequestObject());
-    }
-
-    /**
-     * Set whether operation is done recursively. (For example deleting a folder)
-     * 
-     * @param recursive
-     * @return
-     */
-    public BoxFolderRequestObject setRecursive(final boolean recursive) {
-        addQueryParam(Constants.RECURSIVE, Boolean.toString(recursive));
-        return this;
+    public static BoxFolderRequestObject updateFolderRequestObject() {
+        return new BoxFolderRequestObject();
     }
 
     /**
@@ -78,11 +47,10 @@ public class BoxFolderRequestObject extends BoxItemRequestObject {
      *            email address
      * @return
      */
-    public BoxFolderRequestObject setUploadEmail(String access, String email) {
+    public void setUploadEmail(String access, String email) {
         MapJSONStringEntity entity = new MapJSONStringEntity();
         entity.put(BoxEmail.FIELD_ACCESS, access);
         entity.put(BoxEmail.FIELD_EMAIL, email);
         put(BoxFolder.FIELD_FOLDER_UPLOAD_EMAIL, entity);
-        return this;
     }
 }

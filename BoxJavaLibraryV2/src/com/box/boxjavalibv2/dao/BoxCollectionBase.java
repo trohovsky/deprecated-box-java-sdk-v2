@@ -3,7 +3,6 @@ package com.box.boxjavalibv2.dao;
 import java.util.ArrayList;
 import java.util.Map;
 
-import com.box.boxjavalibv2.interfaces.IBoxParcelWrapper;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class BoxCollectionBase extends BoxObject {

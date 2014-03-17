@@ -1,6 +1,7 @@
 package com.box.boxjavalibv2.requests;
 
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpStatus;
@@ -8,11 +9,11 @@ import org.apache.http.entity.StringEntity;
 import org.junit.Assert;
 import org.junit.Test;
 
-import com.box.boxjavalibv2.BoxConfig;
 import com.box.boxjavalibv2.dao.BoxResourceType;
 import com.box.boxjavalibv2.exceptions.AuthFatalFailureException;
 import com.box.boxjavalibv2.exceptions.BoxJSONException;
-import com.box.boxjavalibv2.requests.requestobjects.BoxFileRequestObject;
+import com.box.boxjavalibv2.requests.requestobjects.BoxItemCopyRequestObject;
+import com.box.boxjavalibv2.testutils.TestUtils;
 import com.box.restclientv2.RestMethod;
 import com.box.restclientv2.exceptions.BoxRestException;
 
@@ -25,28 +26,32 @@ public class CopyItemRequestTest extends RequestTestBase {
     }
 
     @Test
-    public void testFolderRequestWellFormed() throws BoxRestException, IllegalStateException, IOException, AuthFatalFailureException, BoxJSONException {
+    public void testFolderRequestWellFormed() throws BoxRestException, IllegalStateException, IOException, AuthFatalFailureException, BoxJSONException,
+        NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
         testRequestIsWellFormed(BoxResourceType.FOLDER);
     }
 
     @Test
-    public void testFileRequestWellFormed() throws BoxRestException, IllegalStateException, IOException, AuthFatalFailureException, BoxJSONException {
+    public void testFileRequestWellFormed() throws BoxRestException, IllegalStateException, IOException, AuthFatalFailureException, BoxJSONException,
+        NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
         testRequestIsWellFormed(BoxResourceType.FILE);
     }
 
     private void testRequestIsWellFormed(BoxResourceType type) throws BoxRestException, IllegalStateException, IOException, AuthFatalFailureException,
-        BoxJSONException {
+        BoxJSONException, NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
         String id = "testid123";
         String parentId = "testparentid456";
         String newName = "testnewname789";
 
-        CopyItemRequest request = new CopyItemRequest(CONFIG, JSON_PARSER, id, BoxFileRequestObject.copyFileRequestObject(parentId).setName(newName), type);
-        testRequestIsWellFormed(request, BoxConfig.getInstance().getApiUrlAuthority(),
-            BoxConfig.getInstance().getApiUrlPath().concat(CopyItemRequest.getUri(id, type)), HttpStatus.SC_CREATED, RestMethod.POST);
+        BoxItemCopyRequestObject obj = BoxItemCopyRequestObject.copyItemRequestObject(parentId).setName(newName);
+        CopyItemRequest request = new CopyItemRequest(CONFIG, JSON_PARSER, id, obj, type);
+        testRequestIsWellFormed(request, TestUtils.getConfig().getApiUrlAuthority(),
+            TestUtils.getConfig().getApiUrlPath().concat(CopyItemRequest.getUri(id, type)), HttpStatus.SC_CREATED, RestMethod.POST);
 
-        HttpEntity entity = request.getRequestEntity();
-        Assert.assertTrue(entity instanceof StringEntity);
-        assertEqualStringEntity(BoxFileRequestObject.copyFileRequestObject(parentId).setName(newName).getJSONEntity(), entity);
+        HttpEntity en = request.getRequestEntity();
+        Assert.assertTrue(en instanceof StringEntity);
+
+        assertEqualStringEntity(obj, en);
 
     }
 }

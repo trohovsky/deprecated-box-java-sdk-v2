@@ -2,8 +2,8 @@ package com.box.restclientv2.authorization;
 
 import com.box.boxjavalibv2.exceptions.AuthFatalFailureException;
 import com.box.restclientv2.exceptions.BoxRestException;
-import com.box.restclientv2.interfaces.IBoxRequest;
-import com.box.restclientv2.requests.DefaultBoxRequest;
+import com.box.restclientv2.requestsbase.DefaultBoxRequest;
+import com.box.restclientv2.requestsbase.IBoxRequest;
 
 /**
  * Auth for username/password.

@@ -2,12 +2,12 @@ package com.box.boxjavalibv2.requests;
 
 import org.apache.http.HttpStatus;
 
-import com.box.boxjavalibv2.interfaces.IBoxJSONParser;
-import com.box.boxjavalibv2.requests.requestobjects.BoxFileUploadRequestObject;
+import com.box.boxjavalibv2.IBoxConfig;
+import com.box.boxjavalibv2.jsonparsing.IBoxJSONParser;
 import com.box.restclientv2.RestMethod;
 import com.box.restclientv2.exceptions.BoxRestException;
-import com.box.restclientv2.interfaces.IBoxConfig;
-import com.box.restclientv2.requests.DefaultBoxRequest;
+import com.box.restclientv2.requestsbase.BoxFileUploadRequestObject;
+import com.box.restclientv2.requestsbase.DefaultBoxRequest;
 
 /**
  * Request to upload a new version of a file.
@@ -16,20 +16,6 @@ public class UploadNewVersionFileRequest extends DefaultBoxRequest {
 
     private static final String URI = "/files/%s/content";
 
-    /**
-     * Constructor.
-     * 
-     * @param config
-     *            config
-     * @param parser
-     *            json parser
-     * @param fileId
-     *            id of the file to be updated
-     * @param BoxFileUploadRequestObject
-     *            requestObject
-     * @throws BoxRestException
-     *             exception
-     */
     public UploadNewVersionFileRequest(final IBoxConfig config, final IBoxJSONParser parser, final String fileId, BoxFileUploadRequestObject requestObject)
         throws BoxRestException {
         super(config, parser, getUri(fileId), RestMethod.POST, requestObject);

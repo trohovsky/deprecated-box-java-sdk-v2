@@ -8,13 +8,12 @@ import junit.framework.Assert;
 import org.apache.http.HttpStatus;
 import org.junit.Test;
 
-import com.box.boxjavalibv2.BoxConfig;
 import com.box.boxjavalibv2.exceptions.AuthFatalFailureException;
 import com.box.boxjavalibv2.exceptions.BoxJSONException;
-import com.box.boxjavalibv2.requests.requestobjects.BoxFileUploadRequestObject;
 import com.box.boxjavalibv2.testutils.TestUtils;
 import com.box.restclientv2.RestMethod;
 import com.box.restclientv2.exceptions.BoxRestException;
+import com.box.restclientv2.requestsbase.BoxFileUploadRequestObject;
 
 /**
  * Test UploadFileRequest.
@@ -48,9 +47,8 @@ public class UploadFileRequestTest extends RequestTestBase {
 
         String fileName = "testfilename998";
 
-        UploadFileRequest request = new UploadFileRequest(CONFIG, JSON_PARSER, BoxFileUploadRequestObject.uploadFileRequestObject(parentId, fileName, f,
-            JSON_PARSER));
-        testRequestIsWellFormed(request, BoxConfig.getInstance().getUploadUrlAuthority(),
-            BoxConfig.getInstance().getUploadUrlPath().concat(UploadFileRequest.getUri()), HttpStatus.SC_CREATED, RestMethod.POST);
+        UploadFileRequest request = new UploadFileRequest(CONFIG, JSON_PARSER, BoxFileUploadRequestObject.uploadFileRequestObject(parentId, fileName, f));
+        testRequestIsWellFormed(request, TestUtils.getConfig().getUploadUrlAuthority(),
+            TestUtils.getConfig().getUploadUrlPath().concat(UploadFileRequest.getUri()), HttpStatus.SC_CREATED, RestMethod.POST);
     }
 }

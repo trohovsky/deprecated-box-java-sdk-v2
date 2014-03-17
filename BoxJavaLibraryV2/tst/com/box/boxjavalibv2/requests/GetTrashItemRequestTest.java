@@ -5,9 +5,9 @@ import junit.framework.Assert;
 import org.apache.http.HttpStatus;
 import org.junit.Test;
 
-import com.box.boxjavalibv2.BoxConfig;
 import com.box.boxjavalibv2.dao.BoxResourceType;
 import com.box.boxjavalibv2.exceptions.AuthFatalFailureException;
+import com.box.boxjavalibv2.testutils.TestUtils;
 import com.box.restclientv2.RestMethod;
 import com.box.restclientv2.exceptions.BoxRestException;
 
@@ -33,7 +33,7 @@ public class GetTrashItemRequestTest extends RequestTestBase {
         String id = "testid123";
 
         GetTrashItemRequest request = new GetTrashItemRequest(CONFIG, JSON_PARSER, id, type, null);
-        testRequestIsWellFormed(request, BoxConfig.getInstance().getApiUrlAuthority(),
-            BoxConfig.getInstance().getApiUrlPath().concat(GetTrashItemRequest.getUri(id, type)), HttpStatus.SC_OK, RestMethod.GET);
+        testRequestIsWellFormed(request, TestUtils.getConfig().getApiUrlAuthority(),
+            TestUtils.getConfig().getApiUrlPath().concat(GetTrashItemRequest.getUri(id, type)), HttpStatus.SC_OK, RestMethod.GET);
     }
 }

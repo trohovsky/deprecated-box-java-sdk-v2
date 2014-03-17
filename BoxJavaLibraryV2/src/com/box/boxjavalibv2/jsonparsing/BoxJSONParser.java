@@ -1,15 +1,17 @@
 package com.box.boxjavalibv2.jsonparsing;
 
+import java.io.IOException;
 import java.io.InputStream;
 
+import com.box.boxjavalibv2.dao.IBoxType;
 import com.box.boxjavalibv2.exceptions.BoxJSONException;
-import com.box.boxjavalibv2.interfaces.IBoxJSONParser;
-import com.box.boxjavalibv2.interfaces.IBoxResourceHub;
-import com.box.boxjavalibv2.interfaces.IBoxType;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.core.JsonFactory;
+import com.fasterxml.jackson.core.JsonGenerationException;
+import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.jsontype.NamedType;
 
@@ -45,6 +47,9 @@ public class BoxJSONParser implements IBoxJSONParser {
         catch (BoxJSONException e) {
             return null;
         }
+        catch (IOException e) {
+            return null;
+        }
     }
 
     @Override
@@ -53,6 +58,9 @@ public class BoxJSONParser implements IBoxJSONParser {
             return parseIntoBoxObject(inputStream, theClass);
         }
         catch (BoxJSONException e) {
+            return null;
+        }
+        catch (IOException e) {
             return null;
         }
     }
@@ -65,38 +73,56 @@ public class BoxJSONParser implements IBoxJSONParser {
         catch (BoxJSONException e) {
             return null;
         }
+        catch (IOException e) {
+            return null;
+        }
     }
 
     @Override
-    public String convertBoxObjectToJSONString(Object object) throws BoxJSONException {
+    public String convertBoxObjectToJSONString(Object object) throws BoxJSONException, IOException {
         try {
             return getObjectMapper().writeValueAsString(object);
         }
-        catch (Exception e) {
+        catch (JsonGenerationException e) {
+            throw new BoxJSONException(e);
+        }
+        catch (JsonMappingException e) {
             throw new BoxJSONException(e);
         }
     }
 
     @Override
-    public <T> T parseIntoBoxObject(InputStream inputStream, Class<T> theClass) throws BoxJSONException {
+    public <T> T parseIntoBoxObject(InputStream inputStream, Class<T> theClass) throws BoxJSONException, IOException {
         try {
             JsonFactory jsonFactory = new JsonFactory();
             JsonParser jp = jsonFactory.createJsonParser(inputStream);
             return getObjectMapper().readValue(jp, theClass);
         }
-        catch (Exception e) {
+        catch (JsonGenerationException e) {
+            throw new BoxJSONException(e);
+        }
+        catch (JsonMappingException e) {
+            throw new BoxJSONException(e);
+        }
+        catch (JsonParseException e) {
             throw new BoxJSONException(e);
         }
     }
 
     @Override
-    public <T> T parseIntoBoxObject(String jsonString, Class<T> theClass) throws BoxJSONException {
+    public <T> T parseIntoBoxObject(String jsonString, Class<T> theClass) throws BoxJSONException, IOException {
         try {
             JsonFactory jsonFactory = new JsonFactory();
             JsonParser jp = jsonFactory.createJsonParser(jsonString);
             return getObjectMapper().readValue(jp, theClass);
         }
-        catch (Exception e) {
+        catch (JsonGenerationException e) {
+            throw new BoxJSONException(e);
+        }
+        catch (JsonMappingException e) {
+            throw new BoxJSONException(e);
+        }
+        catch (JsonParseException e) {
             throw new BoxJSONException(e);
         }
     }

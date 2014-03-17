@@ -1,6 +1,7 @@
 package com.box.boxjavalibv2.authorization;
 
-import com.box.boxjavalibv2.interfaces.IAuthData;
+import com.box.boxjavalibv2.dao.IAuthData;
+
 
 /**
  * Listener listening to the event that oauth token is refreshed.
