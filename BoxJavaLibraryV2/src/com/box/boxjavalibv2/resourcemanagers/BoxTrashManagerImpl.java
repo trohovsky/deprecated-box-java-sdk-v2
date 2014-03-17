@@ -52,9 +52,8 @@ public class BoxTrashManagerImpl extends AbstractBoxResourceManager implements I
     }
 
     @Override
-    public BoxCollection getFolderTrashItems(final String folderId, BoxPagingRequestObject requestObject) throws BoxRestException, BoxServerException,
-        AuthFatalFailureException {
-        GetFolderTrashItemsRequest request = new GetFolderTrashItemsRequest(getConfig(), getJSONParser(), folderId, requestObject);
+    public BoxCollection getTrashItems(BoxPagingRequestObject requestObject) throws BoxRestException, BoxServerException, AuthFatalFailureException {
+        GetFolderTrashItemsRequest request = new GetFolderTrashItemsRequest(getConfig(), getJSONParser(), requestObject);
         return (BoxCollection) getResponseAndParseAndTryCast(request, BoxResourceType.ITEMS, getJSONParser());
     }
 

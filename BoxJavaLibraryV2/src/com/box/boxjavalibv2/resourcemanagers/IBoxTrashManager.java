@@ -82,8 +82,8 @@ public interface IBoxTrashManager extends IBoxResourceManager {
         AuthFatalFailureException;
 
     /**
-     * Get the trashed items(subfolders, files, weblinks...) under a folder. By default, returning maximum of
-     * {@link GetFolderItemsRequest#DEFAULT_FOLDER_ITEMS_LIMIT} items, at an offset of {@link GetFolderItemsRequest#DEFAULT_FOLDER_ITEMS_OFFSET}
+     * Get all the trashed items(subfolders, files, weblinks...). By default, returning maximum of {@link GetFolderItemsRequest#DEFAULT_FOLDER_ITEMS_LIMIT}
+     * items, at an offset of {@link GetFolderItemsRequest#DEFAULT_FOLDER_ITEMS_OFFSET}
      * 
      * @param folderId
      *            id of the folder.
@@ -97,8 +97,7 @@ public interface IBoxTrashManager extends IBoxResourceManager {
      * @throws AuthFatalFailureException
      *             See {@link com.box.restclientv2.exceptions.AuthFatalFailureException} for more info.
      */
-    public BoxCollection getFolderTrashItems(String folderId, BoxPagingRequestObject requestObject) throws BoxRestException, BoxServerException,
-        AuthFatalFailureException;
+    public BoxCollection getTrashItems(BoxPagingRequestObject requestObject) throws BoxRestException, BoxServerException, AuthFatalFailureException;
 
     /**
      * Permanently delete a trashed folder.
