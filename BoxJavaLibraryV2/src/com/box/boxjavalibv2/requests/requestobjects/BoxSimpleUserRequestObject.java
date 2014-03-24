@@ -15,7 +15,7 @@ public class BoxSimpleUserRequestObject extends BoxDefaultRequestObject {
     /**
      * move a folder to another user.
      * 
-     * @param destinationFolderId
+     * @param destinationUserId
      *            the ID of the user who the folder will be transferred to
      * @param notify
      *            whether destination user should receive email notification of the transfer
@@ -29,7 +29,7 @@ public class BoxSimpleUserRequestObject extends BoxDefaultRequestObject {
     /**
      * Set destination user, this is only used in request to move a folder to another user's account.
      * 
-     * @param destinationFolderId
+     * @param destinationUserId
      *            the ID of the user who the folder will be transferred to
      * @return
      */

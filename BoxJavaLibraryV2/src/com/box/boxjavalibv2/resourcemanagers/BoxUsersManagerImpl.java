@@ -17,6 +17,7 @@ import com.box.boxjavalibv2.jsonparsing.IBoxResourceHub;
 import com.box.boxjavalibv2.requests.CreateEmailAliasRequest;
 import com.box.boxjavalibv2.requests.CreateEnterpriseUserRequest;
 import com.box.boxjavalibv2.requests.DeleteEmailAliasRequest;
+import com.box.boxjavalibv2.requests.DeleteUserRequest;
 import com.box.boxjavalibv2.requests.GetAllUsersInEnterpriseRequest;
 import com.box.boxjavalibv2.requests.GetCurrentUserRequest;
 import com.box.boxjavalibv2.requests.GetEmailAliasesRequest;
@@ -25,6 +26,7 @@ import com.box.boxjavalibv2.requests.UpdateUserLoginRequest;
 import com.box.boxjavalibv2.requests.UpdateUserRequest;
 import com.box.boxjavalibv2.requests.requestobjects.BoxEmailAliasRequestObject;
 import com.box.boxjavalibv2.requests.requestobjects.BoxSimpleUserRequestObject;
+import com.box.boxjavalibv2.requests.requestobjects.BoxUserDeleteRequestObject;
 import com.box.boxjavalibv2.requests.requestobjects.BoxUserRequestObject;
 import com.box.boxjavalibv2.requests.requestobjects.BoxUserUpdateLoginRequestObject;
 import com.box.restclientv2.IBoxRESTClient;
@@ -91,6 +93,12 @@ public final class BoxUsersManagerImpl extends AbstractBoxResourceManager implem
         AuthFatalFailureException {
         UpdateUserRequest request = new UpdateUserRequest(getConfig(), getJSONParser(), userId, requestObject);
         return (BoxUser) getResponseAndParseAndTryCast(request, BoxResourceType.USER, getJSONParser());
+    }
+
+    @Override
+    public void deleteEnterpriseUser(String userId, BoxUserDeleteRequestObject requestObject) throws BoxRestException, BoxServerException, AuthFatalFailureException {
+        DeleteUserRequest request = new DeleteUserRequest(getConfig(), getJSONParser(), userId, requestObject);
+        this.executeRequestWithNoResponseBody(request);
     }
 
     @Override
