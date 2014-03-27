@@ -9,6 +9,7 @@ import com.box.boxjavalibv2.exceptions.AuthFatalFailureException;
 import com.box.boxjavalibv2.exceptions.BoxServerException;
 import com.box.boxjavalibv2.requests.requestobjects.BoxEmailAliasRequestObject;
 import com.box.boxjavalibv2.requests.requestobjects.BoxSimpleUserRequestObject;
+import com.box.boxjavalibv2.requests.requestobjects.BoxUserDeleteRequestObject;
 import com.box.boxjavalibv2.requests.requestobjects.BoxUserRequestObject;
 import com.box.boxjavalibv2.requests.requestobjects.BoxUserUpdateLoginRequestObject;
 import com.box.restclientv2.exceptions.BoxRestException;
@@ -25,9 +26,9 @@ public interface IBoxUsersManager extends IBoxResourceManager {
      * @throws BoxRestException
      *             See {@link com.box.restclientv2.exceptions.BoxRestException} for more info.
      * @throws BoxServerException
-     *             See {@link com.box.restclientv2.exceptions.BoxServerException} for more info.
+     *             See {@link com.box.boxjavalibv2.exceptions.BoxServerException} for more info.
      * @throws AuthFatalFailureException
-     *             See {@link com.box.restclientv2.exceptions.AuthFatalFailureException} for more info.
+     *             See {@link com.box.boxjavalibv2.exceptions.AuthFatalFailureException} for more info.
      */
     public BoxUser getCurrentUser(BoxDefaultRequestObject requestObject) throws BoxRestException, BoxServerException, AuthFatalFailureException;
 
@@ -44,9 +45,9 @@ public interface IBoxUsersManager extends IBoxResourceManager {
      * @throws BoxRestException
      *             See {@link com.box.restclientv2.exceptions.BoxRestException} for more info.
      * @throws BoxServerException
-     *             See {@link com.box.restclientv2.exceptions.BoxServerException} for more info.
+     *             See {@link com.box.boxjavalibv2.exceptions.BoxServerException} for more info.
      * @throws AuthFatalFailureException
-     *             See {@link com.box.restclientv2.exceptions.AuthFatalFailureException} for more info.
+     *             See {@link com.box.boxjavalibv2.exceptions.AuthFatalFailureException} for more info.
      */
     public List<BoxUser> getAllEnterpriseUser(BoxDefaultRequestObject requestObject, String filterTerm) throws BoxRestException, BoxServerException,
         AuthFatalFailureException;
@@ -65,9 +66,9 @@ public interface IBoxUsersManager extends IBoxResourceManager {
      * @throws BoxRestException
      *             See {@link com.box.restclientv2.exceptions.BoxRestException} for more info.
      * @throws BoxServerException
-     *             See {@link com.box.restclientv2.exceptions.BoxServerException} for more info.
+     *             See {@link com.box.boxjavalibv2.exceptions.BoxServerException} for more info.
      * @throws AuthFatalFailureException
-     *             See {@link com.box.restclientv2.exceptions.AuthFatalFailureException} for more info.
+     *             See {@link com.box.boxjavalibv2.exceptions.AuthFatalFailureException} for more info.
      */
     public BoxFolder moveFolderToAnotherUser(String userId, String folderId, BoxSimpleUserRequestObject requestObject) throws BoxRestException,
         BoxServerException, AuthFatalFailureException;
@@ -82,9 +83,9 @@ public interface IBoxUsersManager extends IBoxResourceManager {
      * @throws BoxRestException
      *             See {@link com.box.restclientv2.exceptions.BoxRestException} for more info.
      * @throws BoxServerException
-     *             See {@link com.box.restclientv2.exceptions.BoxServerException} for more info.
+     *             See {@link com.box.boxjavalibv2.exceptions.BoxServerException} for more info.
      * @throws AuthFatalFailureException
-     *             See {@link com.box.restclientv2.exceptions.AuthFatalFailureException} for more info.
+     *             See {@link com.box.boxjavalibv2.exceptions.AuthFatalFailureException} for more info.
      */
     public BoxUser createEnterpriseUser(BoxUserRequestObject requestObject) throws BoxRestException, BoxServerException, AuthFatalFailureException;
 
@@ -99,11 +100,27 @@ public interface IBoxUsersManager extends IBoxResourceManager {
      * @throws BoxRestException
      *             See {@link com.box.restclientv2.exceptions.BoxRestException} for more info.
      * @throws BoxServerException
-     *             See {@link com.box.restclientv2.exceptions.BoxServerException} for more info.
+     *             See {@link com.box.boxjavalibv2.exceptions.BoxServerException} for more info.
      * @throws AuthFatalFailureException
-     *             See {@link com.box.restclientv2.exceptions.AuthFatalFailureException} for more info.
+     *             See {@link com.box.boxjavalibv2.exceptions.AuthFatalFailureException} for more info.
      */
     public BoxUser updateUserInformaiton(String userId, BoxUserRequestObject requestObject) throws BoxRestException, BoxServerException,
+        AuthFatalFailureException;
+
+    /**
+     * Used to delete a user in an enterprise. This method only works for enterprise admins.
+     *
+     * @param userId
+     *            id of the user.
+     * @param requestObject
+     * @throws BoxRestException
+     *             See {@link com.box.restclientv2.exceptions.BoxRestException} for more info.
+     * @throws BoxServerException
+     *             See {@link com.box.boxjavalibv2.exceptions.BoxServerException} for more info.
+     * @throws AuthFatalFailureException
+     *             See {@link com.box.boxjavalibv2.exceptions.AuthFatalFailureException} for more info.
+     */
+    public void deleteEnterpriseUser(String userId, BoxUserDeleteRequestObject requestObject) throws BoxRestException, BoxServerException,
         AuthFatalFailureException;
 
     /**
@@ -117,9 +134,9 @@ public interface IBoxUsersManager extends IBoxResourceManager {
      * @throws BoxRestException
      *             See {@link com.box.restclientv2.exceptions.BoxRestException} for more info.
      * @throws BoxServerException
-     *             See {@link com.box.restclientv2.exceptions.BoxServerException} for more info.
+     *             See {@link com.box.boxjavalibv2.exceptions.BoxServerException} for more info.
      * @throws AuthFatalFailureException
-     *             See {@link com.box.restclientv2.exceptions.AuthFatalFailureException} for more info.
+     *             See {@link com.box.boxjavalibv2.exceptions.AuthFatalFailureException} for more info.
      */
     public List<BoxEmailAlias> getEmailAliases(String userId, BoxDefaultRequestObject requestObject) throws BoxServerException, BoxRestException,
         AuthFatalFailureException;
@@ -136,9 +153,9 @@ public interface IBoxUsersManager extends IBoxResourceManager {
      * @throws BoxRestException
      *             See {@link com.box.restclientv2.exceptions.BoxRestException} for more info.
      * @throws BoxServerException
-     *             See {@link com.box.restclientv2.exceptions.BoxServerException} for more info.
+     *             See {@link com.box.boxjavalibv2.exceptions.BoxServerException} for more info.
      * @throws AuthFatalFailureException
-     *             See {@link com.box.restclientv2.exceptions.AuthFatalFailureException} for more info.
+     *             See {@link com.box.boxjavalibv2.exceptions.AuthFatalFailureException} for more info.
      */
     public BoxEmailAlias addEmailAlias(String userId, BoxEmailAliasRequestObject requestObject) throws BoxServerException, BoxRestException,
         AuthFatalFailureException;
@@ -155,9 +172,9 @@ public interface IBoxUsersManager extends IBoxResourceManager {
      * @throws BoxRestException
      *             See {@link com.box.restclientv2.exceptions.BoxRestException} for more info.
      * @throws BoxServerException
-     *             See {@link com.box.restclientv2.exceptions.BoxServerException} for more info.
+     *             See {@link com.box.boxjavalibv2.exceptions.BoxServerException} for more info.
      * @throws AuthFatalFailureException
-     *             See {@link com.box.restclientv2.exceptions.AuthFatalFailureException} for more info.
+     *             See {@link com.box.boxjavalibv2.exceptions.AuthFatalFailureException} for more info.
      */
     public void deleteEmailAlias(String userId, String emailId, BoxDefaultRequestObject requestObject) throws BoxRestException, BoxServerException,
         AuthFatalFailureException;
@@ -173,9 +190,9 @@ public interface IBoxUsersManager extends IBoxResourceManager {
      * @throws BoxRestException
      *             See {@link com.box.restclientv2.exceptions.BoxRestException} for more info.
      * @throws BoxServerException
-     *             See {@link com.box.restclientv2.exceptions.BoxServerException} for more info.
+     *             See {@link com.box.boxjavalibv2.exceptions.BoxServerException} for more info.
      * @throws AuthFatalFailureException
-     *             See {@link com.box.restclientv2.exceptions.AuthFatalFailureException} for more info.
+     *             See {@link com.box.boxjavalibv2.exceptions.AuthFatalFailureException} for more info.
      */
     public BoxUser updateUserPrimaryLogin(String userId, BoxUserUpdateLoginRequestObject requestObject) throws BoxRestException, BoxServerException,
         AuthFatalFailureException;
