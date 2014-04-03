@@ -86,7 +86,6 @@ public class BoxClient extends BoxBase implements IAuthFlowListener {
     private final IBoxOAuthManager oauthManager;
     private final IBoxGroupsManager groupsManager;
     private final IBoxTrashManager trashManager;
-    private IAuthFlowListener mAuthListener;
     private final Map<String, IBoxResourceManager> pluginResourceManagers = new HashMap<String, IBoxResourceManager>();
 
     /**
@@ -482,7 +481,7 @@ public class BoxClient extends BoxBase implements IAuthFlowListener {
      *            listener listening to the auth flow events.
      */
     public void authenticate(IAuthFlowUI authFlowUI, boolean autoRefreshOAuth, IAuthFlowListener listener) {
-        this.mAuthListener = listener;
+        authFlowUI.addAuthFlowListener(listener);
         authFlowUI.authenticate(this);
     }
 
@@ -491,9 +490,6 @@ public class BoxClient extends BoxBase implements IAuthFlowListener {
         OAuthEvent oe = (OAuthEvent) event;
         if (oe == OAuthEvent.OAUTH_CREATED) {
             ((OAuthAuthorization) getAuth()).setOAuthData(getOAuthTokenFromMessage(message));
-        }
-        if (mAuthListener != null) {
-            mAuthListener.onAuthFlowEvent(event, message);
         }
     }
 
@@ -607,16 +603,10 @@ public class BoxClient extends BoxBase implements IAuthFlowListener {
 
     @Override
     public void onAuthFlowMessage(IAuthFlowMessage message) {
-        if (mAuthListener != null) {
-            mAuthListener.onAuthFlowMessage(message);
-        }
     }
 
     @Override
     public void onAuthFlowException(Exception e) {
-        if (mAuthListener != null) {
-            mAuthListener.onAuthFlowException(e);
-        }
     }
 
     protected BoxOAuthToken getOAuthTokenFromMessage(IAuthFlowMessage message) {

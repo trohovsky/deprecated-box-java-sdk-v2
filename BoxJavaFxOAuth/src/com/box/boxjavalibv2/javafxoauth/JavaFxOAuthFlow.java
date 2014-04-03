@@ -81,14 +81,13 @@ public class JavaFxOAuthFlow implements IAuthFlowUI {
     }
 
     @Override
-    public void initializeAuthFlow(final Object activity, String clientId, String clientSecret) {
-        initializeAuthFlow(activity, clientId, clientSecret, null);
+    public void initializeAuthFlow(final Object applicationContext, String clientId, String clientSecret) {
+        initializeAuthFlow(applicationContext, clientId, clientSecret, null);
     }
 
     @Override
-    public void initializeAuthFlow(Object activity, String clientId, String clientSecret, String redirectUrl) {
-        client = new BoxClient(clientId, clientSecret, null, null, (new BoxConfigBuilder()).build());
-        mWebViewData = new OAuthWebViewData(client.getOAuthDataController());
+    public void initializeAuthFlow(Object applicationContext, String clientId, String clientSecret, String redirectUrl, BoxClient boxClient) {
+        mWebViewData = new OAuthWebViewData(boxClient.getOAuthDataController());
         if (StringUtils.isNotEmpty(redirectUrl)) {
             mWebViewData.setRedirectUrl(redirectUrl);
         }
@@ -98,6 +97,12 @@ public class JavaFxOAuthFlow implements IAuthFlowUI {
         webEngine = webView.getEngine();
         webEngine.setJavaScriptEnabled(true);
         webEngine.setOnStatusChanged(createEventHandler());
+    }
+
+    @Override
+    public void initializeAuthFlow(Object activity, String clientId, String clientSecret, String redirectUrl) {
+        client = new BoxClient(clientId, clientSecret, null, null, (new BoxConfigBuilder()).build());
+        initializeAuthFlow(activity, clientId, clientSecret, redirectUrl, client);
     }
 
     @Override
@@ -204,5 +209,9 @@ public class JavaFxOAuthFlow implements IAuthFlowUI {
             }
         }
         return null;
+    }
+
+    @Override
+    public void addAuthFlowListener(IAuthFlowListener listener) {
     }
 }
