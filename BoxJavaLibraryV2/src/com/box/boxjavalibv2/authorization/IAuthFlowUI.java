@@ -7,13 +7,15 @@ import com.box.boxjavalibv2.BoxClient;
  */
 public interface IAuthFlowUI {
 
+    void authenticate(IAuthFlowListener listener);
+
     /**
-     * Authenticate.
+     * add authflow listener.
      * 
      * @param listener
      *            listener listening to events/messages fired during authentication process.
      */
-    void authenticate(IAuthFlowListener listener);
+    void addAuthFlowListener(IAuthFlowListener listener);
 
     /**
      * Initialize the UI for OAuth flow. This needs to be called everytime before starting an auth flow.
