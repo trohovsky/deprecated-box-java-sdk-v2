@@ -14,7 +14,7 @@
 
 	<groupId>net.box</groupId>
 	<artifactId>boxjavalibv2</artifactId>
-	<version>3.0.1-SNAPSHOT</version>
+	<version>3.0.1</version>
 	<packaging>jar</packaging>
 	<name>Box Java Lib v2</name>
   	<description>The java sdk for Box api</description>
