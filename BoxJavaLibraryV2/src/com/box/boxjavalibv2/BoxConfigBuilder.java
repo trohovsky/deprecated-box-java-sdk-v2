@@ -2,6 +2,7 @@ package com.box.boxjavalibv2;
 
 public class BoxConfigBuilder {
 
+    private final static String VERSION_NUMBER = "v3.0.3";
     /** Default API url scheme. */
     private static final String API_URL_SCHEME = "https";
     /** Default API url authority. */
@@ -48,6 +49,7 @@ public class BoxConfigBuilder {
     private String mDownloadUrlAuthority = DOWNLOAD_URL_AUTHORITY;
     private String mDownloadUrlPath = DOWNLOAD_URL_PATH;
     private String mUserAgent = USER_AGENT;
+    private String mVersion = VERSION_NUMBER;
 
     public IBoxConfig build() {
         return new BoxConfig(this);
@@ -181,6 +183,14 @@ public class BoxConfigBuilder {
         this.mDownloadUrlPath = downloadUrlPath;
     }
 
+    protected void setVersion(final String version) {
+        mVersion = version;
+    }
+
+    public String getVersion() {
+        return mVersion;
+    }
+
     public class BoxConfig implements IBoxConfig {
 
         private final String mOAuthUrlScheme;
@@ -197,6 +207,7 @@ public class BoxConfigBuilder {
         private final String mDownloadUrlAuthority;
         private final String mDownloadUrlPath;
         private final String mUserAgent;
+        private final String mVersion;
 
         private BoxConfig(BoxConfigBuilder builder) {
             this.mApiUrlAuthority = builder.mApiUrlAuthority;
@@ -213,6 +224,7 @@ public class BoxConfigBuilder {
             this.mUploadUrlPath = builder.mUploadUrlPath;
             this.mUploadUrlScheme = builder.mUploadUrlScheme;
             this.mUserAgent = builder.mUserAgent;
+            this.mVersion = builder.mVersion;
         }
 
         /**
@@ -335,6 +347,11 @@ public class BoxConfigBuilder {
         @Override
         public String getDownloadUrlPath() {
             return mDownloadUrlPath;
+        }
+
+        @Override
+        public String getVersion() {
+            return mVersion;
         }
 
     }

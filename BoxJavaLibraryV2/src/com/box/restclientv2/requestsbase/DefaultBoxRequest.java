@@ -84,6 +84,8 @@ public class DefaultBoxRequest implements IBoxRequest {
         this.mRestMethod = restMethod;
         this.uriPath = uriPath;
         getHeaders().put("User-Agent", getConfig().getUserAgent());
+        getHeaders().put("sdk_version", getConfig().getVersion());
+
         if (requestObject != null) {
             try {
                 setEntity(requestObject.getEntity(parser));

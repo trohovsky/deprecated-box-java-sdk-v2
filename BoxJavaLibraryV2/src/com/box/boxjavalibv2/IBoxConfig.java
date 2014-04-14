@@ -78,4 +78,6 @@ public interface IBoxConfig {
 
     /** Get the download url path */
     String getDownloadUrlPath();
+
+    String getVersion();
 }
