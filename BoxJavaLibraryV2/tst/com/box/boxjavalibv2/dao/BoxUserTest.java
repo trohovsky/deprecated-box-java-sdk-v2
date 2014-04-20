@@ -25,6 +25,9 @@ public class BoxUserTest {
         Assert.assertEquals("user", fromParcel.getType());
         Assert.assertEquals("testuserid", fromParcel.getId());
         Assert.assertEquals("testname", fromParcel.getName());
+        Assert.assertEquals("testlogin", fromParcel.getLogin());
+        Assert.assertEquals("testcreatedat", fromParcel.getCreatedAt());
+        Assert.assertEquals("testmodifiedat", fromParcel.getModifiedAt());
         Assert.assertEquals("testrole", fromParcel.getRole());
         Assert.assertEquals("testlanguage", fromParcel.getLanguage());
         Assert.assertEquals(999, fromParcel.getSpaceAmount().intValue());

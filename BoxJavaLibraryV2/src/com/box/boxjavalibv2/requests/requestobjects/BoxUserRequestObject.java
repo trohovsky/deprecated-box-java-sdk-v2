@@ -126,6 +126,17 @@ public class BoxUserRequestObject extends BoxSimpleUserRequestObject {
     }
 
     /**
+     * Sets the maximum individual file size in bytes this user can have
+     *
+     *  @param max_upload_size
+     *            the max_upload_size to set
+     */
+    public BoxUserRequestObject setMaxUploadSize(Double max_upload_size) {
+        put(BoxUser.FIELD_MAX_UPLOAD_SIZE, max_upload_size);
+        return this;
+    }
+    
+    /**
      * @param trackingCodes
      *            the trackingCodes to set
      * @return
@@ -161,6 +172,17 @@ public class BoxUserRequestObject extends BoxSimpleUserRequestObject {
     }
 
     /**
+     * Sets the URL for this user's avatar image.
+     *
+     * @param avatarUrl
+     *            the avatar_url to set
+     */
+    public BoxUserRequestObject setAvatarUrl(String avatarUrl) {
+        put(BoxUser.FIELD_AVATAR_URL, avatarUrl);
+        return this;
+    }
+    
+    /**
      * @param exemptFromDeviceLimits
      *            the exemptFromDeviceLimits to set
      * @return
@@ -187,6 +209,17 @@ public class BoxUserRequestObject extends BoxSimpleUserRequestObject {
      */
     public BoxUserRequestObject setEnterprise(final BoxEnterpriseRequestEntity enterprise) {
         put(BoxUser.FIELD_ENTERPRISE, enterprise);
+        return this;
+    }
+
+    /**
+     * Sets set of all tags on items that are visible by this user. Note this is not tags of the "BoxUser" object.
+     *
+     * @param myTags
+     *            my_tags
+     */
+    public BoxUserRequestObject setMyTags(String... myTags) {
+        put(BoxUser.FIELD_MY_TAGS, myTags);
         return this;
     }
 }
