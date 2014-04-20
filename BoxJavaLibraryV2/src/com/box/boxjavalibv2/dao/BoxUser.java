@@ -125,7 +125,7 @@ public class BoxUser extends BoxUserBase {
      */
     @JsonProperty(FIELD_MODIFIED_AT)
     public String getModifiedAt() {
-        return (String) getValue(FIELD_CREATED_AT);
+        return (String) getValue(FIELD_MODIFIED_AT);
     }
 
     /**
