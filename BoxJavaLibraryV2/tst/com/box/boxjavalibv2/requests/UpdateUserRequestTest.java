@@ -55,6 +55,9 @@ public class UpdateUserRequestTest extends RequestTestBase {
         if (removeEnterprise) {
             obj.setEnterprise(null);
         }
+        obj.setMaxUploadSize(1000d);
+        obj.setAvatarUrl("http://testboxavatarurl.com");
+        obj.setMyTags("mytaga","mytagb");
         UpdateUserRequest request = new UpdateUserRequest(CONFIG, JSON_PARSER, userId, obj);
         testRequestIsWellFormed(request, TestUtils.getConfig().getApiUrlAuthority(),
             TestUtils.getConfig().getApiUrlPath().concat(UpdateUserRequest.getUri(userId)), HttpStatus.SC_OK, RestMethod.PUT);
