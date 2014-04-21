@@ -98,48 +98,6 @@ public class BoxUser extends BoxUserBase {
     }
 
     /**
-     * Get the time this user was created
-     *
-     * @return created_at
-     */
-    @JsonProperty(FIELD_CREATED_AT)
-    public String getCreatedAt() {
-        return (String) getValue(FIELD_CREATED_AT);
-    }
-
-    /**
-     * Setter. This is only used by {@see <a href="http://jackson.codehaus.org">Jackson JSON processer</a>}
-     *
-     * @param created_at
-     *            created_at
-     */
-    @JsonProperty(FIELD_CREATED_AT)
-    private void setCreatedAt(String created_at) {
-        put(FIELD_CREATED_AT, created_at);
-    }
-
-    /**
-     * Get the time this user was last modified
-     *
-     * @return modified_at
-     */
-    @JsonProperty(FIELD_MODIFIED_AT)
-    public String getModifiedAt() {
-        return (String) getValue(FIELD_MODIFIED_AT);
-    }
-
-    /**
-     * Setter. This is only used by {@see <a href="http://jackson.codehaus.org">Jackson JSON processer</a>}
-     *
-     * @param modified_at
-     *            modified_at
-     */
-    @JsonProperty(FIELD_MODIFIED_AT)
-    private void setModifiedAt(String modified_at) {
-        put(FIELD_MODIFIED_AT, modified_at);
-    }
-
-    /**
      * Get the user's enterprise role. The role can be {@link #ROLE_ADMIN}, {@link #ROLE_COADMIN} or {@link #ROLE_USER}
      * 
      * @return the role
