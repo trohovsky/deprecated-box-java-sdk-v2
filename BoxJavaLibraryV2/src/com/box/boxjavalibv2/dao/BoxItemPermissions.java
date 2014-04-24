@@ -1,5 +1,7 @@
 package com.box.boxjavalibv2.dao;
 
+import java.util.Map;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class BoxItemPermissions extends BoxObject {
@@ -13,6 +15,31 @@ public class BoxItemPermissions extends BoxObject {
     public static final String FIELD_CAN_SET_SHARE_ACCESS = "can_set_share_access";
     public static final String FIELD_CAN_INVITE_COLLABORATOR = "can_invite_collaborator";
     public static final String FIELD_CAN_COMMENT = "can_comment";
+
+    public BoxItemPermissions() {
+    }
+
+    /**
+     * Copy constructor, this does deep copy for all the fields.
+     * 
+     * @param obj
+     */
+    public BoxItemPermissions(BoxItemPermissions obj) {
+        super(obj);
+    }
+
+    /**
+     * Instantiate the object from a map. Each entry in the map reflects to a field.
+     * 
+     * @param map
+     */
+    public BoxItemPermissions(Map<String, Object> map) {
+        super(map);
+    }
+
+    public BoxItemPermissions(IBoxParcelWrapper in) {
+        super(in);
+    }
 
     @JsonProperty(FIELD_CAN_DOWNLOAD)
     public Boolean canDownload() {
