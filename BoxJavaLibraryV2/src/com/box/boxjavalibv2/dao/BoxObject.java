@@ -111,7 +111,7 @@ public class BoxObject extends BoxBase implements IBoxParcelable {
     @JsonAnySetter
     protected void handleUnknown(String key, Object value) {
         // For unknown fields, only put in String or primitive wrappers to avoid potential serialization/deserialization problem.
-        if (value instanceof String || primitiveWrapperSet.contains(value.getClass())) {
+        if (value instanceof String || (value != null && primitiveWrapperSet.contains(value.getClass()))) {
             extraMap.put(key, value);
         }
     }
