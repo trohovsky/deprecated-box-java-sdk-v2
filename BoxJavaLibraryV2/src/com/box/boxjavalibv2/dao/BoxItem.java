@@ -25,6 +25,7 @@ public class BoxItem extends BoxTypedObject {
     public static final String FIELD_PATH_COLLECTION = "path_collection";
     public static final String FIELD_TAGS = "tags";
     public static final String FIELD_ALLOWED_SHARED_LINK_ACCESS_LEVELS = "allowed_shared_link_access_levels";
+    public static final String FIELD_PERMISSIONS = "permissions";
 
     public BoxItem() {
     }
@@ -326,6 +327,16 @@ public class BoxItem extends BoxTypedObject {
     @JsonProperty(FIELD_ALLOWED_SHARED_LINK_ACCESS_LEVELS)
     public String[] getAllowedSharedLinkAccessLevels() {
         return (String[]) getValue(FIELD_ALLOWED_SHARED_LINK_ACCESS_LEVELS);
+    }
+
+    @JsonProperty(FIELD_PERMISSIONS)
+    public BoxItemPermissions getPermissions() {
+        return (BoxItemPermissions) getValue(FIELD_PERMISSIONS);
+    }
+
+    @JsonProperty(FIELD_PERMISSIONS)
+    private void setPermissions(BoxItemPermissions permissions) {
+        put(FIELD_PERMISSIONS, permissions);
     }
 
     /**

@@ -1,6 +1,7 @@
 package com.box.boxjavalibv2.dao;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Map;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
@@ -14,6 +15,18 @@ public class BoxObject extends BoxBase implements IBoxParcelable {
     private final Map<String, Object> extraMap = new BoxHashMap<String, Object>();
 
     private final Map<String, Object> map = new BoxHashMap<String, Object>();
+
+    private static HashSet<Class<?>> primitiveWrapperSet = new HashSet<Class<?>>();
+    static {
+        primitiveWrapperSet.add(Boolean.class);
+        primitiveWrapperSet.add(Byte.class);
+        primitiveWrapperSet.add(Character.class);
+        primitiveWrapperSet.add(Short.class);
+        primitiveWrapperSet.add(Integer.class);
+        primitiveWrapperSet.add(Long.class);
+        primitiveWrapperSet.add(Double.class);
+        primitiveWrapperSet.add(Float.class);
+    }
 
     public BoxObject() {
     }
@@ -97,7 +110,8 @@ public class BoxObject extends BoxBase implements IBoxParcelable {
 
     @JsonAnySetter
     protected void handleUnknown(String key, Object value) {
-        if (value instanceof String) {
+        // For unknown fields, only put in String or primitive wrappers to avoid potential serialization/deserialization problem.
+        if (value instanceof String || primitiveWrapperSet.contains(value.getClass())) {
             extraMap.put(key, value);
         }
     }
@@ -163,4 +177,5 @@ public class BoxObject extends BoxBase implements IBoxParcelable {
             }
         }
     }
+
 }

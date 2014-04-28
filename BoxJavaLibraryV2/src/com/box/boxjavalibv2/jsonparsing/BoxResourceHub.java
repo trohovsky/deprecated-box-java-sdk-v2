@@ -16,6 +16,7 @@ import com.box.boxjavalibv2.dao.BoxGroupMembership;
 import com.box.boxjavalibv2.dao.BoxItem;
 import com.box.boxjavalibv2.dao.BoxLock;
 import com.box.boxjavalibv2.dao.BoxOAuthToken;
+import com.box.boxjavalibv2.dao.BoxItemPermissions;
 import com.box.boxjavalibv2.dao.BoxPreview;
 import com.box.boxjavalibv2.dao.BoxRealTimeServer;
 import com.box.boxjavalibv2.dao.BoxResourceType;
@@ -88,6 +89,8 @@ public class BoxResourceHub extends BaseBoxResourceHub {
                 return BoxRealTimeServer.class;
             case LOCK:
                 return BoxLock.class;
+            case ITEM_PERMISSIONS:
+                return BoxItemPermissions.class;
             case ERROR:
                 return BoxServerError.class;
             case ITEMS:

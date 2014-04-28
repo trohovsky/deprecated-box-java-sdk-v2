@@ -17,7 +17,6 @@ public class BoxItemTest {
     public void testParcelRoundTrip() throws BoxRestException, IOException {
         String fileJson = FileUtils.readFileToString(new File("testdata/file.json"));
         BoxItem originalItem = (BoxItem) TestUtils.getFromJSON(fileJson, BoxItem.class);
-
         TestParcel parcel = new TestParcel();
         originalItem.writeToParcel(parcel, 0);
         BoxItem item = new BoxFile(parcel);
@@ -33,5 +32,15 @@ public class BoxItemTest {
         Assert.assertEquals("testdescription", item.getDescription());
         Assert.assertEquals(1.0, item.getSize());
         Assert.assertEquals("testitemstatus", item.getItemStatus());
+
+        BoxItemPermissions perm = item.getPermissions();
+        Assert.assertTrue(perm.canPreivew());
+        Assert.assertTrue(perm.canDownload());
+        Assert.assertFalse(perm.canSetShareAccess());
+        Assert.assertTrue(perm.canComment());
+        Assert.assertTrue(perm.canDelete());
+        Assert.assertTrue(perm.canShare());
+        Assert.assertTrue((Boolean) perm.getExtraData("can_whatever"));
+        Assert.assertFalse((Boolean) perm.getExtraData("cannot_whatever"));
     }
 }

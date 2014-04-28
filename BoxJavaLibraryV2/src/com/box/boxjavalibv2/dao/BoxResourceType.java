@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
-
 /**
  * Type of resources that can be requested by API's.
  */
@@ -61,6 +60,8 @@ public enum BoxResourceType implements IBoxType {
     REALTIME_SERVER,
     /** File lock (shows up in event stream). */
     LOCK,
+    /** permissions */
+    ITEM_PERMISSIONS,
     /** Service action is a subtype of file lock. */
     SERVICE_ACTION,
     /** group membership. */
