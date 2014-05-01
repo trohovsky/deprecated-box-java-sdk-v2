@@ -1,3 +1,4 @@
 language: java
-before_install:
-    - cd BoxJavaLibraryV2
+env: DEBUG=1
+install: true
+script: "./build.sh"
