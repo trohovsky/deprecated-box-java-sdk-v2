@@ -1,8 +1,12 @@
 import com.box.boxjavalibv2.*;
 import com.box.boxjavalibv2.dao.*;
 import com.box.boxjavalibv2.exceptions.*;
+import com.box.boxjavalibv2.jsonparsing.BoxJSONParser;
+import com.box.boxjavalibv2.jsonparsing.BoxResourceHub;
 import com.box.boxjavalibv2.requests.requestobjects.*;
 import com.box.restclientv2.exceptions.*;
+import com.box.restclientv2.requestsbase.BoxOAuthRequestObject;
+
 import java.io.*;
 import java.awt.Desktop;
 import java.net.ServerSocket;
@@ -45,9 +49,11 @@ public class HelloWorld {
     }
 
     private static BoxClient getAuthenticatedClient(String code) throws BoxRestException,     BoxServerException, AuthFatalFailureException {
-        BoxClient client = new BoxClient(key, secret);
-        BoxOAuthRequestObject obj = BoxOAuthRequestObject.createOAuthRequestObject(code, key, secret, "http://localhost:" + PORT);
-        BoxOAuthToken bt =  client.getOAuthManager().createOAuth(obj);
+        BoxResourceHub hub = new BoxResourceHub();
+        BoxJSONParser parser = new BoxJSONParser(hub);
+        IBoxConfig config = (new BoxConfigBuilder()).build();
+        BoxClient client = new BoxClient(key, secret, hub, parser, config);
+        BoxOAuthToken bt = client.getOAuthManager().createOAuth(code, key, secret, "http://localhost:" + PORT);
         client.authenticate(bt);
         return client;
     }
