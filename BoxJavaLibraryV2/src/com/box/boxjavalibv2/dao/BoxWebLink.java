@@ -33,6 +33,13 @@ public class BoxWebLink extends BoxItem {
         super(map);
     }
 
+    @Override
+    @JsonProperty("size")
+    public Double getSize() {
+        Double size = super.getSize();
+        return size == null ? 0d : size;
+    }
+
     /**
      * Get url of the weblink.
      * 
