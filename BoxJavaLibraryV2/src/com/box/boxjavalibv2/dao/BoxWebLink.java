@@ -2,6 +2,7 @@ package com.box.boxjavalibv2.dao;
 
 import java.util.Map;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class BoxWebLink extends BoxItem {
@@ -22,6 +23,21 @@ public class BoxWebLink extends BoxItem {
      */
     public BoxWebLink(BoxWebLink obj) {
         super(obj);
+    }
+
+    // Hide the permission from web link due to a backend issue. This method can
+    // be removed when backend supports permissions in weblink.
+    @Override
+    @JsonIgnore
+    public BoxItemPermissions getPermissions() {
+        return null;
+    }
+
+    // Hide the permission from web link due to a backend issue. This method can
+    // be removed when backend supports permissions in weblink.
+    @JsonIgnore
+    private void setPermissions(BoxItemPermissions permissions) {
+        put(FIELD_PERMISSIONS, permissions);
     }
 
     /**
