@@ -38,7 +38,7 @@ public class OAuthDataController implements IAuthDataController {
 
     private OAuthRefreshListener refreshListener;
 
-  public OAuthDataController(BoxClient boxClient, final String clientId, final String clientSecret, final boolean autoRefresh) {
+    public OAuthDataController(BoxClient boxClient, final String clientId, final String clientSecret, final boolean autoRefresh) {
         this.mClient = boxClient;
         this.mClientId = clientId;
         this.mClientSecret = clientSecret;
@@ -255,6 +255,12 @@ public class OAuthDataController implements IAuthDataController {
      */
     private void doRefresh() throws AuthFatalFailureException {
         setTokenState(OAuthTokenState.REFRESHING);
+
+        if (mOAuthToken == null) {
+            setRefreshFail(new BoxRestException("OAuthToken is null"));
+            throw new AuthFatalFailureException(getRefreshFailException());
+        }
+
         try {
             mOAuthToken = mClient.getOAuthManager().refreshOAuth(mOAuthToken.getRefreshToken(), mClientId, mClientSecret, mDeviceId, mDeviceName);
             setTokenState(OAuthTokenState.AVAILABLE);
