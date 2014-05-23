@@ -111,9 +111,24 @@ public class BoxObject extends BoxBase implements IBoxParcelable {
     @JsonAnySetter
     protected void handleUnknown(String key, Object value) {
         // For unknown fields, only put in String or primitive wrappers to avoid potential serialization/deserialization problem.
-        if (value instanceof String || (value != null && primitiveWrapperSet.contains(value.getClass()))) {
+        if (canBeHandledAsUnknown(value)) {
             extraMap.put(key, value);
         }
+    }
+
+    protected boolean canBeHandledAsUnknown(Object value) {
+        if (value instanceof String) {
+            // Allow String.
+            return true;
+        } else if ((value != null && primitiveWrapperSet.contains(value.getClass()))) {
+            // Allow primitive wrappers(e.g., Integer, Boolean...).
+            return true;
+        } else if (value != null && value.getClass().isArray()) {
+            // Allow arrays of primitive or arrays or primitive wrappers.
+            Class<?> componentClass = value.getClass().getComponentType();
+            return componentClass.isPrimitive() || primitiveWrapperSet.contains(componentClass);
+        }
+        return false;
     }
 
     @Override
@@ -140,17 +155,14 @@ public class BoxObject extends BoxBase implements IBoxParcelable {
             if (value instanceof BoxObject) {
                 try {
                     destination.put(entry.getKey(), value.getClass().getConstructor(value.getClass()).newInstance(value));
-                }
-                catch (Exception e) {
+                } catch (Exception e) {
                     // Exception is swallowed.
                 }
-            }
-            else if (value instanceof ArrayList<?>) {
+            } else if (value instanceof ArrayList<?>) {
                 ArrayList<Object> list = new ArrayList<Object>();
                 cloneArrayList(list, (ArrayList<Object>) value);
                 destination.put(entry.getKey(), list);
-            }
-            else {
+            } else {
                 destination.put(entry.getKey(), value);
             }
         }
@@ -167,12 +179,10 @@ public class BoxObject extends BoxBase implements IBoxParcelable {
             if (obj instanceof BoxObject) {
                 try {
                     destination.add(obj.getClass().getConstructor(obj.getClass()).newInstance(obj));
-                }
-                catch (Exception e) {
+                } catch (Exception e) {
                     // Exception is swallowed.
                 }
-            }
-            else {
+            } else {
                 destination.add(obj);
             }
         }
