@@ -55,8 +55,7 @@ public class BoxFileUploadRequestObject extends BoxDefaultRequestObject {
         try {
             BoxFileUploadRequestObject requestObject = new BoxFileUploadRequestObject();
             return requestObject.setMultipartMIME(getNewFileMultipartEntity(parentId, fileName, file));
-        }
-        catch (UnsupportedEncodingException e) {
+        } catch (UnsupportedEncodingException e) {
             throw new BoxRestException(e);
         }
     }
@@ -78,8 +77,7 @@ public class BoxFileUploadRequestObject extends BoxDefaultRequestObject {
         throws BoxRestException, BoxJSONException {
         try {
             return (new BoxFileUploadRequestObject()).setMultipartMIME(getNewFileMultipartEntity(parentId, inputStream, fileName));
-        }
-        catch (UnsupportedEncodingException e) {
+        } catch (UnsupportedEncodingException e) {
             throw new BoxRestException(e);
         }
     }
@@ -98,8 +96,7 @@ public class BoxFileUploadRequestObject extends BoxDefaultRequestObject {
     public static BoxFileUploadRequestObject uploadNewVersionRequestObject(final String name, final File file) throws BoxRestException {
         try {
             return (new BoxFileUploadRequestObject()).setMultipartMIME(getNewVersionMultipartEntity(name, file));
-        }
-        catch (UnsupportedEncodingException e) {
+        } catch (UnsupportedEncodingException e) {
             throw new BoxRestException(e);
         }
     }
@@ -118,8 +115,7 @@ public class BoxFileUploadRequestObject extends BoxDefaultRequestObject {
     public static BoxFileUploadRequestObject uploadNewVersionRequestObject(final String name, final InputStream inputStream) throws BoxRestException {
         try {
             return (new BoxFileUploadRequestObject()).setMultipartMIME(getNewVersionMultipartEntity(name, inputStream));
-        }
-        catch (UnsupportedEncodingException e) {
+        } catch (UnsupportedEncodingException e) {
             throw new BoxRestException(e);
         }
     }
@@ -199,7 +195,7 @@ public class BoxFileUploadRequestObject extends BoxDefaultRequestObject {
         throws BoxRestException, UnsupportedEncodingException, BoxJSONException {
         MultipartEntityWithProgressListener me = new MultipartEntityWithProgressListener(HttpMultipartMode.BROWSER_COMPATIBLE);
         me.addContentBodyPart(Constants.FOLDER_ID, new StringBody(parentId));
-        me.addContentBodyPart(KEY_FILE_NAME, new FileBody(file, KEY_FILE_NAME, "", CharEncoding.UTF_8));
+        me.addContentBodyPart(KEY_FILE_NAME, new FileBody(file, KEY_FILE_NAME, "*/*", CharEncoding.UTF_8));
         me.addBoxJSONStringEntityPart(METADATA, getMetadataBody(parentId, name));
         if (me.getContentBodyPart(KEY_CONTENT_MODIFIED_AT) == null) {
             String date = ISO8601DateParser.toString(new Date(file.lastModified()));
@@ -221,7 +217,7 @@ public class BoxFileUploadRequestObject extends BoxDefaultRequestObject {
 
     private static MultipartEntityWithProgressListener getNewVersionMultipartEntity(final String name, final File file) throws UnsupportedEncodingException {
         MultipartEntityWithProgressListener me = new MultipartEntityWithProgressListener(HttpMultipartMode.BROWSER_COMPATIBLE);
-        me.addContentBodyPart(name, new FileBody(file, name, "", CharEncoding.UTF_8));
+        me.addContentBodyPart(name, new FileBody(file, name, "*/*", CharEncoding.UTF_8));
 
         if (me.getContentBodyPart(KEY_CONTENT_MODIFIED_AT) == null) {
             me.addContentBodyPart(KEY_CONTENT_MODIFIED_AT, new StringBody(ISO8601DateParser.toString(new Date(file.lastModified()))));
