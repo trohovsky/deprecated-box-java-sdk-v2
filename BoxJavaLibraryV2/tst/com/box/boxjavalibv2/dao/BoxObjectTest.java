@@ -2,6 +2,7 @@ package com.box.boxjavalibv2.dao;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 import junit.framework.Assert;
 
@@ -34,23 +35,23 @@ public class BoxObjectTest {
     /**
      * Verify that unknown types in json are handled according to canBeHandledAsUnknown() method in BoxObject.
      */
+    @Test
     public void testHandleUnknownTypes() throws IOException, BoxRestException {
         String json = FileUtils.readFileToString(new File("testdata/filewithunknowntype.json"));
         BoxFile obj = (BoxFile) TestUtils.getFromJSON(json, BoxFile.class);
-        Assert.assertEquals(BoxTypedObject.class, obj.getClass());
+        Assert.assertEquals(BoxFile.class, obj.getClass());
 
         String unknownStr = (String) obj.getExtraData("unknownstring");
         Assert.assertEquals("unknown string", unknownStr);
 
-        int[] unknownIntArray = (int[]) obj.getExtraData("intarray");
-        Assert.assertEquals(2, unknownIntArray.length);
-        Assert.assertEquals(1, unknownIntArray[0]);
-        Assert.assertEquals(2, unknownIntArray[1]);
+        List<Integer> unknownIntArray = (List<Integer>) obj.getExtraData("intarray");
+        Assert.assertEquals(1, unknownIntArray.get(0).intValue());
+        Assert.assertEquals(2, unknownIntArray.get(1).intValue());
 
-        String[] unknownStrArray = (String[]) obj.getExtraData("stringarray");
-        Assert.assertEquals(2, unknownStrArray.length);
-        Assert.assertEquals("string1", unknownStrArray[0]);
-        Assert.assertEquals("string2", unknownStrArray[1]);
+        List<String> unknownStrArray = (List<String>) obj.getExtraData("stringarray");
+        Assert.assertEquals(2, unknownStrArray.size());
+        Assert.assertEquals("string1", unknownStrArray.get(0));
+        Assert.assertEquals("string2", unknownStrArray.get(1));
 
         Assert.assertFalse(obj.contains("unparsabletype"));
     }
