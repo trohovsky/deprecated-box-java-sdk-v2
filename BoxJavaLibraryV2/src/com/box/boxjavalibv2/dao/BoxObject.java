@@ -123,10 +123,18 @@ public class BoxObject extends BoxBase implements IBoxParcelable {
         } else if ((value != null && primitiveWrapperSet.contains(value.getClass()))) {
             // Allow primitive wrappers(e.g., Integer, Boolean...).
             return true;
-        } else if (value != null && value.getClass().isArray()) {
-            // Allow arrays of primitive or arrays or primitive wrappers.
-            Class<?> componentClass = value.getClass().getComponentType();
-            return componentClass.isPrimitive() || primitiveWrapperSet.contains(componentClass);
+        } else if (value != null && value instanceof ArrayList) {
+            // Allow ArrayLists of primitive or ArrayLists or primitive wrappers.
+            ArrayList<?> list = (ArrayList<?>) value;
+            if (!list.isEmpty()) {
+                Object component = list.get(0);
+                if (component instanceof String) {
+                    return true;
+                } else {
+                    Class<?> componentClass = component.getClass();
+                    return componentClass.isPrimitive() || primitiveWrapperSet.contains(componentClass);
+                }
+            }
         }
         return false;
     }
