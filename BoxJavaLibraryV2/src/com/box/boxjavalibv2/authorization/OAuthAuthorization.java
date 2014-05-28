@@ -9,7 +9,7 @@ import com.box.restclientv2.requestsbase.IBoxRequest;
 /**
  * This is authorization class for API requests using OAuth.
  */
-public class OAuthAuthorization extends DefaultRequestAuth {
+public class OAuthAuthorization extends DefaultRequestAuth implements IOAuthAuthorization {
 
     private static final String BEARER = "Bearer";
     private final OAuthDataController mOAuth;

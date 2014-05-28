@@ -12,6 +12,7 @@ import com.box.boxjavalibv2.authorization.IAuthFlowListener;
 import com.box.boxjavalibv2.authorization.IAuthFlowMessage;
 import com.box.boxjavalibv2.authorization.IAuthFlowUI;
 import com.box.boxjavalibv2.authorization.IAuthSecureStorage;
+import com.box.boxjavalibv2.authorization.IOAuthAuthorization;
 import com.box.boxjavalibv2.authorization.OAuthAuthorization;
 import com.box.boxjavalibv2.authorization.OAuthDataController;
 import com.box.boxjavalibv2.authorization.OAuthDataController.OAuthTokenState;
@@ -489,7 +490,7 @@ public class BoxClient extends BoxBase implements IAuthFlowListener {
     public void onAuthFlowEvent(IAuthEvent event, IAuthFlowMessage message) {
         OAuthEvent oe = (OAuthEvent) event;
         if (oe == OAuthEvent.OAUTH_CREATED) {
-            ((OAuthAuthorization) getAuth()).setOAuthData(getOAuthTokenFromMessage(message));
+            ((IOAuthAuthorization) getAuth()).setOAuthData(getOAuthTokenFromMessage(message));
         }
     }
 
