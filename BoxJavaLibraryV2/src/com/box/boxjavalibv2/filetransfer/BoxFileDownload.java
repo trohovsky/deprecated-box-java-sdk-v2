@@ -8,6 +8,7 @@ import java.io.OutputStream;
 import java.util.Date;
 
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang.StringUtils;
 
 import com.box.boxjavalibv2.IBoxConfig;
 import com.box.boxjavalibv2.dao.BoxServerError;
@@ -15,7 +16,9 @@ import com.box.boxjavalibv2.exceptions.AuthFatalFailureException;
 import com.box.boxjavalibv2.exceptions.BoxServerException;
 import com.box.boxjavalibv2.jsonparsing.IBoxJSONParser;
 import com.box.boxjavalibv2.requests.DownloadFileRequest;
+import com.box.boxjavalibv2.requests.DownloadPartialFileRequest;
 import com.box.boxjavalibv2.responseparsers.ErrorResponseParser;
+import com.box.boxjavalibv2.utils.Constants;
 import com.box.restclientv2.IBoxRESTClient;
 import com.box.restclientv2.authorization.IBoxRequestAuth;
 import com.box.restclientv2.exceptions.BoxRestException;
@@ -164,7 +167,12 @@ public class BoxFileDownload {
      */
     public InputStream execute(final IBoxRequestAuth auth, IBoxJSONParser parser, BoxDefaultRequestObject requestObject) throws BoxRestException,
         BoxServerException, AuthFatalFailureException {
-        DownloadFileRequest request = new DownloadFileRequest(mConfig, parser, mFileId, requestObject);
+        DownloadFileRequest request;
+        if (isPartialDownload(requestObject)) {
+            request = new DownloadPartialFileRequest(mConfig, parser, mFileId, requestObject);
+        } else {
+            request = new DownloadFileRequest(mConfig, parser, mFileId, requestObject);
+        }
         request.setAuth(auth);
         DefaultBoxResponse response = (DefaultBoxResponse) mRestClient.execute(request);
         DefaultFileResponseParser responseParser = new DefaultFileResponseParser();
@@ -217,16 +225,14 @@ public class BoxFileDownload {
                     mListener.onProgress(mBytesTransferred);
                 }
             }
-        }
-        finally {
+        } finally {
             // Try to flush and close all the OutputStreams and close InputStream.
             IOException exception = null;
             for (int i = 0; i < outputStreams.length; i++) {
                 try {
                     outputStreams[i].flush();
                     outputStreams[i].close();
-                }
-                catch (IOException e) {
+                } catch (IOException e) {
                     exception = e;
                 }
             }
@@ -235,5 +241,15 @@ public class BoxFileDownload {
                 throw exception;
             }
         }
+    }
+
+    // This is not officially supported, currently we only handles byte-range, i.e. "Range".
+    private boolean isPartialDownload(final BoxDefaultRequestObject requestObject) {
+        boolean isRangeDownload = false;
+        Object range = requestObject.getRequestExtras().getHeaders().get(Constants.RANGE);
+        if (range instanceof String && StringUtils.isNotEmpty((String) range)) {
+            isRangeDownload = true;
+        }
+        return isRangeDownload;
     }
 }
