@@ -2,6 +2,7 @@ package com.box.boxjavalibv2.authorization;
 
 import java.net.URLEncoder;
 
+import com.box.boxjavalibv2.dao.BoxOAuthToken;
 import org.apache.commons.lang.StringUtils;
 
 import com.box.boxjavalibv2.exceptions.AuthFatalFailureException;
@@ -13,7 +14,7 @@ import com.box.restclientv2.requestsbase.IBoxRequest;
  * Shared link authorization. This authorization can be used in addition to other authorization(currently only OAuth) to support authorization to access a
  * shared link.
  */
-public class SharedLinkAuthorization extends DefaultRequestAuth {
+public class SharedLinkAuthorization extends DefaultRequestAuth implements IOAuthAuthorization {
 
     private static final String HEADER_NAME = "BoxApi";
 
@@ -41,6 +42,21 @@ public class SharedLinkAuthorization extends DefaultRequestAuth {
      */
     public void setPassword(final String password) {
         this.mPassword = password;
+    }
+
+    @Override
+    public void setOAuthData(BoxOAuthToken data) {
+        mOauth.setOAuthData(data);
+    }
+
+    @Override
+    public void refresh() throws AuthFatalFailureException {
+        mOauth.refresh();
+    }
+
+    @Override
+    public void initOAuthForRequest() {
+        mOauth.initOAuthForRequest();
     }
 
     @Override

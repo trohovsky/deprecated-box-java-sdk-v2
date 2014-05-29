@@ -15,7 +15,7 @@ import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.params.HttpParams;
 
 import com.box.boxjavalibv2.BoxConnectionManagerBuilder.BoxConnectionManager;
-import com.box.boxjavalibv2.authorization.OAuthAuthorization;
+import com.box.boxjavalibv2.authorization.IOAuthAuthorization;
 import com.box.boxjavalibv2.exceptions.AuthFatalFailureException;
 import com.box.boxjavalibv2.exceptions.BoxServerException;
 import com.box.boxjavalibv2.exceptions.BoxUnexpectedHttpStatusException;
@@ -69,7 +69,7 @@ public class BoxRESTClient extends BoxBasicRestClient {
     @Override
     public IBoxResponse execute(final IBoxRequest boxRequest) throws BoxRestException, AuthFatalFailureException {
         IBoxRequestAuth auth = boxRequest.getAuth();
-        return execute(boxRequest, auth instanceof OAuthAuthorization);
+        return execute(boxRequest, auth instanceof IOAuthAuthorization);
     }
 
     /**
@@ -103,7 +103,7 @@ public class BoxRESTClient extends BoxBasicRestClient {
                 if (usingOAuth && oauthExpired(response)) {
                     Utils.consumeHttpEntityQuietly(response.getEntity());
                     try {
-                        return handleOAuthTokenExpire((OAuthAuthorization) boxRequest.getAuth(), boxRequest);
+                        return handleOAuthTokenExpire((IOAuthAuthorization) boxRequest.getAuth(), boxRequest);
                     }
                     catch (AuthFatalFailureException e) {
                         // Swallow the OAuthRefreshFailException here, the response will be parsed and caller will see the unauthorized error.
@@ -196,7 +196,7 @@ public class BoxRESTClient extends BoxBasicRestClient {
      * @throws AuthFatalFailureException
      *             See {@link com.box.restclientv2.exceptions.AuthFatalFailureException} for more info.
      */
-    private IBoxResponse handleOAuthTokenExpire(final OAuthAuthorization auth, final IBoxRequest boxRequest) throws AuthFatalFailureException,
+    private IBoxResponse handleOAuthTokenExpire(final IOAuthAuthorization auth, final IBoxRequest boxRequest) throws AuthFatalFailureException,
         BoxRestException, BoxUnexpectedHttpStatusException {
         auth.refresh();
         HttpEntity entity = boxRequest.getRequestEntity();
