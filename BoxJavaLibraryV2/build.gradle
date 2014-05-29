@@ -3,7 +3,7 @@ apply plugin: "maven"
 
 group = "com.box"
 archivesBaseName = "box-java-sdk"
-version = "2.2.2"
+version = "3.0.8-SNAPSHOT"
 
 repositories {
 	mavenLocal()
