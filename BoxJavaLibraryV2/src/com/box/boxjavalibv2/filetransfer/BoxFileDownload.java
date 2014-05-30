@@ -246,9 +246,11 @@ public class BoxFileDownload {
     // This is not officially supported, currently we only handles byte-range, i.e. "Range".
     private boolean isPartialDownload(final BoxDefaultRequestObject requestObject) {
         boolean isRangeDownload = false;
-        Object range = requestObject.getRequestExtras().getHeaders().get(Constants.RANGE);
-        if (range instanceof String && StringUtils.isNotEmpty((String) range)) {
-            isRangeDownload = true;
+        if (requestObject != null) {
+            Object range = requestObject.getRequestExtras().getHeaders().get(Constants.RANGE);
+            if (range instanceof String && StringUtils.isNotEmpty((String) range)) {
+                isRangeDownload = true;
+            }
         }
         return isRangeDownload;
     }
