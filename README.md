@@ -142,12 +142,9 @@ boxClient.getFilesManager().deleteFile(fileId, requestObj);
 ```
 
 ### Configure raw httpclient (e.g., set proxy)
-You need to override the createRestClient() method in BoxClient so that it returns a configured rest client.
+You need to supply a customized IBoxRESTClient to construct a BoxClient.
 ```java
-BoxClient client = new BoxClient(clientId, clientSecret, null, null, BoxConfigBuilder.build()) {
-    @Override
-    public IBoxRESTClient createRestClient() {
-        return new BoxRESTClient() {
+	IBoxRESTClient restClient = new BoxRESTClient() {
             @Override
             public HttpClient getRawHttpClient() {
                 HttpClient client = super.getRawHttpClient();
@@ -156,9 +153,9 @@ BoxClient client = new BoxClient(clientId, clientSecret, null, null, BoxConfigBu
                 client.getParams().setParameter(ConnRouteNames.DEFAULT_PROXY, proxy);
                 return client; 
             }
-        }
-    }
-};
+        };
+        
+	BoxClient client = new BoxClient(clientId, clientSecret, null, null, restClient BoxConfigBuilder.build());
 
 ```
 
