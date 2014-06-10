@@ -190,8 +190,7 @@ public class BoxClient extends BoxBase implements IAuthFlowListener {
     public boolean isAuthenticated() {
         try {
             return getOAuthDataController().getTokenState() != OAuthTokenState.FAIL && getAuthData() != null;
-        }
-        catch (AuthFatalFailureException e) {
+        } catch (AuthFatalFailureException e) {
             return false;
         }
     }
@@ -464,8 +463,7 @@ public class BoxClient extends BoxBase implements IAuthFlowListener {
         oauthController.setOAuthData((BoxOAuthToken) authData);
         if (authData != null) {
             oauthController.setTokenState(OAuthTokenState.AVAILABLE);
-        }
-        else {
+        } else {
             oauthController.setTokenState(OAuthTokenState.PRE_CREATION);
         }
     }
@@ -482,6 +480,7 @@ public class BoxClient extends BoxBase implements IAuthFlowListener {
      *            listener listening to the auth flow events.
      */
     public void authenticate(IAuthFlowUI authFlowUI, boolean autoRefreshOAuth, IAuthFlowListener listener) {
+        setAutoRefreshOAuth(autoRefreshOAuth);
         authFlowUI.addAuthFlowListener(listener);
         authFlowUI.authenticate(this);
     }
