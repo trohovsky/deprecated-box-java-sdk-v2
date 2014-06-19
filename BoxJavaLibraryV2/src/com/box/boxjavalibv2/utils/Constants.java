@@ -10,6 +10,11 @@ public class Constants {
 
     public static final String PARENT_ID = "parent_id";
 
+    /**
+     * @deprecated use PARENT_ID instead.
+     */
+    public static final String FOLDER_ID = "folder_id";
+
     public static final String ID = "id";
 
 }
