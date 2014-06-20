@@ -2,6 +2,8 @@ package com.box.boxjavalibv2.authorization;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 
@@ -17,8 +19,16 @@ public class OAuthWebViewData {
     private final OAuthDataController mOAuthDataController;
     private String mOptionalState;
     private String redirectUrl;
+    private final HashMap<String, String> extraQueryParams = new HashMap<String, String>();
 
-   public OAuthWebViewData(final OAuthDataController oAuthDataController) {
+    /**
+     * append query param to the oauth url. The param keys and values are expected to be unescaped and may contain non ASCII chars.
+     */
+    public void appendQueryParam(final String key, final String value) {
+        extraQueryParams.put(key, value);
+    }
+
+    public OAuthWebViewData(final OAuthDataController oAuthDataController) {
         this.mOAuthDataController = oAuthDataController;
     }
 
@@ -106,6 +116,11 @@ public class OAuthWebViewData {
         if (StringUtils.isNotEmpty(getRedirectUrl())) {
             ub.addParameter("redirect_uri", getRedirectUrl());
         }
+
+        for (Map.Entry<String, String> entry : extraQueryParams.entrySet()) {
+            ub.addParameter(entry.getKey(), entry.getValue());
+        }
+
         HttpClientURLEncodedUtils.format(ub.getQueryParams(), "UTF-8");
         return ub.build();
     }
