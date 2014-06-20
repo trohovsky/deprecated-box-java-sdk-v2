@@ -13,6 +13,7 @@ public class BoxComment extends BoxTypedObject {
     public static final String FIELD_MESSAGE = "message";
     public static final String FIELD_CREATED_BY = "created_by";
     public static final String FIELD_ITEM = "item";
+    public static final String FIELD_TAGGED_MESSAGE = "tagged_message";
 
     /**
      * Constructor.
@@ -23,7 +24,7 @@ public class BoxComment extends BoxTypedObject {
 
     /**
      * Copy constructor, this does deep copy for all the fields.
-     * 
+     *
      * @param obj
      */
     public BoxComment(BoxComment obj) {
@@ -32,7 +33,7 @@ public class BoxComment extends BoxTypedObject {
 
     /**
      * Instantiate the object from a map. Each entry in the map reflects to a field.
-     * 
+     *
      * @param map
      */
     public BoxComment(Map<String, Object> map) {
@@ -41,7 +42,7 @@ public class BoxComment extends BoxTypedObject {
 
     /**
      * Whether this is a comment replying another comment.
-     * 
+     *
      * @return Whether this is a comment replying another comment.
      */
     @JsonProperty(FIELD_IS_REPLY_COMMENT)
@@ -51,7 +52,7 @@ public class BoxComment extends BoxTypedObject {
 
     /**
      * Setter. This is only used by {@see <a href="http://jackson.codehaus.org">Jackson JSON processer</a>}
-     * 
+     *
      * @param isReplyComment
      *            whether it's reply comment
      */
@@ -62,7 +63,7 @@ public class BoxComment extends BoxTypedObject {
 
     /**
      * Get the comment String.
-     * 
+     *
      * @return The comment String.
      */
     @JsonProperty(FIELD_MESSAGE)
@@ -72,7 +73,7 @@ public class BoxComment extends BoxTypedObject {
 
     /**
      * Setter. This is only used by {@see <a href="http://jackson.codehaus.org">Jackson JSON processer</a>}
-     * 
+     *
      * @param message
      *            the comment String.
      */
@@ -82,8 +83,29 @@ public class BoxComment extends BoxTypedObject {
     }
 
     /**
+     * Get the comment String.
+     *
+     * @return The tagged comment String.
+     */
+    @JsonProperty(FIELD_TAGGED_MESSAGE)
+    public String getTaggedMessage() {
+        return (String) getValue(FIELD_TAGGED_MESSAGE);
+    }
+
+    /**
+     * Setter. This is only used by {@see <a href="http://jackson.codehaus.org">Jackson JSON processer</a>}
+     *
+     * @param message
+     *            the tagged comment String.
+     */
+    @JsonProperty(FIELD_TAGGED_MESSAGE)
+    private void setTaggedMessage(String message) {
+        put(FIELD_TAGGED_MESSAGE, message);
+    }
+
+    /**
      * Get the user creating this comment.
-     * 
+     *
      * @return the user creating this comment
      */
     @JsonProperty(FIELD_CREATED_BY)
@@ -93,7 +115,7 @@ public class BoxComment extends BoxTypedObject {
 
     /**
      * Setter. This is only used by {@see <a href="http://jackson.codehaus.org">Jackson JSON processer</a>}
-     * 
+     *
      * @param createdBy
      *            user creating this comment
      */
@@ -104,7 +126,7 @@ public class BoxComment extends BoxTypedObject {
 
     /**
      * Get the object being commented.
-     * 
+     *
      * @return the object being commented
      */
     @JsonProperty(FIELD_ITEM)
@@ -114,7 +136,7 @@ public class BoxComment extends BoxTypedObject {
 
     /**
      * Setter. This is only used by {@see <a href="http://jackson.codehaus.org">Jackson JSON processer</a>}
-     * 
+     *
      * @param item
      *            the object commented
      */
