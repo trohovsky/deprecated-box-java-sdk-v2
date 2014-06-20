@@ -182,7 +182,7 @@ public class BoxFileUploadRequestObject extends BoxDefaultRequestObject {
     private static MultipartEntityWithProgressListener getNewFileMultipartEntity(final String parentId, final InputStream inputStream, final String fileName)
         throws BoxRestException, UnsupportedEncodingException, BoxJSONException {
         MultipartEntityWithProgressListener me = new MultipartEntityWithProgressListener(HttpMultipartMode.BROWSER_COMPATIBLE);
-        me.addContentBodyPart(Constants.FOLDER_ID, new StringBody(parentId));
+        me.addContentBodyPart(Constants.PARENT_ID, new StringBody(parentId));
         me.addBoxJSONStringEntityPart(METADATA, getMetadataBody(parentId, fileName));
 
         me.addContentBodyPart(fileName, new InputStreamBody(inputStream, KEY_FILE_NAME));
@@ -194,7 +194,7 @@ public class BoxFileUploadRequestObject extends BoxDefaultRequestObject {
     private static MultipartEntityWithProgressListener getNewFileMultipartEntity(final String parentId, final String name, final File file)
         throws BoxRestException, UnsupportedEncodingException, BoxJSONException {
         MultipartEntityWithProgressListener me = new MultipartEntityWithProgressListener(HttpMultipartMode.BROWSER_COMPATIBLE);
-        me.addContentBodyPart(Constants.FOLDER_ID, new StringBody(parentId));
+        me.addContentBodyPart(Constants.PARENT_ID, new StringBody(parentId));
         me.addContentBodyPart(KEY_FILE_NAME, new FileBody(file, KEY_FILE_NAME, "*/*", CharEncoding.UTF_8));
         me.addBoxJSONStringEntityPart(METADATA, getMetadataBody(parentId, name));
         if (me.getContentBodyPart(KEY_CONTENT_MODIFIED_AT) == null) {
