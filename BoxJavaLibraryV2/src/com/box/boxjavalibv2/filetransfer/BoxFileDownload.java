@@ -5,7 +5,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.Date;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
@@ -219,7 +218,7 @@ public class BoxFileDownload {
                     outputStreams[i].write(buffer, 0, bufferLength);
                 }
                 mBytesTransferred += bufferLength;
-                long currTime = (new Date()).getTime();
+                long currTime = System.currentTimeMillis();
                 if (mListener != null && currTime - lastOnProgressPost > progressUpdateInterval) {
                     lastOnProgressPost = currTime;
                     mListener.onProgress(mBytesTransferred);
