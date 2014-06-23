@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.Charset;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -149,14 +148,13 @@ public class MultipartEntityWithProgressListener extends MultipartEntity {
         public void write(final byte[] buffer, final int offset, final int length) throws IOException {
             try {
                 out.write(buffer, offset, length);
-            }
-            catch (IOException e) {
+            } catch (IOException e) {
                 if (mProgresslistener != null) {
                     mProgresslistener.onIOException(e);
                 }
             }
             bytesBransferred += length;
-            long currTime = (new Date()).getTime();
+            long currTime = System.currentTimeMillis();
             if (mProgresslistener != null && currTime - lastOnProgressPost > onProgressUpdateThreshold) {
                 lastOnProgressPost = currTime;
                 mProgresslistener.onProgress(bytesBransferred);
