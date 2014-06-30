@@ -14,7 +14,7 @@ public class BoxCommentRequestObject extends BoxDefaultRequestObject {
     }
 
     /**
-     * A BoxCommentRequestObject to add a comment.
+     * A BoxCommentRequestObject to add either a tagged comment or a regular comment.
      *
      * @param type
      *            type of the item to be commented
@@ -26,11 +26,13 @@ public class BoxCommentRequestObject extends BoxDefaultRequestObject {
      */
     public static BoxCommentRequestObject addCommentRequestObject(final IBoxType type, final String itemId, final String message) {
         BoxCommentRequestObject obj = new BoxCommentRequestObject();
+        // Tagged messages contain tags in the form "@[userid:username]" within the message
+        // For example: "This is a comment for @[123456:John Smith]"
+        // If this pattern is found within the message, we call a different method to set the tagged message
         Pattern regex = Pattern.compile("@\\[\\d+:(.*?)\\]");
         Matcher matcher = regex.matcher(message);
         if (matcher.find()) {
             return obj.setItem(type, itemId).setTaggedMessage(message);
-
         }
         return obj.setItem(type, itemId).setMessage(message);
     }
@@ -48,10 +50,10 @@ public class BoxCommentRequestObject extends BoxDefaultRequestObject {
     }
 
     /**
-     * Set the comment message.
+     * Set the regular comment message.
      *
      * @param message
-     *            comment message
+     *            comment message without tags
      * @return BoxCommentRequestObject
      */
     public BoxCommentRequestObject setMessage(final String message) {
@@ -60,14 +62,13 @@ public class BoxCommentRequestObject extends BoxDefaultRequestObject {
     }
 
     /**
-     * Set the comment message.
+     * Set the tagged comment message.
      *
      * @param message
-     *            comment message
+     *            tagged comment message
      * @return BoxCommentRequestObject
      */
     public BoxCommentRequestObject setTaggedMessage(final String message) {
-        System.out.println("DBUG++WHOOOO IT WORKD");
         put(BoxComment.FIELD_TAGGED_MESSAGE, message);
         return this;
     }
