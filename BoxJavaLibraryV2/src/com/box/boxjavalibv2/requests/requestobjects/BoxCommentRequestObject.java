@@ -29,7 +29,7 @@ public class BoxCommentRequestObject extends BoxDefaultRequestObject {
         // Tagged messages contain tags in the form "@[userid:username]" within the message
         // For example: "This is a comment for @[123456:John Smith]"
         // If this pattern is found within the message, we call a different method to set the tagged message
-        Pattern regex = Pattern.compile("@\\[\\d+:(.*?)\\]");
+        Pattern regex = Pattern.compile(BoxComment.AT_MENTION_TAG_REGEX);
         Matcher matcher = regex.matcher(message);
         if (matcher.find()) {
             return obj.setItem(type, itemId).setTaggedMessage(message);

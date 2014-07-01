@@ -15,6 +15,8 @@ public class BoxComment extends BoxTypedObject {
     public static final String FIELD_ITEM = "item";
     public static final String FIELD_TAGGED_MESSAGE = "tagged_message";
 
+    public static final String AT_MENTION_TAG_REGEX = "@\\[\\d+:(.*?)\\]";
+
     /**
      * Constructor.
      */
