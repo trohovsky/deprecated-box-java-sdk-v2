@@ -85,7 +85,7 @@ public class BoxComment extends BoxTypedObject {
     }
 
     /**
-     * Get the comment String.
+     * Get the tagged comment String.
      *
      * @return The tagged comment String.
      */
