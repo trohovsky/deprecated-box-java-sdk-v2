@@ -37,7 +37,7 @@ public class BoxObject extends BoxBase implements IBoxParcelable {
      * @param map
      */
     public BoxObject(Map<String, Object> map) {
-        cloneMap(this.map, map);
+        cloneMap(this.properties(), map);
     }
 
     /**
@@ -57,12 +57,12 @@ public class BoxObject extends BoxBase implements IBoxParcelable {
         }
 
         BoxObject bObj = (BoxObject) obj;
-        return new EqualsBuilder().append(map, bObj.map).append(extraMap, bObj.extraMap).isEquals();
+        return new EqualsBuilder().append(properties(), bObj.properties()).append(extraProperties(), bObj.extraProperties()).isEquals();
     }
 
     @Override
     public int hashCode() {
-        return new HashCodeBuilder().append(map).append(extraMap).toHashCode();
+        return new HashCodeBuilder().append(properties()).append(extraProperties()).toHashCode();
     }
 
     /**
@@ -71,16 +71,16 @@ public class BoxObject extends BoxBase implements IBoxParcelable {
      * @param obj
      */
     public BoxObject(BoxObject obj) {
-        cloneMap(map, obj.map);
-        cloneMap(extraMap, obj.extraMap);
+        cloneMap(properties(), obj.properties());
+        cloneMap(extraProperties(), obj.extraProperties());
     }
 
     protected void put(String key, Object value) {
-        map.put(key, value);
+        properties().put(key, value);
     }
 
     public Object getValue(String key) {
-        return map.get(key);
+        return properties().get(key);
     }
 
     /**
@@ -90,12 +90,16 @@ public class BoxObject extends BoxBase implements IBoxParcelable {
      * @return extra object
      */
     public Object getExtraData(String key) {
-        return extraMap.get(key);
+        return extraProperties().get(key);
     }
 
     @JsonAnyGetter
     protected Map<String, Object> extraProperties() {
         return extraMap;
+    }
+
+    protected Map<String, Object> properties() {
+        return map;
     }
 
     /**
@@ -105,14 +109,14 @@ public class BoxObject extends BoxBase implements IBoxParcelable {
      * @return whether the field exists
      */
     public boolean contains(String key) {
-        return map.containsKey(key) || extraMap.containsKey(key);
+        return properties().containsKey(key) || extraProperties().containsKey(key);
     }
 
     @JsonAnySetter
     protected void handleUnknown(String key, Object value) {
         // For unknown fields, only put in String or primitive wrappers to avoid potential serialization/deserialization problem.
         if (canBeHandledAsUnknown(value)) {
-            extraMap.put(key, value);
+            extraProperties().put(key, value);
         }
     }
 
@@ -141,13 +145,13 @@ public class BoxObject extends BoxBase implements IBoxParcelable {
 
     @Override
     public void writeToParcel(IBoxParcelWrapper parcelWrapper, int flags) {
-        parcelWrapper.writeMap(map);
-        parcelWrapper.writeMap(extraMap);
+        parcelWrapper.writeMap(properties());
+        parcelWrapper.writeMap(extraProperties());
     }
 
     public BoxObject(IBoxParcelWrapper in) {
-        in.readMap(map);
-        in.readMap(extraMap);
+        in.readMap(properties());
+        in.readMap(extraProperties());
     }
 
     /**
@@ -158,6 +162,7 @@ public class BoxObject extends BoxBase implements IBoxParcelable {
      */
     @SuppressWarnings("unchecked")
     private static void cloneMap(Map<String, Object> destination, Map<String, Object> source) {
+        destination.clear();
         for (Map.Entry<String, Object> entry : source.entrySet()) {
             Object value = entry.getValue();
             if (value instanceof BoxObject) {

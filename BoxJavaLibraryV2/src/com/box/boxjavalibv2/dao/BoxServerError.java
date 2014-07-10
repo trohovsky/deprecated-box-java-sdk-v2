@@ -1,20 +1,32 @@
 package com.box.boxjavalibv2.dao;
 
+import java.io.Serializable;
 import java.util.Map;
 
+import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * Class for errors sent from server.
  */
-public class BoxServerError extends BoxTypedObject {
+public class BoxServerError extends BoxTypedObject implements Serializable {
+
+    /**
+     * Generated serial version UID.
+     */
+    private static final long serialVersionUID = 5249982834319634499L;
 
     public static final String FIELD_STATUS = "status";
     public static final String FIELD_CODE = "code";
     public static final String FIELD_HELP_URL = "help_url";
     public static final String FIELD_MESSAGE = "message";
     public static final String FIELD_REQUEST_ID = "request_id";
+
+    // Using a local map to store properties instead of map in super class in order to implements Serializable interface since java Serializable would not
+    // handle properties from super classes.
+    private final Map<String, Object> serializableExtraMap = new BoxHashMap<String, Object>();
+    private final Map<String, Object> serializableMap = new BoxHashMap<String, Object>();
 
     public BoxServerError() {
         setType(BoxResourceType.ERROR.toString());
@@ -36,6 +48,17 @@ public class BoxServerError extends BoxTypedObject {
      */
     public BoxServerError(Map<String, Object> map) {
         super(map);
+    }
+
+    @Override
+    @JsonAnyGetter
+    protected Map<String, Object> extraProperties() {
+        return serializableExtraMap;
+    }
+
+    @Override
+    protected Map<String, Object> properties() {
+        return serializableMap;
     }
 
     /**
@@ -132,7 +155,6 @@ public class BoxServerError extends BoxTypedObject {
     protected void setRequestId(String requestId) {
         put(FIELD_REQUEST_ID, requestId);
     }
-
 
     /**
      * Deprecated, use getStatus() instead
