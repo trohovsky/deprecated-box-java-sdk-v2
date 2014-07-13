@@ -12,11 +12,12 @@ public class BoxSharedLink extends BoxObject {
 
     public static final String FIELD_URL = "url";
     public static final String FIELD_DOWNLOAD_URL = "download_url";
-    public static final String FIELD_PASSWORD_ENABLED = "password_enabled";
+    public static final String FIELD_PASSWORD_ENABLED = "is_password_enabled";
     public static final String FIELD_UNSHARED_AT = "unshared_at";
     public static final String FIELD_DOWNLOAD_COUNT = "download_count";
     public static final String FIELD_PREVIEW_COUNT = "preview_count";
     public static final String FIELD_ACCESS = "access";
+    public static final String FIELD_EFFECTIVE_ACCESS = "effective_access";
     public static final String FIELD_PERMISSIONS = "permissions";
 
     public BoxSharedLink() {
@@ -186,6 +187,27 @@ public class BoxSharedLink extends BoxObject {
     @JsonProperty(FIELD_ACCESS)
     private void setAccess(final String accessLevel) {
         put(FIELD_ACCESS, accessLevel);
+    }
+
+    /**
+     * Get effective access. This can only be the strings defined in {@link com.box.boxjavalibv2.dao.BoxSharedLinkAccess}
+     *
+     * @return the access
+     */
+    @JsonProperty(FIELD_EFFECTIVE_ACCESS)
+    public String getEffectiveAccess() {
+        return (String) getValue(FIELD_EFFECTIVE_ACCESS);
+    }
+
+    /**
+     * Setter. This is only used by {@see <a href="http://jackson.codehaus.org">Jackson JSON processer</a>}
+     *
+     * @param accessLevel
+     *            the access to set
+     */
+    @JsonProperty(FIELD_EFFECTIVE_ACCESS)
+    private void setEffectiveAccess(final String accessLevel) {
+        put(FIELD_EFFECTIVE_ACCESS, accessLevel);
     }
 
     /**
