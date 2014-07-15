@@ -16,11 +16,11 @@ public class GetEventsRequest extends DefaultBoxRequest {
 
     /**
      * Constructor.
-     * 
+     *
      * @param config
      * @param parser
      * @param requestObject
-     * @throws BoxEventRequestObject
+     * @throws BoxRestException
      */
     public GetEventsRequest(final IBoxConfig config, final IBoxJSONParser parser, BoxEventRequestObject requestObject) throws BoxRestException {
         super(config, parser, URI, RestMethod.GET, requestObject);

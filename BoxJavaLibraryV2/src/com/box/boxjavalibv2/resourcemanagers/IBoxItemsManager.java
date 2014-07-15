@@ -16,7 +16,7 @@ public interface IBoxItemsManager extends IBoxResourceManager {
 
     /**
      * Get item given an item id.
-     * 
+     *
      * @param id
      *            id of the item
      * @param requestObject
@@ -27,16 +27,16 @@ public interface IBoxItemsManager extends IBoxResourceManager {
      * @throws BoxRestException
      *             See {@link com.box.restclientv2.exceptions.BoxRestException} for more info.
      * @throws BoxServerException
-     *             See {@link com.box.restclientv2.exceptions.BoxServerException} for more info.
+     *             See {@link com.box.boxjavalibv2.exceptions.BoxServerException} for more info.
      * @throws AuthFatalFailureException
-     *             See {@link com.box.restclientv2.exceptions.AuthFatalFailureException} for more info.
+     *             See {@link com.box.boxjavalibv2.exceptions.AuthFatalFailureException} for more info.
      */
     public BoxItem getItem(String id, BoxDefaultRequestObject requestObject, BoxResourceType type) throws BoxRestException, BoxServerException,
         AuthFatalFailureException;
 
     /**
      * Copy an item.
-     * 
+     *
      * @param id
      *            id of the item
      * @param requestObject
@@ -47,16 +47,16 @@ public interface IBoxItemsManager extends IBoxResourceManager {
      * @throws BoxRestException
      *             See {@link com.box.restclientv2.exceptions.BoxRestException} for more info.
      * @throws BoxServerException
-     *             See {@link com.box.restclientv2.exceptions.BoxServerException} for more info.
+     *             See {@link com.box.boxjavalibv2.exceptions.BoxServerException} for more info.
      * @throws AuthFatalFailureException
-     *             See {@link com.box.restclientv2.exceptions.AuthFatalFailureException} for more info.
+     *             See {@link com.box.boxjavalibv2.exceptions.AuthFatalFailureException} for more info.
      */
     public BoxItem copyItem(String id, BoxItemCopyRequestObject requestObject, BoxResourceType type) throws BoxRestException, BoxServerException,
         AuthFatalFailureException;
 
     /**
      * Update info for an item
-     * 
+     *
      * @param id
      *            id of the item
      * @param requestObject
@@ -69,9 +69,9 @@ public interface IBoxItemsManager extends IBoxResourceManager {
      * @throws BoxRestException
      *             See {@link com.box.restclientv2.exceptions.BoxRestException} for more info.
      * @throws BoxServerException
-     *             See {@link com.box.restclientv2.exceptions.BoxServerException} for more info.
+     *             See {@link com.box.boxjavalibv2.exceptions.BoxServerException} for more info.
      * @throws AuthFatalFailureException
-     *             See {@link com.box.restclientv2.exceptions.AuthFatalFailureException} for more info.
+     *             See {@link com.box.boxjavalibv2.exceptions.AuthFatalFailureException} for more info.
      */
     public BoxItem updateItemInfo(String id, BoxItemRequestObject requestObject, BoxResourceType type) throws UnsupportedEncodingException, BoxRestException,
         BoxServerException, AuthFatalFailureException;
@@ -89,9 +89,9 @@ public interface IBoxItemsManager extends IBoxResourceManager {
      * @throws BoxRestException
      *             See {@link com.box.restclientv2.exceptions.BoxRestException} for more info.
      * @throws BoxServerException
-     *             See {@link com.box.restclientv2.exceptions.BoxServerException} for more info.
+     *             See {@link com.box.boxjavalibv2.exceptions.BoxServerException} for more info.
      * @throws AuthFatalFailureException
-     *             See {@link com.box.restclientv2.exceptions.AuthFatalFailureException} for more info.
+     *             See {@link com.box.boxjavalibv2.exceptions.AuthFatalFailureException} for more info.
      */
     public BoxItem createSharedLink(String id, BoxSharedLinkRequestObject requestObject, BoxResourceType type) throws BoxRestException, BoxServerException,
         AuthFatalFailureException;

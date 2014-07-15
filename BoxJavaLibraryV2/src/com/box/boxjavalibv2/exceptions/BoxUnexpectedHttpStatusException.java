@@ -17,7 +17,7 @@ public class BoxUnexpectedHttpStatusException extends BoxServerException {
     }
 
     /**
-     * @return the {@link #BoxUnexpectedStatus}
+     * @return the {@link unexpectedStatus}
      */
     public BoxUnexpectedStatus getUnexpectedStatus() {
         return unexpectedStatus;

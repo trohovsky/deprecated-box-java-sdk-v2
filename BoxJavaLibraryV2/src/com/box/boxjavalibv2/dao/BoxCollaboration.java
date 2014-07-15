@@ -36,7 +36,7 @@ public class BoxCollaboration extends BoxTypedObject {
 
     /**
      * Copy constructor, this does deep copy for all the fields.
-     * 
+     *
      * @param obj
      */
     public BoxCollaboration(BoxCollaboration obj) {
@@ -45,7 +45,7 @@ public class BoxCollaboration extends BoxTypedObject {
 
     /**
      * Instantiate the object from a map. Each entry in the map reflects to a field.
-     * 
+     *
      * @param map
      */
     public BoxCollaboration(Map<String, Object> map) {
@@ -54,7 +54,7 @@ public class BoxCollaboration extends BoxTypedObject {
 
     /**
      * Get the user creating this collaboration.
-     * 
+     *
      * @return the created_by
      */
     @JsonProperty(FIELD_CREATED_BY)
@@ -64,7 +64,7 @@ public class BoxCollaboration extends BoxTypedObject {
 
     /**
      * Setter. This is only used by {@see <a href="http://jackson.codehaus.org">Jackson JSON processer</a>}.
-     * 
+     *
      * @param createdBy
      *            the created_by to set
      */
@@ -75,7 +75,7 @@ public class BoxCollaboration extends BoxTypedObject {
 
     /**
      * Setter. This is only used by {@see <a href="http://jackson.codehaus.org">Jackson JSON processer</a>}.
-     * 
+     *
      * @param accessibleBy
      *            the accessible_by to set
      */
@@ -86,7 +86,7 @@ public class BoxCollaboration extends BoxTypedObject {
 
     /**
      * Get the user this collaboration applies to.
-     * 
+     *
      * @return the accessible_by
      */
     @JsonProperty(FIELD_ACCESSIBLE_BY)
@@ -97,7 +97,7 @@ public class BoxCollaboration extends BoxTypedObject {
     /**
      * Get the time this collaboration expires. This returns a String and can be parsed into {@link java.util.Date} by
      * {@link com.box.boxjavalibv2.utils.ISO8601DateParser}
-     * 
+     *
      * @return the expires_at
      */
     @JsonProperty(FIELD_EXPIRES_AT)
@@ -107,7 +107,7 @@ public class BoxCollaboration extends BoxTypedObject {
 
     /**
      * Get the time this collaboration expires.
-     * 
+     *
      * @return Date representation of the expires_at value. Null if there was no expires_at or if it could not be parsed as an ISO8601 date.
      * @throws ParseException
      */
@@ -117,7 +117,7 @@ public class BoxCollaboration extends BoxTypedObject {
 
     /**
      * Setter. This is only used by {@see <a href="http://jackson.codehaus.org">Jackson JSON processer</a>}.
-     * 
+     *
      * @param expiresAt
      *            the expires_at to set
      */
@@ -128,7 +128,7 @@ public class BoxCollaboration extends BoxTypedObject {
 
     /**
      * Get the status of this collaboration. Can be {@link STATUS_ACCEPTED}, {@link STATUS_PENDING} or {@link STATUS_REJECTED}
-     * 
+     *
      * @return the status
      */
     @JsonProperty(FIELD_STATUS)
@@ -138,7 +138,7 @@ public class BoxCollaboration extends BoxTypedObject {
 
     /**
      * Setter. This is only used by {@see <a href="http://jackson.codehaus.org">Jackson JSON processer</a>}.
-     * 
+     *
      * @param status
      *            the status to set
      */
@@ -148,8 +148,8 @@ public class BoxCollaboration extends BoxTypedObject {
     }
 
     /**
-     * Get the role/permission. This is a role/permission String defined in {@link CollaborationRole}
-     * 
+     * Get the role/permission. This is a role/permission String defined in {@link BoxCollaborationRole}
+     *
      * @return the role/permission
      */
     @JsonProperty(FIELD_ROLE)
@@ -159,7 +159,7 @@ public class BoxCollaboration extends BoxTypedObject {
 
     /**
      * Setter. This is only used by {@see <a href="http://jackson.codehaus.org">Jackson JSON processer</a>}.
-     * 
+     *
      * @param role
      *            the role to set
      */
@@ -171,7 +171,7 @@ public class BoxCollaboration extends BoxTypedObject {
     /**
      * Get the time when the status of this collaboration was changed. This returns a String and can be parsed into {@link java.util.Date} by
      * {@link com.box.boxjavalibv2.utils.ISO8601DateParser}
-     * 
+     *
      * @return the acknowledged_at
      */
     @JsonProperty(FIELD_ACKNOWLEGED_AT)
@@ -181,7 +181,7 @@ public class BoxCollaboration extends BoxTypedObject {
 
     /**
      * Setter. This is only used by {@see <a href="http://jackson.codehaus.org">Jackson JSON processer</a>}.
-     * 
+     *
      * @param acknowledgedAt
      *            the acknowledged_at to set
      */
@@ -192,7 +192,7 @@ public class BoxCollaboration extends BoxTypedObject {
 
     /**
      * Get the folder this collaboration is related to.
-     * 
+     *
      * @return item the folder this collaboration is related to
      */
     @JsonProperty(FIELD_FOLDER)
@@ -202,7 +202,7 @@ public class BoxCollaboration extends BoxTypedObject {
 
     /**
      * Setter. This is only used by {@see <a href="http://jackson.codehaus.org">Jackson JSON processer</a>}.
-     * 
+     *
      * @param item
      *            the item to set
      */

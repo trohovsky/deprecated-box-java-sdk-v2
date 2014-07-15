@@ -54,7 +54,7 @@ public class BoxFileDownload {
 
     /**
      * Constructor.
-     * 
+     *
      * @param config
      *            config
      * @param restClient
@@ -70,7 +70,7 @@ public class BoxFileDownload {
 
     /**
      * Set the listener listening to download progress.
-     * 
+     *
      * @param listener
      *            listener
      */
@@ -80,7 +80,7 @@ public class BoxFileDownload {
 
     /**
      * Set the interval time you want the progress update to be reported.
-     * 
+     *
      * @param time
      *            interval time
      */
@@ -90,7 +90,7 @@ public class BoxFileDownload {
 
     /**
      * Execute a download.
-     * 
+     *
      * @param auth
      *            auth
      * @param outputStreams
@@ -118,14 +118,13 @@ public class BoxFileDownload {
 
     /**
      * Execute a download.
-     * 
+     *
      * @param auth
      *            auth
      * @param destination
      *            destination file
      * @param parser
      *            json parser
-     * @param
      * @param requestObject
      *            request object
      * @throws BoxRestException
@@ -149,7 +148,7 @@ public class BoxFileDownload {
     /**
      * Execute the download and return the raw InputStream. This method is not involved with download listeners and will not publish anything through download
      * listeners. Instead caller handles the InputStream as she/he wishes.
-     * 
+     *
      * @param auth
      *            auth
      * @param parser
@@ -185,7 +184,7 @@ public class BoxFileDownload {
 
     /**
      * Get bytes transferred.
-     * 
+     *
      * @return the mBytesTransferred
      */
     public long getBytesTransferred() {
@@ -194,7 +193,7 @@ public class BoxFileDownload {
 
     /**
      * Copy the InputStream into OutputStream's, also notify listener about the progress.
-     * 
+     *
      * @param inputStream
      *            InputStream
      * @param outputStreams
