@@ -28,5 +28,6 @@ public class BoxSharedLinkTest {
         Assert.assertEquals("testunsharedat", fromParcel.getUnsharedAt());
         Assert.assertEquals(99, (int)fromParcel.getDownloadCount());
         Assert.assertEquals("testaccess", fromParcel.getAccess());
+        Assert.assertEquals("testeffectiveaccess", fromParcel.getEffectiveAccess());
     }
 }
