@@ -1,6 +1,6 @@
 package com.box.boxjavalibv2.requests;
 
-import junit.framework.Assert;
+import org.junit.Assert;
 
 import org.apache.http.HttpStatus;
 import org.junit.Test;

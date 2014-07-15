@@ -7,6 +7,7 @@ import java.util.Map;
 import com.box.boxjavalibv2.dao.BoxObject;
 import com.box.boxjavalibv2.dao.IBoxType;
 
+@SuppressWarnings("unchecked")
 public abstract class BaseBoxResourceHub implements IBoxResourceHub {
 
     // As a performance optimization, set up string values for all types.
@@ -28,7 +29,7 @@ public abstract class BaseBoxResourceHub implements IBoxResourceHub {
 
     /**
      * Get the concrete class for IBoxType
-     * 
+     *
      * @return
      */
     @SuppressWarnings("rawtypes")

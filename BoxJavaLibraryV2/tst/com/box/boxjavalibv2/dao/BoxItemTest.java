@@ -3,7 +3,7 @@ package com.box.boxjavalibv2.dao;
 import java.io.File;
 import java.io.IOException;
 
-import junit.framework.Assert;
+import org.junit.Assert;
 
 import org.apache.commons.io.FileUtils;
 import org.junit.Test;
@@ -30,7 +30,7 @@ public class BoxItemTest {
         Assert.assertEquals("testsequenceid", item.getSequenceId());
         Assert.assertEquals("testname", item.getName());
         Assert.assertEquals("testdescription", item.getDescription());
-        Assert.assertEquals(1.0, item.getSize());
+        Assert.assertEquals(1.0, item.getSize(), 0.001);
         Assert.assertEquals("testitemstatus", item.getItemStatus());
 
         BoxItemPermissions perm = item.getPermissions();

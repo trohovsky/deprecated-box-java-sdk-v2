@@ -3,7 +3,7 @@ package com.box.boxjavalibv2.requests;
 import java.io.File;
 import java.io.IOException;
 
-import junit.framework.Assert;
+import org.junit.Assert;
 
 import org.apache.http.HttpStatus;
 import org.junit.Test;
@@ -30,7 +30,7 @@ public class UploadFileRequestTest extends RequestTestBase {
 
     /**
      * Test reqeust is well formed.
-     * 
+     *
      * @throws IOException
      *             exception
      * @throws BoxRestException
