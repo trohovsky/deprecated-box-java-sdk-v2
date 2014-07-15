@@ -2,7 +2,7 @@ package com.box.boxjavalibv2.requests;
 
 import java.io.IOException;
 
-import junit.framework.Assert;
+import org.junit.Assert;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpStatus;

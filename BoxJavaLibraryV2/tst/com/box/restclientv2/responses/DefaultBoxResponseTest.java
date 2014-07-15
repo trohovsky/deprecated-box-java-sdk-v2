@@ -1,6 +1,6 @@
 package com.box.restclientv2.responses;
 
-import junit.framework.Assert;
+import org.junit.Assert;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;

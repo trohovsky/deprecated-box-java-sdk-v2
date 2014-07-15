@@ -2,7 +2,7 @@ package com.box.restclientv2.interfaces;
 
 import java.io.UnsupportedEncodingException;
 
-import junit.framework.Assert;
+import org.junit.Assert;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpStatus;

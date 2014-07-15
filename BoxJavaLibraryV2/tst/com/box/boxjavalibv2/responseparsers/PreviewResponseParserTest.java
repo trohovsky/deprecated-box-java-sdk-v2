@@ -4,7 +4,7 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
-import junit.framework.Assert;
+import org.junit.Assert;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.http.Header;
@@ -66,7 +66,7 @@ public class PreviewResponseParserTest {
         Assert.assertEquals(BoxPreview.class, object.getClass());
 
         BoxPreview parsed = (BoxPreview) object;
-        Assert.assertEquals(length, parsed.getContentLength());
+        Assert.assertEquals(length, parsed.getContentLength(), 0.001);
         Assert.assertEquals(firstPage, parsed.getFirstPage().intValue());
         Assert.assertEquals(lastPage, parsed.getLastPage().intValue());
         Assert.assertEquals(PREVIEW_MOCK_CONTENT, IOUtils.toString(parsed.getContent()));

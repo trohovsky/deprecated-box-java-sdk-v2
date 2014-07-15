@@ -4,7 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
-import junit.framework.Assert;
+import org.junit.Assert;
 
 import org.apache.commons.io.FileUtils;
 import org.junit.Test;
@@ -44,10 +44,12 @@ public class BoxObjectTest {
         String unknownStr = (String) obj.getExtraData("unknownstring");
         Assert.assertEquals("unknown string", unknownStr);
 
+        @SuppressWarnings("unchecked")
         List<Integer> unknownIntArray = (List<Integer>) obj.getExtraData("intarray");
         Assert.assertEquals(1, unknownIntArray.get(0).intValue());
         Assert.assertEquals(2, unknownIntArray.get(1).intValue());
 
+        @SuppressWarnings("unchecked")
         List<String> unknownStrArray = (List<String>) obj.getExtraData("stringarray");
         Assert.assertEquals(2, unknownStrArray.size());
         Assert.assertEquals("string1", unknownStrArray.get(0));

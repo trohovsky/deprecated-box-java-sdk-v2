@@ -3,7 +3,7 @@ package com.box.restclientv2.responseparsers;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 
-import junit.framework.Assert;
+import org.junit.Assert;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;

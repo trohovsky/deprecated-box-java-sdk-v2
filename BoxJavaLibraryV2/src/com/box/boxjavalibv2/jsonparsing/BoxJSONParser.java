@@ -95,7 +95,7 @@ public class BoxJSONParser implements IBoxJSONParser {
     public <T> T parseIntoBoxObject(InputStream inputStream, Class<T> theClass) throws BoxJSONException, IOException {
         try {
             JsonFactory jsonFactory = new JsonFactory();
-            JsonParser jp = jsonFactory.createJsonParser(inputStream);
+            JsonParser jp = jsonFactory.createParser(inputStream);
             return getObjectMapper().readValue(jp, theClass);
         }
         catch (JsonGenerationException e) {
@@ -113,7 +113,7 @@ public class BoxJSONParser implements IBoxJSONParser {
     public <T> T parseIntoBoxObject(String jsonString, Class<T> theClass) throws BoxJSONException, IOException {
         try {
             JsonFactory jsonFactory = new JsonFactory();
-            JsonParser jp = jsonFactory.createJsonParser(jsonString);
+            JsonParser jp = jsonFactory.createParser(jsonString);
             return getObjectMapper().readValue(jp, theClass);
         }
         catch (JsonGenerationException e) {

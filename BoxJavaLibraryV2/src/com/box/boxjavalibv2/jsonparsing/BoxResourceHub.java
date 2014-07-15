@@ -27,6 +27,7 @@ import com.box.boxjavalibv2.dao.BoxUser;
 import com.box.boxjavalibv2.dao.BoxWebLink;
 import com.box.boxjavalibv2.dao.IBoxType;
 
+@SuppressWarnings("unchecked")
 public class BoxResourceHub extends BaseBoxResourceHub {
 
     public BoxResourceHub() {

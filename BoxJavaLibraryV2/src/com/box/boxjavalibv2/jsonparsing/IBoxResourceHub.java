@@ -9,7 +9,7 @@ public interface IBoxResourceHub {
 
     /**
      * Given a {@link IBoxType}, get the corrosponding DAO class.
-     * 
+     *
      * @param type
      *            resource type
      * @return corresponding resource DAO class
@@ -18,7 +18,7 @@ public interface IBoxResourceHub {
 
     /**
      * Get the IBoxType from a lower case string value. For example "file" would return BoxResourceType.FILE
-     * 
+     *
      * @param type
      * @return
      */

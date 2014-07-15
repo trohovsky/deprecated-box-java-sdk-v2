@@ -2,7 +2,7 @@ package com.box.restclientv2.authorization;
 
 import java.util.Map;
 
-import junit.framework.Assert;
+import org.junit.Assert;
 
 import org.apache.http.client.methods.HttpRequestBase;
 import org.junit.Test;

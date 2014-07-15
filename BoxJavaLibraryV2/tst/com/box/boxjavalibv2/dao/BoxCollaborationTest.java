@@ -3,7 +3,7 @@ package com.box.boxjavalibv2.dao;
 import java.io.File;
 import java.io.IOException;
 
-import junit.framework.Assert;
+import org.junit.Assert;
 
 import org.apache.commons.io.FileUtils;
 import org.junit.Test;
