@@ -27,7 +27,7 @@ public interface IBoxFilesManager extends IBoxResourceManager {
 
     /**
      * Get file given a file id.
-     * 
+     *
      * @param fileId
      *            id of the file
      * @param requestObject
@@ -36,15 +36,15 @@ public interface IBoxFilesManager extends IBoxResourceManager {
      * @throws BoxRestException
      *             See {@link com.box.restclientv2.exceptions.BoxRestException} for more info.
      * @throws BoxServerException
-     *             See {@link com.box.restclientv2.exceptions.BoxServerException} for more info.
+     *             See {@link com.box.boxjavalibv2.exceptions.BoxServerException} for more info.
      * @throws AuthFatalFailureException
-     *             See {@link com.box.restclientv2.exceptions.AuthFatalFailureException} for more info.
+     *             See {@link com.box.boxjavalibv2.exceptions.AuthFatalFailureException} for more info.
      */
     public BoxFile getFile(String fileId, BoxDefaultRequestObject requestObject) throws BoxRestException, BoxServerException, AuthFatalFailureException;
 
     /**
      * Delete a file.
-     * 
+     *
      * @param fileId
      *            id of the file
      * @param requestObject
@@ -52,15 +52,15 @@ public interface IBoxFilesManager extends IBoxResourceManager {
      * @throws BoxRestException
      *             See {@link com.box.restclientv2.exceptions.BoxRestException} for more info.
      * @throws BoxServerException
-     *             See {@link com.box.restclientv2.exceptions.BoxServerException} for more info.
+     *             See {@link com.box.boxjavalibv2.exceptions.BoxServerException} for more info.
      * @throws AuthFatalFailureException
-     *             See {@link com.box.restclientv2.exceptions.AuthFatalFailureException} for more info.
+     *             See {@link com.box.boxjavalibv2.exceptions.AuthFatalFailureException} for more info.
      */
     public void deleteFile(String fileId, BoxDefaultRequestObject requestObject) throws BoxRestException, BoxServerException, AuthFatalFailureException;
 
     /**
      * Get preview of a file.
-     * 
+     *
      * @param fileId
      *            id of the file
      * @param extension
@@ -71,9 +71,9 @@ public interface IBoxFilesManager extends IBoxResourceManager {
      * @throws BoxRestException
      *             See {@link com.box.restclientv2.exceptions.BoxRestException} for more info.
      * @throws BoxServerException
-     *             See {@link com.box.restclientv2.exceptions.BoxServerException} for more info.
+     *             See {@link com.box.boxjavalibv2.exceptions.BoxServerException} for more info.
      * @throws AuthFatalFailureException
-     *             See {@link com.box.restclientv2.exceptions.AuthFatalFailureException} for more info.
+     *             See {@link com.box.boxjavalibv2.exceptions.AuthFatalFailureException} for more info.
      */
     public BoxPreview getPreview(String fileId, String extension, BoxImageRequestObject requestObject) throws BoxRestException, BoxServerException,
         AuthFatalFailureException;
@@ -87,7 +87,7 @@ public interface IBoxFilesManager extends IBoxResourceManager {
 
     /**
      * Get thumbnail of a file.
-     * 
+     *
      * @param fileId
      *            id of the file
      * @param extension
@@ -98,25 +98,25 @@ public interface IBoxFilesManager extends IBoxResourceManager {
      * @throws BoxRestException
      *             See {@link com.box.restclientv2.exceptions.BoxRestException} for more info.
      * @throws BoxServerException
-     *             See {@link com.box.restclientv2.exceptions.BoxServerException} for more info.
+     *             See {@link com.box.boxjavalibv2.exceptions.BoxServerException} for more info.
      * @throws AuthFatalFailureException
-     *             See {@link com.box.restclientv2.exceptions.AuthFatalFailureException} for more info.
+     *             See {@link com.box.boxjavalibv2.exceptions.AuthFatalFailureException} for more info.
      */
     public BoxThumbnail getThumbnail(final String fileId, final String extension, final BoxImageRequestObject requestObject) throws BoxRestException,
         BoxServerException, AuthFatalFailureException;
 
     /**
      * Upload file/files.
-     * 
+     *
      * @param requestObject
      *            reqeust object
      * @return newly created box file object
      * @throws BoxRestException
      *             See {@link com.box.restclientv2.exceptions.BoxRestException} for more info.
      * @throws BoxServerException
-     *             See {@link com.box.restclientv2.exceptions.BoxServerException} for more info.
+     *             See {@link com.box.boxjavalibv2.exceptions.BoxServerException} for more info.
      * @throws AuthFatalFailureException
-     *             See {@link com.box.restclientv2.exceptions.AuthFatalFailureException} for more info.
+     *             See {@link com.box.boxjavalibv2.exceptions.AuthFatalFailureException} for more info.
      * @throws InterruptedException
      */
 
@@ -125,7 +125,7 @@ public interface IBoxFilesManager extends IBoxResourceManager {
 
     /**
      * Copy a file.
-     * 
+     *
      * @param fileId
      *            id of the file
      * @param requestObject
@@ -134,15 +134,15 @@ public interface IBoxFilesManager extends IBoxResourceManager {
      * @throws BoxRestException
      *             See {@link com.box.restclientv2.exceptions.BoxRestException} for more info.
      * @throws BoxServerException
-     *             See {@link com.box.restclientv2.exceptions.BoxServerException} for more info.
+     *             See {@link com.box.boxjavalibv2.exceptions.BoxServerException} for more info.
      * @throws AuthFatalFailureException
-     *             See {@link com.box.restclientv2.exceptions.AuthFatalFailureException} for more info.
+     *             See {@link com.box.boxjavalibv2.exceptions.AuthFatalFailureException} for more info.
      */
     public BoxFile copyFile(String fileId, BoxItemCopyRequestObject requestObject) throws BoxRestException, BoxServerException, AuthFatalFailureException;
 
     /**
      * Download a file.
-     * 
+     *
      * @param fileId
      *            id of the file
      * @param destination
@@ -154,9 +154,9 @@ public interface IBoxFilesManager extends IBoxResourceManager {
      * @throws BoxRestException
      *             See {@link com.box.restclientv2.exceptions.BoxRestException} for more info.
      * @throws BoxServerException
-     *             See {@link com.box.restclientv2.exceptions.BoxServerException} for more info.
+     *             See {@link com.box.boxjavalibv2.exceptions.BoxServerException} for more info.
      * @throws AuthFatalFailureException
-     *             See {@link com.box.restclientv2.exceptions.AuthFatalFailureException} for more info.
+     *             See {@link com.box.boxjavalibv2.exceptions.AuthFatalFailureException} for more info.
      * @throws IllegalStateException
      *             IllegalStateException
      * @throws IOException
@@ -170,7 +170,7 @@ public interface IBoxFilesManager extends IBoxResourceManager {
     /**
      * Execute the download and return the raw InputStream. This method is not involved with download listeners and will not publish anything through download
      * listeners. Instead caller handles the InputStream as she/he wishes.
-     * 
+     *
      * @param fileId
      *            id of the file to be downloaded
      * @param requestObject
@@ -179,16 +179,16 @@ public interface IBoxFilesManager extends IBoxResourceManager {
      * @throws BoxRestException
      *             See {@link com.box.restclientv2.exceptions.BoxRestException} for more info.
      * @throws BoxServerException
-     *             See {@link com.box.restclientv2.exceptions.BoxServerException} for more info.
+     *             See {@link com.box.boxjavalibv2.exceptions.BoxServerException} for more info.
      * @throws AuthFatalFailureException
-     *             See {@link com.box.restclientv2.exceptions.AuthFatalFailureException} for more info.
+     *             See {@link com.box.boxjavalibv2.exceptions.AuthFatalFailureException} for more info.
      */
     public InputStream downloadFile(String fileId, BoxDefaultRequestObject requestObject) throws BoxRestException, BoxServerException,
         AuthFatalFailureException;
 
     /**
      * Download a file.
-     * 
+     *
      * @param fileId
      *            id of the file
      * @param outputStreams
@@ -200,9 +200,9 @@ public interface IBoxFilesManager extends IBoxResourceManager {
      * @throws BoxRestException
      *             See {@link com.box.restclientv2.exceptions.BoxRestException} for more info.
      * @throws BoxServerException
-     *             See {@link com.box.restclientv2.exceptions.BoxServerException} for more info.
+     *             See {@link com.box.boxjavalibv2.exceptions.BoxServerException} for more info.
      * @throws AuthFatalFailureException
-     *             See {@link com.box.restclientv2.exceptions.AuthFatalFailureException} for more info.
+     *             See {@link com.box.boxjavalibv2.exceptions.AuthFatalFailureException} for more info.
      * @throws IOException
      *             exception
      * @throws InterruptedException
@@ -213,7 +213,7 @@ public interface IBoxFilesManager extends IBoxResourceManager {
 
     /**
      * Upload a new version of a file.
-     * 
+     *
      * @param fileId
      *            id of the file
      * @param requestObject
@@ -222,9 +222,9 @@ public interface IBoxFilesManager extends IBoxResourceManager {
      * @throws BoxRestException
      *             See {@link com.box.restclientv2.exceptions.BoxRestException} for more info.
      * @throws BoxServerException
-     *             See {@link com.box.restclientv2.exceptions.BoxServerException} for more info.
+     *             See {@link com.box.boxjavalibv2.exceptions.BoxServerException} for more info.
      * @throws AuthFatalFailureException
-     *             See {@link com.box.restclientv2.exceptions.AuthFatalFailureException} for more info.
+     *             See {@link com.box.boxjavalibv2.exceptions.AuthFatalFailureException} for more info.
      * @throws InterruptedException
      */
     public BoxFile uploadNewVersion(String fileId, BoxFileUploadRequestObject requestObject) throws BoxRestException, BoxServerException,
@@ -232,7 +232,7 @@ public interface IBoxFilesManager extends IBoxResourceManager {
 
     /**
      * Get file versions(Note: Versions are only tracked for Box users with premium accounts.).
-     * 
+     *
      * @param fileId
      *            id of the file
      * @param requestObject
@@ -241,16 +241,16 @@ public interface IBoxFilesManager extends IBoxResourceManager {
      * @throws BoxRestException
      *             See {@link com.box.restclientv2.exceptions.BoxRestException} for more info.
      * @throws BoxServerException
-     *             See {@link com.box.restclientv2.exceptions.BoxServerException} for more info.
+     *             See {@link com.box.boxjavalibv2.exceptions.BoxServerException} for more info.
      * @throws AuthFatalFailureException
-     *             See {@link com.box.restclientv2.exceptions.AuthFatalFailureException} for more info.
+     *             See {@link com.box.boxjavalibv2.exceptions.AuthFatalFailureException} for more info.
      */
     public List<BoxFileVersion> getFileVersions(String fileId, BoxDefaultRequestObject requestObject) throws BoxRestException, BoxServerException,
         AuthFatalFailureException;
 
     /**
      * Update info for a file.
-     * 
+     *
      * @param fileId
      *            id of the file
      * @param requestObject
@@ -261,16 +261,16 @@ public interface IBoxFilesManager extends IBoxResourceManager {
      * @throws BoxRestException
      *             See {@link com.box.restclientv2.exceptions.BoxRestException} for more info.
      * @throws BoxServerException
-     *             See {@link com.box.restclientv2.exceptions.BoxServerException} for more info.
+     *             See {@link com.box.boxjavalibv2.exceptions.BoxServerException} for more info.
      * @throws AuthFatalFailureException
-     *             See {@link com.box.restclientv2.exceptions.AuthFatalFailureException} for more info.
+     *             See {@link com.box.boxjavalibv2.exceptions.AuthFatalFailureException} for more info.
      */
     public BoxFile updateFileInfo(String fileId, BoxFileRequestObject requestObject) throws UnsupportedEncodingException, BoxRestException, BoxServerException,
         AuthFatalFailureException;
 
     /**
      * Create a shared link for a file, given the id of the file/folder.
-     * 
+     *
      * @param fileId
      *            id of the file
      * @param requestObject
@@ -279,16 +279,16 @@ public interface IBoxFilesManager extends IBoxResourceManager {
      * @throws BoxRestException
      *             See {@link com.box.restclientv2.exceptions.BoxRestException} for more info.
      * @throws BoxServerException
-     *             See {@link com.box.restclientv2.exceptions.BoxServerException} for more info.
+     *             See {@link com.box.boxjavalibv2.exceptions.BoxServerException} for more info.
      * @throws AuthFatalFailureException
-     *             See {@link com.box.restclientv2.exceptions.AuthFatalFailureException} for more info.
+     *             See {@link com.box.boxjavalibv2.exceptions.AuthFatalFailureException} for more info.
      */
     public BoxFile createSharedLink(String fileId, BoxSharedLinkRequestObject requestObject) throws BoxRestException, BoxServerException,
         AuthFatalFailureException;
 
     /**
      * Get comments on a file.
-     * 
+     *
      * @param fileId
      *            id of the file
      * @param requestObject
@@ -297,9 +297,9 @@ public interface IBoxFilesManager extends IBoxResourceManager {
      * @throws BoxRestException
      *             See {@link com.box.restclientv2.exceptions.BoxRestException} for more info.
      * @throws BoxServerException
-     *             See {@link com.box.restclientv2.exceptions.BoxServerException} for more info.
+     *             See {@link com.box.boxjavalibv2.exceptions.BoxServerException} for more info.
      * @throws AuthFatalFailureException
-     *             See {@link com.box.restclientv2.exceptions.AuthFatalFailureException} for more info.
+     *             See {@link com.box.boxjavalibv2.exceptions.AuthFatalFailureException} for more info.
      */
     public BoxCollection getFileComments(String fileId, BoxDefaultRequestObject requestObject) throws BoxRestException, BoxServerException,
         AuthFatalFailureException;

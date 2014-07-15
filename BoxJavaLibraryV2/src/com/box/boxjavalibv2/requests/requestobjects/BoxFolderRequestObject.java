@@ -40,12 +40,11 @@ public class BoxFolderRequestObject extends BoxItemRequestObject {
 
     /**
      * Set the email-to-upload address for this folder.
-     * 
+     *
      * @param access
      *            access level
      * @param email
      *            email address
-     * @return
      */
     public void setUploadEmail(String access, String email) {
         MapJSONStringEntity entity = new MapJSONStringEntity();

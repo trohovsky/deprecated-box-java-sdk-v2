@@ -16,13 +16,11 @@ public class GetFolderTrashItemsRequest extends DefaultBoxRequest {
 
     /**
      * Constructor.
-     * 
+     *
      * @param config
      *            config
      * @param parser
      *            json parser
-     * @param folderId
-     *            id of the folder
      * @param requestObject
      *            request object
      * @throws BoxRestException

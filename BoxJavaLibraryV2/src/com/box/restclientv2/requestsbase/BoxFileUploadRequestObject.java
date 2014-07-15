@@ -39,7 +39,7 @@ public class BoxFileUploadRequestObject extends BoxDefaultRequestObject {
 
     /**
      * BoxFileUploadRequestObject for upload file request. Note: for uploading a new version of the file, please use uploadNewVersionRequestObject().
-     * 
+     *
      * @param parentId
      *            id of the parent folder
      * @param fileName
@@ -62,7 +62,7 @@ public class BoxFileUploadRequestObject extends BoxDefaultRequestObject {
 
     /**
      * BoxFileUploadRequestObject for upload file request. Note: for uploading a new version of the file, please use uploadNewVersionRequestObject().
-     * 
+     *
      * @param parentId
      *            id of the parent folder
      * @param fileName
@@ -84,7 +84,7 @@ public class BoxFileUploadRequestObject extends BoxDefaultRequestObject {
 
     /**
      * BoxFileUploadRequestObject for upload a new version of a file.
-     * 
+     *
      * @param name
      *            name of the file
      * @param file
@@ -103,7 +103,7 @@ public class BoxFileUploadRequestObject extends BoxDefaultRequestObject {
 
     /**
      * BoxFileUploadRequestObject for upload a new version of a file.
-     * 
+     *
      * @param name
      *            name of the file
      * @param inputStream
@@ -127,7 +127,7 @@ public class BoxFileUploadRequestObject extends BoxDefaultRequestObject {
 
     /**
      * Set upload listener.
-     * 
+     *
      * @param listener
      *            upload listener
      */
@@ -139,7 +139,7 @@ public class BoxFileUploadRequestObject extends BoxDefaultRequestObject {
     /**
      * Set the content MD5 in the request. This is used in upload file request, it can make sure that the file is not corrupted in transit. In case of the sha1
      * is different than the sha1 calculated on server, request is going to fail.
-     * 
+     *
      * @param sha1
      *            sha1
      */
@@ -150,7 +150,7 @@ public class BoxFileUploadRequestObject extends BoxDefaultRequestObject {
 
     /**
      * Set the time that the file was locally created.
-     * 
+     *
      * @param createdAt
      * @return
      * @throws UnsupportedEncodingException
@@ -162,8 +162,8 @@ public class BoxFileUploadRequestObject extends BoxDefaultRequestObject {
 
     /**
      * Set the time that the file was locally last modified.
-     * 
-     * @param createdAt
+     *
+     * @param modifiedAt
      * @return
      * @throws UnsupportedEncodingException
      */

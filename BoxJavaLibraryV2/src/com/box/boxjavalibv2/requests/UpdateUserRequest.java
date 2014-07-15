@@ -16,14 +16,13 @@ public class UpdateUserRequest extends DefaultBoxRequest {
 
     /**
      * Constructor
-     * 
+     *
      * @param config
      *            config
      * @param parser
      *            json parser
      * @param userId
      *            id of the user.
-     * @param
      * @param requestObject
      *            request object
      * @throws BoxRestException
@@ -35,7 +34,7 @@ public class UpdateUserRequest extends DefaultBoxRequest {
 
     /**
      * Get Uri.
-     * 
+     *
      * @param userId
      *            id of the user
      * @return uri

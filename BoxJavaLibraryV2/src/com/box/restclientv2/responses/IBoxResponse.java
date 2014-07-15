@@ -10,8 +10,9 @@ public interface IBoxResponse {
 
     /**
      * Parese HttpResponse into IResponseObject.
-     * 
-     * @param boxResponseObject
+     *
+     * @param responseParser
+     * @param errorParser
      * @return parsed object
      * @throws BoxRestException
      */

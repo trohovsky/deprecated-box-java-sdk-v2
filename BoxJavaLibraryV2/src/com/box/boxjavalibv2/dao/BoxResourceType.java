@@ -42,7 +42,7 @@ public enum BoxResourceType implements IBoxType {
     FILE_VERSIONS,
     /** Box's equivalent of access control lists. They can be used to set and apply permissions for users to folders. */
     COLLABORATION,
-    /** A plural format of {@link ResourceType.COLLABORATION}. */
+    /** A plural format of {@link #COLLABORATION}. */
     COLLABORATIONS,
     /** An email alias. */
     EMAIL_ALIAS,
@@ -85,7 +85,7 @@ public enum BoxResourceType implements IBoxType {
 
     /**
      * Get the String representing plural format of a resource.
-     * 
+     *
      * @return the String representing plural format of a resource
      */
     public String toPluralString() {
@@ -95,7 +95,7 @@ public enum BoxResourceType implements IBoxType {
     /**
      * Get the BoxResourceType from a lower case string value. For example "file" would return BoxResourceType.FILE Deprecated, use getTypeFromLowercaseString
      * method in IBoxResourceHub instead.
-     * 
+     *
      * @param string
      * @return
      */
