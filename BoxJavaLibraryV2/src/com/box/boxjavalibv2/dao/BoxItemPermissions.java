@@ -55,6 +55,11 @@ public class BoxItemPermissions extends BoxObject {
     public Boolean canPreivew() {
         return (Boolean) getValue(FIELD_CAN_PREVIEW);
     }
+    
+    @JsonProperty(FIELD_CAN_PREVIEW)
+    public Boolean canPreview() {
+        return (Boolean) getValue(FIELD_CAN_PREVIEW);
+    }
 
     @JsonProperty(FIELD_CAN_PREVIEW)
     private void setCanPreview(Boolean canPreview) {
