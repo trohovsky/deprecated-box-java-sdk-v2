@@ -12,7 +12,8 @@ public class BoxSharedLink extends BoxObject {
 
     public static final String FIELD_URL = "url";
     public static final String FIELD_DOWNLOAD_URL = "download_url";
-    public static final String FIELD_PASSWORD_ENABLED = "is_password_enabled";
+    public static final String FIELD_VANITY_URL = "vanity_url";
+    public static final String FIELD_IS_PASSWORD_ENABLED = "is_password_enabled";
     public static final String FIELD_UNSHARED_AT = "unshared_at";
     public static final String FIELD_DOWNLOAD_COUNT = "download_count";
     public static final String FIELD_PREVIEW_COUNT = "preview_count";
@@ -88,9 +89,9 @@ public class BoxSharedLink extends BoxObject {
      * 
      * @return the password_enabled
      */
-    @JsonProperty(FIELD_PASSWORD_ENABLED)
+    @JsonProperty(FIELD_IS_PASSWORD_ENABLED)
     public Boolean isPasswordEnabled() {
-        return (Boolean) getValue(FIELD_PASSWORD_ENABLED);
+        return (Boolean) getValue(FIELD_IS_PASSWORD_ENABLED);
     }
 
     /**
@@ -99,9 +100,9 @@ public class BoxSharedLink extends BoxObject {
      * @param passwordEnabled
      *            the password_enabled to set
      */
-    @JsonProperty(FIELD_PASSWORD_ENABLED)
+    @JsonProperty(FIELD_IS_PASSWORD_ENABLED)
     private void setPasswordEnabled(final Boolean passwordEnabled) {
-        put(FIELD_PASSWORD_ENABLED, passwordEnabled);
+        put(FIELD_IS_PASSWORD_ENABLED, passwordEnabled);
     }
 
     /**
@@ -190,8 +191,18 @@ public class BoxSharedLink extends BoxObject {
     }
 
     /**
+     * Get vanity url.
+     * 
+     * @return the vanity url
+     */
+    @JsonProperty(FIELD_VANITY_URL)
+    public String getVanityUrl() {
+        return (String) getValue(FIELD_VANITY_URL);
+    }
+
+    /**
      * Get effective access. This can only be the strings defined in {@link com.box.boxjavalibv2.dao.BoxSharedLinkAccess}
-     *
+     * 
      * @return the access
      */
     @JsonProperty(FIELD_EFFECTIVE_ACCESS)
@@ -200,14 +211,25 @@ public class BoxSharedLink extends BoxObject {
     }
 
     /**
-     * Setter. This is only used by {@see <a href="http://jackson.codehaus.org">Jackson JSON processer</a>}
-     *
      * @param accessLevel
      *            the access to set
      */
     @JsonProperty(FIELD_EFFECTIVE_ACCESS)
     private void setEffectiveAccess(final String accessLevel) {
         put(FIELD_EFFECTIVE_ACCESS, accessLevel);
+
+    }
+
+    /**
+     * Setter. This is only used by {@see <a href="http://jackson.codehaus.org">Jackson JSON processer</a>}
+     * 
+     * @param url
+     *            the vanity url
+     */
+    @JsonProperty(FIELD_VANITY_URL)
+    private void setVanityUrl(final String url) {
+        put(FIELD_VANITY_URL, url);
+
     }
 
     /**
