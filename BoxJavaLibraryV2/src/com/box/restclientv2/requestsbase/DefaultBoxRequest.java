@@ -63,7 +63,7 @@ public class DefaultBoxRequest implements IBoxRequest {
 
     /**
      * Constructor.
-     *
+     * 
      * @param config
      *            config
      * @param parser
@@ -88,11 +88,9 @@ public class DefaultBoxRequest implements IBoxRequest {
         if (requestObject != null) {
             try {
                 setEntity(requestObject.getEntity(parser));
-            }
-            catch (BoxJSONException e) {
+            } catch (BoxJSONException e) {
                 throw new BoxRestException(e, "Cannot parse entity of the request object.");
-            }
-            catch (UnsupportedEncodingException e) {
+            } catch (UnsupportedEncodingException e) {
                 throw new BoxRestException(e, "UnsupportedEncodingException in the request object.");
             }
 
@@ -110,7 +108,7 @@ public class DefaultBoxRequest implements IBoxRequest {
 
     /**
      * Set the expected returned http response status code.
-     *
+     * 
      * @param code
      *            code
      */
@@ -133,6 +131,10 @@ public class DefaultBoxRequest implements IBoxRequest {
         return mCookie;
     }
 
+    public String getUriPath() {
+        return uriPath;
+    }
+
     @Override
     public HttpEntity getRequestEntity() {
         return mEntity;
@@ -145,7 +147,7 @@ public class DefaultBoxRequest implements IBoxRequest {
 
     /**
      * Get raw request underlying this DefaultBoxRequest. Note this object is not constructed until prepareRequest method is called.
-     *
+     * 
      * @return raw request.
      */
     public HttpRequestBase getRawRequest() {
@@ -164,7 +166,7 @@ public class DefaultBoxRequest implements IBoxRequest {
 
     /**
      * Set entity for the request.
-     *
+     * 
      * @param entity
      *            entity.
      */
@@ -184,7 +186,7 @@ public class DefaultBoxRequest implements IBoxRequest {
 
     /**
      * Set If-Match header.
-     *
+     * 
      * @param ifMatch
      *            the If-Match header value
      */
@@ -196,7 +198,7 @@ public class DefaultBoxRequest implements IBoxRequest {
      * Set fields on the request. By default, each box object has a complete and a mini format. The complete format is returned when you request a specific
      * object. The mini is returned when the object is part of a collection of items. In either case, you can set the fields here to specify which specific
      * fields you'd like returned. They can be any fields that are a part of the complete object for that particular type.
-     *
+     * 
      * @param fields
      *            fields
      */
@@ -214,7 +216,7 @@ public class DefaultBoxRequest implements IBoxRequest {
 
     /**
      * Get the headers.
-     *
+     * 
      * @return headers
      */
     public Map<String, String> getHeaders() {
@@ -223,7 +225,7 @@ public class DefaultBoxRequest implements IBoxRequest {
 
     /**
      * Add http param.
-     *
+     * 
      * @param name
      *            name
      * @param value
@@ -235,7 +237,7 @@ public class DefaultBoxRequest implements IBoxRequest {
 
     /**
      * Get query parameters.
-     *
+     * 
      * @return query parameters
      */
     public Map<String, String> getQueryParams() {
@@ -256,8 +258,7 @@ public class DefaultBoxRequest implements IBoxRequest {
             }
 
             rawRequest.setURI(ub.build());
-        }
-        catch (URISyntaxException e) {
+        } catch (URISyntaxException e) {
             throw new BoxRestException("URISyntaxException:" + e.getMessage());
         }
 
@@ -303,7 +304,7 @@ public class DefaultBoxRequest implements IBoxRequest {
 
     /**
      * Construct raw request. Currently only support GET/PUT/POST/DELETE.
-     *
+     * 
      * @return raw request
      * @throws BoxRestException
      *             exception
