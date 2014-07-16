@@ -12,7 +12,7 @@ import com.box.restclientv2.requestsbase.DefaultBoxRequest;
  */
 public class SearchRequest extends DefaultBoxRequest {
 
-    private static final String URI = "/search";
+    public static final String URI = "/search";
 
     /**
      * Constructor.

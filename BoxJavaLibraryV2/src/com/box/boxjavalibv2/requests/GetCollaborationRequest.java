@@ -13,11 +13,11 @@ import com.box.restclientv2.requestsbase.DefaultBoxRequest;
  */
 public class GetCollaborationRequest extends DefaultBoxRequest {
 
-    private static final String URI = "/collaborations/%s";
+    public static final String URI = "/collaborations/%s";
 
     /**
      * Constructor.
-     *
+     * 
      * @param config
      *            config
      * @param parser
@@ -36,7 +36,7 @@ public class GetCollaborationRequest extends DefaultBoxRequest {
 
     /**
      * Get uri.
-     *
+     * 
      * @param collabId
      *            collaboration id
      * @return uri

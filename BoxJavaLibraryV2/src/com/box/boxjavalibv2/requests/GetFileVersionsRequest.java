@@ -12,7 +12,7 @@ import com.box.restclientv2.requestsbase.DefaultBoxRequest;
  */
 public class GetFileVersionsRequest extends DefaultBoxRequest {
 
-    private static final String URI = "/files/%s/versions";
+    public static final String URI = "/files/%s/versions";
 
     /**
      * Constructor.

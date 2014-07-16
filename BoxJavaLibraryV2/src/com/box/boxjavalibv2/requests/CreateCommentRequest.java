@@ -14,7 +14,7 @@ import com.box.restclientv2.requestsbase.DefaultBoxRequest;
  */
 public class CreateCommentRequest extends DefaultBoxRequest {
 
-    private static final String URI = "/comments";
+    public static final String URI = "/comments";
 
     /**
      * Constructor.

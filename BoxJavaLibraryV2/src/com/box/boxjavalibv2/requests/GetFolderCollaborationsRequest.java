@@ -13,7 +13,7 @@ import com.box.restclientv2.requestsbase.DefaultBoxRequest;
  */
 public class GetFolderCollaborationsRequest extends DefaultBoxRequest {
 
-    private static final String URI = "/folders/%s/collaborations";
+    public static final String URI = "/folders/%s/collaborations";
 
     public GetFolderCollaborationsRequest(final IBoxConfig config, final IBoxJSONParser parser, String folderId, BoxDefaultRequestObject requestObject)
         throws BoxRestException {
@@ -22,7 +22,7 @@ public class GetFolderCollaborationsRequest extends DefaultBoxRequest {
 
     /**
      * Get uri.
-     *
+     * 
      * @param folderId
      *            id of the collaborated folder
      * @return uri

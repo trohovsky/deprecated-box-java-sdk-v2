@@ -13,7 +13,7 @@ import com.box.restclientv2.requestsbase.DefaultBoxRequest;
  */
 public class CreateSharedLinkRequest extends DefaultBoxRequest {
 
-    private static final String URI = "/%s/%s";
+    public static final String URI = "/%s/%s";
 
     /**
      * Constructor.

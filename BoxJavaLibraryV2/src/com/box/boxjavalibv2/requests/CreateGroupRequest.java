@@ -11,7 +11,7 @@ import com.box.restclientv2.requestsbase.DefaultBoxRequest;
 
 public class CreateGroupRequest extends DefaultBoxRequest {
 
-    private static final String URI = "/groups";
+    public static final String URI = "/groups";
 
     public CreateGroupRequest(final IBoxConfig config, final IBoxJSONParser parser, final BoxGroupRequestObject requestObject) throws BoxRestException {
         super(config, parser, getUri(), RestMethod.POST, requestObject);

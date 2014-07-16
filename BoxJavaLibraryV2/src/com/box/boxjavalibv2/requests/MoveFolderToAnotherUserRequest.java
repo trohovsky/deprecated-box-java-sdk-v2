@@ -13,7 +13,7 @@ import com.box.restclientv2.requestsbase.DefaultBoxRequest;
  */
 public class MoveFolderToAnotherUserRequest extends DefaultBoxRequest {
 
-    private static final String URI = "/users/%s/folders/%s";
+    public static final String URI = "/users/%s/folders/%s";
 
     /**
      * Constructor.

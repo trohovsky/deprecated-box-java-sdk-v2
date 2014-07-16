@@ -14,7 +14,7 @@ import com.box.restclientv2.requestsbase.DefaultBoxRequest;
  */
 public class UploadFileRequest extends DefaultBoxRequest {
 
-    private static final String URI = "/files/content";
+    public static final String URI = "/files/content";
 
     public UploadFileRequest(final IBoxConfig config, final IBoxJSONParser parser, final BoxFileUploadRequestObject requestObject) throws BoxRestException {
         super(config, parser, getUri(), RestMethod.POST, requestObject);

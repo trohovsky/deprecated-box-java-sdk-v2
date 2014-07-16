@@ -12,11 +12,11 @@ import com.box.restclientv2.requestsbase.DefaultBoxRequest;
  */
 public class GetEventsRequest extends DefaultBoxRequest {
 
-    private static final String URI = "/events";
+    public static final String URI = "/events";
 
     /**
      * Constructor.
-     *
+     * 
      * @param config
      * @param parser
      * @param requestObject

@@ -12,7 +12,7 @@ import com.box.restclientv2.requestsbase.DefaultBoxRequest;
  */
 public class GetCommentRequest extends DefaultBoxRequest {
 
-    private static final String URI = "/comments/%s";
+    public static final String URI = "/comments/%s";
 
     /**
      * Constructor.

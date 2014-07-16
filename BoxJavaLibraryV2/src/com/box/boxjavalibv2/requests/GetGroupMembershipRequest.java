@@ -9,10 +9,10 @@ import com.box.restclientv2.requestsbase.DefaultBoxRequest;
 
 public class GetGroupMembershipRequest extends DefaultBoxRequest {
 
-    private static final String URI = "/group_memberships/%s";
+    public static final String URI = "/group_memberships/%s";
 
-    public GetGroupMembershipRequest(final IBoxConfig config, final IBoxJSONParser parser, final String membershipId, final BoxDefaultRequestObject requestObject)
-        throws BoxRestException {
+    public GetGroupMembershipRequest(final IBoxConfig config, final IBoxJSONParser parser, final String membershipId,
+        final BoxDefaultRequestObject requestObject) throws BoxRestException {
         super(config, parser, getUri(membershipId), RestMethod.GET, requestObject);
     }
 
