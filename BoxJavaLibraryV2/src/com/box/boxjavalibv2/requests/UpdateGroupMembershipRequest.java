@@ -9,7 +9,7 @@ import com.box.restclientv2.requestsbase.DefaultBoxRequest;
 
 public class UpdateGroupMembershipRequest extends DefaultBoxRequest {
 
-    private static final String URI = "/group_memberships/%s";
+    public static final String URI = "/group_memberships/%s";
 
     public UpdateGroupMembershipRequest(final IBoxConfig config, final IBoxJSONParser parser, final String membershipId,
         final BoxGroupMembershipRequestObject requestObject) throws BoxRestException {

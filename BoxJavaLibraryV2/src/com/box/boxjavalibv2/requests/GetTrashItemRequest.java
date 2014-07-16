@@ -10,7 +10,7 @@ import com.box.restclientv2.requestsbase.DefaultBoxRequest;
 
 public class GetTrashItemRequest extends DefaultBoxRequest {
 
-    private static final String URI = "/%s/%s/trash";
+    public static final String URI = "/%s/%s/trash";
 
     public GetTrashItemRequest(final IBoxConfig config, final IBoxJSONParser parser, final String id, final BoxResourceType resourceType,
         final BoxDefaultRequestObject requestObject) throws BoxRestException {

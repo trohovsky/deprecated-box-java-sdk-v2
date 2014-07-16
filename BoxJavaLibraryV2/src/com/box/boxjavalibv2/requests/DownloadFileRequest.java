@@ -14,7 +14,7 @@ import com.box.restclientv2.requestsbase.DefaultBoxRequest;
  */
 public class DownloadFileRequest extends DefaultBoxRequest {
 
-    private static final String URI = "/files/%s/content";
+    public static final String URI = "/files/%s/content";
 
     /**
      * Constructor.

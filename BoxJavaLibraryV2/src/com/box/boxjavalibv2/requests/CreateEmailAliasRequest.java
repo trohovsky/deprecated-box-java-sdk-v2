@@ -15,7 +15,7 @@ import com.box.restclientv2.requestsbase.DefaultBoxRequest;
  */
 public class CreateEmailAliasRequest extends DefaultBoxRequest {
 
-    private static final String URI = "/users/%s/email_aliases";
+    public static final String URI = "/users/%s/email_aliases";
 
     /**
      * Constructor.

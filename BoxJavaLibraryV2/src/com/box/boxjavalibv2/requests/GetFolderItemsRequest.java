@@ -12,7 +12,7 @@ import com.box.restclientv2.requestsbase.DefaultBoxRequest;
  */
 public class GetFolderItemsRequest extends DefaultBoxRequest {
 
-    private static final String URI = "/folders/%s/items";
+    public static final String URI = "/folders/%s/items";
 
     /**
      * Constructor.

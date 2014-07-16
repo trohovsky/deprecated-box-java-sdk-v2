@@ -14,7 +14,7 @@ import com.box.restclientv2.requestsbase.DefaultBoxRequest;
  */
 public class DeleteFolderRequest extends DefaultBoxRequest {
 
-    private static final String URI = "/folders/%s";
+    public static final String URI = "/folders/%s";
 
     /**
      * Constructor.
