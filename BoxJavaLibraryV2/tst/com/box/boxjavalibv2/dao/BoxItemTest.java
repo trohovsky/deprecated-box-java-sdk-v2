@@ -23,20 +23,21 @@ public class BoxItemTest {
 
         Assert.assertTrue(item instanceof BoxFile);
         Assert.assertEquals("file", item.getType());
-        Assert.assertEquals("testfileid", item.getId());
-        Assert.assertEquals("testcreatedat", item.getCreatedAt());
-        Assert.assertEquals("testmodifiedat", item.getModifiedAt());
-        Assert.assertEquals("testetag", item.getEtag());
-        Assert.assertEquals("testsequenceid", item.getSequenceId());
-        Assert.assertEquals("testname", item.getName());
-        Assert.assertEquals("testdescription", item.getDescription());
-        Assert.assertEquals(1.0, item.getSize(), 0.001);
-        Assert.assertEquals("testitemstatus", item.getItemStatus());
+        Assert.assertEquals("5000948880", item.getId());
+        Assert.assertEquals("2012-12-12T10:55:30-08:00", item.getCreatedAt());
+        Assert.assertEquals("2012-12-12T11:04:26-08:00", item.getModifiedAt());
+        Assert.assertEquals("3", item.getEtag());
+        Assert.assertEquals("3", item.getSequenceId());
+        Assert.assertEquals("tigers.jpeg", item.getName());
+        Assert.assertEquals("a picture of tigers", item.getDescription());
+        Assert.assertEquals(629644, item.getSize().doubleValue(),0);
+        Assert.assertEquals("active", item.getItemStatus());
+
 
         BoxItemPermissions perm = item.getPermissions();
-        Assert.assertTrue(perm.canPreivew());
+        Assert.assertTrue(perm.canPreview());
         Assert.assertTrue(perm.canDownload());
-        Assert.assertFalse(perm.canSetShareAccess());
+        Assert.assertTrue(perm.canSetShareAccess());
         Assert.assertTrue(perm.canComment());
         Assert.assertTrue(perm.canDelete());
         Assert.assertTrue(perm.canShare());

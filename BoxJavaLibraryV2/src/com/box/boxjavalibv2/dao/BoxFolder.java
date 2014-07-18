@@ -12,6 +12,7 @@ public class BoxFolder extends BoxItem {
     public static final String FIELD_FOLDER_UPLOAD_EMAIL = "folder_upload_email";
     public static final String FIELD_ITEM_COLLECTION = "item_collection";
     public static final String FIELD_HAS_COLLABORATIONS = "has_collaborations";
+    public static final String FIELD_SYNC_STATE = "sync_state";
 
     /**
      * Constructor.
@@ -103,6 +104,26 @@ public class BoxFolder extends BoxItem {
     @JsonProperty(FIELD_HAS_COLLABORATIONS)
     protected void setHasCollaborations(Boolean hasCollaborations) {
         put(FIELD_HAS_COLLABORATIONS, hasCollaborations);
+    }
+
+    /**
+     * Whether this folder will be synced by Box sycn clients or not. Can be "synced", "not_synced", or "partially_synced".
+     * 
+     * @return sync state
+     */
+    @JsonProperty(FIELD_SYNC_STATE)
+    public String getSyncState() {
+        return (String) getValue(FIELD_SYNC_STATE);
+    }
+
+    /**
+     * Setter. This is only used by {@see <a href="http://jackson.codehaus.org">Jackson JSON processer</a>}
+     * 
+     * @param syncState sync state
+     */
+    @JsonProperty(FIELD_SYNC_STATE)
+    private void setSyncState(String syncState) {
+        put(FIELD_SYNC_STATE, syncState);
     }
 
     public BoxFolder(IBoxParcelWrapper in) {
