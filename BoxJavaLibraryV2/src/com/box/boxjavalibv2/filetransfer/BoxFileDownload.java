@@ -54,7 +54,7 @@ public class BoxFileDownload {
 
     /**
      * Constructor.
-     *
+     * 
      * @param config
      *            config
      * @param restClient
@@ -70,7 +70,7 @@ public class BoxFileDownload {
 
     /**
      * Set the listener listening to download progress.
-     *
+     * 
      * @param listener
      *            listener
      */
@@ -80,7 +80,7 @@ public class BoxFileDownload {
 
     /**
      * Set the interval time you want the progress update to be reported.
-     *
+     * 
      * @param time
      *            interval time
      */
@@ -89,8 +89,16 @@ public class BoxFileDownload {
     }
 
     /**
+     * Return the interval time progress updates will be reported.
+     * 
+     */
+    public int getUpdateInterval() {
+        return progressUpdateInterval;
+    }
+
+    /**
      * Execute a download.
-     *
+     * 
      * @param auth
      *            auth
      * @param outputStreams
@@ -118,7 +126,7 @@ public class BoxFileDownload {
 
     /**
      * Execute a download.
-     *
+     * 
      * @param auth
      *            auth
      * @param destination
@@ -148,7 +156,7 @@ public class BoxFileDownload {
     /**
      * Execute the download and return the raw InputStream. This method is not involved with download listeners and will not publish anything through download
      * listeners. Instead caller handles the InputStream as she/he wishes.
-     *
+     * 
      * @param auth
      *            auth
      * @param parser
@@ -184,7 +192,7 @@ public class BoxFileDownload {
 
     /**
      * Get bytes transferred.
-     *
+     * 
      * @return the mBytesTransferred
      */
     public long getBytesTransferred() {
@@ -193,7 +201,7 @@ public class BoxFileDownload {
 
     /**
      * Copy the InputStream into OutputStream's, also notify listener about the progress.
-     *
+     * 
      * @param inputStream
      *            InputStream
      * @param outputStreams
@@ -204,13 +212,16 @@ public class BoxFileDownload {
      *             exception
      */
     private void copyOut(final InputStream inputStream, final OutputStream[] outputStreams) throws IOException, InterruptedException {
-        // Read the rest of the stream and write to the destination OutputStream.
+        // Read the rest of the stream and write to the destination
+        // OutputStream.
         final byte[] buffer = new byte[DOWNLOAD_BUFFER_SIZE];
         int bufferLength = 0;
         long lastOnProgressPost = 0;
         try {
             while ((bufferLength = inputStream.read(buffer)) > 0) {
                 if (Thread.currentThread().isInterrupted()) {
+                    mListener.onProgress(mBytesTransferred);
+                    mListener.onCanceled();
                     throw new InterruptedException();
                 }
                 for (int i = 0; i < outputStreams.length; i++) {
@@ -223,8 +234,14 @@ public class BoxFileDownload {
                     mListener.onProgress(mBytesTransferred);
                 }
             }
+        } catch (IOException e) {
+            mListener.onIOException(e);
+            mListener.onProgress(mBytesTransferred);
+            mListener.onComplete(IFileTransferListener.STATUS_FAIL);
+            throw e;
         } finally {
-            // Try to flush and close all the OutputStreams and close InputStream.
+            // Try to flush and close all the OutputStreams and close
+            // InputStream.
             IOException exception = null;
             for (int i = 0; i < outputStreams.length; i++) {
                 try {
@@ -236,12 +253,18 @@ public class BoxFileDownload {
             }
             IOUtils.closeQuietly(inputStream);
             if (exception != null) {
+                mListener.onIOException(exception);
+                mListener.onProgress(mBytesTransferred);
+                mListener.onComplete(IFileTransferListener.STATUS_FAIL);
                 throw exception;
             }
         }
+        mListener.onProgress(mBytesTransferred);
+        mListener.onComplete(IFileTransferListener.STATUS_PASS);
     }
 
-    // This is not officially supported, currently we only handles byte-range, i.e. "Range".
+    // This is not officially supported, currently we only handles byte-range,
+    // i.e. "Range".
     private boolean isPartialDownload(final BoxDefaultRequestObject requestObject) {
         boolean isRangeDownload = false;
         if (requestObject != null) {
