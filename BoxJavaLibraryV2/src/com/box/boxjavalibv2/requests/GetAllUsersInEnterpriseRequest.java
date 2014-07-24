@@ -20,7 +20,7 @@ public class GetAllUsersInEnterpriseRequest extends DefaultBoxRequest {
     /** Default value of offset. */
     public static final int DEFAULT_ITEMS_OFFSET = 0;
 
-    private static final String URI = "/users";
+    public static final String URI = "/users";
 
     /**
      * Constructor.

@@ -1,0 +1,9 @@
+allprojects {
+	repositories {
+		mavenCentral()
+	}
+
+	tasks.withType(JavaCompile) {
+		options.compilerArgs << "-Xlint:all"
+	}
+}

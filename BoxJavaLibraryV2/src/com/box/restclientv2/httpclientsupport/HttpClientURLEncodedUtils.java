@@ -31,7 +31,7 @@ import org.apache.http.util.CharArrayBuffer;
 
 /**
  * A collection of utilities for encoding URLs.
- * 
+ *
  * @since 4.0
  */
 public class HttpClientURLEncodedUtils {
@@ -42,10 +42,10 @@ public class HttpClientURLEncodedUtils {
 
     /**
      * Returns a list of {@link NameValuePair NameValuePairs} as built from the URI's query portion. For example, a URI of
-     * http://example.org/path/to/file?a=1&b=2&c=3 would return a list of three NameValuePairs, one for a=1, one for b=2, and one for c=3.
+     * http://example.org/path/to/file?a=1&amp;b=2&amp;c=3 would return a list of three NameValuePairs, one for a=1, one for b=2, and one for c=3.
      * <p>
      * This is typically useful while parsing an HTTP PUT.
-     * 
+     *
      * @param query
      *            query to parse
      * @param encoding
@@ -85,8 +85,8 @@ public class HttpClientURLEncodedUtils {
 
     /**
      * Adds all parameters within the Scanner to the list of <code>parameters</code>, as encoded by <code>encoding</code>. For example, a scanner containing the
-     * string <code>a=1&b=2&c=3</code> would add the {@link NameValuePair NameValuePairs} a=1, b=2, and c=3 to the list of parameters.
-     * 
+     * string <code>a=1&amp;b=2&amp;c=3</code> would add the {@link NameValuePair NameValuePairs} a=1, b=2, and c=3 to the list of parameters.
+     *
      * @param parameters
      *            List to add parameters to.
      * @param scanner
@@ -116,12 +116,12 @@ public class HttpClientURLEncodedUtils {
 
     /**
      * Returns a list of {@link NameValuePair NameValuePairs} as parsed from the given string using the given character encoding.
-     * 
+     *
      * @param s
      *            text to parse.
      * @param charset
      *            Encoding to use when decoding the parameters.
-     * 
+     *
      * @since 4.2
      */
     public static List<NameValuePair> parse(final String s, final Charset charset) {
@@ -144,7 +144,7 @@ public class HttpClientURLEncodedUtils {
 
     /**
      * Returns a String that is suitable for use as an <code>application/x-www-form-urlencoded</code> list of parameters in an HTTP PUT or HTTP POST.
-     * 
+     *
      * @param parameters
      *            The parameters to include.
      * @param encoding
@@ -169,12 +169,12 @@ public class HttpClientURLEncodedUtils {
 
     /**
      * Returns a String that is suitable for use as an <code>application/x-www-form-urlencoded</code> list of parameters in an HTTP PUT or HTTP POST.
-     * 
+     *
      * @param parameters
      *            The parameters to include.
      * @param charset
      *            The encoding to use.
-     * 
+     *
      * @since 4.2
      */
     public static String format(final Iterable<? extends NameValuePair> parameters, final Charset charset) {
@@ -294,7 +294,7 @@ public class HttpClientURLEncodedUtils {
 
     /**
      * Emcode/escape a portion of a URL, to use with the query part ensure {@code plusAsBlank} is true.
-     * 
+     *
      * @param content
      *            the portion to decode
      * @param charset
@@ -330,7 +330,7 @@ public class HttpClientURLEncodedUtils {
 
     /**
      * Decode/unescape a portion of a URL, to use with the query part ensure {@code plusAsBlank} is true.
-     * 
+     *
      * @param content
      *            the portion to decode
      * @param charset
@@ -374,7 +374,7 @@ public class HttpClientURLEncodedUtils {
 
     /**
      * Decode/unescape www-url-form-encoded content.
-     * 
+     *
      * @param content
      *            the content to decode, will decode '+' as space
      * @param charset
@@ -390,7 +390,7 @@ public class HttpClientURLEncodedUtils {
 
     /**
      * Decode/unescape www-url-form-encoded content.
-     * 
+     *
      * @param content
      *            the content to decode, will decode '+' as space
      * @param charset
@@ -409,7 +409,7 @@ public class HttpClientURLEncodedUtils {
      * <p>
      * Uses the {@link #URLENCODER} set of characters, rather than the {@link #UNRSERVED} set; this is for compatibilty with previous releases,
      * URLEncoder.encode() and most browsers.
-     * 
+     *
      * @param content
      *            the content to encode, will convert space to '+'
      * @param charset
@@ -428,7 +428,7 @@ public class HttpClientURLEncodedUtils {
      * <p>
      * Uses the {@link #URLENCODER} set of characters, rather than the {@link #UNRSERVED} set; this is for compatibilty with previous releases,
      * URLEncoder.encode() and most browsers.
-     * 
+     *
      * @param content
      *            the content to encode, will convert space to '+'
      * @param charset
@@ -446,7 +446,7 @@ public class HttpClientURLEncodedUtils {
      * Encode a String using the {@link #USERINFO} set of characters.
      * <p>
      * Used by URIBuilder to encode the userinfo segment.
-     * 
+     *
      * @param content
      *            the string to encode, does not convert space to '+'
      * @param charset
@@ -461,7 +461,7 @@ public class HttpClientURLEncodedUtils {
      * Encode a String using the {@link #FRAGMENT} set of characters.
      * <p>
      * Used by URIBuilder to encode the userinfo segment.
-     * 
+     *
      * @param content
      *            the string to encode, does not convert space to '+'
      * @param charset
@@ -476,7 +476,7 @@ public class HttpClientURLEncodedUtils {
      * Encode a String using the {@link #PATHSAFE} set of characters.
      * <p>
      * Used by URIBuilder to encode path segments.
-     * 
+     *
      * @param content
      *            the string to encode, does not convert space to '+'
      * @param charset

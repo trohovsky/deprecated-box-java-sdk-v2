@@ -3,7 +3,7 @@ package com.box.restclientv2.requestsbase;
 import java.io.UnsupportedEncodingException;
 import java.net.URI;
 
-import junit.framework.Assert;
+import org.junit.Assert;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.HttpDelete;

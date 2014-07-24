@@ -22,8 +22,8 @@ import com.box.restclientv2.exceptions.BoxRestException;
 import com.box.restclientv2.requestsbase.BoxDefaultRequestObject;
 
 /**
- * Use this class to execute requests <b>synchronously</b> against the Box REST API(V2). Full details about the Box API can be found at {@see <a
- * href="http://developers.box.com/docs">http://developers.box.com/docs</a>} . You must have an OpenBox application with a valid API key to use the Box API. All
+ * Use this class to execute requests <b>synchronously</b> against the Box REST API(V2). Full details about the Box API can be found at @see <a
+ * href="http://developers.box.com/docs">http://developers.box.com/docs</a>. You must have an OpenBox application with a valid API key to use the Box API. All
  * methods in this class are executed in the invoking thread, and therefore are NOT safe to execute in the UI thread of your application. You should only use
  * this class if you already have worker threads or AsyncTasks that you want to incorporate the Box API into.
  */
@@ -31,7 +31,7 @@ public class BoxEventsManagerImpl extends AbstractBoxResourceManager implements 
 
     /**
      * Constructor.
-     * 
+     *
      * @param config
      *            BoxConfig
      * @param resourceHub
@@ -62,7 +62,7 @@ public class BoxEventsManagerImpl extends AbstractBoxResourceManager implements 
 
     /**
      * Get events from a collection. Deprecated, use Utils.getTypedObjects instead.
-     * 
+     *
      * @param collection
      *            collection
      * @return comments

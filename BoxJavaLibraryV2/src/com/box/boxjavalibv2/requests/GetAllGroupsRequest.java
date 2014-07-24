@@ -9,7 +9,7 @@ import com.box.restclientv2.requestsbase.DefaultBoxRequest;
 
 public class GetAllGroupsRequest extends DefaultBoxRequest {
 
-    private static final String URI = "/groups";
+    public static final String URI = "/groups";
 
     public GetAllGroupsRequest(final IBoxConfig config, final IBoxJSONParser parser, BoxDefaultRequestObject requestObject) throws BoxRestException {
         super(config, parser, getUri(), RestMethod.GET, requestObject);

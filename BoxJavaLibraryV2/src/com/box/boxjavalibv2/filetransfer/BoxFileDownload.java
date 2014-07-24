@@ -89,6 +89,14 @@ public class BoxFileDownload {
     }
 
     /**
+     * Return the interval time progress updates will be reported.
+     * 
+     */
+    public int getUpdateInterval() {
+        return progressUpdateInterval;
+    }
+
+    /**
      * Execute a download.
      * 
      * @param auth
@@ -125,7 +133,6 @@ public class BoxFileDownload {
      *            destination file
      * @param parser
      *            json parser
-     * @param
      * @param requestObject
      *            request object
      * @throws BoxRestException
@@ -205,13 +212,16 @@ public class BoxFileDownload {
      *             exception
      */
     private void copyOut(final InputStream inputStream, final OutputStream[] outputStreams) throws IOException, InterruptedException {
-        // Read the rest of the stream and write to the destination OutputStream.
+        // Read the rest of the stream and write to the destination
+        // OutputStream.
         final byte[] buffer = new byte[DOWNLOAD_BUFFER_SIZE];
         int bufferLength = 0;
         long lastOnProgressPost = 0;
         try {
             while ((bufferLength = inputStream.read(buffer)) > 0) {
                 if (Thread.currentThread().isInterrupted()) {
+                    mListener.onProgress(mBytesTransferred);
+                    mListener.onCanceled();
                     throw new InterruptedException();
                 }
                 for (int i = 0; i < outputStreams.length; i++) {
@@ -224,8 +234,14 @@ public class BoxFileDownload {
                     mListener.onProgress(mBytesTransferred);
                 }
             }
+        } catch (IOException e) {
+            mListener.onIOException(e);
+            mListener.onProgress(mBytesTransferred);
+            mListener.onComplete(IFileTransferListener.STATUS_FAIL);
+            throw e;
         } finally {
-            // Try to flush and close all the OutputStreams and close InputStream.
+            // Try to flush and close all the OutputStreams and close
+            // InputStream.
             IOException exception = null;
             for (int i = 0; i < outputStreams.length; i++) {
                 try {
@@ -237,12 +253,18 @@ public class BoxFileDownload {
             }
             IOUtils.closeQuietly(inputStream);
             if (exception != null) {
+                mListener.onIOException(exception);
+                mListener.onProgress(mBytesTransferred);
+                mListener.onComplete(IFileTransferListener.STATUS_FAIL);
                 throw exception;
             }
         }
+        mListener.onProgress(mBytesTransferred);
+        mListener.onComplete(IFileTransferListener.STATUS_PASS);
     }
 
-    // This is not officially supported, currently we only handles byte-range, i.e. "Range".
+    // This is not officially supported, currently we only handles byte-range,
+    // i.e. "Range".
     private boolean isPartialDownload(final BoxDefaultRequestObject requestObject) {
         boolean isRangeDownload = false;
         if (requestObject != null) {

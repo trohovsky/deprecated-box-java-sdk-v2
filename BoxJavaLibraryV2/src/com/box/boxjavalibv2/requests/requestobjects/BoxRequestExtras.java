@@ -18,9 +18,9 @@ public class BoxRequestExtras {
     /**
      * Add a field in the request, these fields (Please check "Fields" part in <a href="http://developers.box.com/docs/">developer doc</a> will end up as fields
      * query parameter in the url.
-     * 
+     *
      * @param field
-     *            field to add. Currently supported fields are the Strings defined in {@link com.box.boxjavalibv2.dao#BoxCollaboration}, for example:
+     *            field to add. Currently supported fields are the Strings defined in {@link com.box.boxjavalibv2.dao.BoxCollaboration}, for example:
      *            {@link com.box.boxjavalibv2.dao.BoxCollaboration#FIELD_ROLE}, {@link com.box.boxjavalibv2.dao.BoxCollaboration#FIELD_CREATED_BY}...
      */
     public BoxRequestExtras addField(String field) {
@@ -31,9 +31,9 @@ public class BoxRequestExtras {
     /**
      * Add fields in the request, these fields (Please check "Fields" part in <a href="http://developers.box.com/docs/">developer doc</a> will end up as fields
      * query parameter in the url.
-     * 
+     *
      * @param fields
-     *            fields to add. Currently supported fields are the Strings defined in {@link com.box.boxjavalibv2.dao#BoxCollaboration}, for example:
+     *            fields to add. Currently supported fields are the Strings defined in {@link com.box.boxjavalibv2.dao.BoxCollaboration}, for example:
      *            {@link com.box.boxjavalibv2.dao.BoxCollaboration#FIELD_ROLE}, {@link com.box.boxjavalibv2.dao.BoxCollaboration#FIELD_CREATED_BY}...
      */
     public BoxRequestExtras addFields(List<String> fields) {
@@ -43,7 +43,7 @@ public class BoxRequestExtras {
 
     /**
      * Add a query parameter. Which eventually will go into url.
-     * 
+     *
      * @param key
      *            key
      * @param value
@@ -56,7 +56,7 @@ public class BoxRequestExtras {
 
     /**
      * Add a header.
-     * 
+     *
      * @param key
      *            key
      * @param value
@@ -77,7 +77,7 @@ public class BoxRequestExtras {
 
     /**
      * Set etag.
-     * 
+     *
      * @param etag
      *            etag
      * @return BoxFileRequestObject

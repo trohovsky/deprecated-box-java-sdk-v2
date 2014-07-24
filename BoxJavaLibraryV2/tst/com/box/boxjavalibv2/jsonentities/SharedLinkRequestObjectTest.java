@@ -2,7 +2,7 @@ package com.box.boxjavalibv2.jsonentities;
 
 import java.util.Date;
 
-import junit.framework.Assert;
+import org.junit.Assert;
 
 import org.junit.Test;
 

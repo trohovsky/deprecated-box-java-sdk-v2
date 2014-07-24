@@ -12,7 +12,7 @@ import com.box.restclientv2.requestsbase.DefaultBoxRequest;
  */
 public class UpdateUserLoginRequest extends DefaultBoxRequest {
 
-    private static final String URI = "/users/%s";
+    public static final String URI = "/users/%s";
 
     /**
      * Constructor.

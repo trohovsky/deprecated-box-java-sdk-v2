@@ -76,7 +76,6 @@ public class DefaultBoxRequest implements IBoxRequest {
      *            request object
      * @throws BoxRestException
      *             exception
-     * @throws BoxJSONException
      */
     public DefaultBoxRequest(final IBoxConfig config, final IBoxJSONParser parser, final String uriPath, final RestMethod restMethod,
         final BoxDefaultRequestObject requestObject) throws BoxRestException {
@@ -89,11 +88,9 @@ public class DefaultBoxRequest implements IBoxRequest {
         if (requestObject != null) {
             try {
                 setEntity(requestObject.getEntity(parser));
-            }
-            catch (BoxJSONException e) {
+            } catch (BoxJSONException e) {
                 throw new BoxRestException(e, "Cannot parse entity of the request object.");
-            }
-            catch (UnsupportedEncodingException e) {
+            } catch (UnsupportedEncodingException e) {
                 throw new BoxRestException(e, "UnsupportedEncodingException in the request object.");
             }
 
@@ -132,6 +129,10 @@ public class DefaultBoxRequest implements IBoxRequest {
     @Override
     public ICookie getCookie() {
         return mCookie;
+    }
+
+    public String getUriPath() {
+        return uriPath;
     }
 
     @Override
@@ -257,8 +258,7 @@ public class DefaultBoxRequest implements IBoxRequest {
             }
 
             rawRequest.setURI(ub.build());
-        }
-        catch (URISyntaxException e) {
+        } catch (URISyntaxException e) {
             throw new BoxRestException("URISyntaxException:" + e.getMessage());
         }
 

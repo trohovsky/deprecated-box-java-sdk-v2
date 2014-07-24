@@ -22,7 +22,6 @@ public class DeleteUserRequest extends DefaultBoxRequest {
      *            json parser
      * @param userId
      *            id of the user.
-     * @param
      * @param requestObject
      *            request object
      * @throws BoxRestException

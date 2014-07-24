@@ -24,7 +24,7 @@ public class BoxTypedObject extends BoxObject {
 
     /**
      * Copy constructor, this does deep copy for all the fields.
-     * 
+     *
      * @param obj
      */
     public BoxTypedObject(BoxTypedObject obj) {
@@ -33,7 +33,7 @@ public class BoxTypedObject extends BoxObject {
 
     /**
      * Instantiate the object from a map. Each entry in the map reflects to a field.
-     * 
+     *
      * @param map
      */
     public BoxTypedObject(Map<String, Object> map) {
@@ -43,7 +43,7 @@ public class BoxTypedObject extends BoxObject {
     /**
      * Get BoxResourceType of this object. using getBoxResourceType() instead. use getTypeFromLowercaseString method in IBoxResourceHub to parse the result
      * String into type object.
-     * 
+     *
      * @return
      */
     @Deprecated
@@ -53,7 +53,7 @@ public class BoxTypedObject extends BoxObject {
 
     /**
      * Get the type.
-     * 
+     *
      * @return type
      */
     @JsonProperty(FIELD_TYPE)
@@ -62,8 +62,8 @@ public class BoxTypedObject extends BoxObject {
     }
 
     /**
-     * Setter. This is only used by {@see <a href="http://jackson.codehaus.org">Jackson JSON processer</a>}
-     * 
+     * Setter. This is only used by @see <a href="http://jackson.codehaus.org">Jackson JSON processer</a>.
+     *
      * @param type
      *            type
      */
@@ -74,7 +74,7 @@ public class BoxTypedObject extends BoxObject {
 
     /**
      * Get id.
-     * 
+     *
      * @return id
      */
     @JsonProperty(FIELD_ID)
@@ -84,7 +84,7 @@ public class BoxTypedObject extends BoxObject {
 
     /**
      * Setter. This is only used by {@see <a href="http://jackson.codehaus.org">Jackson JSON processer</a>}
-     * 
+     *
      * @param id
      *            id
      */
@@ -96,7 +96,7 @@ public class BoxTypedObject extends BoxObject {
     /**
      * Get the time this user was created at. (This returns a String and can be parsed into {@link java.util.Date} by
      * {@link com.box.boxjavalibv2.utils.ISO8601DateParser})
-     * 
+     *
      * @return the created_at
      */
     @JsonProperty(FIELD_CREATED_AT)
@@ -106,9 +106,8 @@ public class BoxTypedObject extends BoxObject {
 
     /**
      * Get the time created at.
-     * 
+     *
      * @return Date representation of the created_at value. Null if there was no created_at or if it could not be parsed as an ISO8601 date.
-     * @throws ParseException
      */
     public Date dateCreatedAt() {
         return ISO8601DateParser.parseSilently(getCreatedAt());
@@ -116,7 +115,7 @@ public class BoxTypedObject extends BoxObject {
 
     /**
      * Setter. This is only used by {@see <a href="http://jackson.codehaus.org">Jackson JSON processer</a>}
-     * 
+     *
      * @param createdAt
      *            the created_at to set
      */
@@ -128,7 +127,7 @@ public class BoxTypedObject extends BoxObject {
     /**
      * Get the time this user was modified the last time. (This returns a String and can be parsed into {@link java.util.Date} by
      * {@link com.box.boxjavalibv2.utils.ISO8601DateParser})
-     * 
+     *
      * @return the modified_at
      */
     @JsonProperty(FIELD_MODIFIED_AT)
@@ -138,9 +137,8 @@ public class BoxTypedObject extends BoxObject {
 
     /**
      * Get the date this object is modified at.
-     * 
+     *
      * @return Date representation of the modified_at value. Null if there was no date_modified or if it could not be parsed as an ISO8601 date.
-     * @throws ParseException
      */
     public Date dateModifiedAt() {
         return ISO8601DateParser.parseSilently(getModifiedAt());
@@ -148,7 +146,7 @@ public class BoxTypedObject extends BoxObject {
 
     /**
      * Setter. This is only used by {@see <a href="http://jackson.codehaus.org">Jackson JSON processer</a>}
-     * 
+     *
      * @param modifiedAt
      *            the modified_at to set
      */

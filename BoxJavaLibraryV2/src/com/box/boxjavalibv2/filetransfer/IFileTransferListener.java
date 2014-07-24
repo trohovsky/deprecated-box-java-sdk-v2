@@ -7,6 +7,11 @@ import java.io.IOException;
  */
 public interface IFileTransferListener {
 
+    /** String that will be used in onComplete if transfer finished without error. */
+    public static final String STATUS_PASS = "pass";
+    /** String that will be used in onComplete if transfer finished due to an error. */
+    public static final String STATUS_FAIL = "fail";
+
     /**
      * Called when the file has been transferred. Refer to <a
      * href="http://developers.box.net/w/page/12923951/ApiFunction_Upload-and-Download">ApiFunction_Upload-and-Download</a> for details.

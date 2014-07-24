@@ -29,14 +29,14 @@ public class BoxOAuthRequestObject extends BoxDefaultRequestObject {
 
     /**
      * Request object to create OAUth.
-     * 
+     *
      * @param code
      *            The authorization code you retrieved previously used to create OAuth.
      * @param clientId
      *            client id
      * @param clientSecret
      *            client secret
-     * @param redirectUri
+     * @param redirectUrl
      *            optional, required only if a redirect URI is not configured at <a href="http://box.com/developers/services">Box Developers Services</a>, use
      *            null if don't want to supply this field.
      * @return BoxOAuthRequestObject
@@ -53,7 +53,7 @@ public class BoxOAuthRequestObject extends BoxDefaultRequestObject {
 
     /**
      * Request object to revoke OAuth.
-     * 
+     *
      * @param revokeToken
      *            The access_token or refresh_token to be destroyed. Only one is required, though both will be destroyed.
      * @param clientId
@@ -67,7 +67,7 @@ public class BoxOAuthRequestObject extends BoxDefaultRequestObject {
 
     /**
      * Set the token to revoke.
-     * 
+     *
      * @param token
      *            The access_token or refresh_token to be destroyed. Only one is required, though both will be destroyed.
      * @return

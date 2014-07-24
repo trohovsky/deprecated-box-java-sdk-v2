@@ -12,7 +12,7 @@ import com.box.restclientv2.requestsbase.DefaultBoxRequest;
  */
 public class GetFolderTrashItemsRequest extends DefaultBoxRequest {
 
-    private static final String URI = "/folders/trash/items";
+    public static final String URI = "/folders/trash/items";
 
     /**
      * Constructor.
@@ -21,8 +21,6 @@ public class GetFolderTrashItemsRequest extends DefaultBoxRequest {
      *            config
      * @param parser
      *            json parser
-     * @param folderId
-     *            id of the folder
      * @param requestObject
      *            request object
      * @throws BoxRestException

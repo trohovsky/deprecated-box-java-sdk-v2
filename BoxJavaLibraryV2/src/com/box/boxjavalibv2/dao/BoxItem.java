@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
 /**
- * Box item, this is a base class for the box items({@link BoxFileV2}/{@link BoxFolder}/...)
+ * Box item, this is a base class for the box items({@link BoxFile}/{@link BoxFolder}/...)
  */
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type", defaultImpl = BoxItem.class)
 public class BoxItem extends BoxTypedObject {
@@ -32,7 +32,7 @@ public class BoxItem extends BoxTypedObject {
 
     /**
      * Copy constructor, this does deep copy for all the fields.
-     * 
+     *
      * @param obj
      */
     public BoxItem(BoxItem obj) {
@@ -41,7 +41,7 @@ public class BoxItem extends BoxTypedObject {
 
     /**
      * Instantiate the object from a map. Each entry in the map reflects to a field.
-     * 
+     *
      * @param map
      */
     public BoxItem(Map<String, Object> map) {
@@ -50,7 +50,7 @@ public class BoxItem extends BoxTypedObject {
 
     /**
      * Get the path of folders to this item, starting at the root.
-     * 
+     *
      * @return the path_collection
      */
     @JsonProperty(FIELD_PATH_COLLECTION)
@@ -60,7 +60,7 @@ public class BoxItem extends BoxTypedObject {
 
     /**
      * This is only used by {@see <a href="http://jackson.codehaus.org">Jackson JSON processer</a>}
-     * 
+     *
      * @param pathCollection
      *            the path_collection to set
      */
@@ -71,7 +71,7 @@ public class BoxItem extends BoxTypedObject {
 
     /**
      * Get the tags that are set on this item.
-     * 
+     *
      * @return the tags
      */
     @JsonProperty(FIELD_TAGS)
@@ -81,7 +81,7 @@ public class BoxItem extends BoxTypedObject {
 
     /**
      * This is only used by {@see <a href="http://jackson.codehaus.org">Jackson JSON processer</a>}
-     * 
+     *
      * @param tags
      *            the tags to set
      */
@@ -92,7 +92,7 @@ public class BoxItem extends BoxTypedObject {
 
     /**
      * Getter.
-     * 
+     *
      * @return sequence id
      */
     @JsonProperty(FIELD_SEQUENCE_ID)
@@ -102,7 +102,7 @@ public class BoxItem extends BoxTypedObject {
 
     /**
      * Setter.This is only used by {@see <a href="http://jackson.codehaus.org">Jackson JSON processer</a>}
-     * 
+     *
      * @param sequenceId
      *            sequence id
      */
@@ -113,7 +113,7 @@ public class BoxItem extends BoxTypedObject {
 
     /**
      * Get name of the item.
-     * 
+     *
      * @return name of the item
      */
     @JsonProperty(FIELD_NAME)
@@ -123,7 +123,7 @@ public class BoxItem extends BoxTypedObject {
 
     /**
      * Setter. This is only used by {@see <a href="http://jackson.codehaus.org">Jackson JSON processer</a>}
-     * 
+     *
      * @param name
      *            name of the item
      */
@@ -134,7 +134,7 @@ public class BoxItem extends BoxTypedObject {
 
     /**
      * Get description of the item.
-     * 
+     *
      * @return description of the item
      */
     @JsonProperty(FIELD_DESCRIPTION)
@@ -144,7 +144,7 @@ public class BoxItem extends BoxTypedObject {
 
     /**
      * Setter. This is only used by {@see <a href="http://jackson.codehaus.org">Jackson JSON processer</a>}
-     * 
+     *
      * @param description
      *            description
      */
@@ -155,7 +155,7 @@ public class BoxItem extends BoxTypedObject {
 
     /**
      * Get size of the box item. In bytes.
-     * 
+     *
      * @return size of the box item in bytes.
      */
     @JsonProperty(FIELD_SIZE)
@@ -165,7 +165,7 @@ public class BoxItem extends BoxTypedObject {
 
     /**
      * Setter. This is only used by {@see <a href="http://jackson.codehaus.org">Jackson JSON processer</a>}
-     * 
+     *
      * @param size
      */
     @JsonProperty(FIELD_SIZE)
@@ -175,7 +175,7 @@ public class BoxItem extends BoxTypedObject {
 
     /**
      * Get shared link of box item. Note if there is not shared link created, this is null.
-     * 
+     *
      * @return shared link of box item
      */
     @JsonProperty(FIELD_SHARED_LINK)
@@ -185,7 +185,7 @@ public class BoxItem extends BoxTypedObject {
 
     /**
      * Set the shared link.
-     * 
+     *
      * @param sharedLink
      *            shared link
      */
@@ -196,7 +196,7 @@ public class BoxItem extends BoxTypedObject {
 
     /**
      * Get the user creating this item.
-     * 
+     *
      * @return user creating this item
      */
     @JsonProperty(FIELD_CREATED_BY)
@@ -206,7 +206,7 @@ public class BoxItem extends BoxTypedObject {
 
     /**
      * Set the user creating this item.
-     * 
+     *
      * @param createdBy
      *            created by
      */
@@ -217,7 +217,7 @@ public class BoxItem extends BoxTypedObject {
 
     /**
      * Get the user last modified the item.
-     * 
+     *
      * @return user last modified the item
      */
     @JsonProperty(FIELD_MODIFIED_BY)
@@ -227,7 +227,7 @@ public class BoxItem extends BoxTypedObject {
 
     /**
      * Set the user last modified the item.
-     * 
+     *
      * @param modifiedBy
      */
     @JsonProperty(FIELD_MODIFIED_BY)
@@ -237,7 +237,7 @@ public class BoxItem extends BoxTypedObject {
 
     /**
      * Get owner of the item.
-     * 
+     *
      * @return owner of the item
      */
     @JsonProperty(FIELD_OWNED_BY)
@@ -247,7 +247,7 @@ public class BoxItem extends BoxTypedObject {
 
     /**
      * Set the owner.
-     * 
+     *
      * @param ownedBy
      *            owner
      */
@@ -258,7 +258,7 @@ public class BoxItem extends BoxTypedObject {
 
     /**
      * Get parent folder.
-     * 
+     *
      * @return parent folder
      */
     @JsonProperty(FIELD_PARENT)
@@ -268,7 +268,7 @@ public class BoxItem extends BoxTypedObject {
 
     /**
      * Set the parent.
-     * 
+     *
      * @param parent
      *            parent folder
      */
@@ -279,7 +279,7 @@ public class BoxItem extends BoxTypedObject {
 
     /**
      * Get etag.
-     * 
+     *
      * @return etag
      */
     @JsonProperty(FIELD_ETAG)
@@ -289,7 +289,7 @@ public class BoxItem extends BoxTypedObject {
 
     /**
      * Setter. This is only used by {@see <a href="http://jackson.codehaus.org">Jackson JSON processer</a>}
-     * 
+     *
      * @param etag
      *            etag
      */
@@ -300,7 +300,7 @@ public class BoxItem extends BoxTypedObject {
 
     /**
      * Get the status of this item, which indicates whether this item is deleted or not.
-     * 
+     *
      * @return the item_status
      */
     @JsonProperty(FIELD_ITEM_STATUS)
@@ -310,7 +310,7 @@ public class BoxItem extends BoxTypedObject {
 
     /**
      * Setter. This is only used by {@see <a href="http://jackson.codehaus.org">Jackson JSON processer</a>}
-     * 
+     *
      * @param itemStatus
      *            the item_status to set
      */
@@ -321,7 +321,7 @@ public class BoxItem extends BoxTypedObject {
 
     /**
      * Get a list of the allowed shared link access levels for this item.
-     * 
+     *
      * @return the allowed_shared_link_access_levels
      */
     @JsonProperty(FIELD_ALLOWED_SHARED_LINK_ACCESS_LEVELS)

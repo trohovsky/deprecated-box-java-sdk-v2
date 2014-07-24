@@ -66,8 +66,7 @@ public class MultipartEntityWithProgressListener extends MultipartEntity {
 
     /**
      * Method to put all parts in to the multipart entity.
-     * 
-     * @return
+     *
      * @throws BoxJSONException
      * @throws UnsupportedEncodingException
      */
@@ -82,7 +81,7 @@ public class MultipartEntityWithProgressListener extends MultipartEntity {
 
     /**
      * Set upload listener.
-     * 
+     *
      * @param listener
      *            upload listener
      */
@@ -93,7 +92,7 @@ public class MultipartEntityWithProgressListener extends MultipartEntity {
     /**
      * Set the threshold time for progress updating. This is the minimum time between two progress messages being sent out. If this method is not called, the
      * default value is {@link #ON_PROGRESS_UPDATE_THRESHOLD}
-     * 
+     *
      * @param threshold
      *            threshold
      */
@@ -132,7 +131,7 @@ public class MultipartEntityWithProgressListener extends MultipartEntity {
 
         /**
          * constructor that also takes a progress listener.
-         * 
+         *
          * @param out
          *            output stream
          * @param progressListener
@@ -168,7 +167,7 @@ public class MultipartEntityWithProgressListener extends MultipartEntity {
 
         /**
          * Get the number of bytes transferred so far.
-         * 
+         *
          * @return Number of bytes transferred so far.
          */
         public long getBytesTransferred() {

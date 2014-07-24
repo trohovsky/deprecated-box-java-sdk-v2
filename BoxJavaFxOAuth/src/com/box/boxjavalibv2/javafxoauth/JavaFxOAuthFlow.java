@@ -27,24 +27,73 @@ import com.box.boxjavalibv2.events.OAuthEvent;
 import com.box.restclientv2.httpclientsupport.HttpClientURIBuilder;
 
 /**
- * Java OAuth UI running on javafx. Note all UI's are on javafx specific thread. The IAuthFlowListener call backs will also be executed in this thread. In case
- * the other part of your application runs on a java swing thread, you want to handle carefully so that your logic triggering java swing data change should be
- * put into a java swing thread. For example by using SwingUtilities.invokeLater(runnable) method.
+ * A class that implements IAuthFlowUI using a JavaFX WebView.
  */
 public class JavaFxOAuthFlow implements IAuthFlowUI {
 
+    /**
+     * Indicates whether or not we've already completed authentication.
+     */
     private final AtomicBoolean oauthCreated = new AtomicBoolean(false);
+
+    /**
+     * Used to get and set data in a WebView URL.
+     */
     private OAuthWebViewData mWebViewData;
+
+    /**
+     * Client for authenticating with the API and retrieving items.
+     */
     private BoxClient client;
+
+    /**
+     * The engine of {@link webView webView}.
+     */
     private WebEngine webEngine;
+
+    /**
+     * WebView used to authenticate with the API via OAuth2.
+     */
     private WebView webView;
+
+    /**
+     * Listener where OAuth events will be sent.
+     */
     private final IAuthFlowListener oauthListener;
+
+    /**
+     * Maximum allowable width for {@link webView}.
+     */
     private final double maxWidth;
+
+    /**
+     * Maximum allowable height for {@link webView}.
+     */
     private final double maxHeight;
+
+    /**
+     * Minimum allowable width for {@link webView}.
+     */
     private final double minWidth;
+
+    /**
+     * Minimum allowable height for {@link webView}.
+     */
     private final double minHeight;
 
-    public JavaFxOAuthFlow(double webViewMaxWidth, double webViewMaxHeight, double webViewMinWidth, double webViewMinHeight, IAuthFlowListener listener) {
+    /**
+     * Constructs a JavaFxOAuthFlow with a minimum and a maximum {@link WebView} size that will send
+     * {@link OAuthEvent OAuthEvents} to a provided {@link IAuthFlowListener}.
+     *
+     * @param  webViewMaxWidth  maximum allowable width for the {@link WebView}
+     * @param  webViewMaxHeight maximum allowable height for the {@link WebView}
+     * @param  webViewMinWidth  minimum allowable width for the {@link WebView}
+     * @param  webViewMinHeight minimum allowable height for the {@link WebView}
+     * @param  listener         a listener that will receive {@link OAuthEvent OAuthEvents}
+     */
+    public JavaFxOAuthFlow(double webViewMaxWidth, double webViewMaxHeight, double webViewMinWidth,
+        double webViewMinHeight, IAuthFlowListener listener) {
+
         this.oauthListener = listener;
         this.maxWidth = webViewMaxWidth;
         this.maxHeight = webViewMaxHeight;
@@ -52,16 +101,21 @@ public class JavaFxOAuthFlow implements IAuthFlowUI {
         this.minHeight = webViewMinHeight;
     }
 
+    /**
+     * Gets the {@link WebView} used by this auth flow.
+     *
+     * @return the {@link WebView}
+     */
     public WebView getWebView() {
         return webView;
     }
 
     /**
-     * Always use this, this handles the issue that javafx needs to run in it's own thread.
-     * 
-     * @param panel
-     * @param clientId
-     * @param clientSecret
+     * Initializes the JavaFX UI on its own thread.
+     *
+     * @param panel        the panel where the WebView will be placed
+     * @param clientId     client ID to use when authenticating with the API
+     * @param clientSecret client secret to use when authenticating with the API
      */
     public void initAuthAndRun(final JFXPanel panel, final String clientId, final String clientSecret) {
         Platform.runLater(new Runnable() {
@@ -80,13 +134,31 @@ public class JavaFxOAuthFlow implements IAuthFlowUI {
         });
     }
 
+    /**
+     * Intializes the WebView.
+     *
+     * @param applicationContext not used
+     * @param clientId           client ID to use when authenticating with the API
+     * @param clientSecret       client secret to use when authenticating with the API
+     */
     @Override
     public void initializeAuthFlow(final Object applicationContext, String clientId, String clientSecret) {
         initializeAuthFlow(applicationContext, clientId, clientSecret, null);
     }
 
+    /**
+     * Intializes the WebView with a specific redirect URL and client.
+     *
+     * @param applicationContext not used
+     * @param clientId           client ID to use when authenticating with the API
+     * @param clientSecret       client secret to use when authenticating with the API
+     * @param redirectUrl        redirect URL to use with OAuth
+     * @param boxClient          client to authenticate
+     */
     @Override
-    public void initializeAuthFlow(Object applicationContext, String clientId, String clientSecret, String redirectUrl, BoxClient boxClient) {
+    public void initializeAuthFlow(Object applicationContext, String clientId, String clientSecret, String redirectUrl,
+        BoxClient boxClient) {
+
         mWebViewData = new OAuthWebViewData(boxClient.getOAuthDataController());
         if (StringUtils.isNotEmpty(redirectUrl)) {
             mWebViewData.setRedirectUrl(redirectUrl);
@@ -99,31 +171,48 @@ public class JavaFxOAuthFlow implements IAuthFlowUI {
         webEngine.setOnStatusChanged(createEventHandler());
     }
 
+    /**
+     * Intializes the WebView with a specific redirect URL.
+     *
+     * @param activity           not used
+     * @param clientId           client ID to use when authenticating with the API
+     * @param clientSecret       client secret to use when authenticating with the API
+     * @param redirectUrl        redirect URL to use with OAuth
+     */
     @Override
     public void initializeAuthFlow(Object activity, String clientId, String clientSecret, String redirectUrl) {
         client = new BoxClient(clientId, clientSecret, null, null, (new BoxConfigBuilder()).build());
         initializeAuthFlow(activity, clientId, clientSecret, redirectUrl, client);
     }
 
+    /**
+     * Authenticate the client.
+     *
+     * @param listener listener that will receive {@link OAuthEvent OAuthEvents}
+     */
     @Override
     public void authenticate(IAuthFlowListener listener) {
         try {
             webEngine.load(mWebViewData.buildUrl().toString());
-        }
-        catch (URISyntaxException e) {
+        } catch (URISyntaxException e) {
             oauthListener.onAuthFlowException(e);
         }
     }
 
+    /**
+     * Called when authentication succeeds.
+     *
+     * @param token the auth token
+     */
     private void exitSuccess(final BoxOAuthToken token) {
         Platform.runLater(new Runnable() {
 
             @Override
             public void run() {
                 try {
-                    oauthListener.onAuthFlowEvent(OAuthEvent.OAUTH_CREATED, new OAuthDataMessage(token, client.getJSONParser(), client.getResourceHub()));
-                }
-                catch (Exception e) {
+                    oauthListener.onAuthFlowEvent(OAuthEvent.OAUTH_CREATED,
+                        new OAuthDataMessage(token, client.getJSONParser(), client.getResourceHub()));
+                } catch (Exception e) {
                     oauthListener.onAuthFlowException(e);
                 }
                 Platform.exit();
@@ -132,6 +221,11 @@ public class JavaFxOAuthFlow implements IAuthFlowUI {
 
     }
 
+    /**
+     * Called when authentication fails.
+     *
+     * @param e an exception indicating why authentication failed
+     */
     private void exitException(final Exception e) {
         Platform.runLater(new Runnable() {
 
@@ -143,6 +237,11 @@ public class JavaFxOAuthFlow implements IAuthFlowUI {
         });
     }
 
+    /**
+     * Creates an EventHandler for {@link webEngine}.
+     *
+     * @return the created EventHandler
+     */
     private EventHandler<WebEvent<String>> createEventHandler() {
         return new EventHandler<WebEvent<String>>() {
 
@@ -161,6 +260,11 @@ public class JavaFxOAuthFlow implements IAuthFlowUI {
         };
     }
 
+    /**
+     * Begins creating the OAuth token.
+     *
+     * @param code the code to use to obtain the OAuth token
+     */
     private void startCreateOAuth(final String code) {
         if (oauthCreated.getAndSet(true)) {
             return;
@@ -172,11 +276,10 @@ public class JavaFxOAuthFlow implements IAuthFlowUI {
             public void run() {
                 BoxOAuthToken oauth = null;
                 try {
-                    oauth = client.getOAuthManager().createOAuth(code, mWebViewData.getClientId(), mWebViewData.getClientSecret(),
-                        mWebViewData.getRedirectUrl());
+                    oauth = client.getOAuthManager().createOAuth(code, mWebViewData.getClientId(),
+                        mWebViewData.getClientSecret(), mWebViewData.getRedirectUrl());
                     exitSuccess(oauth);
-                }
-                catch (Exception e) {
+                } catch (Exception e) {
                     exitException(e);
                 }
             }
@@ -185,20 +288,16 @@ public class JavaFxOAuthFlow implements IAuthFlowUI {
     }
 
     /**
-     * Get response value.
-     * 
-     * @param url
-     *            url
-     * @return response value
-     * @throws URISyntaxException
-     *             exception
+     * Get the response value.
+     *
+     * @param  url the URL to get the response from
+     * @return     the response value
      */
     private String getResponseValueFromUrl(final String url) {
         HttpClientURIBuilder builder;
         try {
             builder = new HttpClientURIBuilder(url);
-        }
-        catch (URISyntaxException e) {
+        } catch (URISyntaxException e) {
             return null;
         }
 
@@ -211,6 +310,11 @@ public class JavaFxOAuthFlow implements IAuthFlowUI {
         return null;
     }
 
+    /**
+     * Not used.
+     *
+     * @param listener not used
+     */
     @Override
     public void addAuthFlowListener(IAuthFlowListener listener) {
     }

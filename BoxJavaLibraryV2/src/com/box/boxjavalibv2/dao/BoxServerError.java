@@ -34,7 +34,7 @@ public class BoxServerError extends BoxTypedObject implements Serializable {
 
     /**
      * Copy constructor, this does deep copy for all the fields.
-     * 
+     *
      * @param obj
      */
     public BoxServerError(BoxServerError obj) {
@@ -43,7 +43,7 @@ public class BoxServerError extends BoxTypedObject implements Serializable {
 
     /**
      * Instantiate the object from a map. Each entry in the map reflects to a field.
-     * 
+     *
      * @param map
      */
     public BoxServerError(Map<String, Object> map) {
@@ -70,8 +70,8 @@ public class BoxServerError extends BoxTypedObject implements Serializable {
     }
 
     /**
-     * Setter. This is only used by {@see <a href="http://jackson.codehaus.org">Jackson JSON processer</a>}
-     * 
+     * Setter. This is only used by @see <a href="http://jackson.codehaus.org">Jackson JSON processer</a>.
+     *
      * @param status
      *            the status to set
      */
@@ -89,8 +89,8 @@ public class BoxServerError extends BoxTypedObject implements Serializable {
     }
 
     /**
-     * Setter. This is only used by {@see <a href="http://jackson.codehaus.org">Jackson JSON processer</a>}
-     * 
+     * Setter. This is only used by @see <a href="http://jackson.codehaus.org">Jackson JSON processer</a>.
+     *
      * @param code
      *            the code to set
      */
@@ -108,8 +108,8 @@ public class BoxServerError extends BoxTypedObject implements Serializable {
     }
 
     /**
-     * Setter. This is only used by {@see <a href="http://jackson.codehaus.org">Jackson JSON processer</a>}
-     * 
+     * Setter. This is only used by @see <a href="http://jackson.codehaus.org">Jackson JSON processer</a>.
+     *
      * @param helpUrl
      *            the help_url to set
      */
@@ -127,8 +127,8 @@ public class BoxServerError extends BoxTypedObject implements Serializable {
     }
 
     /**
-     * Setter. This is only used by {@see <a href="http://jackson.codehaus.org">Jackson JSON processer</a>}
-     * 
+     * Setter. This is only used by @see <a href="http://jackson.codehaus.org">Jackson JSON processer</a>.
+     *
      * @param message
      *            the message to set
      */
@@ -146,8 +146,8 @@ public class BoxServerError extends BoxTypedObject implements Serializable {
     }
 
     /**
-     * Setter. This is only used by {@see <a href="http://jackson.codehaus.org">Jackson JSON processer</a>}
-     * 
+     * Setter. This is only used by @see <a href="http://jackson.codehaus.org">Jackson JSON processer</a>.
+     *
      * @param requestId
      *            the request_id to set
      */
@@ -158,7 +158,7 @@ public class BoxServerError extends BoxTypedObject implements Serializable {
 
     /**
      * Deprecated, use getStatus() instead
-     * 
+     *
      * @return status code
      */
     @JsonIgnore

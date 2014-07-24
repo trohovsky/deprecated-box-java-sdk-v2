@@ -14,7 +14,7 @@ public class BoxCollabRequestObject extends BoxDefaultRequestObject {
 
     /**
      * create a collaboration.
-     * 
+     *
      * @param folderId
      *            id of the folder
      * @param userId
@@ -22,7 +22,7 @@ public class BoxCollabRequestObject extends BoxDefaultRequestObject {
      * @param login
      *            login email of the collaborator(Can be non-box email.)
      * @param role
-     *            role/access level of this collaboration(This is a String defined in {@link com.box.boxjavalibv2.dao.CollaborationRole}
+     *            role/access level of this collaboration(This is a String defined in {@link com.box.boxjavalibv2.dao.BoxCollaborationRole}
      * @return BoxCollabRequestEntity
      */
     public static BoxCollabRequestObject createCollabObject(final String folderId, final String userId, final String login, final String role) {
@@ -48,9 +48,9 @@ public class BoxCollabRequestObject extends BoxDefaultRequestObject {
 
     /**
      * update a collaboration.
-     * 
+     *
      * @param role
-     *            role/access level of this collaboration(This is a String defined in {@link com.box.boxjavalibv2.dao.CollaborationRole}.
+     *            role/access level of this collaboration(This is a String defined in {@link com.box.boxjavalibv2.dao.BoxCollaborationRole}.
      * @return
      */
     public static BoxCollabRequestObject updateCollabObjects(final String role) {

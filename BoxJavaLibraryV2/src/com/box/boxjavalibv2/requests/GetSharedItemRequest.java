@@ -12,7 +12,7 @@ import com.box.restclientv2.requestsbase.DefaultBoxRequest;
  */
 public class GetSharedItemRequest extends DefaultBoxRequest {
 
-    private static final String URI = "/shared_items";
+    public static final String URI = "/shared_items";
 
     /**
      * Constructor.
