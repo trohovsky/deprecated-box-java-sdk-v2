@@ -41,12 +41,8 @@ public class BoxSharedLinkRequestEntity extends MapJSONStringEntity {
      *            time to unshare the link
      */
     public void setUnshared_at(final Date unsharedAt) {
-        String date = unsharedAt != null ? ISO8601DateParser.toString(unsharedAt) : "<null>";
+        String date = unsharedAt != null ? ISO8601DateParser.toString(unsharedAt) : null;
         put(BoxSharedLink.FIELD_UNSHARED_AT, date);
-    }
-
-    public void test() {
-        System.out.println("DBUG -- HELLO");
     }
 
     /**
