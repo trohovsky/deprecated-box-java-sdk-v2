@@ -5,4 +5,6 @@ public interface IAuthData {
     String getAccessToken();
 
     String getRefreshToken();
+
+    Integer getExpiresIn();
 }
