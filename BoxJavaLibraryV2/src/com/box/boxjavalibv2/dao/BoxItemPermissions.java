@@ -50,11 +50,10 @@ public class BoxItemPermissions extends BoxObject {
     private void setCanDownload(Boolean canDownload) {
         put(FIELD_CAN_DOWNLOAD, canDownload);
     }
-
-    @JsonProperty(FIELD_CAN_PREVIEW)
+   
     @Deprecated
     public Boolean canPreivew() {
-        return (Boolean) getValue(FIELD_CAN_PREVIEW);
+        return canPreview();
     }
     
     @JsonProperty(FIELD_CAN_PREVIEW)
