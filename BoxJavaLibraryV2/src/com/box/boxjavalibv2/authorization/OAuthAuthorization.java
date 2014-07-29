@@ -59,9 +59,11 @@ public class OAuthAuthorization extends DefaultRequestAuth implements IOAuthAuth
     private String getAuthString() throws AuthFatalFailureException {
         if (mOAuth != null) {
             BoxOAuthToken data = mOAuth.getAuthData();
-            return BEARER + " " + data.getAccessToken();
-        } else {
-            return "";
+            if (data != null) {
+                return BEARER + " " + data.getAccessToken();
+            }
         }
+        return "";
+
     }
 }
