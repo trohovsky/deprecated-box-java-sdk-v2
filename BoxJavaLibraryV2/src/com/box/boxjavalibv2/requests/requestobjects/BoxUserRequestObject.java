@@ -80,8 +80,8 @@ public class BoxUserRequestObject extends BoxSimpleUserRequestObject {
      *            the isSyncEnabled to set
      * @return
      */
-    public BoxUserRequestObject setSyncEnabled(boolean isSyncEnabled) {
-        put(BoxUser.FIELD_IS_SYNC_ENABLED, Boolean.toString(isSyncEnabled));
+    public BoxUserRequestObject setSyncEnabled(final boolean isSyncEnabled) {
+        put(BoxUser.FIELD_IS_SYNC_ENABLED, isSyncEnabled);
         return this;
     }
 
@@ -156,7 +156,7 @@ public class BoxUserRequestObject extends BoxSimpleUserRequestObject {
      * @return
      */
     public BoxUserRequestObject setCanSeeManagedUsers(final boolean canSeeManagedUsers) {
-        put(BoxUser.FIELD_CAN_SEE_MANAGED_USERS, Boolean.toString(canSeeManagedUsers));
+        put(BoxUser.FIELD_CAN_SEE_MANAGED_USERS, canSeeManagedUsers);
         return this;
     }
 
@@ -188,7 +188,7 @@ public class BoxUserRequestObject extends BoxSimpleUserRequestObject {
      * @return
      */
     public BoxUserRequestObject setExemptFromDeviceLimits(final boolean exemptFromDeviceLimits) {
-        put(BoxUser.FIELD_EXEMPT_FROM_DEVICE_LIMITS, Boolean.toString(exemptFromDeviceLimits));
+        put(BoxUser.FIELD_EXEMPT_FROM_DEVICE_LIMITS, exemptFromDeviceLimits);
         return this;
     }
 
@@ -198,7 +198,7 @@ public class BoxUserRequestObject extends BoxSimpleUserRequestObject {
      * @return
      */
     public BoxUserRequestObject setExemptFromLoginVerification(final boolean exemptFromLoginVerification) {
-        put(BoxUser.FIELD_EXEMPT_FROM_LOGIN_VERIFICATION, Boolean.toString(exemptFromLoginVerification));
+        put(BoxUser.FIELD_EXEMPT_FROM_LOGIN_VERIFICATION, exemptFromLoginVerification);
         return this;
     }
 
