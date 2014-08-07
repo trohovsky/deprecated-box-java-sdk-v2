@@ -40,6 +40,9 @@ public class ErrorResponseParser extends DefaultBoxJSONResponseParser {
         }
 
         HttpResponse httpResponse = ((DefaultBoxResponse) response).getHttpResponse();
+        if (httpResponse == null) {
+            return null;
+        }
         try {
             int statusCode = httpResponse.getStatusLine().getStatusCode();
             BoxServerError error = null;
