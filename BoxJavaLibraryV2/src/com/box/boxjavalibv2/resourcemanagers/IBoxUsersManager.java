@@ -2,6 +2,7 @@ package com.box.boxjavalibv2.resourcemanagers;
 
 import java.util.List;
 
+import com.box.boxjavalibv2.dao.BoxCollection;
 import com.box.boxjavalibv2.dao.BoxEmailAlias;
 import com.box.boxjavalibv2.dao.BoxFolder;
 import com.box.boxjavalibv2.dao.BoxUser;
@@ -52,6 +53,22 @@ public interface IBoxUsersManager extends IBoxResourceManager {
     public List<BoxUser> getAllEnterpriseUser(BoxDefaultRequestObject requestObject, String filterTerm) throws BoxRestException, BoxServerException,
         AuthFatalFailureException;
 
+    
+    /**
+     * Get all groups.
+     * 
+     * @param requestObject
+     * @return All groups that the user is a member of and the caller is a Group Admin off.
+     * @throws BoxRestException
+     *             See {@link com.box.restclientv2.exceptions.BoxRestException} for more info.
+     * @throws BoxServerException
+     *             See {@link com.box.restclientv2.exceptions.BoxServerException} for more info.
+     * @throws AuthFatalFailureException
+     *             See {@link com.box.restclientv2.exceptions.AuthFatalFailureException} for more info.
+     */
+    public BoxCollection getUserGroups(String userId, BoxDefaultRequestObject requestObject) throws BoxRestException, AuthFatalFailureException, BoxServerException;
+
+    
     /**
      * Moves all of the content from within one user's folder into a new folder in another user's account. You can move folders across users as long as the you
      * have administrative permissions. To move everything from the root folder, use 0 which always represents the root folder of a Box account
