@@ -54,7 +54,7 @@ public class BoxRESTClient extends BoxBasicRestClient {
 
     /**
      * Accept a visitor to visit http request/response.
-     * 
+     *
      * @param visitor
      *            visitor
      */
@@ -74,7 +74,7 @@ public class BoxRESTClient extends BoxBasicRestClient {
 
     /**
      * Execute a request.
-     * 
+     *
      * @param boxRequest
      *            IBoxRequest
      * @param usingOAuth
@@ -185,16 +185,16 @@ public class BoxRESTClient extends BoxBasicRestClient {
 
     /**
      * Handle an OAuth failure.
-     * 
+     *
      * @param auth
      *            auth
      * @param boxRequest
      *            request
      * @return response@throws BoxRestException See {@link com.box.restclientv2.exceptions.BoxRestException} for more info.
      * @throws BoxServerException
-     *             See {@link com.box.restclientv2.exceptions.BoxServerException} for more info.
+     *             See {@link com.box.boxjavalibv2.exceptions.BoxServerException} for more info.
      * @throws AuthFatalFailureException
-     *             See {@link com.box.restclientv2.exceptions.AuthFatalFailureException} for more info.
+     *             See {@link com.box.boxjavalibv2.exceptions.AuthFatalFailureException} for more info.
      */
     private IBoxResponse handleOAuthTokenExpire(final IOAuthAuthorization auth, final IBoxRequest boxRequest) throws AuthFatalFailureException,
         BoxRestException, BoxUnexpectedHttpStatusException {

@@ -7,6 +7,11 @@ import com.box.boxjavalibv2.dao.BoxServerError;
  */
 public class BoxUnexpectedStatus extends BoxServerError {
 
+    /**
+     * Generated serial version UID
+     */
+    private static final long serialVersionUID = 3447364951091591023L;
+
     public static final String FIELD_RETRY_AFTER = "retry_after";
 
     /**

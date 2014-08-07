@@ -14,7 +14,7 @@ import com.box.restclientv2.requestsbase.DefaultBoxRequest;
  */
 public class CreateEnterpriseUserRequest extends DefaultBoxRequest {
 
-    private static final String URI = "/users";
+    public static final String URI = "/users";
 
     /**
      * Constructor.

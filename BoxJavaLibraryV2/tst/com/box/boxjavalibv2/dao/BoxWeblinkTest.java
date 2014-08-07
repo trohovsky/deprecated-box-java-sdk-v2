@@ -3,7 +3,7 @@ package com.box.boxjavalibv2.dao;
 import java.io.File;
 import java.io.IOException;
 
-import junit.framework.Assert;
+import org.junit.Assert;
 
 import org.apache.commons.io.FileUtils;
 import org.junit.Test;
@@ -31,6 +31,6 @@ public class BoxWeblinkTest {
     public void makeSureWeblinkSizeIsNotNullButZero() throws IOException, BoxRestException {
         String json = FileUtils.readFileToString(new File("testdata/weblink.json"));
         BoxWebLink weblink = (BoxWebLink) TestUtils.getFromJSON(json, BoxWebLink.class);
-        Assert.assertEquals(0d, weblink.getSize());
+        Assert.assertEquals(0d, weblink.getSize(), 0.001);
     }
 }

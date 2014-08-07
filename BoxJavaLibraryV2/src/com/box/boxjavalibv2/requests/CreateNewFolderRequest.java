@@ -14,7 +14,7 @@ import com.box.restclientv2.requestsbase.DefaultBoxRequest;
  */
 public class CreateNewFolderRequest extends DefaultBoxRequest {
 
-    private static final String URI = "/folders";
+    public static final String URI = "/folders";
 
     /**
      * Constructor.

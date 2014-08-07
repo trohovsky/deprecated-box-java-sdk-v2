@@ -11,10 +11,10 @@ public class BoxGetAllCollabsRequestObject extends BoxDefaultRequestObject {
 
     /**
      * Create an request object used to make get all collaborations request.
-     * 
+     *
      * @param status
      *            status of the collaborations requested( This field is required and currently only support
-     *            {@link com.box.boxjavalibv2.dao.BoxCollaboration.STATUS_PENDING}
+     *            {@link com.box.boxjavalibv2.dao.BoxCollaboration#STATUS_PENDING}
      * @return BoxCollabRequestObject
      */
     public static BoxGetAllCollabsRequestObject getAllCollaborationsRequestObject(final String status) {

@@ -16,6 +16,10 @@ public class BoxFile extends BoxItem {
     public final static String FIELD_COMMENT_COUNT = "comment_count";
     public final static String FIELD_CONTENT_CREATED_AT = "content_created_at";
     public final static String FIELD_CONTENT_MODIFIED_AT = "content_modified_at";
+    public final static String FIELD_TRASHED_AT = "trashed_at";
+    public final static String FIELD_PURGED_AT = "purged_at";
+    public final static String FIELD_LOCK = "lock";
+    public final static String FIELD_EXTENSION = "extension";
 
     /**
      * Constructor.
@@ -143,7 +147,88 @@ public class BoxFile extends BoxItem {
         put(FIELD_COMMENT_COUNT, commentCount);
     }
 
+    @JsonProperty(FIELD_TRASHED_AT)
+    public String getTrashedAt() {
+        return (String) getValue(FIELD_TRASHED_AT);
+    }
+
+    @JsonProperty(FIELD_TRASHED_AT)
+    private void setTrashedAt(String trashedAt) {
+        put(FIELD_TRASHED_AT, trashedAt);
+    }
+
+    /**
+     * Return the date file was last moved to the trash.
+     * 
+     * @return the date file was last moved to the trash.
+     */
+    public Date dateTrashedAt() {
+        return ISO8601DateParser.parseSilently(getTrashedAt());
+    }
+
+    @JsonProperty(FIELD_PURGED_AT)
+    public String getPurgedAt() {
+        return (String) getValue(FIELD_PURGED_AT);
+    }
+
+    @JsonProperty(FIELD_PURGED_AT)
+    private void setPurgedAt(String trashedAt) {
+        put(FIELD_PURGED_AT, trashedAt);
+    }
+
+    /**
+     * Return the date this file will be permanently deleted.
+     * 
+     * @return the date this file will be permanently deleted.
+     */
+    public Date datePurgedAt() {
+        return ISO8601DateParser.parseSilently(getPurgedAt());
+    }
+
+    /**
+     * Get lock on this file.
+     * 
+     * @return lock on the file
+     */
+    @JsonProperty(FIELD_LOCK)
+    public BoxLock getLock() {
+        return (BoxLock) getValue(FIELD_LOCK);
+    }
+
+    /**
+     * Set the lock.
+     * 
+     * @param lock
+     *            lock
+     */
+    @JsonProperty(FIELD_LOCK)
+    protected void setLock(BoxLock lock) {
+        put(FIELD_LOCK, lock);
+    }
+
+    /**
+     * Get extension of the file.
+     * 
+     * @return extension of the file.
+     */
+    @JsonProperty(FIELD_EXTENSION)
+    public String getExtension() {
+        return (String) getValue(FIELD_EXTENSION);
+    }
+
+    /**
+     * Sett extension.
+     * 
+     * @param extension
+     *            extension
+     */
+    @JsonProperty(FIELD_EXTENSION)
+    private void setExtension(String extension) {
+        put(FIELD_EXTENSION, extension);
+    }
+
     public BoxFile(IBoxParcelWrapper in) {
         super(in);
     }
+
 }

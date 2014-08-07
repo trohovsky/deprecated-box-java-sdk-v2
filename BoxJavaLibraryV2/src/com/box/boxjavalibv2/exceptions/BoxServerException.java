@@ -9,9 +9,6 @@ import com.box.restclientv2.exceptions.BoxSDKException;
  */
 public class BoxServerException extends BoxSDKException {
 
-    /**
-     * Default serial version UID.
-     */
     private static final long serialVersionUID = 1L;
 
     private BoxServerError error;
@@ -78,13 +75,14 @@ public class BoxServerException extends BoxSDKException {
     public String getMessage() {
         if (customMessage != null) {
             return String.format("%s:%s", statusCode, customMessage);
-        }
-        else if (error != null) {
+        } else if (error != null) {
             return error.getMessage();
-        }
-        else {
+        } else {
             return null;
         }
     }
 
+    public void setMessage(String msg) {
+        customMessage = msg;
+    }
 }

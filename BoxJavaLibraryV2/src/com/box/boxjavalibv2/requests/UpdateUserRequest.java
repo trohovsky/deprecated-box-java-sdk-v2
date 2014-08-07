@@ -12,7 +12,7 @@ import com.box.restclientv2.requestsbase.DefaultBoxRequest;
  */
 public class UpdateUserRequest extends DefaultBoxRequest {
 
-    private static final String URI = "/users/%s";
+    public static final String URI = "/users/%s";
 
     /**
      * Constructor
@@ -23,7 +23,6 @@ public class UpdateUserRequest extends DefaultBoxRequest {
      *            json parser
      * @param userId
      *            id of the user.
-     * @param
      * @param requestObject
      *            request object
      * @throws BoxRestException

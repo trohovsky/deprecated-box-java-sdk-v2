@@ -12,7 +12,7 @@ import com.box.restclientv2.requestsbase.DefaultBoxRequest;
  */
 public class GetEventsRequest extends DefaultBoxRequest {
 
-    private static final String URI = "/events";
+    public static final String URI = "/events";
 
     /**
      * Constructor.
@@ -20,7 +20,7 @@ public class GetEventsRequest extends DefaultBoxRequest {
      * @param config
      * @param parser
      * @param requestObject
-     * @throws BoxEventRequestObject
+     * @throws BoxRestException
      */
     public GetEventsRequest(final IBoxConfig config, final IBoxJSONParser parser, BoxEventRequestObject requestObject) throws BoxRestException {
         super(config, parser, URI, RestMethod.GET, requestObject);

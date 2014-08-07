@@ -23,7 +23,7 @@ public class BoxSharedLinkRequestEntity extends MapJSONStringEntity {
 
     /**
      * Set access String. This defines who has access to the link. String can be the strings defined in {@link com.box.boxjavalibv2.dao.BoxSharedLinkAccess}.
-     * 
+     *
      * @param accessLevel
      *            access
      * @return
@@ -36,19 +36,18 @@ public class BoxSharedLinkRequestEntity extends MapJSONStringEntity {
     /**
      * Set the time to unshare the link. This String is an ISO8601 time String and can be generated from {@link java.util.Date} by
      * {@link com.box.boxjavalibv2.utils.ISO8601DateParser}
-     * 
+     *
      * @param unsharedAt
      *            time to unshare the link
-     * @return
      */
     public void setUnshared_at(final Date unsharedAt) {
-        String date = unsharedAt != null ? ISO8601DateParser.toString(unsharedAt) : "null";
+        String date = unsharedAt != null ? ISO8601DateParser.toString(unsharedAt) : null;
         put(BoxSharedLink.FIELD_UNSHARED_AT, date);
     }
 
     /**
      * Set permissions.
-     * 
+     *
      * @param permissionsEntity
      *            permissions
      * @return
@@ -59,10 +58,9 @@ public class BoxSharedLinkRequestEntity extends MapJSONStringEntity {
 
     /**
      * Set permissions
-     * 
+     *
      * @param canDownload
      *            Whether shared item can be downloaded.
-     * @return
      */
     public void setPermissions(final boolean canDownload) {
         BoxSharedLinkPermissionsRequestEntity perm = new BoxSharedLinkPermissionsRequestEntity();

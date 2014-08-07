@@ -12,7 +12,7 @@ import com.box.restclientv2.requestsbase.DefaultBoxRequest;
  */
 public class GetAllCollaborationsRequest extends DefaultBoxRequest {
 
-    private static final String URI = "/collaborations";
+    public static final String URI = "/collaborations";
 
     public GetAllCollaborationsRequest(final IBoxConfig config, final IBoxJSONParser parser, BoxGetAllCollabsRequestObject collabObject)
         throws BoxRestException {

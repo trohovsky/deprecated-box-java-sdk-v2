@@ -14,10 +14,11 @@ public class OAuthAuthorization extends DefaultRequestAuth implements IOAuthAuth
     private static final String BEARER = "Bearer";
     private final OAuthDataController mOAuth;
 
-   public OAuthAuthorization(final OAuthDataController oAuth) {
+    public OAuthAuthorization(final OAuthDataController oAuth) {
         this.mOAuth = oAuth;
     }
 
+    @Override
     public void setOAuthData(BoxOAuthToken data) {
         mOAuth.setOAuthData(data);
         mOAuth.initialize();
@@ -29,6 +30,7 @@ public class OAuthAuthorization extends DefaultRequestAuth implements IOAuthAuth
      * @throws AuthFatalFailureException
      *             exception
      */
+    @Override
     public void refresh() throws AuthFatalFailureException {
         mOAuth.refresh();
     }
@@ -36,6 +38,7 @@ public class OAuthAuthorization extends DefaultRequestAuth implements IOAuthAuth
     /**
      * Initialize this auth. This need to be called before making an API request using this auth.
      */
+    @Override
     public void initOAuthForRequest() {
         mOAuth.initialize();
     }
@@ -54,7 +57,13 @@ public class OAuthAuthorization extends DefaultRequestAuth implements IOAuthAuth
      * @throws AuthFatalFailureException
      */
     private String getAuthString() throws AuthFatalFailureException {
-        BoxOAuthToken data = mOAuth.getAuthData();
-        return BEARER + " " + data.getAccessToken();
+        if (mOAuth != null) {
+            BoxOAuthToken data = mOAuth.getAuthData();
+            if (data != null) {
+                return BEARER + " " + data.getAccessToken();
+            }
+        }
+        return "";
+
     }
 }

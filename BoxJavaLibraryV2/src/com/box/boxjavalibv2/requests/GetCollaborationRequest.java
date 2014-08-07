@@ -9,11 +9,11 @@ import com.box.restclientv2.requestsbase.DefaultBoxRequest;
 
 /**
  * Request to get a collaboration. Can also request for collaborations of a certain status. Currently only
- * {@link com.box.boxjavalibv2.dao.CollaborationV2.STATUS_PENDING} is allowed.
+ * {@link com.box.boxjavalibv2.dao.BoxCollaboration#STATUS_PENDING} is allowed.
  */
 public class GetCollaborationRequest extends DefaultBoxRequest {
 
-    private static final String URI = "/collaborations/%s";
+    public static final String URI = "/collaborations/%s";
 
     /**
      * Constructor.

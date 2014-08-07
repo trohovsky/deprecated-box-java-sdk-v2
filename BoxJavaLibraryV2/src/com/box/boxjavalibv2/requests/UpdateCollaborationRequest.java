@@ -12,7 +12,7 @@ import com.box.restclientv2.requestsbase.DefaultBoxRequest;
  */
 public class UpdateCollaborationRequest extends DefaultBoxRequest {
 
-    private static final String URI = "/collaborations/%s";
+    public static final String URI = "/collaborations/%s";
 
     /**
      * Constructor.

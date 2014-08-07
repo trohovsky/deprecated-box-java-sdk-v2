@@ -1,2 +1,3 @@
 include ":BoxJavaLibraryV2",
-		":Examples:HelloWorld"
+		":Examples:HelloWorld",
+		":BoxJavaFxOAuth"

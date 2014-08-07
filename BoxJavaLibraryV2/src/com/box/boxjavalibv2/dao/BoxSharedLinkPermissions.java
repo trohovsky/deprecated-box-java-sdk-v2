@@ -1,5 +1,7 @@
 package com.box.boxjavalibv2.dao;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.Map;
 
 
@@ -11,6 +13,7 @@ import java.util.Map;
 public class BoxSharedLinkPermissions extends BoxObject {
 
     public static final String FIELD_CAN_DOWNLOAD = "can_download";
+    public static final String FIELD_CAN_PREVIEW = "can_preview";
 
     /**
      * Default constructor.
@@ -62,6 +65,26 @@ public class BoxSharedLinkPermissions extends BoxObject {
      */
     protected void setCan_download(final Boolean canDownload) {
         put(FIELD_CAN_DOWNLOAD, canDownload);
+    }
+
+    /**
+     * whether can_preview is true.
+     *
+     * @return can_preview
+     */
+    @JsonProperty(FIELD_CAN_PREVIEW)
+    public Boolean canPreview() {
+        return (Boolean) getValue(FIELD_CAN_PREVIEW);
+    }
+
+    /**
+     * Setter.
+     *
+     * @param canPreview
+     */
+    @JsonProperty(FIELD_CAN_PREVIEW)
+    private void setCanPreview(final Boolean canPreview) {
+        put(FIELD_CAN_PREVIEW, canPreview);
     }
 
     protected BoxSharedLinkPermissions(IBoxParcelWrapper parcel) {

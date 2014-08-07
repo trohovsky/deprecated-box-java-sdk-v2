@@ -1,6 +1,6 @@
 package com.box.restclientv2.authorization;
 
-import junit.framework.Assert;
+import org.junit.Assert;
 
 import org.junit.Test;
 
