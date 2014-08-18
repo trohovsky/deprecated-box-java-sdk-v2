@@ -1,6 +1,8 @@
 package com.box.boxjavalibv2;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang.NotImplementedException;
@@ -60,9 +62,9 @@ import com.box.restclientv2.authorization.IBoxRequestAuth;
 /**
  * This is the main entrance of the sdk. The client contains all resource managers and also handles authentication. Make sure you call authenticate method
  * before making any api calls. you can use the resource managers to execute requests <b>synchronously</b> against the Box REST API(V2). Full details about the
- * Box API can be found at @see <a href="http://developers.box.com/docs">http://developers.box.com/docs</a>. You must have an OpenBox application with a
- * valid API key to use the Box API. All methods in this class are executed in the invoking thread, and therefore are NOT safe to execute in the UI thread of
- * your application. You should only use this class if you already have worker threads or AsyncTasks that you want to incorporate the Box API into.
+ * Box API can be found at @see <a href="http://developers.box.com/docs">http://developers.box.com/docs</a>. You must have an OpenBox application with a valid
+ * API key to use the Box API. All methods in this class are executed in the invoking thread, and therefore are NOT safe to execute in the UI thread of your
+ * application. You should only use this class if you already have worker threads or AsyncTasks that you want to incorporate the Box API into.
  */
 public class BoxClient extends BoxBase implements IAuthFlowListener {
 
@@ -88,10 +90,16 @@ public class BoxClient extends BoxBase implements IAuthFlowListener {
     private final IBoxGroupsManager groupsManager;
     private final IBoxTrashManager trashManager;
     private final Map<String, IBoxResourceManager> pluginResourceManagers = new HashMap<String, IBoxResourceManager>();
+    /**
+     * Listeners listening to the events of the states that this BoxClient gets authenticated. This is maintained in BoxClient class instead of directly using
+     * the listeners in IAuthFlowUI because the time IAuthFlowUI get authenticated(authentication api call finished) and the time BoxClient get
+     * authenticated(auth token is set in the OAuth contoller) could be different.
+     */
+    private List<IAuthFlowListener> boxClientAuthListeners = new ArrayList<IAuthFlowListener>();
 
     /**
      * This constructor has some connection parameters. They are used to periodically close idle connections that HttpClient opens.
-     *
+     * 
      * @param clientId
      *            client id, you can get it from dev console.
      * @param clientSecret
@@ -169,7 +177,7 @@ public class BoxClient extends BoxBase implements IAuthFlowListener {
 
     /**
      * Plug in a resource manager into sdk client. The plugged in resource manager can be retrieved by getPluginManager(key).
-     *
+     * 
      * @param key
      *            key of the resource manager. The key is used to retrieve the plugged in resource manager.
      * @param builder
@@ -184,7 +192,7 @@ public class BoxClient extends BoxBase implements IAuthFlowListener {
 
     /**
      * Whether this client is authenticated.
-     *
+     * 
      * @return
      */
     public boolean isAuthenticated() {
@@ -197,7 +205,7 @@ public class BoxClient extends BoxBase implements IAuthFlowListener {
 
     /**
      * Makes OAuth auto refresh itself when token expires. By default, this is set to true. Note if autorefresh fails, it's not going to try refresh again.
-     *
+     * 
      * @param autoRefresh
      */
     public void setAutoRefreshOAuth(boolean autoRefresh) {
@@ -206,7 +214,7 @@ public class BoxClient extends BoxBase implements IAuthFlowListener {
 
     /**
      * Set whether we want the connection to keep open (and reused) after an api call.
-     *
+     * 
      * @param connectionOpen
      *            true if we want the connection to remain open and reused for another api call.
      */
@@ -216,7 +224,7 @@ public class BoxClient extends BoxBase implements IAuthFlowListener {
 
     /**
      * Set connection time out.
-     *
+     * 
      * @param timeOut
      */
     public void setConnectionTimeOut(final int timeOut) {
@@ -233,7 +241,7 @@ public class BoxClient extends BoxBase implements IAuthFlowListener {
     /**
      * Add a listener to listen to OAuth refresh events. This is important because every time OAuth token refreshes, a new refresh/access token pair will be
      * generated. If your app is storing the token pairs, it needs to get rid of the stale pair store the updated pair.
-     *
+     * 
      * @param listener
      */
     public void addOAuthRefreshListener(OAuthRefreshListener listener) {
@@ -242,7 +250,7 @@ public class BoxClient extends BoxBase implements IAuthFlowListener {
 
     /**
      * Get the OAuth data.
-     *
+     * 
      * @return
      * @throws AuthFatalFailureException
      */
@@ -252,7 +260,7 @@ public class BoxClient extends BoxBase implements IAuthFlowListener {
 
     /**
      * Save auth in a customized secure storage.
-     *
+     * 
      * @param storage
      * @throws AuthFatalFailureException
      */
@@ -262,7 +270,7 @@ public class BoxClient extends BoxBase implements IAuthFlowListener {
 
     /**
      * Authenticate from the auth object stored in the secure storage.
-     *
+     * 
      * @param storage
      */
     public void authenticateFromSecureStorage(IAuthSecureStorage storage) {
@@ -272,7 +280,7 @@ public class BoxClient extends BoxBase implements IAuthFlowListener {
     /**
      * Get the BoxFilesManager, which can be used to make API calls on files endpoints. Note this files manager only work on the folders you own. if you are
      * trying to make api calls on a shared file (file shared to you via shared link), please use getSharedFilesManager().
-     *
+     * 
      * @return the filesManager
      */
     public IBoxFilesManager getFilesManager() {
@@ -283,7 +291,7 @@ public class BoxClient extends BoxBase implements IAuthFlowListener {
      * Get the BoxItemsManager, which can be used to make API calls on files/folders endpoints. Note this files manager only work on the files/folders you own.
      * if you are trying to make api calls on a shared file (file shared to you via shared link), please use getSharedBoxItemsManager(). In general this is a
      * convenient resource manager when you make api calls for a BoxItem without knowing whether it's a BoxFile or BoxFolder.
-     *
+     * 
      * @return the boxItemsManager
      */
     public IBoxItemsManager getBoxItemsManager() {
@@ -293,7 +301,7 @@ public class BoxClient extends BoxBase implements IAuthFlowListener {
     /**
      * Get the BoxItemsManager for items(files/folders) shared to you, this can be used to make API calls on files/folders endpoints. Note this is different
      * from getSharedItemsManager(), getSharedItemsManager is used for api calls on sharedItems endpoints.
-     *
+     * 
      * @param sharedLink
      *            shared link
      * @param password
@@ -306,7 +314,7 @@ public class BoxClient extends BoxBase implements IAuthFlowListener {
 
     /**
      * Get the BoxItemsManager, which can be used to make API calls on files/folders endpoints for trashed files/folders.
-     *
+     * 
      * @return the boxItemsManager
      */
     public IBoxTrashManager getTrashManager() {
@@ -315,7 +323,7 @@ public class BoxClient extends BoxBase implements IAuthFlowListener {
 
     /**
      * Get the OAuthManager, which can be used to make OAuth related api calls.
-     *
+     * 
      * @return
      */
     public IBoxOAuthManager getOAuthManager() {
@@ -331,7 +339,7 @@ public class BoxClient extends BoxBase implements IAuthFlowListener {
 
     /**
      * Get Shared Items manager, which can be used to make API calls on shared item endpoints.
-     *
+     * 
      * @param sharedLink
      *            shared link
      * @param password
@@ -344,7 +352,7 @@ public class BoxClient extends BoxBase implements IAuthFlowListener {
 
     /**
      * Get the BoxFilesManager for shared items, which can be used to make API calls on files endpoints for a shared item.
-     *
+     * 
      * @param sharedLink
      *            shared link.
      * @param password
@@ -357,7 +365,7 @@ public class BoxClient extends BoxBase implements IAuthFlowListener {
 
     /**
      * Get the BoxFoldersManager for shared items, which can be used to make API calls on folders endpoints for a shared item.
-     *
+     * 
      * @param sharedLink
      *            shared link.
      * @param password
@@ -370,7 +378,7 @@ public class BoxClient extends BoxBase implements IAuthFlowListener {
 
     /**
      * Get the BoxCommentsManager for shared items, which can be used to make API calls on comments endpoints for a shared item.
-     *
+     * 
      * @param sharedLink
      *            shared link.
      * @param password
@@ -383,7 +391,7 @@ public class BoxClient extends BoxBase implements IAuthFlowListener {
 
     /**
      * A generic way to get a resourceManager with shared link auth. Currently only supports file, folder and comment endpoints.
-     *
+     * 
      * @param type
      * @param sharedLink
      * @param password
@@ -425,7 +433,7 @@ public class BoxClient extends BoxBase implements IAuthFlowListener {
     }
 
     /**
-     *
+     * 
      * @return BoxEventsManager through which the Box Events API can be queried.
      */
     public IBoxEventsManager getEventsManager() {
@@ -455,7 +463,7 @@ public class BoxClient extends BoxBase implements IAuthFlowListener {
 
     /**
      * Get authenticated using a Auth object, this could be a previously stored data.
-     *
+     * 
      * @param authData
      */
     public synchronized void authenticate(IAuthData authData) {
@@ -471,31 +479,31 @@ public class BoxClient extends BoxBase implements IAuthFlowListener {
     /**
      * Get authenticated. Note authentication is done asynchronously and may not finish right after this method. The authentication result should be notified to
      * the IAuthFlowListener parameter.
-     *
+     * 
      * @param authFlowUI
      *            UI for the auth(OAuth) flow.
      * @param autoRefreshOAuth
      *            whether the OAuth token should be auto refreshed when it expires.
      * @param listener
-     *            listener listening to the auth flow events.
+     *            listener listening to the events of the states that this BoxClient gets authenticateds.
      */
     public void authenticate(IAuthFlowUI authFlowUI, boolean autoRefreshOAuth, IAuthFlowListener listener) {
         setAutoRefreshOAuth(autoRefreshOAuth);
-        authFlowUI.addAuthFlowListener(listener);
+        addBoxClientAuthListener(listener);
         authFlowUI.authenticate(this);
     }
 
-    @Override
-    public void onAuthFlowEvent(IAuthEvent event, IAuthFlowMessage message) {
-        OAuthEvent oe = (OAuthEvent) event;
-        if (oe == OAuthEvent.OAUTH_CREATED) {
-            ((IOAuthAuthorization) getAuth()).setOAuthData(getOAuthTokenFromMessage(message));
-        }
+    protected List<IAuthFlowListener> getBoxClientAuthenticationListener() {
+        return this.boxClientAuthListeners;
+    }
+
+    public void addBoxClientAuthListener(final IAuthFlowListener listener) {
+        getBoxClientAuthenticationListener().add(listener);
     }
 
     /**
      * Check authentication state.
-     *
+     * 
      * @return authentication state
      */
     public OAuthTokenState getAuthState() {
@@ -504,7 +512,7 @@ public class BoxClient extends BoxBase implements IAuthFlowListener {
 
     /**
      * Get config.
-     *
+     * 
      * @return config
      */
     public IBoxConfig getConfig() {
@@ -513,7 +521,7 @@ public class BoxClient extends BoxBase implements IAuthFlowListener {
 
     /**
      * Create a resource hub
-     *
+     * 
      * @return IBoxResourceHub
      */
     protected IBoxResourceHub createResourceHub() {
@@ -522,7 +530,7 @@ public class BoxClient extends BoxBase implements IAuthFlowListener {
 
     /**
      * Create a json parser.
-     *
+     * 
      * @param resourceHub
      * @return
      */
@@ -532,7 +540,7 @@ public class BoxClient extends BoxBase implements IAuthFlowListener {
 
     /**
      * Get resource hub.
-     *
+     * 
      * @return Resource hub
      */
     public IBoxResourceHub getResourceHub() {
@@ -545,7 +553,7 @@ public class BoxClient extends BoxBase implements IAuthFlowListener {
 
     /**
      * Get rest client.
-     *
+     * 
      * @return
      */
     protected IBoxRESTClient getRestClient() {
@@ -554,7 +562,7 @@ public class BoxClient extends BoxBase implements IAuthFlowListener {
 
     /**
      * Create a REST client to make api calls.
-     *
+     * 
      * @return IBoxRESTClient
      */
     protected static IBoxRESTClient createRestClient() {
@@ -567,7 +575,7 @@ public class BoxClient extends BoxBase implements IAuthFlowListener {
 
     /**
      * Get the authorization needed for shared items.
-     *
+     * 
      * @param sharedLink
      *            shared link
      * @param password
@@ -594,7 +602,7 @@ public class BoxClient extends BoxBase implements IAuthFlowListener {
 
     /**
      * Get the auth object used to make api calls.
-     *
+     * 
      * @return
      */
     public IBoxRequestAuth getAuth() {
@@ -602,11 +610,36 @@ public class BoxClient extends BoxBase implements IAuthFlowListener {
     }
 
     @Override
+    public void onAuthFlowEvent(IAuthEvent event, IAuthFlowMessage message) {
+        OAuthEvent oe = (OAuthEvent) event;
+        if (oe == OAuthEvent.OAUTH_CREATED) {
+            IBoxRequestAuth auth = getAuth();
+            // We currently only supports OAuth.
+            if (auth instanceof IOAuthAuthorization) {
+                ((IOAuthAuthorization) auth).setOAuthData(getOAuthTokenFromMessage(message));
+            }
+        }
+
+        List<IAuthFlowListener> listeners = getBoxClientAuthenticationListener();
+        for (int i = 0; i < listeners.size(); i++) {
+            listeners.get(i).onAuthFlowEvent(event, message);
+        }
+    }
+
+    @Override
     public void onAuthFlowMessage(IAuthFlowMessage message) {
+        List<IAuthFlowListener> listeners = getBoxClientAuthenticationListener();
+        for (int i = 0; i < listeners.size(); i++) {
+            listeners.get(i).onAuthFlowMessage(message);
+        }
     }
 
     @Override
     public void onAuthFlowException(Exception e) {
+        List<IAuthFlowListener> listeners = getBoxClientAuthenticationListener();
+        for (int i = 0; i < listeners.size(); i++) {
+            listeners.get(i).onAuthFlowException(e);
+        }
     }
 
     protected BoxOAuthToken getOAuthTokenFromMessage(IAuthFlowMessage message) {
