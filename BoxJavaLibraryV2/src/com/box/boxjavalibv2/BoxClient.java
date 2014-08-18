@@ -613,7 +613,11 @@ public class BoxClient extends BoxBase implements IAuthFlowListener {
     public void onAuthFlowEvent(IAuthEvent event, IAuthFlowMessage message) {
         OAuthEvent oe = (OAuthEvent) event;
         if (oe == OAuthEvent.OAUTH_CREATED) {
-            ((IOAuthAuthorization) getAuth()).setOAuthData(getOAuthTokenFromMessage(message));
+            IBoxRequestAuth auth = getAuth();
+            // We currently only supports OAuth.
+            if (auth instanceof IOAuthAuthorization) {
+                ((IOAuthAuthorization) auth).setOAuthData(getOAuthTokenFromMessage(message));
+            }
         }
 
         List<IAuthFlowListener> listeners = getBoxClientAuthenticationListener();
