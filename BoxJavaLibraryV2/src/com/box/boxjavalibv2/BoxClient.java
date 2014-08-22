@@ -1,8 +1,6 @@
 package com.box.boxjavalibv2;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang.NotImplementedException;
@@ -95,7 +93,7 @@ public class BoxClient extends BoxBase implements IAuthFlowListener {
      * the listeners in IAuthFlowUI because the time IAuthFlowUI get authenticated(authentication api call finished) and the time BoxClient get
      * authenticated(auth token is set in the OAuth contoller) could be different.
      */
-    private List<IAuthFlowListener> boxClientAuthListeners = new ArrayList<IAuthFlowListener>();
+    private IAuthFlowListener boxClientAuthListener;
 
     /**
      * This constructor has some connection parameters. They are used to periodically close idle connections that HttpClient opens.
@@ -485,20 +483,26 @@ public class BoxClient extends BoxBase implements IAuthFlowListener {
      * @param autoRefreshOAuth
      *            whether the OAuth token should be auto refreshed when it expires.
      * @param listener
-     *            listener listening to the events of the states that this BoxClient gets authenticateds.
+     *            listener listening to the events of the states that this BoxClient gets authenticated. In the end of normal OAuth flow, since it's already
+     *            done it's duty, this listener is removed so it is not held in memory by BoxClient. In unusual ending of OAuth flow, e.g., your own code forces
+     *            finish the OAuth flow, this listener may stay binded to BoxClient, call clearBoxClientAuthListener() if you really need to remove it.
      */
     public void authenticate(IAuthFlowUI authFlowUI, boolean autoRefreshOAuth, IAuthFlowListener listener) {
         setAutoRefreshOAuth(autoRefreshOAuth);
-        addBoxClientAuthListener(listener);
+        setBoxClientAuthListener(listener);
         authFlowUI.authenticate(this);
     }
 
-    protected List<IAuthFlowListener> getBoxClientAuthenticationListener() {
-        return this.boxClientAuthListeners;
+    protected IAuthFlowListener getBoxClientAuthenticationListener() {
+        return this.boxClientAuthListener;
     }
 
-    public void addBoxClientAuthListener(final IAuthFlowListener listener) {
-        getBoxClientAuthenticationListener().add(listener);
+    /**
+     * set listener listening to the events of the states that this BoxClient gets authenticateds. Do not make this method public. This is only called
+     * internally in authenticate method.
+     */
+    protected void setBoxClientAuthListener(final IAuthFlowListener listener) {
+        this.boxClientAuthListener = listener;
     }
 
     /**
@@ -609,6 +613,13 @@ public class BoxClient extends BoxBase implements IAuthFlowListener {
         return auth;
     }
 
+    /**
+     * Clear the auth listener so it's not held by BoxClient any more.
+     */
+    public void clearBoxClientAuthListener() {
+        setBoxClientAuthListener(null);
+    }
+
     @Override
     public void onAuthFlowEvent(IAuthEvent event, IAuthFlowMessage message) {
         OAuthEvent oe = (OAuthEvent) event;
@@ -620,25 +631,29 @@ public class BoxClient extends BoxBase implements IAuthFlowListener {
             }
         }
 
-        List<IAuthFlowListener> listeners = getBoxClientAuthenticationListener();
-        for (int i = 0; i < listeners.size(); i++) {
-            listeners.get(i).onAuthFlowEvent(event, message);
+        if (getBoxClientAuthenticationListener() != null) {
+            getBoxClientAuthenticationListener().onAuthFlowEvent(event, message);
+            if (oe == OAuthEvent.OAUTH_CREATED) {
+                // OAuth flow is done, client is authenticated, listener has done it's duty already. Set it to null to avoid application context leak.
+                clearBoxClientAuthListener();
+            }
         }
     }
 
     @Override
     public void onAuthFlowMessage(IAuthFlowMessage message) {
-        List<IAuthFlowListener> listeners = getBoxClientAuthenticationListener();
-        for (int i = 0; i < listeners.size(); i++) {
-            listeners.get(i).onAuthFlowMessage(message);
+        if (getBoxClientAuthenticationListener() != null) {
+            getBoxClientAuthenticationListener().onAuthFlowMessage(message);
         }
     }
 
     @Override
     public void onAuthFlowException(Exception e) {
-        List<IAuthFlowListener> listeners = getBoxClientAuthenticationListener();
-        for (int i = 0; i < listeners.size(); i++) {
-            listeners.get(i).onAuthFlowException(e);
+        if (getBoxClientAuthenticationListener() != null) {
+            getBoxClientAuthenticationListener().onAuthFlowException(e);
+            // OAuth flow is done, client failed authenticating due to an exception, listener has done it's duty already. Set it to null to avoid application
+            // context leak.
+            clearBoxClientAuthListener();
         }
     }
 
