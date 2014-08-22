@@ -53,7 +53,6 @@ public interface IBoxUsersManager extends IBoxResourceManager {
     public List<BoxUser> getAllEnterpriseUser(BoxDefaultRequestObject requestObject, String filterTerm) throws BoxRestException, BoxServerException,
         AuthFatalFailureException;
 
-    
     /**
      * Get all groups.
      * 
@@ -62,13 +61,13 @@ public interface IBoxUsersManager extends IBoxResourceManager {
      * @throws BoxRestException
      *             See {@link com.box.restclientv2.exceptions.BoxRestException} for more info.
      * @throws BoxServerException
-     *             See {@link com.box.restclientv2.exceptions.BoxServerException} for more info.
+     *             See {@link com.box.boxjavalibv2.exceptions.BoxServerException} for more info.
      * @throws AuthFatalFailureException
-     *             See {@link com.box.restclientv2.exceptions.AuthFatalFailureException} for more info.
+     *             See {@link com.box.boxjavalibv2.exceptions.AuthFatalFailureException} for more info.
      */
-    public BoxCollection getUserGroups(String userId, BoxDefaultRequestObject requestObject) throws BoxRestException, AuthFatalFailureException, BoxServerException;
+    public BoxCollection getUserGroups(String userId, BoxDefaultRequestObject requestObject) throws BoxRestException, AuthFatalFailureException,
+        BoxServerException;
 
-    
     /**
      * Moves all of the content from within one user's folder into a new folder in another user's account. You can move folders across users as long as the you
      * have administrative permissions. To move everything from the root folder, use 0 which always represents the root folder of a Box account
@@ -126,7 +125,7 @@ public interface IBoxUsersManager extends IBoxResourceManager {
 
     /**
      * Used to delete a user in an enterprise. This method only works for enterprise admins.
-     *
+     * 
      * @param userId
      *            id of the user.
      * @param requestObject
