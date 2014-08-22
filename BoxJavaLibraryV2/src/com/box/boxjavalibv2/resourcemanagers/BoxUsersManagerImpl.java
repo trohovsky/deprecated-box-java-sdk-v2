@@ -21,6 +21,7 @@ import com.box.boxjavalibv2.requests.DeleteUserRequest;
 import com.box.boxjavalibv2.requests.GetAllUsersInEnterpriseRequest;
 import com.box.boxjavalibv2.requests.GetCurrentUserRequest;
 import com.box.boxjavalibv2.requests.GetEmailAliasesRequest;
+import com.box.boxjavalibv2.requests.GetUserMembershipsRequest;
 import com.box.boxjavalibv2.requests.MoveFolderToAnotherUserRequest;
 import com.box.boxjavalibv2.requests.UpdateUserLoginRequest;
 import com.box.boxjavalibv2.requests.UpdateUserRequest;
@@ -167,4 +168,13 @@ public final class BoxUsersManagerImpl extends AbstractBoxResourceManager implem
         }
         return aliases;
     }
+
+	@Override
+	public BoxCollection getUserGroups(final String userId,BoxDefaultRequestObject requestObject)
+			throws BoxRestException, AuthFatalFailureException,
+			BoxServerException {
+		GetUserMembershipsRequest request = new GetUserMembershipsRequest(getConfig(), getJSONParser(), userId, requestObject);
+        return (BoxCollection) getResponseAndParseAndTryCast(request, BoxResourceType.GROUP_MEMBERSHIPS, getJSONParser());
+    
+	}
 }
