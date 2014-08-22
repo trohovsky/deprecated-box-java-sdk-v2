@@ -624,8 +624,10 @@ public class BoxClient extends BoxBase implements IAuthFlowListener {
 
         if (getBoxClientAuthenticationListener() != null) {
             getBoxClientAuthenticationListener().onAuthFlowEvent(event, message);
-            // OAuth flow is done, client is authenticated, listener has done it's duty already. Set it to null to avoid application context leak.
-            setBoxClientAuthListener(null);
+            if (oe == OAuthEvent.OAUTH_CREATED) {
+                // OAuth flow is done, client is authenticated, listener has done it's duty already. Set it to null to avoid application context leak.
+                setBoxClientAuthListener(null);
+            }
         }
     }
 
