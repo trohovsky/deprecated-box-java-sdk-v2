@@ -19,8 +19,9 @@ public class OAuthDataController implements IAuthDataController {
      * Time to wait for lock.
      */
     private static final int WAIT = 200;
+
     /**
-     * Default timeout waiting for lock.
+     * Default timeout waiting for lock
      */
     private static final int WAIT_TIME_OUT = 60000;
 
@@ -99,7 +100,18 @@ public class OAuthDataController implements IAuthDataController {
     }
 
     public void setOAuthData(BoxOAuthToken token) {
-        this.mOAuthToken = token;
+        try {
+            waitForLock(true, WAIT);
+
+            mOAuthToken = token;
+            if (mOAuthToken != null) {
+                internalSetTokenState(OAuthTokenState.AVAILABLE);
+            } else {
+                internalSetTokenState(OAuthTokenState.PRE_CREATION);
+            }
+        } finally {
+            unlock();
+        }
     }
 
     /**
@@ -130,10 +142,25 @@ public class OAuthDataController implements IAuthDataController {
     }
 
     /**
+     * Reset token state to PRE_CREATION so it will be ready to refresh again.
+     */
+    public void resetTokenState() {
+        try {
+            waitForLock(true, WAIT);
+
+            internalSetTokenState(OAuthTokenState.PRE_CREATION);
+        } finally {
+            unlock();
+        }
+    }
+
+    /**
+     * Setter of mTokenState. There's no locking mechanisms involved and should not be made public.
+     * 
      * @param tokenState
      *            the mTokenState to set
      */
-    public void setTokenState(OAuthTokenState tokenState) {
+    protected void internalSetTokenState(OAuthTokenState tokenState) {
         this.mTokenState = tokenState;
     }
 
@@ -151,7 +178,7 @@ public class OAuthDataController implements IAuthDataController {
     public void setRefreshFail(Exception refreshFailException) {
         this.refreshFailException = refreshFailException;
         if (refreshFailException != null) {
-            setTokenState(OAuthTokenState.FAIL);
+            internalSetTokenState(OAuthTokenState.FAIL);
         }
     }
 
@@ -159,7 +186,7 @@ public class OAuthDataController implements IAuthDataController {
      * Initialize the controller.
      */
     public void initialize() {
-        setTokenState(OAuthTokenState.AVAILABLE);
+        internalSetTokenState(OAuthTokenState.AVAILABLE);
         setRefreshFail(null);
         unlock();
     }
@@ -175,10 +202,14 @@ public class OAuthDataController implements IAuthDataController {
         long num = 0;
         while (num * WAIT <= mWaitTimeOut) {
             if (getAndSetLock(false)) {
-                return mOAuthToken;
-            }
-            else {
-                doWait();
+                if (getTokenState() == OAuthTokenState.PRE_CREATION) {
+                    refresh();
+                    return getAuthData();
+                } else {
+                    return mOAuthToken;
+                }
+            } else {
+                doWait(WAIT);
                 num++;
             }
         }
@@ -195,21 +226,22 @@ public class OAuthDataController implements IAuthDataController {
     public void refresh() throws AuthFatalFailureException {
         if (!getAndSetLock(true)) {
             getAuthData();
-        }
-        else {
+        } else {
             try {
                 if (getTokenState() == OAuthTokenState.FAIL || !mAutoRefresh) {
-                    setTokenState(OAuthTokenState.FAIL);
+                    internalSetTokenState(OAuthTokenState.FAIL);
                     throw new AuthFatalFailureException(getRefreshFailException());
-                }
-                else {
+                } else {
                     doRefresh();
                 }
-            }
-            finally {
+            } finally {
                 unlock();
             }
         }
+    }
+
+    public void addOAuthRefreshListener(OAuthRefreshListener listener) {
+        this.refreshListener = listener;
     }
 
     /**
@@ -219,18 +251,16 @@ public class OAuthDataController implements IAuthDataController {
      *            whether want to lock after getting the lock.
      * @return
      */
-    synchronized public boolean getAndSetLock(boolean doLock) {
+    synchronized protected boolean getAndSetLock(boolean doLock) {
         boolean lockRetrieved = false;
         if (doLock) {
             if (locked) {
                 lockRetrieved = false;
-            }
-            else {
+            } else {
                 locked = true;
                 lockRetrieved = true;
             }
-        }
-        else {
+        } else {
             lockRetrieved = !locked;
         }
         return lockRetrieved;
@@ -239,7 +269,7 @@ public class OAuthDataController implements IAuthDataController {
     /**
      * Unlock the OAuth lock.
      */
-    private void unlock() {
+    protected void unlock() {
         locked = false;
     }
 
@@ -253,8 +283,8 @@ public class OAuthDataController implements IAuthDataController {
      * @throws AuthFatalFailureException
      *             exception
      */
-    private void doRefresh() throws AuthFatalFailureException {
-        setTokenState(OAuthTokenState.REFRESHING);
+    protected void doRefresh() throws AuthFatalFailureException {
+        internalSetTokenState(OAuthTokenState.REFRESHING);
 
         if (mOAuthToken == null) {
             setRefreshFail(new BoxRestException("OAuthToken is null"));
@@ -263,17 +293,15 @@ public class OAuthDataController implements IAuthDataController {
 
         try {
             mOAuthToken = mClient.getOAuthManager().refreshOAuth(mOAuthToken.getRefreshToken(), mClientId, mClientSecret, mDeviceId, mDeviceName);
-            setTokenState(OAuthTokenState.AVAILABLE);
+            internalSetTokenState(OAuthTokenState.AVAILABLE);
             setRefreshFail(null);
             if (refreshListener != null) {
                 refreshListener.onRefresh(mOAuthToken);
             }
-        }
-        catch (BoxRestException e) {
+        } catch (BoxRestException e) {
             setRefreshFail(e);
             throw new AuthFatalFailureException(getRefreshFailException());
-        }
-        catch (BoxServerException e) {
+        } catch (BoxServerException e) {
             setRefreshFail(e);
             throw new AuthFatalFailureException(getRefreshFailException());
         }
@@ -282,17 +310,22 @@ public class OAuthDataController implements IAuthDataController {
     /**
      * Convenient method for wait.
      */
-    private void doWait() {
+    protected void doWait(long interval) {
         try {
-            Thread.sleep(WAIT);
-        }
-        catch (InterruptedException e) {
+            Thread.sleep(interval);
+        } catch (InterruptedException e) {
             e.printStackTrace();
         }
     }
 
-    public void addOAuthRefreshListener(OAuthRefreshListener listener) {
-        this.refreshListener = listener;
+    /**
+     * @param doLock
+     *            if true, this method will lock. DO call unlock() after your logic is done.
+     * @param interval
+     */
+    protected void waitForLock(boolean doLock, long interval) {
+        while (!getAndSetLock(doLock)) {
+            doWait(interval);
+        }
     }
-
 }
