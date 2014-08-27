@@ -205,6 +205,8 @@ public class OAuthDataController implements IAuthDataController {
                 if (getTokenState() == OAuthTokenState.PRE_CREATION) {
                     refresh();
                     return getAuthData();
+                } else if (getTokenState() == OAuthTokenState.FAIL) {
+                    throw new AuthFatalFailureException(getRefreshFailException());
                 } else {
                     return mOAuthToken;
                 }
@@ -276,10 +278,6 @@ public class OAuthDataController implements IAuthDataController {
     /**
      * Refresh the OAuth.
      * 
-     * @throws BoxRestException
-     *             exception
-     * @throws BoxServerException
-     *             exception
      * @throws AuthFatalFailureException
      *             exception
      */
