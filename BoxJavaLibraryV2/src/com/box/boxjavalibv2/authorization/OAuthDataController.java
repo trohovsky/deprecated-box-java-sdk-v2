@@ -192,7 +192,8 @@ public class OAuthDataController implements IAuthDataController {
     }
 
     /**
-     * Get OAuthData, counting number of retries, in case of too many retries, throw.
+     * Get OAuthData, counting number of retries, in case of too many retries, throw. Note depending on the OAuth token state, there is no guarantee that the
+     * OAuthData is valid. an example is that the token state is FAIL, which indicates the token is bad.
      * 
      * @return OAuthData
      * @throws AuthFatalFailureException
@@ -202,9 +203,30 @@ public class OAuthDataController implements IAuthDataController {
         long num = 0;
         while (num * WAIT <= mWaitTimeOut) {
             if (getAndSetLock(false)) {
+                return mOAuthToken;
+            } else {
+                doWait(WAIT);
+                num++;
+            }
+        }
+        throw new AuthFatalFailureException(getRefreshFailException());
+    }
+
+    /**
+     * Get OAuthData, in case of OAuthTokenState indicating refresh needed, do refresh. Note this method may involve network operation so do not call on UI
+     * thread.
+     */
+    public BoxOAuthToken guarranteedGetAuthData() throws AuthFatalFailureException {
+        long num = 0;
+        while (num * WAIT <= mWaitTimeOut) {
+            if (getAndSetLock(false)) {
                 if (getTokenState() == OAuthTokenState.PRE_CREATION) {
-                    refresh();
-                    return getAuthData();
+                    if (!mAutoRefresh) {
+                        throw new AuthFatalFailureException(getRefreshFailException());
+                    } else {
+                        refresh();
+                        return guarranteedGetAuthData();
+                    }
                 } else if (getTokenState() == OAuthTokenState.FAIL) {
                     throw new AuthFatalFailureException(getRefreshFailException());
                 } else {
@@ -242,7 +264,16 @@ public class OAuthDataController implements IAuthDataController {
         }
     }
 
+    @Deprecated
+    /**
+     * There is only one refresh listener, "add" doesn't make sense, use setOAuthRefreshListener instead.
+     * @param listener
+     */
     public void addOAuthRefreshListener(OAuthRefreshListener listener) {
+        this.refreshListener = listener;
+    }
+
+    public void setOAuthRefreshListener(OAuthRefreshListener listener) {
         this.refreshListener = listener;
     }
 
@@ -253,7 +284,7 @@ public class OAuthDataController implements IAuthDataController {
      *            whether want to lock after getting the lock.
      * @return
      */
-    synchronized protected boolean getAndSetLock(boolean doLock) {
+    synchronized final protected boolean getAndSetLock(boolean doLock) {
         boolean lockRetrieved = false;
         if (doLock) {
             if (locked) {

@@ -243,7 +243,7 @@ public class BoxClient extends BoxBase implements IAuthFlowListener {
      * @param listener
      */
     public void addOAuthRefreshListener(OAuthRefreshListener listener) {
-        getOAuthDataController().addOAuthRefreshListener(listener);
+        getOAuthDataController().setOAuthRefreshListener(listener);
     }
 
     /**
