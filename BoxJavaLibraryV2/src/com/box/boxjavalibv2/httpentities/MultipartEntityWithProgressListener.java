@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.Charset;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import org.apache.commons.codec.CharEncoding;
@@ -40,28 +40,48 @@ public class MultipartEntityWithProgressListener extends MultipartEntity {
      */
     private CountingOutputStream mCountingOutputStream;
 
-    private final HashMap<String, ContentBody> parts = new HashMap<String, ContentBody>();
+    /** Either contentBody or boxJSONStringEntity must be non-null. The other must be null. */
+    private static class ContentBodyOrStringEntity {
+        ContentBodyOrStringEntity(ContentBody contentBody) {
+            assert(contentBody != null);
+            this.contentBody = contentBody;
+            this.boxJSONStringEntity = null;
+        }
 
-    private final HashMap<String, IBoxJSONStringEntity> stringParts = new HashMap<String, IBoxJSONStringEntity>();
+        ContentBodyOrStringEntity(IBoxJSONStringEntity boxJSONStringEntity) {
+            assert(boxJSONStringEntity != null);
+            this.contentBody = null;
+            this.boxJSONStringEntity = boxJSONStringEntity;
+        }
+
+        public final ContentBody contentBody;
+        public final IBoxJSONStringEntity boxJSONStringEntity;
+    }
+
+    // We want to use a LinkedHashMap here so that the parts are appended to the HTTP request
+    // in the same order that they were appeneded to this MultipartEntityWithProgressListener.
+    private final LinkedHashMap<String, ContentBodyOrStringEntity> parts = new LinkedHashMap<String, ContentBodyOrStringEntity>();
 
     public MultipartEntityWithProgressListener(final HttpMultipartMode mode) {
         super(mode, null, Charset.forName(CharEncoding.UTF_8));
     }
 
     public void addContentBodyPart(String name, ContentBody contentBody) {
-        parts.put(name, contentBody);
+        parts.put(name, new ContentBodyOrStringEntity(contentBody));
     }
 
     public ContentBody getContentBodyPart(String name) {
-        return parts.get(name);
+        ContentBodyOrStringEntity c = parts.get(name);
+        return (c != null) ? c.contentBody : null;
     }
 
     public void addBoxJSONStringEntityPart(String name, IBoxJSONStringEntity entity) {
-        stringParts.put(name, entity);
+        parts.put(name, new ContentBodyOrStringEntity(entity));
     }
 
     public IBoxJSONStringEntity getJSONStringEntityPart(String name) {
-        return stringParts.get(name);
+        ContentBodyOrStringEntity c = parts.get(name);
+        return (c != null) ? c.boxJSONStringEntity : null;
     }
 
     /**
@@ -71,11 +91,15 @@ public class MultipartEntityWithProgressListener extends MultipartEntity {
      * @throws UnsupportedEncodingException
      */
     public void prepareParts(IBoxJSONParser parser) throws UnsupportedEncodingException, BoxJSONException {
-        for (Map.Entry<String, ContentBody> entry : parts.entrySet()) {
-            super.addPart(entry.getKey(), entry.getValue());
-        }
-        for (Map.Entry<String, IBoxJSONStringEntity> entry : stringParts.entrySet()) {
-            super.addPart(entry.getKey(), new StringBody(entry.getValue().toJSONString(parser), Charset.forName(CharEncoding.UTF_8)));
+        for (Map.Entry<String, ContentBodyOrStringEntity> entry : parts.entrySet()) {
+            ContentBodyOrStringEntity value = entry.getValue();
+            ContentBody contentBody;
+            if (value.contentBody != null) {
+                contentBody = value.contentBody;
+            } else {
+                contentBody = new StringBody(value.boxJSONStringEntity.toJSONString(parser), Charset.forName(CharEncoding.UTF_8));
+            }
+            super.addPart(entry.getKey(), contentBody);
         }
     }
 
