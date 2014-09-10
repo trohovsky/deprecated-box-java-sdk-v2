@@ -3,7 +3,8 @@ package com.box.boxjavalibv2;
 public class BoxConfigBuilder {
 
     /** Box Java SDK version. */
-    public static final String VERSION_NUMBER = "v3.0.14";
+    public static final String VERSION_NUMBER = "v3.0.15";
+
     /** Default API url scheme. */
     public static final String API_URL_SCHEME = "https";
     /** Default API url authority. */
@@ -21,7 +22,7 @@ public class BoxConfigBuilder {
     /** Default OAuth url scheme. */
     public static final String OAUTH_URL_SCHEME = "https";
     /** Default OAuth url authority. */
-    public static final String OAUTH_URL_AUTHORITY = "www.box.com";
+    public static final String OAUTH_URL_AUTHORITY = "app.box.com";
     /** Default OAuth API url path. */
     public static final String OAUTH_API_URL_PATH = "/api";
     /** Default OAuth url path. */
