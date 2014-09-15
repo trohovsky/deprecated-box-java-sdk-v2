@@ -2,6 +2,7 @@ package com.box.boxjavalibv2.dao;
 
 import java.util.Map;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
@@ -350,6 +351,7 @@ public class BoxItem extends BoxTypedObject {
         put(FIELD_COLLECTIONS, permissions);
     }
 
+    @JsonIgnore
     public boolean isFavorited() {
         BoxItemCollection[] collections = getCollections();
         if (collections == null) {
