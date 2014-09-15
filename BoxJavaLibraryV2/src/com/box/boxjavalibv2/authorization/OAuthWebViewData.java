@@ -15,6 +15,7 @@ import com.box.restclientv2.httpclientsupport.HttpClientURLEncodedUtils;
  */
 public class OAuthWebViewData {
 
+    public static final String STATE = "state";
     private final String RESPONSE_TYPE = "code";
     private final OAuthDataController mOAuthDataController;
     private String mOptionalState;
@@ -111,7 +112,7 @@ public class OAuthWebViewData {
         ub.addParameter("response_type", getResponseType());
         ub.addParameter("client_id", getClientId());
         if (StringUtils.isNotEmpty(getOptionalState())) {
-            ub.addParameter("state", getOptionalState());
+            ub.addParameter(STATE, getOptionalState());
         }
         if (StringUtils.isNotEmpty(getRedirectUrl())) {
             ub.addParameter("redirect_uri", getRedirectUrl());

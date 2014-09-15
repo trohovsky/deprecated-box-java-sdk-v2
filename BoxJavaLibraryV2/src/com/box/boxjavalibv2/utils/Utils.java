@@ -2,9 +2,13 @@ package com.box.boxjavalibv2.utils;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
+import org.apache.commons.codec.binary.Hex;
 import org.apache.http.HttpEntity;
 
 import com.box.boxjavalibv2.dao.BoxCollection;
@@ -99,5 +103,20 @@ public final class Utils {
                 instream.close();
             }
         }
+    }
+
+    /**
+     *
+     * @return generates a random String to use as a state token.
+     */
+    public static String generateStateToken() {
+        try {
+            MessageDigest digest = MessageDigest.getInstance("SHA-256");
+            digest.update(UUID.randomUUID().toString().getBytes());
+            return new String(Hex.encodeHex(digest.digest()));
+        } catch (NoSuchAlgorithmException e) {
+            return UUID.randomUUID().toString();
+        }
+
     }
 }

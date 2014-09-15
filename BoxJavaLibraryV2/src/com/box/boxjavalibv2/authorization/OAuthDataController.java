@@ -48,7 +48,7 @@ public class OAuthDataController implements IAuthDataController {
 
     /**
      * Makes OAuth auto refresh itself when token expires. Note if autorefresh fails, it's not going to try refresh again.
-     * 
+     *
      * @param autoRefresh
      */
     public void setAutoRefreshOAuth(boolean autoRefresh) {
@@ -57,7 +57,7 @@ public class OAuthDataController implements IAuthDataController {
 
     /**
      * Set the timeout for threads waiting for OAuth token refresh.
-     * 
+     *
      * @param timeout
      */
     public void setWaitTimeOut(int timeout) {
@@ -116,7 +116,7 @@ public class OAuthDataController implements IAuthDataController {
 
     /**
      * Set device id. This is optional.
-     * 
+     *
      * @param deviceId
      *            device id
      */
@@ -126,7 +126,7 @@ public class OAuthDataController implements IAuthDataController {
 
     /**
      * Set device name. Optional.
-     * 
+     *
      * @param deviceName
      *            device name
      */
@@ -156,7 +156,7 @@ public class OAuthDataController implements IAuthDataController {
 
     /**
      * Setter of mTokenState. There's no locking mechanisms involved and should not be made public.
-     * 
+     *
      * @param tokenState
      *            the mTokenState to set
      */
@@ -194,7 +194,7 @@ public class OAuthDataController implements IAuthDataController {
     /**
      * Get OAuthData, counting number of retries, in case of too many retries, throw. Note depending on the OAuth token state, there is no guarantee that the
      * OAuthData is valid. an example is that the token state is FAIL, which indicates the token is bad.
-     * 
+     *
      * @return OAuthData
      * @throws AuthFatalFailureException
      */
@@ -242,7 +242,7 @@ public class OAuthDataController implements IAuthDataController {
 
     /**
      * Refresh the OAuth.
-     * 
+     *
      * @throws AuthFatalFailureException
      *             exception
      */
@@ -279,7 +279,7 @@ public class OAuthDataController implements IAuthDataController {
 
     /**
      * Get the lock, optionally lock the lock after getting the lock.
-     * 
+     *
      * @param doLock
      *            whether want to lock after getting the lock.
      * @return
@@ -308,7 +308,7 @@ public class OAuthDataController implements IAuthDataController {
 
     /**
      * Refresh the OAuth.
-     * 
+     *
      * @throws AuthFatalFailureException
      *             exception
      */
