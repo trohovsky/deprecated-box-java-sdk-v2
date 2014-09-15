@@ -5,6 +5,9 @@ import com.box.boxjavalibv2.dao.BoxFolder;
 import com.box.boxjavalibv2.dao.BoxItem;
 import com.box.boxjavalibv2.jsonentities.BoxSharedLinkRequestEntity;
 import com.box.boxjavalibv2.jsonentities.MapJSONStringEntity;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 
 public class BoxItemRequestObject extends BoxSharedLinkRequestObject {
 
@@ -68,6 +71,19 @@ public class BoxItemRequestObject extends BoxSharedLinkRequestObject {
 
     public BoxItemRequestObject setTags(String[] tags) {
         put(BoxFile.FIELD_TAGS, tags);
+        return this;
+    }
+
+    public BoxItemRequestObject setCollections(String[] collectionIds) {
+        ObjectMapper objectMapper = new ObjectMapper();
+        ArrayNode arrayNode = objectMapper.createArrayNode();
+        for (String collectionId : collectionIds) {
+            ObjectNode collectionObject = objectMapper.createObjectNode();
+            collectionObject.put("id", collectionId);
+            arrayNode.add(collectionObject);
+        }
+
+        put(BoxItem.FIELD_COLLECTIONS, arrayNode);
         return this;
     }
 }

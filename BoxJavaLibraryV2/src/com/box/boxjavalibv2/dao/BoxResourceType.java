@@ -67,7 +67,11 @@ public enum BoxResourceType implements IBoxType {
     /** group membership. */
     GROUP_MEMBERSHIP,
     /** A plural format of {@link #GROUP_MEMBERSHIP}. */
-    GROUP_MEMBERSHIPS, THUMBNAIL;
+    GROUP_MEMBERSHIPS, THUMBNAIL,
+    /** A collection */
+    COLLECTION,
+    /** Plural collections */
+    COLLECTIONS;
 
     // As a performance optimization, set up string values for all types.
     private static final Map<BoxResourceType, String> typeToLowercaseString = new HashMap<BoxResourceType, String>();
@@ -85,7 +89,7 @@ public enum BoxResourceType implements IBoxType {
 
     /**
      * Get the String representing plural format of a resource.
-     *
+     * 
      * @return the String representing plural format of a resource
      */
     public String toPluralString() {
@@ -95,7 +99,7 @@ public enum BoxResourceType implements IBoxType {
     /**
      * Get the BoxResourceType from a lower case string value. For example "file" would return BoxResourceType.FILE Deprecated, use getTypeFromLowercaseString
      * method in IBoxResourceHub instead.
-     *
+     * 
      * @param string
      * @return
      */

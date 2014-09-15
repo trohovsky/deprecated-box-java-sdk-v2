@@ -14,6 +14,7 @@ import com.box.boxjavalibv2.dao.BoxFolder;
 import com.box.boxjavalibv2.dao.BoxGroup;
 import com.box.boxjavalibv2.dao.BoxGroupMembership;
 import com.box.boxjavalibv2.dao.BoxItem;
+import com.box.boxjavalibv2.dao.BoxItemCollection;
 import com.box.boxjavalibv2.dao.BoxLock;
 import com.box.boxjavalibv2.dao.BoxOAuthToken;
 import com.box.boxjavalibv2.dao.BoxItemPermissions;
@@ -39,8 +40,7 @@ public class BoxResourceHub extends BaseBoxResourceHub {
     public Class getClass(IBoxType type) {
         if (getConcreteClassForIBoxType().equals(type.getClass())) {
             return getObjectClassGivenConcreteIBoxType(type);
-        }
-        else {
+        } else {
             return super.getClass(type);
         }
     }
@@ -94,6 +94,8 @@ public class BoxResourceHub extends BaseBoxResourceHub {
                 return BoxItemPermissions.class;
             case ERROR:
                 return BoxServerError.class;
+            case COLLECTION:
+                return BoxItemCollection.class;
             case ITEMS:
             case FILES:
             case USERS:
@@ -104,6 +106,7 @@ public class BoxResourceHub extends BaseBoxResourceHub {
             case EMAIL_ALIASES:
             case WEB_LINKS:
             case GROUP_MEMBERSHIPS:
+            case COLLECTIONS:
                 return BoxCollection.class;
             default:
                 return BoxTypedObject.class;
