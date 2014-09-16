@@ -87,6 +87,23 @@ public interface IBoxGroupsManager extends IBoxResourceManager {
     public void deleteGroup(String groupId, BoxDefaultRequestObject requestObject) throws BoxRestException, AuthFatalFailureException, BoxServerException;
 
     /**
+     * Get a group.
+     *
+     * @param groupId
+     *            id of the group.
+     * @param requestObject
+     * @return requested box group. 
+     * @throws BoxRestException
+     *             See {@link com.box.restclientv2.exceptions.BoxRestException} for more info.
+     * @throws BoxServerException
+     *             See {@link com.box.boxjavalibv2.exceptions.BoxServerException} for more info.
+     * @throws AuthFatalFailureException
+     *             See {@link com.box.boxjavalibv2.exceptions.AuthFatalFailureException} for more info.
+     */
+    public BoxGroup getGroup(String groupId, BoxDefaultRequestObject requestObject) throws BoxRestException, AuthFatalFailureException, BoxServerException;
+
+
+    /**
      * Get memberships of a group.
      *
      * @param groupId
