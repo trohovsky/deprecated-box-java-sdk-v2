@@ -21,6 +21,7 @@ import com.box.boxjavalibv2.requests.DeleteUserRequest;
 import com.box.boxjavalibv2.requests.GetAllUsersInEnterpriseRequest;
 import com.box.boxjavalibv2.requests.GetCurrentUserRequest;
 import com.box.boxjavalibv2.requests.GetEmailAliasesRequest;
+import com.box.boxjavalibv2.requests.GetItemRequest;
 import com.box.boxjavalibv2.requests.GetUserMembershipsRequest;
 import com.box.boxjavalibv2.requests.MoveFolderToAnotherUserRequest;
 import com.box.boxjavalibv2.requests.UpdateUserLoginRequest;
@@ -65,6 +66,12 @@ public final class BoxUsersManagerImpl extends AbstractBoxResourceManager implem
     @Override
     public BoxUser getCurrentUser(BoxDefaultRequestObject requestObject) throws BoxRestException, BoxServerException, AuthFatalFailureException {
         GetCurrentUserRequest request = new GetCurrentUserRequest(getConfig(), getJSONParser(), requestObject);
+        return (BoxUser) getResponseAndParseAndTryCast(request, BoxResourceType.USER, getJSONParser());
+    }
+
+    public BoxUser getUser(String userId, BoxDefaultRequestObject requestObject)
+            throws BoxRestException, BoxServerException, AuthFatalFailureException {
+        GetItemRequest request = new GetItemRequest(getConfig(), getJSONParser(), userId,BoxResourceType.USER, requestObject);
         return (BoxUser) getResponseAndParseAndTryCast(request, BoxResourceType.USER, getJSONParser());
     }
 

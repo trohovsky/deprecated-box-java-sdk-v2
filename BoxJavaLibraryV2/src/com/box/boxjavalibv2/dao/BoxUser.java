@@ -1,5 +1,6 @@
 package com.box.boxjavalibv2.dao;
 
+import java.util.List;
 import java.util.Map;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -33,7 +34,7 @@ public class BoxUser extends BoxUserBase {
     /** Whether or not this user must use two-factor authentication */
     public static final String FIELD_IS_EXEMPT_FROM_DEVICE_LIMITS = "is_exempt_from_device_limits";
     /** Whether or not this user must use two-factor authentication */
-    public static final String FIELD_IS_EXEMPT_FROM_LOGIN_VERIFICATION = "is_exempt_from_login_verficiation";
+    public static final String FIELD_IS_EXEMPT_FROM_LOGIN_VERIFICATION = "is_exempt_from_login_verification";
     /** Mini representation of this user's enterprise, including the ID of its enterprise */
     public static final String FIELD_ENTERPRISE = "enterprise";
     public static final String FIELD_LOGIN = "login";
@@ -209,8 +210,8 @@ public class BoxUser extends BoxUserBase {
      */
     @SuppressWarnings("unchecked")
     @JsonProperty(FIELD_TRACKING_CODES)
-    public Map<String, String> getTrackingCodes() {
-        return (Map<String, String>) getValue(FIELD_TRACKING_CODES);
+    public List<Map<String, String>> getTrackingCodes() {
+        return (List<Map<String, String>>) getValue(FIELD_TRACKING_CODES);
     }
 
     /**
@@ -220,7 +221,7 @@ public class BoxUser extends BoxUserBase {
      *            the tracking_codes to set
      */
     @JsonProperty(FIELD_TRACKING_CODES)
-    private void setTrackingCodes(Map<String, String> trackingCodes) {
+    private void setTrackingCodes(List<Map<String, String>> trackingCodes) {
         put(FIELD_TRACKING_CODES, trackingCodes);
     }
 

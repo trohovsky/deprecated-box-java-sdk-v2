@@ -17,6 +17,7 @@ import com.box.boxjavalibv2.requests.GetAllGroupsRequest;
 import com.box.boxjavalibv2.requests.GetGroupCollaborationsRequest;
 import com.box.boxjavalibv2.requests.GetGroupMembershipRequest;
 import com.box.boxjavalibv2.requests.GetGroupMembershipsRequest;
+import com.box.boxjavalibv2.requests.GetItemRequest;
 import com.box.boxjavalibv2.requests.UpdateGroupMembershipRequest;
 import com.box.boxjavalibv2.requests.UpdateGroupRequest;
 import com.box.boxjavalibv2.requests.requestobjects.BoxGroupMembershipRequestObject;
@@ -60,6 +61,12 @@ public class BoxGroupsManagerImpl extends AbstractBoxResourceManager implements 
     public void deleteGroup(String groupId, BoxDefaultRequestObject requestObject) throws BoxRestException, AuthFatalFailureException, BoxServerException {
         DeleteGroupRequest request = new DeleteGroupRequest(getConfig(), getJSONParser(), groupId, requestObject);
         this.executeRequestWithNoResponseBody(request);
+    }
+
+    public BoxGroup getGroup(String groupId, BoxDefaultRequestObject requestObject)
+            throws BoxRestException, AuthFatalFailureException, BoxServerException {
+        GetItemRequest request = new GetItemRequest(getConfig(), getJSONParser(), groupId, BoxResourceType.GROUP, requestObject);
+        return (BoxGroup) getResponseAndParseAndTryCast(request, BoxResourceType.GROUP, getJSONParser());
     }
 
     @Override

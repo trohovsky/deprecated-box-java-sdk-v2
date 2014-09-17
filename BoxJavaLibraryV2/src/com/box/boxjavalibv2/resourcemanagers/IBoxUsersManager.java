@@ -34,6 +34,24 @@ public interface IBoxUsersManager extends IBoxResourceManager {
     public BoxUser getCurrentUser(BoxDefaultRequestObject requestObject) throws BoxRestException, BoxServerException, AuthFatalFailureException;
 
     /**
+     * Get the user's information.
+     * 
+     * @param userId
+     *            id of the user
+     * @param requestObject
+     *            request object
+     * @return requested box user.
+     * @throws BoxRestException
+     *             See {@link com.box.restclientv2.exceptions.BoxRestException} for more info.
+     * @throws BoxServerException
+     *             See {@link com.box.boxjavalibv2.exceptions.BoxServerException} for more info.
+     * @throws AuthFatalFailureException
+     *             See {@link com.box.boxjavalibv2.exceptions.AuthFatalFailureException} for more info.
+     */
+    public BoxUser getUser(String userId, BoxDefaultRequestObject requestObject) throws BoxRestException, BoxServerException, AuthFatalFailureException;
+
+
+    /**
      * Get the list of all users for the Enterprise with their user_id, public_name, and login if the user is an enterprise admin. If the user is not an admin,
      * this request returns the current user's user_id, public_name, and login.
      * 

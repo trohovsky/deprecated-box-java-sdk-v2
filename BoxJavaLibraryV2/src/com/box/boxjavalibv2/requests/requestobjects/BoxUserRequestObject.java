@@ -1,11 +1,13 @@
 package com.box.boxjavalibv2.requests.requestobjects;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 import com.box.boxjavalibv2.dao.BoxUser;
 import com.box.boxjavalibv2.jsonentities.BoxEnterpriseRequestEntity;
-import com.box.boxjavalibv2.jsonentities.PairArrayJSONStringEntity;
 
 public class BoxUserRequestObject extends BoxSimpleUserRequestObject {
 
@@ -142,9 +144,12 @@ public class BoxUserRequestObject extends BoxSimpleUserRequestObject {
      * @return
      */
     public BoxUserRequestObject setTrackingCodes(final LinkedHashMap<String, String> trackingCodes) {
-        PairArrayJSONStringEntity list = new PairArrayJSONStringEntity();
+        List<Map<String, String>> list = new ArrayList<Map<String, String>>(trackingCodes.size());
         for (Map.Entry<String, String> entry : trackingCodes.entrySet()) {
-            list.put(entry.getKey(), entry.getValue());
+            Map<String, String> pair = new LinkedHashMap<String, String>(2);
+            pair.put("name", entry.getKey());
+            pair.put("value", entry.getValue());
+            list.add(pair);
         }
         put(BoxUser.FIELD_TRACKING_CODES, list);
         return this;
