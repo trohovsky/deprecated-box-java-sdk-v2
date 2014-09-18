@@ -262,7 +262,7 @@ public class BoxClient extends BoxBase implements IAuthFlowListener {
      * thread. In case you can tolerate invalid token and definitely don't want network calls involved, use getAuthData() method instead.
      */
     public BoxOAuthToken guaranteedGetAuthData() throws AuthFatalFailureException {
-        return getOAuthDataController().guarranteedGetAuthData();
+        return getOAuthDataController().guaranteedGetAuthData();
     }
 
     /**

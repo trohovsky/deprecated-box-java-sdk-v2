@@ -216,7 +216,7 @@ public class OAuthDataController implements IAuthDataController {
      * Get OAuthData, in case of OAuthTokenState indicating refresh needed, do refresh. Note this method may involve network operation so do not call on UI
      * thread.
      */
-    public BoxOAuthToken guarranteedGetAuthData() throws AuthFatalFailureException {
+    public BoxOAuthToken guaranteedGetAuthData() throws AuthFatalFailureException {
         long num = 0;
         while (num * WAIT <= mWaitTimeOut) {
             if (getAndSetLock(false)) {
@@ -225,7 +225,7 @@ public class OAuthDataController implements IAuthDataController {
                         throw new AuthFatalFailureException(getRefreshFailException());
                     } else {
                         refresh();
-                        return guarranteedGetAuthData();
+                        return guaranteedGetAuthData();
                     }
                 } else if (getTokenState() == OAuthTokenState.FAIL) {
                     throw new AuthFatalFailureException(getRefreshFailException());
