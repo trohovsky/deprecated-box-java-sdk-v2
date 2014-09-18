@@ -248,7 +248,7 @@ public class BoxClient extends BoxBase implements IAuthFlowListener {
 
     /**
      * Get available OAuthData. Note depending on the OAuth token state, there is no guarantee that the OAuthData is valid. an example is that the token state
-     * is FAIL, which indicates the token is bad. In case you definitely want a valid token, use guarranteedGetAuthData() method instead.
+     * is FAIL, which indicates the token is bad. In case you definitely want a valid token, use guaranteedGetAuthData() method instead.
      * 
      * @return OAuthData
      * @throws AuthFatalFailureException
@@ -259,9 +259,9 @@ public class BoxClient extends BoxBase implements IAuthFlowListener {
 
     /**
      * Get OAuthData, in case of OAuthTokenState indicating refresh needed, do refresh. Note this method may involve network operation so do not call on UI
-     * thread. In case you can tolerant invalid token and definitely don't want network calls involved, use getAuthData() method instead.
+     * thread. In case you can tolerate invalid token and definitely don't want network calls involved, use getAuthData() method instead.
      */
-    public BoxOAuthToken guarranteedGetAuthData() throws AuthFatalFailureException {
+    public BoxOAuthToken guaranteedGetAuthData() throws AuthFatalFailureException {
         return getOAuthDataController().guarranteedGetAuthData();
     }
 
