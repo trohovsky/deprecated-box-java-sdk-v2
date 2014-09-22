@@ -99,4 +99,19 @@ public interface IBoxCollaborationsManager extends IBoxResourceManager {
      */
     public BoxCollaboration updateCollaboration(String collabId, BoxCollabRequestObject requestObject) throws BoxRestException, AuthFatalFailureException,
         BoxServerException;
+    
+    /**
+     * Transfer ownership of a folder to another collaborator.
+     *
+     * @param collabId
+     *            id of the collaboration
+     * @throws BoxRestException
+     *             See {@link com.box.restclientv2.exceptions.BoxRestException} for more info.
+     * @throws BoxServerException
+     *             See {@link com.box.boxjavalibv2.exceptions.BoxServerException} for more info.
+     * @throws AuthFatalFailureException
+     *             See {@link com.box.boxjavalibv2.exceptions.AuthFatalFailureException} for more info.
+     */
+    public void updateCollaborationOwner(String collabId) throws BoxRestException, AuthFatalFailureException,
+            BoxServerException;
 }

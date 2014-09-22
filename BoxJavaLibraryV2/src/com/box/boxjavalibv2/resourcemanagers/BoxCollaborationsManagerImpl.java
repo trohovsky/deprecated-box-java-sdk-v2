@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.box.boxjavalibv2.IBoxConfig;
 import com.box.boxjavalibv2.dao.BoxCollaboration;
+import com.box.boxjavalibv2.dao.BoxCollaborationRole;
 import com.box.boxjavalibv2.dao.BoxCollection;
 import com.box.boxjavalibv2.dao.BoxResourceType;
 import com.box.boxjavalibv2.dao.BoxTypedObject;
@@ -88,6 +89,13 @@ public final class BoxCollaborationsManagerImpl extends AbstractBoxResourceManag
         AuthFatalFailureException, BoxServerException {
         UpdateCollaborationRequest request = new UpdateCollaborationRequest(getConfig(), getJSONParser(), collabId, requestObject);
         return (BoxCollaboration) super.getResponseAndParseAndTryCast(request, BoxResourceType.COLLABORATION, getJSONParser());
+    }
+
+    @Override
+    public void updateCollaborationOwner(String collabId) throws BoxRestException, AuthFatalFailureException, BoxServerException {
+        BoxCollabRequestObject requestObject = BoxCollabRequestObject.updateCollabObjects(BoxCollaborationRole.OWNER);
+        UpdateCollaborationRequest request = new UpdateCollaborationRequest(getConfig(), getJSONParser(), collabId, requestObject);
+        executeRequestWithNoResponseBody(request);
     }
 
     /**
