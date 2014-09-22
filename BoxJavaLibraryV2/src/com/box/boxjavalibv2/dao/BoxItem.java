@@ -343,7 +343,15 @@ public class BoxItem extends BoxTypedObject {
 
     @JsonProperty(FIELD_COLLECTIONS)
     public BoxItemCollection[] getCollections() {
-        return (BoxItemCollection[]) getValue(FIELD_COLLECTIONS);
+        Object[] objects =  (Object[]) getValue(FIELD_COLLECTIONS);
+        if (objects == null){
+            return null;
+        }       
+        BoxItemCollection[] collections = new BoxItemCollection[objects.length];
+        for (int i=0; i < collections.length; i++){
+            collections[i] = (BoxItemCollection) objects[i];
+        }
+        return collections;
     }
 
     @JsonProperty(FIELD_COLLECTIONS)
