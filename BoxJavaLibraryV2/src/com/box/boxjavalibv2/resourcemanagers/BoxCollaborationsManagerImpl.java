@@ -5,7 +5,6 @@ import java.util.List;
 
 import com.box.boxjavalibv2.IBoxConfig;
 import com.box.boxjavalibv2.dao.BoxCollaboration;
-import com.box.boxjavalibv2.dao.BoxCollaborationRole;
 import com.box.boxjavalibv2.dao.BoxCollection;
 import com.box.boxjavalibv2.dao.BoxResourceType;
 import com.box.boxjavalibv2.dao.BoxTypedObject;
