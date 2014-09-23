@@ -91,13 +91,6 @@ public final class BoxCollaborationsManagerImpl extends AbstractBoxResourceManag
         return (BoxCollaboration) super.getResponseAndParseAndTryCast(request, BoxResourceType.COLLABORATION, getJSONParser());
     }
 
-    @Override
-    public void updateCollaborationOwner(String collabId) throws BoxRestException, AuthFatalFailureException, BoxServerException {
-        BoxCollabRequestObject requestObject = BoxCollabRequestObject.updateCollabObjects(BoxCollaborationRole.OWNER);
-        UpdateCollaborationRequest request = new UpdateCollaborationRequest(getConfig(), getJSONParser(), collabId, requestObject);
-        executeRequestWithNoResponseBody(request);
-    }
-
     /**
      * Get collaborations from a collection.Deprecated, use Utils.getTypedObjects instead.
      * 

@@ -89,7 +89,7 @@ public interface IBoxCollaborationsManager extends IBoxResourceManager {
      * @param requestObject
      *            request object. Note the you can set the status in this object to 'accepted' or 'rejected' if you are the 'accessible_by' user and the current
      *            status is 'pending'
-     * @return updated BoxCollaboration
+     * @return updated BoxCollaboration. If role is updated to owner, this will return null.
      * @throws BoxRestException
      *             See {@link com.box.restclientv2.exceptions.BoxRestException} for more info.
      * @throws BoxServerException
@@ -99,19 +99,4 @@ public interface IBoxCollaborationsManager extends IBoxResourceManager {
      */
     public BoxCollaboration updateCollaboration(String collabId, BoxCollabRequestObject requestObject) throws BoxRestException, AuthFatalFailureException,
         BoxServerException;
-    
-    /**
-     * Transfer ownership of a folder to another collaborator.
-     *
-     * @param collabId
-     *            id of the collaboration
-     * @throws BoxRestException
-     *             See {@link com.box.restclientv2.exceptions.BoxRestException} for more info.
-     * @throws BoxServerException
-     *             See {@link com.box.boxjavalibv2.exceptions.BoxServerException} for more info.
-     * @throws AuthFatalFailureException
-     *             See {@link com.box.boxjavalibv2.exceptions.AuthFatalFailureException} for more info.
-     */
-    public void updateCollaborationOwner(String collabId) throws BoxRestException, AuthFatalFailureException,
-            BoxServerException;
 }

@@ -70,6 +70,11 @@ public class BoxCollabRequestObject extends BoxDefaultRequestObject {
         return this;
     }
 
+    /** Get the role. */
+    public String getRole() {
+        return (String) getFromEntity(BoxCollaboration.FIELD_ROLE);
+    }
+
     public BoxCollabRequestObject setStatus(String status) {
         getRequestExtras().addQueryParam(BoxCollaboration.FIELD_STATUS, status);
         return this;
