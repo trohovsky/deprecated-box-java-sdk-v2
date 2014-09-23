@@ -347,10 +347,14 @@ public class BoxItem extends BoxTypedObject {
         if (objects == null){
             return null;
         }       
+        if (objects instanceof BoxItemCollection[]){
+            return (BoxItemCollection[]) objects;
+        }
         BoxItemCollection[] collections = new BoxItemCollection[objects.length];
         for (int i=0; i < collections.length; i++){
             collections[i] = (BoxItemCollection) objects[i];
         }
+        setCollections(collections);
         return collections;
     }
 
