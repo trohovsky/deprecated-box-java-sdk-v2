@@ -1,5 +1,6 @@
 package com.box.boxjavalibv2.dao;
 
+import java.util.ArrayList;
 import java.util.Map;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -341,27 +342,20 @@ public class BoxItem extends BoxTypedObject {
         put(FIELD_PERMISSIONS, permissions);
     }
 
+    @SuppressWarnings("unchecked")
     @JsonProperty(FIELD_COLLECTIONS)
-    public BoxItemCollection[] getCollections() {
-        Object[] objects =  (Object[]) getValue(FIELD_COLLECTIONS);
-        if (objects == null){
-            return null;
-        }       
-        BoxItemCollection[] collections = new BoxItemCollection[objects.length];
-        for (int i=0; i < collections.length; i++){
-            collections[i] = (BoxItemCollection) objects[i];
-        }
-        return collections;
+    public ArrayList<BoxItemCollection> getCollections() {
+        return (ArrayList<BoxItemCollection>) getValue(FIELD_COLLECTIONS);
     }
 
     @JsonProperty(FIELD_COLLECTIONS)
-    private void setCollections(BoxItemCollection[] permissions) {
-        put(FIELD_COLLECTIONS, permissions);
+    private void setCollections(ArrayList<BoxItemCollection> collections) {
+        put(FIELD_COLLECTIONS, collections);
     }
 
     @JsonIgnore
     public boolean isFavorited() {
-        BoxItemCollection[] collections = getCollections();
+        ArrayList<BoxItemCollection> collections = getCollections();
         if (collections == null) {
             return false;
         }
