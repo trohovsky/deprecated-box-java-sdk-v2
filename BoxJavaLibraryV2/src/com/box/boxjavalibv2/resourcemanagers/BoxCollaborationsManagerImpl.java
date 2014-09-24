@@ -24,6 +24,8 @@ import com.box.restclientv2.authorization.IBoxRequestAuth;
 import com.box.restclientv2.exceptions.BoxRestException;
 import com.box.restclientv2.requestsbase.BoxDefaultRequestObject;
 
+import org.apache.http.HttpStatus;
+
 /**
  * Use this class to execute requests <b>synchronously</b> against the Box REST API(V2), collaborations endpints. Full details about the Box API can be found at
  * <a href="http://developers.box.com/docs">http://developers.box.com/docs</a> . You must have an OpenBox application with a valid API key to use the Box API.
@@ -87,6 +89,10 @@ public final class BoxCollaborationsManagerImpl extends AbstractBoxResourceManag
     public BoxCollaboration updateCollaboration(final String collabId, final BoxCollabRequestObject requestObject) throws BoxRestException,
         AuthFatalFailureException, BoxServerException {
         UpdateCollaborationRequest request = new UpdateCollaborationRequest(getConfig(), getJSONParser(), collabId, requestObject);
+        if (request.getExpectedResponseCode() == HttpStatus.SC_NO_CONTENT) {
+            executeRequestWithNoResponseBody(request);
+            return null;
+        }
         return (BoxCollaboration) super.getResponseAndParseAndTryCast(request, BoxResourceType.COLLABORATION, getJSONParser());
     }
 
