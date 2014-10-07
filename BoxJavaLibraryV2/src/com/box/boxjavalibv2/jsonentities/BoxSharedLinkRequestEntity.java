@@ -34,6 +34,18 @@ public class BoxSharedLinkRequestEntity extends MapJSONStringEntity {
     }
 
     /**
+     * Set password String. This sets the password for the shared link. Setting to null clears the password.
+     *
+     * @param password
+     *            password
+     * @return
+     */
+    public BoxSharedLinkRequestEntity setPassword(final String password) {
+        put(BoxSharedLink.FIELD_PASSWORD, password);
+        return this;
+    }
+
+    /**
      * Set the time to unshare the link. This String is an ISO8601 time String and can be generated from {@link java.util.Date} by
      * {@link com.box.boxjavalibv2.utils.ISO8601DateParser}
      *
