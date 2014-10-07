@@ -20,7 +20,6 @@ public class BoxSharedLink extends BoxObject {
     public static final String FIELD_ACCESS = "access";
     public static final String FIELD_EFFECTIVE_ACCESS = "effective_access";
     public static final String FIELD_PERMISSIONS = "permissions";
-    public static final String FIELD_PASSWORD = "password";
 
     public BoxSharedLink() {
     }
@@ -104,17 +103,6 @@ public class BoxSharedLink extends BoxObject {
     @JsonProperty(FIELD_IS_PASSWORD_ENABLED)
     private void setPasswordEnabled(final Boolean passwordEnabled) {
         put(FIELD_IS_PASSWORD_ENABLED, passwordEnabled);
-    }
-
-    /**
-     * Setter. This is only used by {@see <a href="http://jackson.codehaus.org">Jackson JSON processer</a>}
-     *
-     * @param password
-     *            the password to set
-     */
-    @JsonProperty(FIELD_PASSWORD)
-    private void setPassword(final String password) {
-        put(FIELD_PASSWORD, password);
     }
 
     /**
