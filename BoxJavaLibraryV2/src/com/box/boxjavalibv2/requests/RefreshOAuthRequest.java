@@ -46,11 +46,11 @@ public class RefreshOAuthRequest extends DefaultBoxRequest {
 
     @Override
     public String getAuthority() {
-        return getConfig().getOAuthUrlAuthority();
+        return getConfig().getApiUrlAuthority();
     }
 
     @Override
     public String getApiUrlPath() {
-        return getConfig().getOAuthApiUrlPath();
+        return "";
     }
 }

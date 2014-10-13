@@ -89,7 +89,7 @@ public interface IBoxCollaborationsManager extends IBoxResourceManager {
      * @param requestObject
      *            request object. Note the you can set the status in this object to 'accepted' or 'rejected' if you are the 'accessible_by' user and the current
      *            status is 'pending'
-     * @return updated BoxCollaboration
+     * @return updated BoxCollaboration. If role is updated to owner, this will return null.
      * @throws BoxRestException
      *             See {@link com.box.restclientv2.exceptions.BoxRestException} for more info.
      * @throws BoxServerException

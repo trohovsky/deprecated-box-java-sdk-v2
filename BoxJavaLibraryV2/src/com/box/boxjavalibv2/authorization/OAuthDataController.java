@@ -1,5 +1,7 @@
 package com.box.boxjavalibv2.authorization;
 
+import org.apache.http.HttpStatus;
+
 import com.box.boxjavalibv2.BoxClient;
 import com.box.boxjavalibv2.dao.BoxOAuthToken;
 import com.box.boxjavalibv2.exceptions.AuthFatalFailureException;
@@ -48,7 +50,7 @@ public class OAuthDataController implements IAuthDataController {
 
     /**
      * Makes OAuth auto refresh itself when token expires. Note if autorefresh fails, it's not going to try refresh again.
-     *
+     * 
      * @param autoRefresh
      */
     public void setAutoRefreshOAuth(boolean autoRefresh) {
@@ -57,7 +59,7 @@ public class OAuthDataController implements IAuthDataController {
 
     /**
      * Set the timeout for threads waiting for OAuth token refresh.
-     *
+     * 
      * @param timeout
      */
     public void setWaitTimeOut(int timeout) {
@@ -116,7 +118,7 @@ public class OAuthDataController implements IAuthDataController {
 
     /**
      * Set device id. This is optional.
-     *
+     * 
      * @param deviceId
      *            device id
      */
@@ -126,7 +128,7 @@ public class OAuthDataController implements IAuthDataController {
 
     /**
      * Set device name. Optional.
-     *
+     * 
      * @param deviceName
      *            device name
      */
@@ -156,7 +158,7 @@ public class OAuthDataController implements IAuthDataController {
 
     /**
      * Setter of mTokenState. There's no locking mechanisms involved and should not be made public.
-     *
+     * 
      * @param tokenState
      *            the mTokenState to set
      */
@@ -194,7 +196,7 @@ public class OAuthDataController implements IAuthDataController {
     /**
      * Get OAuthData, counting number of retries, in case of too many retries, throw. Note depending on the OAuth token state, there is no guarantee that the
      * OAuthData is valid. an example is that the token state is FAIL, which indicates the token is bad.
-     *
+     * 
      * @return OAuthData
      * @throws AuthFatalFailureException
      */
@@ -242,7 +244,7 @@ public class OAuthDataController implements IAuthDataController {
 
     /**
      * Refresh the OAuth.
-     *
+     * 
      * @throws AuthFatalFailureException
      *             exception
      */
@@ -279,7 +281,7 @@ public class OAuthDataController implements IAuthDataController {
 
     /**
      * Get the lock, optionally lock the lock after getting the lock.
-     *
+     * 
      * @param doLock
      *            whether want to lock after getting the lock.
      * @return
@@ -308,7 +310,7 @@ public class OAuthDataController implements IAuthDataController {
 
     /**
      * Refresh the OAuth.
-     *
+     * 
      * @throws AuthFatalFailureException
      *             exception
      */
@@ -328,11 +330,20 @@ public class OAuthDataController implements IAuthDataController {
                 refreshListener.onRefresh(mOAuthToken);
             }
         } catch (BoxRestException e) {
-            setRefreshFail(e);
-            throw new AuthFatalFailureException(getRefreshFailException());
+            // A BoxRestException indicates a network error or a json parsing error. In this case, there is no reason to enter a failure state. Just throw an
+            // exception and set the token state back to AVAILABLE so the app can retry if it wishes.
+            internalSetTokenState(OAuthTokenState.AVAILABLE);
+            throw new AuthFatalFailureException(e);
         } catch (BoxServerException e) {
-            setRefreshFail(e);
-            throw new AuthFatalFailureException(getRefreshFailException());
+            // A BoxServerException indicates an error from the server. This could be a 500, 403, 400, etc. The only case in which this is a permanent failure
+            // is if we get a 400, which means the user's refresh token is invalid. In that case, we call setRefreshFail to enter a failure state until the user
+            // re-logs-in. In the case of any other status, we set the token state back to AVAILABLE to allow the app to retry if it wishes.
+            if (e.getStatusCode() == HttpStatus.SC_BAD_REQUEST) {
+                setRefreshFail(e);
+            } else {
+                internalSetTokenState(OAuthTokenState.AVAILABLE);
+            }
+            throw new AuthFatalFailureException(e);
         }
     }
 

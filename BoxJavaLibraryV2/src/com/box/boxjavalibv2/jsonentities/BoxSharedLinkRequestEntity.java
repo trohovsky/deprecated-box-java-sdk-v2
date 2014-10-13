@@ -13,6 +13,8 @@ public class BoxSharedLinkRequestEntity extends MapJSONStringEntity {
 
     private static final long serialVersionUID = 1L;
 
+    public static final String FIELD_PASSWORD = "password";
+
     /**
      * @param accessLevel
      *            access(String can be the strings defined in {@link com.box.boxjavalibv2.dao.BoxSharedLinkAccess}.)
@@ -30,6 +32,18 @@ public class BoxSharedLinkRequestEntity extends MapJSONStringEntity {
      */
     public BoxSharedLinkRequestEntity setAccess(final String accessLevel) {
         put(BoxSharedLink.FIELD_ACCESS, accessLevel);
+        return this;
+    }
+
+    /**
+     * Set password String. This sets the password for the shared link. Setting to null clears the password.
+     *
+     * @param password
+     *            password
+     * @return
+     */
+    public BoxSharedLinkRequestEntity setPassword(final String password) {
+        put(FIELD_PASSWORD, password);
         return this;
     }
 

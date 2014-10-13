@@ -60,4 +60,10 @@ public class BoxCollaborationRole {
      * collaborators (they will not be able to manipulate the owner of the folder or transfer ownership to another user).
      */
     public static final String CO_OWNER = "co-owner";
+
+    /**
+     * An Owner has all of the functional capabilities of a Co-Owner. However, they will be able to manipulate the Owner of the folder or transfer ownership to
+     * another user.
+     */
+    public static final String OWNER = "owner";
 }

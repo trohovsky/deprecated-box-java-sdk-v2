@@ -85,14 +85,14 @@ public class BoxOAuthManagerImpl extends AbstractBoxResourceManager implements I
     public BoxOAuthToken refreshOAuth(String refreshToken, String clientId, String clientSecret, String deviceId, String deviceName) throws BoxRestException,
         BoxServerException, AuthFatalFailureException {
         BoxOAuthRequestObject obj = BoxOAuthRequestObject.refreshOAuthRequestObject(refreshToken, clientId, clientSecret).setDevice(deviceId, deviceName);
-        return createOAuth(obj);
+        return refreshOAuth(obj);
     }
 
     @Override
     public BoxOAuthToken refreshOAuth(String refreshToken, String clientId, String clientSecret) throws BoxRestException, BoxServerException,
         AuthFatalFailureException {
         BoxOAuthRequestObject obj = BoxOAuthRequestObject.refreshOAuthRequestObject(refreshToken, clientId, clientSecret);
-        return createOAuth(obj);
+        return refreshOAuth(obj);
     }
 
     @Override
