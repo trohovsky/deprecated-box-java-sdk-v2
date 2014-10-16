@@ -322,8 +322,9 @@ public class OAuthDataController implements IAuthDataController {
             throw new AuthFatalFailureException(getRefreshFailException());
         }
 
+        String refreshToken = mOAuthToken.getRefreshToken();
         try {
-            mOAuthToken = mClient.getOAuthManager().refreshOAuth(mOAuthToken.getRefreshToken(), mClientId, mClientSecret, mDeviceId, mDeviceName);
+            mOAuthToken = mClient.getOAuthManager().refreshOAuth(refreshToken, mClientId, mClientSecret, mDeviceId, mDeviceName);
             internalSetTokenState(OAuthTokenState.AVAILABLE);
             setRefreshFail(null);
             if (refreshListener != null) {
@@ -333,7 +334,7 @@ public class OAuthDataController implements IAuthDataController {
             // A BoxRestException indicates a network error or a json parsing error. In this case, there is no reason to enter a failure state. Just throw an
             // exception and set the token state back to AVAILABLE so the app can retry if it wishes.
             internalSetTokenState(OAuthTokenState.AVAILABLE);
-            throw new AuthFatalFailureException(e);
+            throw new AuthFatalFailureException(e, refreshToken);
         } catch (BoxServerException e) {
             // A BoxServerException indicates an error from the server. This could be a 500, 403, 400, etc. The only case in which this is a permanent failure
             // is if we get a 400, which means the user's refresh token is invalid. In that case, we call setRefreshFail to enter a failure state until the user
@@ -343,7 +344,7 @@ public class OAuthDataController implements IAuthDataController {
             } else {
                 internalSetTokenState(OAuthTokenState.AVAILABLE);
             }
-            throw new AuthFatalFailureException(e);
+            throw new AuthFatalFailureException(e, refreshToken);
         }
     }
 
