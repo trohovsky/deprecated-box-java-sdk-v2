@@ -133,7 +133,6 @@ public class BoxFileUploadRequestObject extends BoxDefaultRequestObject {
      */
     public static BoxFileUploadRequestObject uploadNewVersionRequestObject(final String name, final File file)
             throws BoxRestException {
-        System.out.println("!!! uploadNewVersionRequestObject " + name + " / " + file);
         try {
             return (new BoxFileUploadRequestObject()).setMultipartMIME(getNewVersionMultipartEntity(name, file));
         } catch (UnsupportedEncodingException e) {
@@ -316,9 +315,6 @@ public class BoxFileUploadRequestObject extends BoxDefaultRequestObject {
         }
 
         me.addBoxJSONStringEntityPart(METADATA, getModifiedAtMetadataBody(modifiedAt));
-
-        System.out.println("!!! multipart entity: " + me.getContentBodyPart(KEY_FILE_NAME) + " / "
-                + me.getContentBodyPart(KEY_CONTENT_MODIFIED_AT));
 
         return me;
     }
