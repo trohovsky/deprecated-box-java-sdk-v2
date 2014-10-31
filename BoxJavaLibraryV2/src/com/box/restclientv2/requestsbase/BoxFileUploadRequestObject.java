@@ -28,27 +28,22 @@ public class BoxFileUploadRequestObject extends BoxDefaultRequestObject {
     private MultipartEntityWithProgressListener entity = null;
 
     /**
-     * A dummy filename to use in the Content-Disposition header some parts of a multipart HTTP request.
-     *
-     * When you upload a file to Box, one of the parts of the multipart request contains the contents of
-     * the file being uploaded; and one of the headers of that part is:
+     * A dummy filename to use in the Content-Disposition header some parts of a multipart HTTP request. When you upload
+     * a file to Box, one of the parts of the multipart request contains the contents of the file being uploaded; and
+     * one of the headers of that part is:
      *
      * <pre>
      *     Content-Disposition: form-data; name="filename"; filename="myfile.txt"
      * </pre>
      *
-     * But HTTP there is no reliable way to handle filenames that contain non-ASCII characters such as
-     * accented characters, or in how to handle filenames that contain the double-quote character. See
-     * http://stackoverflow.com/q/93551/179675 for some discussion of this problem.
-     *
-     * So when uploading a file to Box, you can pass a "metadata" part that specifies various information,
-     * including the filename, in UTF-8 JSON. Therefore, in the Content-Disposition header, this SDK always
-     * just passes filename="placeholder.txt". The actual filename of the file being uploaded is in the
-     * metadata block.
-     *
-     * In the case where you are uploading a new version of an existing file, the file already has a name,
-     * so there is no metadata section, but the filename in the Content-Disposition header is still
-     * ignored.
+     * But HTTP there is no reliable way to handle filenames that contain non-ASCII characters such as accented
+     * characters, or in how to handle filenames that contain the double-quote character. See
+     * http://stackoverflow.com/q/93551/179675 for some discussion of this problem. So when uploading a file to Box, you
+     * can pass a "metadata" part that specifies various information, including the filename, in UTF-8 JSON. Therefore,
+     * in the Content-Disposition header, this SDK always just passes filename="placeholder.txt". The actual filename of
+     * the file being uploaded is in the metadata block. In the case where you are uploading a new version of an
+     * existing file, the file already has a name, so there is no metadata section, but the filename in the
+     * Content-Disposition header is still ignored.
      */
     private static final String PLACEHOLDER_FILENAME = "placeholder.txt";
 
@@ -63,20 +58,18 @@ public class BoxFileUploadRequestObject extends BoxDefaultRequestObject {
     }
 
     /**
-     * BoxFileUploadRequestObject for upload file request. Note: for uploading a new version of the file, please use uploadNewVersionRequestObject().
+     * BoxFileUploadRequestObject for upload file request. Note: for uploading a new version of the file, please use
+     * uploadNewVersionRequestObject().
      *
-     * @param parentId
-     *            id of the parent folder
-     * @param fileName
-     *            name of the file
-     * @param file
-     *            file to be uploaded
+     * @param parentId id of the parent folder
+     * @param fileName name of the file
+     * @param file file to be uploaded
      * @return BoxFileUploadRequestObject
      * @throws BoxRestException
      * @throws BoxJSONException
      */
-    public static BoxFileUploadRequestObject uploadFileRequestObject(final String parentId, final String fileName, final File file) throws BoxRestException,
-        BoxJSONException {
+    public static BoxFileUploadRequestObject uploadFileRequestObject(final String parentId, final String fileName,
+            final File file) throws BoxRestException, BoxJSONException {
         try {
             BoxFileUploadRequestObject requestObject = new BoxFileUploadRequestObject();
             return requestObject.setMultipartMIME(getNewFileMultipartEntity(parentId, fileName, file));
@@ -86,22 +79,45 @@ public class BoxFileUploadRequestObject extends BoxDefaultRequestObject {
     }
 
     /**
-     * BoxFileUploadRequestObject for upload file request. Note: for uploading a new version of the file, please use uploadNewVersionRequestObject().
+     * BoxFileUploadRequestObject for upload file request. Note: for uploading a new version of the file, please use
+     * uploadNewVersionRequestObject().
      *
-     * @param parentId
-     *            id of the parent folder
-     * @param fileName
-     *            name of the file
-     * @param inputStream
-     *            InputStream of the file to be uploaded
+     * @param parentId id of the parent folder
+     * @param fileName name of the file
+     * @param file file to be uploaded
+     * @param createdAt timestamp of when file was created
+     * @param modifiedAt timestamp of when file was last modified
      * @return BoxFileUploadRequestObject
      * @throws BoxRestException
      * @throws BoxJSONException
      */
-    public static BoxFileUploadRequestObject uploadFileRequestObject(final String parentId, final String fileName, final InputStream inputStream)
-        throws BoxRestException, BoxJSONException {
+    public static BoxFileUploadRequestObject uploadFileRequestObject(final String parentId, final String fileName,
+            final File file, final Date createdAt, final Date modifiedAt) throws BoxRestException, BoxJSONException {
         try {
-            return (new BoxFileUploadRequestObject()).setMultipartMIME(getNewFileMultipartEntity(parentId, inputStream, fileName));
+            BoxFileUploadRequestObject requestObject = new BoxFileUploadRequestObject();
+            return requestObject.setMultipartMIME(getNewFileMultipartEntity(parentId, fileName, file, createdAt,
+                    modifiedAt));
+        } catch (UnsupportedEncodingException e) {
+            throw new BoxRestException(e);
+        }
+    }
+
+    /**
+     * BoxFileUploadRequestObject for upload file request. Note: for uploading a new version of the file, please use
+     * uploadNewVersionRequestObject().
+     *
+     * @param parentId id of the parent folder
+     * @param fileName name of the file
+     * @param inputStream InputStream of the file to be uploaded
+     * @return BoxFileUploadRequestObject
+     * @throws BoxRestException
+     * @throws BoxJSONException
+     */
+    public static BoxFileUploadRequestObject uploadFileRequestObject(final String parentId, final String fileName,
+            final InputStream inputStream) throws BoxRestException, BoxJSONException {
+        try {
+            return (new BoxFileUploadRequestObject()).setMultipartMIME(getNewFileMultipartEntity(parentId, inputStream,
+                    fileName));
         } catch (UnsupportedEncodingException e) {
             throw new BoxRestException(e);
         }
@@ -110,15 +126,14 @@ public class BoxFileUploadRequestObject extends BoxDefaultRequestObject {
     /**
      * BoxFileUploadRequestObject for upload a new version of a file.
      *
-     * @param name
-     *            name of the file
-     * @param file
-     *            file to be uploaded
+     * @param name name of the file
+     * @param file file to be uploaded
      * @return BoxFileUploadRequestObject
-     * @throws BoxRestException
-     *             exception
+     * @throws BoxRestException exception
      */
-    public static BoxFileUploadRequestObject uploadNewVersionRequestObject(final String name, final File file) throws BoxRestException {
+    public static BoxFileUploadRequestObject uploadNewVersionRequestObject(final String name, final File file)
+            throws BoxRestException {
+        System.out.println("!!! uploadNewVersionRequestObject " + name + " / " + file);
         try {
             return (new BoxFileUploadRequestObject()).setMultipartMIME(getNewVersionMultipartEntity(name, file));
         } catch (UnsupportedEncodingException e) {
@@ -129,15 +144,32 @@ public class BoxFileUploadRequestObject extends BoxDefaultRequestObject {
     /**
      * BoxFileUploadRequestObject for upload a new version of a file.
      *
-     * @param name
-     *            name of the file
-     * @param inputStream
-     *            input stream of the file uploaded.
+     * @param name name of the file
+     * @param file file to be uploaded
+     * @param modifiedAt timestamp of when file was last modified
      * @return BoxFileUploadRequestObject
-     * @throws BoxRestException
-     *             exception
+     * @throws BoxRestException exception
      */
-    public static BoxFileUploadRequestObject uploadNewVersionRequestObject(final String name, final InputStream inputStream) throws BoxRestException {
+    public static BoxFileUploadRequestObject uploadNewVersionRequestObject(final String name, final File file,
+            final Date modifiedAt) throws BoxRestException {
+        try {
+            return (new BoxFileUploadRequestObject()).setMultipartMIME(getNewVersionMultipartEntity(name, file,
+                    modifiedAt));
+        } catch (UnsupportedEncodingException e) {
+            throw new BoxRestException(e);
+        }
+    }
+
+    /**
+     * BoxFileUploadRequestObject for upload a new version of a file.
+     *
+     * @param name name of the file
+     * @param inputStream input stream of the file uploaded.
+     * @return BoxFileUploadRequestObject
+     * @throws BoxRestException exception
+     */
+    public static BoxFileUploadRequestObject uploadNewVersionRequestObject(final String name,
+            final InputStream inputStream) throws BoxRestException {
         try {
             return (new BoxFileUploadRequestObject()).setMultipartMIME(getNewVersionMultipartEntity(name, inputStream));
         } catch (UnsupportedEncodingException e) {
@@ -145,7 +177,8 @@ public class BoxFileUploadRequestObject extends BoxDefaultRequestObject {
         }
     }
 
-    public BoxFileUploadRequestObject setMultipartMIME(final MultipartEntityWithProgressListener mime) throws BoxRestException {
+    public BoxFileUploadRequestObject setMultipartMIME(final MultipartEntityWithProgressListener mime)
+            throws BoxRestException {
         entity = mime;
         return this;
     }
@@ -153,8 +186,7 @@ public class BoxFileUploadRequestObject extends BoxDefaultRequestObject {
     /**
      * Set upload listener.
      *
-     * @param listener
-     *            upload listener
+     * @param listener upload listener
      */
     public BoxFileUploadRequestObject setListener(IFileTransferListener listener) {
         entity.setListener(listener);
@@ -162,11 +194,11 @@ public class BoxFileUploadRequestObject extends BoxDefaultRequestObject {
     }
 
     /**
-     * Set the content MD5 in the request. This is used in upload file request, it can make sure that the file is not corrupted in transit. In case of the sha1
-     * is different than the sha1 calculated on server, request is going to fail.
+     * Set the content MD5 in the request. This is used in upload file request, it can make sure that the file is not
+     * corrupted in transit. In case of the sha1 is different than the sha1 calculated on server, request is going to
+     * fail.
      *
-     * @param sha1
-     *            sha1
+     * @param sha1 sha1
      */
     public BoxFileUploadRequestObject setContentMD5(String sha1) {
         getRequestExtras().addHeader(Constants.CONTENT_MD5, sha1);
@@ -181,7 +213,7 @@ public class BoxFileUploadRequestObject extends BoxDefaultRequestObject {
      * @throws UnsupportedEncodingException
      */
     public BoxFileUploadRequestObject setLocalFileCreatedAt(Date createdAt) throws UnsupportedEncodingException {
-        entity.addContentBodyPart(KEY_CONTENT_CREATED_AT, new StringBody(ISO8601DateParser.toString(createdAt)));
+        entity.addBoxJSONStringEntityPart(METADATA, getCreatedAtMetadataBody(createdAt));
         return this;
     }
 
@@ -193,7 +225,21 @@ public class BoxFileUploadRequestObject extends BoxDefaultRequestObject {
      * @throws UnsupportedEncodingException
      */
     public BoxFileUploadRequestObject setLocalFileLastModifiedAt(Date modifiedAt) throws UnsupportedEncodingException {
-        entity.addContentBodyPart(KEY_CONTENT_MODIFIED_AT, new StringBody(ISO8601DateParser.toString(modifiedAt)));
+        entity.addBoxJSONStringEntityPart(METADATA, getModifiedAtMetadataBody(modifiedAt));
+        return this;
+    }
+
+    /**
+     * Set the time that the file was locally created and last modified.
+     *
+     * @param createdAt
+     * @param modifiedAt
+     * @return
+     * @throws UnsupportedEncodingException
+     */
+    public BoxFileUploadRequestObject setLocalFileCreatedAndModifiedAt(Date createdAt, Date modifiedAt)
+            throws UnsupportedEncodingException {
+        entity.addBoxJSONStringEntityPart(METADATA, getCreatedAndModifiedAtMetadataBody(createdAt, modifiedAt));
         return this;
     }
 
@@ -203,12 +249,15 @@ public class BoxFileUploadRequestObject extends BoxDefaultRequestObject {
         return entity;
     }
 
-    // In order to handle foreign characters, the file name is handled in metadata part instead of the InputStreamBody part.
-    private static MultipartEntityWithProgressListener getNewFileMultipartEntity(final String parentId, final InputStream inputStream, final String fileName)
-        throws BoxRestException, UnsupportedEncodingException, BoxJSONException {
-        MultipartEntityWithProgressListener me = new MultipartEntityWithProgressListener(HttpMultipartMode.BROWSER_COMPATIBLE);
+    // In order to handle foreign characters, the file name is handled in metadata part instead of the InputStreamBody
+    // part.
+    private static MultipartEntityWithProgressListener getNewFileMultipartEntity(final String parentId,
+            final InputStream inputStream, final String fileName) throws BoxRestException,
+            UnsupportedEncodingException, BoxJSONException {
+        MultipartEntityWithProgressListener me = new MultipartEntityWithProgressListener(
+                HttpMultipartMode.BROWSER_COMPATIBLE);
         me.addContentBodyPart(Constants.PARENT_ID, new StringBody(parentId));
-        me.addBoxJSONStringEntityPart(METADATA, getMetadataBody(parentId, fileName));
+        me.addBoxJSONStringEntityPart(METADATA, getBasicMetadataBody(parentId, fileName));
 
         // The contents of the file should come after the part that specifies the parent folder id, so
         // that Box's infrastructure can efficiently stream the file to its final destination based on
@@ -218,15 +267,28 @@ public class BoxFileUploadRequestObject extends BoxDefaultRequestObject {
         return me;
     }
 
+    private static MultipartEntityWithProgressListener getNewFileMultipartEntity(final String parentId,
+            final String name, final File file) throws BoxRestException, UnsupportedEncodingException, BoxJSONException {
+        return getNewFileMultipartEntity(parentId, name, file, null, new Date(file.lastModified()));
+    }
+
     // In order to handle foreign characters, the file name is handled in metadata part instead of the FileBody part.
-    private static MultipartEntityWithProgressListener getNewFileMultipartEntity(final String parentId, final String name, final File file)
-        throws BoxRestException, UnsupportedEncodingException, BoxJSONException {
-        MultipartEntityWithProgressListener me = new MultipartEntityWithProgressListener(HttpMultipartMode.BROWSER_COMPATIBLE);
+    private static MultipartEntityWithProgressListener getNewFileMultipartEntity(final String parentId,
+            final String name, final File file, final Date createdAt, Date modifiedAt) throws BoxRestException,
+            UnsupportedEncodingException, BoxJSONException {
+        MultipartEntityWithProgressListener me = new MultipartEntityWithProgressListener(
+                HttpMultipartMode.BROWSER_COMPATIBLE);
         me.addContentBodyPart(Constants.PARENT_ID, new StringBody(parentId));
-        me.addBoxJSONStringEntityPart(METADATA, getMetadataBody(parentId, name));
-        if (me.getContentBodyPart(KEY_CONTENT_MODIFIED_AT) == null) {
-            String date = ISO8601DateParser.toString(new Date(file.lastModified()));
-            me.addContentBodyPart(KEY_CONTENT_MODIFIED_AT, new StringBody(date));
+
+        if (modifiedAt == null) {
+            modifiedAt = new Date(file.lastModified());
+        }
+
+        if (createdAt == null) {
+            me.addBoxJSONStringEntityPart(METADATA, getBasicMetadataBodyWithModifiedAt(parentId, name, modifiedAt));
+        } else {
+            me.addBoxJSONStringEntityPart(METADATA, getBasicMetadataBodyWithCreatedAndModifiedAt(parentId, name,
+                    createdAt, modifiedAt));
         }
 
         // The contents of the file should come after the part that specifies the parent folder id, so
@@ -237,7 +299,41 @@ public class BoxFileUploadRequestObject extends BoxDefaultRequestObject {
         return me;
     }
 
-    private static IBoxJSONStringEntity getMetadataBody(String parentId, String name) throws UnsupportedEncodingException, BoxRestException, BoxJSONException {
+    private static MultipartEntityWithProgressListener getNewVersionMultipartEntity(final String name, final File file)
+            throws UnsupportedEncodingException {
+        return getNewVersionMultipartEntity(name, file, null);
+    }
+
+    private static MultipartEntityWithProgressListener getNewVersionMultipartEntity(final String name, final File file,
+            Date modifiedAt) throws UnsupportedEncodingException {
+        MultipartEntityWithProgressListener me = new MultipartEntityWithProgressListener(
+                HttpMultipartMode.BROWSER_COMPATIBLE);
+        me.addContentBodyPart(KEY_FILE_NAME, new FileBody(file, PLACEHOLDER_FILENAME, "*/*", CharEncoding.UTF_8));
+
+        // Add a modifiedAt time to the request if one doesn't already exist
+        if (modifiedAt == null) {
+            modifiedAt = new Date(file.lastModified());
+        }
+
+        me.addBoxJSONStringEntityPart(METADATA, getModifiedAtMetadataBody(modifiedAt));
+
+        System.out.println("!!! multipart entity: " + me.getContentBodyPart(KEY_FILE_NAME) + " / "
+                + me.getContentBodyPart(KEY_CONTENT_MODIFIED_AT));
+
+        return me;
+    }
+
+    private static MultipartEntityWithProgressListener getNewVersionMultipartEntity(final String name,
+            final InputStream inputStream) throws UnsupportedEncodingException {
+        MultipartEntityWithProgressListener me = new MultipartEntityWithProgressListener(
+                HttpMultipartMode.BROWSER_COMPATIBLE);
+        me.addContentBodyPart(KEY_FILE_NAME, new InputStreamBody(inputStream, PLACEHOLDER_FILENAME));
+
+        return me;
+    }
+
+    private static IBoxJSONStringEntity getBasicMetadataBody(String parentId, String name)
+            throws UnsupportedEncodingException, BoxRestException, BoxJSONException {
         MapJSONStringEntity parentEntity = new MapJSONStringEntity();
         parentEntity.put(Constants.ID, parentId);
 
@@ -247,21 +343,37 @@ public class BoxFileUploadRequestObject extends BoxDefaultRequestObject {
         return entity;
     }
 
-    private static MultipartEntityWithProgressListener getNewVersionMultipartEntity(final String name, final File file) throws UnsupportedEncodingException {
-        MultipartEntityWithProgressListener me = new MultipartEntityWithProgressListener(HttpMultipartMode.BROWSER_COMPATIBLE);
-        me.addContentBodyPart(KEY_FILE_NAME, new FileBody(file, PLACEHOLDER_FILENAME, "*/*", CharEncoding.UTF_8));
-
-        if (me.getContentBodyPart(KEY_CONTENT_MODIFIED_AT) == null) {
-            me.addContentBodyPart(KEY_CONTENT_MODIFIED_AT, new StringBody(ISO8601DateParser.toString(new Date(file.lastModified()))));
-        }
-        return me;
+    private static IBoxJSONStringEntity getBasicMetadataBodyWithModifiedAt(String parentId, String name, Date modifiedAt)
+            throws UnsupportedEncodingException, BoxRestException, BoxJSONException {
+        MapJSONStringEntity entity = (MapJSONStringEntity) getBasicMetadataBody(parentId, name);
+        entity.put(KEY_CONTENT_MODIFIED_AT, ISO8601DateParser.toString(modifiedAt));
+        return entity;
     }
 
-    private static MultipartEntityWithProgressListener getNewVersionMultipartEntity(final String name, final InputStream inputStream)
-        throws UnsupportedEncodingException {
-        MultipartEntityWithProgressListener me = new MultipartEntityWithProgressListener(HttpMultipartMode.BROWSER_COMPATIBLE);
-        me.addContentBodyPart(KEY_FILE_NAME, new InputStreamBody(inputStream, PLACEHOLDER_FILENAME));
+    private static IBoxJSONStringEntity getBasicMetadataBodyWithCreatedAndModifiedAt(String parentId, String name,
+            Date createdAt, Date modifiedAt) throws UnsupportedEncodingException, BoxRestException, BoxJSONException {
+        MapJSONStringEntity entity = (MapJSONStringEntity) getBasicMetadataBody(parentId, name);
+        entity.put(KEY_CONTENT_CREATED_AT, ISO8601DateParser.toString(createdAt));
+        entity.put(KEY_CONTENT_MODIFIED_AT, ISO8601DateParser.toString(modifiedAt));
+        return entity;
+    }
 
-        return me;
+    private static IBoxJSONStringEntity getCreatedAtMetadataBody(Date createdAt) {
+        MapJSONStringEntity entity = new MapJSONStringEntity();
+        entity.put(KEY_CONTENT_CREATED_AT, ISO8601DateParser.toString(createdAt));
+        return entity;
+    }
+
+    private static IBoxJSONStringEntity getModifiedAtMetadataBody(Date modifiedAt) {
+        MapJSONStringEntity entity = new MapJSONStringEntity();
+        entity.put(KEY_CONTENT_MODIFIED_AT, ISO8601DateParser.toString(modifiedAt));
+        return entity;
+    }
+
+    private static IBoxJSONStringEntity getCreatedAndModifiedAtMetadataBody(Date createdAt, Date modifiedAt) {
+        MapJSONStringEntity entity = new MapJSONStringEntity();
+        entity.put(KEY_CONTENT_CREATED_AT, ISO8601DateParser.toString(createdAt));
+        entity.put(KEY_CONTENT_MODIFIED_AT, ISO8601DateParser.toString(modifiedAt));
+        return entity;
     }
 }
