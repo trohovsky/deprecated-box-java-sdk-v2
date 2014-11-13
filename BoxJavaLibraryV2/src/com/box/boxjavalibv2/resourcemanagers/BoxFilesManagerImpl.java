@@ -27,6 +27,7 @@ import com.box.boxjavalibv2.filetransfer.IFileTransferListener;
 import com.box.boxjavalibv2.jsonparsing.IBoxJSONParser;
 import com.box.boxjavalibv2.jsonparsing.IBoxResourceHub;
 import com.box.boxjavalibv2.requests.DeleteFileRequest;
+import com.box.boxjavalibv2.requests.DeleteFileVersionRequest;
 import com.box.boxjavalibv2.requests.GetFileCommentsRequest;
 import com.box.boxjavalibv2.requests.GetFileVersionsRequest;
 import com.box.boxjavalibv2.requests.GetPreviewRequest;
@@ -234,4 +235,12 @@ public class BoxFilesManagerImpl extends BoxItemsManagerImpl implements IBoxFile
         }
         return files;
     }
+
+	@Override
+	public void deleteFileVersion(String fileId, String versionId, BoxDefaultRequestObject requestObject) throws BoxRestException,
+			BoxServerException, AuthFatalFailureException {
+		// TODO Auto-generated method stub
+        DeleteFileVersionRequest request = new DeleteFileVersionRequest(getConfig(), getJSONParser(), fileId, versionId, requestObject);
+        executeRequestWithNoResponseBody(request);
+	}
 }

@@ -303,5 +303,16 @@ public interface IBoxFilesManager extends IBoxResourceManager {
      */
     public BoxCollection getFileComments(String fileId, BoxDefaultRequestObject requestObject) throws BoxRestException, BoxServerException,
         AuthFatalFailureException;
+    
+    /**
+     * Delete the version of a file.
+     * @param fileId
+     * @param versionId
+     * @param requestObject
+     * @throws BoxRestException
+     * @throws BoxServerException
+     * @throws AuthFatalFailureException
+     */
+    public void deleteFileVersion(String fileId, String versionId, BoxDefaultRequestObject requestObject) throws BoxRestException, BoxServerException, AuthFatalFailureException;
 
 }
