@@ -239,7 +239,6 @@ public class BoxFilesManagerImpl extends BoxItemsManagerImpl implements IBoxFile
 	@Override
 	public void deleteFileVersion(String fileId, String versionId, BoxDefaultRequestObject requestObject) throws BoxRestException,
 			BoxServerException, AuthFatalFailureException {
-		// TODO Auto-generated method stub
         DeleteFileVersionRequest request = new DeleteFileVersionRequest(getConfig(), getJSONParser(), fileId, versionId, requestObject);
         executeRequestWithNoResponseBody(request);
 	}
