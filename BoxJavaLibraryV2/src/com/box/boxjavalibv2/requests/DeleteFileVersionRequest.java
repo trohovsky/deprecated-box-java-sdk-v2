@@ -15,8 +15,8 @@ public class DeleteFileVersionRequest extends DefaultBoxRequest {
 	/**
 	 * @param config
 	 * @param parser
-	 * @param uriPath
-	 * @param restMethod
+	 * @param fileId
+	 * @param versionId
 	 * @param requestObject
 	 * @throws BoxRestException
 	 */
