@@ -1,1 +1,66 @@
-{"type": "web_link","id": "testweblinkid","etag": "testetag"}
+{
+    "type": "web_link",
+    "id": "2234234",
+    "sequence_id" : "1",
+    "etag": "1",
+    "name" : "Web Link Name",
+    "created_at": "2012-12-12T10:53:43-08:00",
+    "modified_at": "2012-12-12T11:15:04-08:00",
+    "url" : "http://box.com",
+    "created_by": {
+        "type": "user",
+        "id": "17738362",
+        "name": "sean rose",
+        "login": "sean@box.com"
+    },
+    "parent": {
+        "type": "folder",
+        "id": "0",
+        "sequence_id": null,
+        "etag": null,
+        "name": "All Files"
+    },
+    "description": "description",
+    "item_status": "active",
+    "trashed_at": null,
+    "purged_at": null,
+    "shared_link": {
+        "url": "https://www.box.com/s/b20iy955qokqovjkzkdh",
+        "download_url": null,
+        "vanity_url": null,
+        "effective_access": "open",
+        "is_password_enabled": false,
+        "unshared_at": null,
+        "download_count": 0,
+        "preview_count": 0,
+        "access": "open",
+        "permissions": {
+            "can_download": true,
+            "can_preview": true
+        }
+    },
+    "path_collection": {
+        "total_count": 1,
+        "entries": [
+            {
+                "type": "folder",
+                "id": "0",
+                "sequence_id": null,
+                "etag": null,
+                "name": "All Files"
+            }
+        ]
+    },
+    "modified_by": {
+        "type": "user",
+        "id": "17738362",
+        "name": "sean rose",
+        "login": "sean@box.com"
+    },
+    "owned_by": {
+        "type": "user",
+        "id": "17738362",
+        "name": "sean rose",
+        "login": "sean@box.com"
+    }
+}

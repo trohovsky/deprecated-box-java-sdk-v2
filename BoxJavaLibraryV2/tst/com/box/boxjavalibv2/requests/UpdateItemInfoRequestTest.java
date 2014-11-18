@@ -24,6 +24,7 @@ public class UpdateItemInfoRequestTest extends RequestTestBase {
     public void testUri() {
         Assert.assertEquals("/files/123", UpdateItemInfoRequest.getUri("123", BoxResourceType.FILE));
         Assert.assertEquals("/folders/123", UpdateItemInfoRequest.getUri("123", BoxResourceType.FOLDER));
+        Assert.assertEquals("/web_links/123", UpdateItemInfoRequest.getUri("123", BoxResourceType.WEB_LINK));
     }
 
     @Test
@@ -36,6 +37,12 @@ public class UpdateItemInfoRequestTest extends RequestTestBase {
     public void testFileRequestIsWellFormed() throws IllegalStateException, BoxRestException, IOException, AuthFatalFailureException, BoxJSONException,
         NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
         testRequestIsWellFormed(BoxResourceType.FILE);
+    }
+
+    @Test
+    public void testWebLinkRequestIsWellFormed() throws IllegalStateException, BoxRestException, IOException, AuthFatalFailureException, BoxJSONException,
+            NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+        testRequestIsWellFormed(BoxResourceType.WEB_LINK);
     }
 
     public void testRequestIsWellFormed(BoxResourceType type) throws BoxRestException, IllegalStateException, IOException, AuthFatalFailureException,
