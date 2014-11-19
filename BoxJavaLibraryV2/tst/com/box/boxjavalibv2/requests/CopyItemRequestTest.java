@@ -23,6 +23,7 @@ public class CopyItemRequestTest extends RequestTestBase {
     public void uriTest() {
         Assert.assertEquals("/files/123/copy", CopyItemRequest.getUri("123", BoxResourceType.FILE));
         Assert.assertEquals("/folders/1234/copy", CopyItemRequest.getUri("1234", BoxResourceType.FOLDER));
+        Assert.assertEquals("/web_links/1234/copy", CopyItemRequest.getUri("1234", BoxResourceType.WEB_LINK));
     }
 
     @Test
@@ -35,6 +36,12 @@ public class CopyItemRequestTest extends RequestTestBase {
     public void testFileRequestWellFormed() throws BoxRestException, IllegalStateException, IOException, AuthFatalFailureException, BoxJSONException,
         NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
         testRequestIsWellFormed(BoxResourceType.FILE);
+    }
+
+    @Test
+    public void testWebLinkRequestWellFormed() throws BoxRestException, IllegalStateException, IOException, AuthFatalFailureException, BoxJSONException,
+            NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+        testRequestIsWellFormed(BoxResourceType.WEB_LINK);
     }
 
     private void testRequestIsWellFormed(BoxResourceType type) throws BoxRestException, IllegalStateException, IOException, AuthFatalFailureException,
