@@ -11,6 +11,21 @@ public class BoxCollabRequestObject extends BoxDefaultRequestObject {
 
     private BoxCollabRequestObject() {
     }
+    
+    /** Create a collaboration for a group
+     * @param folderId - id of the folder
+     * @param groupId - id of the group to collaborate with.
+     * @param role - role/access level of this collaboration(This is a String defined in {@link com.box.boxjavalibv2.dao.BoxCollaborationRole}
+     * @return BoxCollabRequestObject
+     */
+    public static BoxCollabRequestObject createGroupCollabObject(final String folderId, final String groupId, final String role) {
+        BoxCollabRequestObject entity = new BoxCollabRequestObject();
+        MapJSONStringEntity item = getItemEntity(folderId);
+        entity.setAccessibleByType(groupId, "group");
+        entity.setItem(item);
+        entity.setRole(role);
+        return entity;
+    }
 
     /**
      * create a collaboration.
@@ -42,6 +57,17 @@ public class BoxCollabRequestObject extends BoxDefaultRequestObject {
      */
     public BoxCollabRequestObject setAccessibleBy(final String userId, final String login) {
         MapJSONStringEntity accessibleBy = getAccessibilityEntity(userId, login);
+        put(BoxCollaboration.FIELD_ACCESSIBLE_BY, accessibleBy);
+        return this;
+    }
+    
+    /**
+     * @param id - id of the user/group 
+     * @param type - type of accessibility.
+     * @return
+     */
+    public BoxCollabRequestObject setAccessibleByType(final String id, final String type) {
+        MapJSONStringEntity accessibleBy = getAccessibilityEntityByType(id, type);
         put(BoxCollaboration.FIELD_ACCESSIBLE_BY, accessibleBy);
         return this;
     }
@@ -84,6 +110,13 @@ public class BoxCollabRequestObject extends BoxDefaultRequestObject {
         MapJSONStringEntity entity = new MapJSONStringEntity();
         entity.put("id", folderId);
         entity.put("type", BoxResourceType.FOLDER.toString());
+        return entity;
+    }
+    
+    private static MapJSONStringEntity getAccessibilityEntityByType(final String userId, final String type) {
+        MapJSONStringEntity entity = new MapJSONStringEntity();
+        entity.put("id", userId);
+        entity.put("type", type);
         return entity;
     }
 

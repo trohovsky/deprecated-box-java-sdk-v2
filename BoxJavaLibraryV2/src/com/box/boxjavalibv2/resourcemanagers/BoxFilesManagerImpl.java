@@ -31,6 +31,7 @@ import com.box.boxjavalibv2.requests.DeleteFileVersionRequest;
 import com.box.boxjavalibv2.requests.GetFileCommentsRequest;
 import com.box.boxjavalibv2.requests.GetFileVersionsRequest;
 import com.box.boxjavalibv2.requests.GetPreviewRequest;
+import com.box.boxjavalibv2.requests.PromoteOldFileVersionRequest;
 import com.box.boxjavalibv2.requests.ThumbnailRequest;
 import com.box.boxjavalibv2.requests.requestobjects.BoxFileRequestObject;
 import com.box.boxjavalibv2.requests.requestobjects.BoxImageRequestObject;
@@ -241,5 +242,11 @@ public class BoxFilesManagerImpl extends BoxItemsManagerImpl implements IBoxFile
 			BoxServerException, AuthFatalFailureException {
         DeleteFileVersionRequest request = new DeleteFileVersionRequest(getConfig(), getJSONParser(), fileId, versionId, requestObject);
         executeRequestWithNoResponseBody(request);
+	}
+
+	@Override
+	public void promoteOldFileVersion(String fileId, String versionId) throws BoxRestException, BoxServerException, AuthFatalFailureException {
+		PromoteOldFileVersionRequest request = PromoteOldFileVersionRequest.getRequestObject(getConfig(), getJSONParser(), fileId, versionId);
+		executeRequestWithNoResponseBody(request);
 	}
 }

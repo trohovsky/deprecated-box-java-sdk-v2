@@ -7,6 +7,7 @@ import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
 
+import com.box.boxjavalibv2.IBoxConfig;
 import com.box.boxjavalibv2.dao.BoxCollection;
 import com.box.boxjavalibv2.dao.BoxFile;
 import com.box.boxjavalibv2.dao.BoxFileVersion;
@@ -15,6 +16,7 @@ import com.box.boxjavalibv2.dao.BoxThumbnail;
 import com.box.boxjavalibv2.exceptions.AuthFatalFailureException;
 import com.box.boxjavalibv2.exceptions.BoxServerException;
 import com.box.boxjavalibv2.filetransfer.IFileTransferListener;
+import com.box.boxjavalibv2.jsonparsing.IBoxJSONParser;
 import com.box.boxjavalibv2.requests.requestobjects.BoxFileRequestObject;
 import com.box.boxjavalibv2.requests.requestobjects.BoxImageRequestObject;
 import com.box.boxjavalibv2.requests.requestobjects.BoxItemCopyRequestObject;
@@ -313,6 +315,17 @@ public interface IBoxFilesManager extends IBoxResourceManager {
      * @throws BoxServerException
      * @throws AuthFatalFailureException
      */
-    public void deleteFileVersion(String fileId, String versionId, BoxDefaultRequestObject requestObject) throws BoxRestException, BoxServerException, AuthFatalFailureException;
+    public void deleteFileVersion(String fileId, String versionId, BoxDefaultRequestObject requestObject) throws BoxRestException, BoxServerException, 
+    AuthFatalFailureException;
+    
+    /** Promote old version of file as current/latest version.
+     * @param fileId - id of the file.
+     * @param versionId - id of the file version.
+     * @throws BoxRestException
+     * @throws BoxServerException
+     * @throws AuthFatalFailureException
+     */
+    public void promoteOldFileVersion(String fileId, String versionId) throws BoxRestException, BoxServerException, 
+    AuthFatalFailureException;
 
 }
