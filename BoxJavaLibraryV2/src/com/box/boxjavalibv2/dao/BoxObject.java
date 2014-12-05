@@ -1,6 +1,7 @@
 package com.box.boxjavalibv2.dao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 
@@ -139,6 +140,8 @@ public class BoxObject extends BoxBase implements IBoxParcelable {
                     return componentClass.isPrimitive() || primitiveWrapperSet.contains(componentClass);
                 }
             }
+        } else if (value != null && value instanceof HashMap){
+            return true;
         }
         return false;
     }
