@@ -26,7 +26,7 @@ public class DeleteEmailAliasRequestTest extends RequestTestBase {
         DeleteEmailAliasRequest request = new DeleteEmailAliasRequest(CONFIG, JSON_PARSER, userId, emailId, null);
 
         testRequestIsWellFormed(request, TestUtils.getConfig().getApiUrlAuthority(),
-            TestUtils.getConfig().getApiUrlPath().concat(DeleteEmailAliasRequest.getUri(userId, emailId)), HttpStatus.SC_OK, RestMethod.DELETE);
+            TestUtils.getConfig().getApiUrlPath().concat(DeleteEmailAliasRequest.getUri(userId, emailId)), HttpStatus.SC_NO_CONTENT, RestMethod.DELETE);
 
     }
 
