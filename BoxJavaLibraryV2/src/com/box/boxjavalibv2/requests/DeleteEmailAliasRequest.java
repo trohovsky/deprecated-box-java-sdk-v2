@@ -1,5 +1,7 @@
 package com.box.boxjavalibv2.requests;
 
+import org.apache.http.HttpStatus;
+
 import com.box.boxjavalibv2.IBoxConfig;
 import com.box.boxjavalibv2.jsonparsing.IBoxJSONParser;
 import com.box.restclientv2.RestMethod;
@@ -16,7 +18,7 @@ public class DeleteEmailAliasRequest extends DefaultBoxRequest {
 
     /**
      * Constructor.
-     * 
+     *
      * @param config
      *            config
      * @param parser
@@ -33,11 +35,12 @@ public class DeleteEmailAliasRequest extends DefaultBoxRequest {
     public DeleteEmailAliasRequest(final IBoxConfig config, final IBoxJSONParser parser, final String userId, final String emailId,
         BoxDefaultRequestObject requestObject) throws BoxRestException {
         super(config, parser, getUri(userId, emailId), RestMethod.DELETE, requestObject);
+        setExpectedResponseCode(HttpStatus.SC_NO_CONTENT);
     }
 
     /**
      * Get uri.
-     * 
+     *
      * @param userId
      *            id of the user
      * @param emailId
