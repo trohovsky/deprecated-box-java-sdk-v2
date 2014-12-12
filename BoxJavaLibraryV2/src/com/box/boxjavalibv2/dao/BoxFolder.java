@@ -13,6 +13,7 @@ public class BoxFolder extends BoxItem {
     public static final String FIELD_ITEM_COLLECTION = "item_collection";
     public static final String FIELD_HAS_COLLABORATIONS = "has_collaborations";
     public static final String FIELD_SYNC_STATE = "sync_state";
+    public static final String FIELD_IS_EXTERNALLY_OWNED = "is_externally_owned";
 
     /**
      * Constructor.
@@ -107,6 +108,27 @@ public class BoxFolder extends BoxItem {
     }
 
     /**
+     * Getter.Get whether this box folder is externally owned.
+     *
+     * @return whether this box folder is externally owned
+     */
+    @JsonProperty(FIELD_IS_EXTERNALLY_OWNED)
+    public Boolean isExternallyOwned() {
+        return (Boolean) getValue(FIELD_IS_EXTERNALLY_OWNED);
+    }
+
+    /**
+     * Setter. This is only used by @see <a href="http://jackson.codehaus.org">Jackson JSON processer</a>.
+     *
+     * @param isExternallyOwned
+     *            whether folder is externally owned.
+     */
+    @JsonProperty(FIELD_IS_EXTERNALLY_OWNED)
+    protected void setExternallyOwned(Boolean isExternallyOwned) {
+        put(FIELD_IS_EXTERNALLY_OWNED, isExternallyOwned);
+    }
+
+    /**
      * Whether this folder will be synced by Box sycn clients or not. Can be "synced", "not_synced", or "partially_synced".
      * 
      * @return sync state
@@ -119,7 +141,8 @@ public class BoxFolder extends BoxItem {
     /**
      * Setter. This is only used by {@see <a href="http://jackson.codehaus.org">Jackson JSON processer</a>}
      * 
-     * @param syncState sync state
+     * @param syncState
+     *            sync state
      */
     @JsonProperty(FIELD_SYNC_STATE)
     private void setSyncState(String syncState) {
