@@ -1,6 +1,7 @@
 package com.box.boxjavalibv2.authorization;
 
 import com.box.boxjavalibv2.dao.BoxOAuthToken;
+import com.box.boxjavalibv2.dao.IAuthData;
 import com.box.boxjavalibv2.exceptions.AuthFatalFailureException;
 import com.box.restclientv2.authorization.DefaultRequestAuth;
 import com.box.restclientv2.exceptions.BoxRestException;
@@ -58,7 +59,7 @@ public class OAuthAuthorization extends DefaultRequestAuth implements IOAuthAuth
      */
     private String getAuthString() throws AuthFatalFailureException {
         if (mOAuth != null) {
-            BoxOAuthToken data = mOAuth.guaranteedGetAuthData();
+            IAuthData data = mOAuth.guaranteedGetAuthData();
             if (data != null) {
                 return BEARER + " " + data.getAccessToken();
             }
