@@ -328,4 +328,26 @@ public interface IBoxFilesManager extends IBoxResourceManager {
     public void promoteOldFileVersion(String fileId, String versionId) throws BoxRestException, BoxServerException, 
     AuthFatalFailureException;
 
+    /**
+     * Lock file
+     * @param fileId
+     * @param isDownloadRestricted
+     * @return BoxFile
+     * @throws BoxRestException
+     * @throws BoxServerException
+     * @throws AuthFatalFailureException
+     */
+    public BoxFile lockFile(String fileId, boolean isDownloadRestricted) throws BoxRestException, BoxServerException,
+    AuthFatalFailureException;
+
+    /**
+     * Unlock file
+     * @param fileId
+     * @return BoxFile
+     * @throws BoxRestException
+     * @throws BoxServerException
+     * @throws AuthFatalFailureException
+     */
+    public BoxFile unlockFile(String fileId) throws BoxRestException, BoxServerException,
+    AuthFatalFailureException;
 }
