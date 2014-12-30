@@ -257,7 +257,7 @@ public class BoxClient extends BoxBase implements IAuthFlowListener {
      * @return OAuthData
      * @throws AuthFatalFailureException
      */
-    public BoxOAuthToken getAuthData() throws AuthFatalFailureException {
+    public IAuthData getAuthData() throws AuthFatalFailureException {
         return getOAuthDataController().getAuthData();
     }
 
@@ -265,7 +265,7 @@ public class BoxClient extends BoxBase implements IAuthFlowListener {
      * Get OAuthData, in case of OAuthTokenState indicating refresh needed, do refresh. Note this method may involve network operation so do not call on UI
      * thread. In case you can tolerate invalid token and definitely don't want network calls involved, use getAuthData() method instead.
      */
-    public BoxOAuthToken guaranteedGetAuthData() throws AuthFatalFailureException {
+    public IAuthData guaranteedGetAuthData() throws AuthFatalFailureException {
         return getOAuthDataController().guaranteedGetAuthData();
     }
 
@@ -493,7 +493,7 @@ public class BoxClient extends BoxBase implements IAuthFlowListener {
      */
     public synchronized void authenticate(IAuthData authData) {
         OAuthDataController oauthController = getOAuthDataController();
-        oauthController.setOAuthData((BoxOAuthToken) authData);
+        oauthController.setOAuthData(authData);
     }
 
     /**

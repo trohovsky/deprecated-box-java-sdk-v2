@@ -3,6 +3,8 @@
 Box Java SDK
 =============
 
+**Note:** This SDK will eventually be deprecated in favor of [our new Java SDK](https://github.com/box/box-java-sdk), which is currently in beta. The new SDK is _not_ backwards compatible and any code using this SDK will need to be migrated in order to take advantage of any new features and bug fixes.
+
 Getting Started
 ---------------
 

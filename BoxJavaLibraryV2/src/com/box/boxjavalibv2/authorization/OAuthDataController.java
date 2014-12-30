@@ -3,7 +3,7 @@ package com.box.boxjavalibv2.authorization;
 import org.apache.http.HttpStatus;
 
 import com.box.boxjavalibv2.BoxClient;
-import com.box.boxjavalibv2.dao.BoxOAuthToken;
+import com.box.boxjavalibv2.dao.IAuthData;
 import com.box.boxjavalibv2.exceptions.AuthFatalFailureException;
 import com.box.boxjavalibv2.exceptions.BoxServerException;
 import com.box.restclientv2.exceptions.BoxRestException;
@@ -32,7 +32,7 @@ public class OAuthDataController implements IAuthDataController {
     private final String mClientSecret;
     private String mDeviceId = null;
     private String mDeviceName = null;
-    private volatile BoxOAuthToken mOAuthToken;
+    private volatile IAuthData mOAuthToken;
     private volatile OAuthTokenState mTokenState = OAuthTokenState.PRE_CREATION;
     private boolean mAutoRefresh;
     private int mWaitTimeOut = WAIT_TIME_OUT;
@@ -101,7 +101,7 @@ public class OAuthDataController implements IAuthDataController {
         return mClientSecret;
     }
 
-    public void setOAuthData(BoxOAuthToken token) {
+    public void setOAuthData(IAuthData token) {
         try {
             waitForLock(true, WAIT);
 
@@ -201,7 +201,7 @@ public class OAuthDataController implements IAuthDataController {
      * @throws AuthFatalFailureException
      */
     @Override
-    public BoxOAuthToken getAuthData() throws AuthFatalFailureException {
+    public IAuthData getAuthData() throws AuthFatalFailureException {
         long num = 0;
         while (num * WAIT <= mWaitTimeOut) {
             if (getAndSetLock(false)) {
@@ -218,7 +218,7 @@ public class OAuthDataController implements IAuthDataController {
      * Get OAuthData, in case of OAuthTokenState indicating refresh needed, do refresh. Note this method may involve network operation so do not call on UI
      * thread.
      */
-    public BoxOAuthToken guaranteedGetAuthData() throws AuthFatalFailureException {
+    public IAuthData guaranteedGetAuthData() throws AuthFatalFailureException {
         long num = 0;
         while (num * WAIT <= mWaitTimeOut) {
             if (getAndSetLock(false)) {
