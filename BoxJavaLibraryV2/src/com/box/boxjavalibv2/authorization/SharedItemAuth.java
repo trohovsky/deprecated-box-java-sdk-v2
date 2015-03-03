@@ -2,7 +2,7 @@ package com.box.boxjavalibv2.authorization;
 
 import java.net.URLEncoder;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import com.box.restclientv2.authorization.DefaultAuthHeaderAuth;
 

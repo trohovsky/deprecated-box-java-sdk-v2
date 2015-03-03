@@ -3,7 +3,7 @@ package com.box.boxjavalibv2.authorization;
 import java.net.URLEncoder;
 
 import com.box.boxjavalibv2.dao.BoxOAuthToken;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import com.box.boxjavalibv2.exceptions.AuthFatalFailureException;
 import com.box.restclientv2.authorization.DefaultRequestAuth;
