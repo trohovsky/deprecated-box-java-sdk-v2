@@ -3,8 +3,6 @@ package com.box.boxjavalibv2;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.commons.lang.NotImplementedException;
-
 import com.box.boxjavalibv2.BoxConnectionManagerBuilder.BoxConnectionManager;
 import com.box.boxjavalibv2.authorization.IAuthDataController;
 import com.box.boxjavalibv2.authorization.IAuthEvent;
@@ -417,7 +415,7 @@ public class BoxClient extends BoxBase implements IAuthFlowListener {
             case COMMENT:
                 return getSharedCommentsManager(sharedLink, password);
             default:
-                throw new NotImplementedException();
+                throw new UnsupportedOperationException(" UnSupported Type inIBoxResourceManager");
         }
     }
 

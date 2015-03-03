@@ -7,7 +7,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 import org.apache.commons.io.IOUtils;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import com.box.boxjavalibv2.IBoxConfig;
 import com.box.boxjavalibv2.dao.BoxServerError;

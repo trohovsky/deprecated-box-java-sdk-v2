@@ -5,7 +5,7 @@ import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import com.box.restclientv2.httpclientsupport.HttpClientURIBuilder;
 import com.box.restclientv2.httpclientsupport.HttpClientURLEncodedUtils;
