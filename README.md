@@ -1,9 +1,9 @@
-[![Project Status](http://opensource.box.com/badges/active.svg)](http://opensource.box.com/badges)
+[![Project Status](http://opensource.box.com/badges/deprecated.svg)](http://opensource.box.com/badges)
 
 Box Java SDK
 =============
 
-**Note:** This SDK will eventually be deprecated in favor of [our new Java SDK](https://github.com/box/box-java-sdk), which is currently in beta. The new SDK is _not_ backwards compatible and any code using this SDK will need to be migrated in order to take advantage of any new features and bug fixes.
+**Note:** This SDK is now deprecated in favor of [our new Java SDK](https://github.com/box/box-java-sdk). The new SDK is _not_ backwards compatible and any code using this SDK will need to be migrated in order to take advantage of any new features and bug fixes.
 
 Getting Started
 ---------------
