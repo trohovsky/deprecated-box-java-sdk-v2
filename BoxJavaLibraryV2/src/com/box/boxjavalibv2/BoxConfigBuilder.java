@@ -3,7 +3,7 @@ package com.box.boxjavalibv2;
 public class BoxConfigBuilder {
 
     /** Box Java SDK version. */
-    public static final String VERSION_NUMBER = "v3.2.1-SNAPSHOT";
+    public static final String VERSION_NUMBER = "v3.2.2";
 
     /** Default API url scheme. */
     public static final String API_URL_SCHEME = "https";

@@ -32,7 +32,7 @@ public class AuthFatalFailureException extends BoxSDKException {
         super(e);
         if (refreshToken != null) {
             int len = refreshToken.length();
-            this.partialRefreshToken = "****" + refreshToken.substring(len-4);
+            this.partialRefreshToken = len < 4 ? refreshToken : "****" + refreshToken.substring(len-4);
         } else {
             this.partialRefreshToken = null;
         }
