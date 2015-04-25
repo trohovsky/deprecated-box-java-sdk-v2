@@ -14,6 +14,7 @@ public class BoxOAuthToken extends BoxObject implements IAuthData {
     public static final String FIELD_EXPIRES_IN = "expires_in";
     public static final String FIELD_TOKEN_TYPE = "token_type";
     public static final String FIELD_REFRESH_TOKEN = "refresh_token";
+    public static final String FIELD_BASE_DOMAIN = "base_domain";
 
     public BoxOAuthToken() {
     }
@@ -51,6 +52,23 @@ public class BoxOAuthToken extends BoxObject implements IAuthData {
     @JsonProperty(FIELD_ACCESS_TOKEN)
     private void setAccessToken(final String accessToken) {
         put(FIELD_ACCESS_TOKEN, accessToken);
+    }
+    
+    /**
+     * @return the base domain
+     */
+    @JsonProperty(FIELD_BASE_DOMAIN)
+    public String getBaseDomain() {
+        return (String) getValue(FIELD_BASE_DOMAIN);
+    }
+
+    /**
+     * @param baseDomain
+     *            the base domain
+     */
+    @JsonProperty(FIELD_BASE_DOMAIN)
+    private void setBaseDomain(final String baseDomain) {
+        put(FIELD_BASE_DOMAIN, baseDomain);
     }
 
     /**
