@@ -26,5 +26,6 @@ public class BoxOAuthTokenTest {
         Assert.assertEquals(10, oauthdata.getExpiresIn().intValue());
         Assert.assertEquals("testtokentype", oauthdata.getTokenType());
         Assert.assertEquals("testrefreshtoken", oauthdata.getRefreshToken());
+        Assert.assertEquals("testbasedomain", oauthdata.getBaseDomain());
     }
 }
