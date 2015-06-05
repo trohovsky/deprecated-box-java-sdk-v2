@@ -75,22 +75,23 @@ public class BoxClient extends BoxBase implements IAuthFlowListener {
     private final IBoxRESTClient restClient;
     private final IBoxConfig config;
 
-    private IAuthDataController authController;
-    private IBoxRequestAuth auth;
-    private IBoxFilesManager filesManager;
-    private IBoxFoldersManager foldersManager;
-    private IBoxItemsManager boxItemsManager;
-    private IBoxSearchManager searchManager;
-    private IBoxEventsManager eventsManager;
-    private IBoxCollaborationsManager collaborationsManager;
-    private IBoxCommentsManager commentsManager;
-    private IBoxUsersManager usersManager;
     protected IBoxOAuthManager oauthManager;
-    private IBoxGroupsManager groupsManager;
-    private IBoxTrashManager trashManager;
-    private IBoxCollectionsManager collectionsManager;
-    private IBoxWebLinksManager webLinksManager;
-    private Map<String, IBoxResourceManager> pluginResourceManagers = new HashMap<String, IBoxResourceManager>();
+    protected IAuthDataController authController;
+    protected IBoxRequestAuth auth;
+    protected IBoxFilesManager filesManager;
+    protected IBoxFoldersManager foldersManager;
+    protected IBoxItemsManager boxItemsManager;
+    protected IBoxSearchManager searchManager;
+    protected IBoxEventsManager eventsManager;
+    protected IBoxCollaborationsManager collaborationsManager;
+    protected IBoxCommentsManager commentsManager;
+    protected IBoxUsersManager usersManager;
+    protected IBoxGroupsManager groupsManager;
+    protected IBoxTrashManager trashManager;
+    protected IBoxCollectionsManager collectionsManager;
+    protected IBoxWebLinksManager webLinksManager;
+    protected Map<String, IBoxResourceManager> pluginResourceManagers = new HashMap<String, IBoxResourceManager>();
+
     /**
      * Listeners listening to the events of the states that this BoxClient gets authenticated. This is maintained in BoxClient class instead of directly using
      * the listeners in IAuthFlowUI because the time IAuthFlowUI get authenticated(authentication api call finished) and the time BoxClient get
@@ -156,23 +157,6 @@ public class BoxClient extends BoxBase implements IAuthFlowListener {
         this.restClient = restClient;
         this.config = config == null ? (new BoxConfigBuilder()).build() : config;
 
-        updateClientIdAndSecret(clientId, clientSecret);
-    }
-
-    @Deprecated
-    public BoxClient(final String clientId, final String clientSecret, final IBoxConfig config) {
-        this(clientId, clientSecret, null, null, config);
-    }
-
-    /**
-     * Updates the client id and secret and reinitializes the auth controller and related classes.
-     * Care should be taken when calling this method, as a refresh will fail if a task is in flight
-     * and the client id changes
-     *
-     * @param clientId client id to update the client to
-     * @param clientSecret client secret to update the client to
-     */
-    public void updateClientIdAndSecret(String clientId, String clientSecret) {
         authController = createAuthDataController(clientId, clientSecret);
         auth = createAuthorization(authController);
 
@@ -189,6 +173,11 @@ public class BoxClient extends BoxBase implements IAuthFlowListener {
         trashManager = new BoxTrashManagerImpl(getConfig(), getResourceHub(), getJSONParser(), getAuth(), getRestClient());
         collectionsManager = new BoxCollectionsManagerImpl(getConfig(), getResourceHub(), getJSONParser(), getAuth(), getRestClient());
         webLinksManager = new BoxWebLinksManagerImpl(getConfig(), getResourceHub(), getJSONParser(), getAuth(), getRestClient());
+    }
+
+    @Deprecated
+    public BoxClient(final String clientId, final String clientSecret, final IBoxConfig config) {
+        this(clientId, clientSecret, null, null, config);
     }
 
     /**
