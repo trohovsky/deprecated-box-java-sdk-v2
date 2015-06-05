@@ -85,7 +85,7 @@ public class BoxClient extends BoxBase implements IAuthFlowListener {
     private IBoxCollaborationsManager collaborationsManager;
     private IBoxCommentsManager commentsManager;
     private IBoxUsersManager usersManager;
-    private IBoxOAuthManager oauthManager;
+    protected IBoxOAuthManager oauthManager;
     private IBoxGroupsManager groupsManager;
     private IBoxTrashManager trashManager;
     private IBoxCollectionsManager collectionsManager;
