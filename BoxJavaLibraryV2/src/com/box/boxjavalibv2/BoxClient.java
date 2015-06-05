@@ -70,28 +70,27 @@ public class BoxClient extends BoxBase implements IAuthFlowListener {
 
     private final static boolean DEFAULT_AUTO_REFRESH = true;
 
-    private final IAuthDataController authController;
-    private final IBoxRequestAuth auth;
-
     private final IBoxResourceHub resourceHub;
     private final IBoxJSONParser jsonParser;
     private final IBoxRESTClient restClient;
     private final IBoxConfig config;
 
-    private final IBoxFilesManager filesManager;
-    private final IBoxFoldersManager foldersManager;
-    private final IBoxItemsManager boxItemsManager;
-    private final IBoxSearchManager searchManager;
-    private final IBoxEventsManager eventsManager;
-    private final IBoxCollaborationsManager collaborationsManager;
-    private final IBoxCommentsManager commentsManager;
-    private final IBoxUsersManager usersManager;
-    private final IBoxOAuthManager oauthManager;
-    private final IBoxGroupsManager groupsManager;
-    private final IBoxTrashManager trashManager;
-    private final IBoxCollectionsManager collectionsManager;
-    private final IBoxWebLinksManager webLinksManager;
-    private final Map<String, IBoxResourceManager> pluginResourceManagers = new HashMap<String, IBoxResourceManager>();
+    private IAuthDataController authController;
+    private IBoxRequestAuth auth;
+    private IBoxFilesManager filesManager;
+    private IBoxFoldersManager foldersManager;
+    private IBoxItemsManager boxItemsManager;
+    private IBoxSearchManager searchManager;
+    private IBoxEventsManager eventsManager;
+    private IBoxCollaborationsManager collaborationsManager;
+    private IBoxCommentsManager commentsManager;
+    private IBoxUsersManager usersManager;
+    private IBoxOAuthManager oauthManager;
+    private IBoxGroupsManager groupsManager;
+    private IBoxTrashManager trashManager;
+    private IBoxCollectionsManager collectionsManager;
+    private IBoxWebLinksManager webLinksManager;
+    private Map<String, IBoxResourceManager> pluginResourceManagers = new HashMap<String, IBoxResourceManager>();
     /**
      * Listeners listening to the events of the states that this BoxClient gets authenticated. This is maintained in BoxClient class instead of directly using
      * the listeners in IAuthFlowUI because the time IAuthFlowUI get authenticated(authentication api call finished) and the time BoxClient get
@@ -156,6 +155,24 @@ public class BoxClient extends BoxBase implements IAuthFlowListener {
         this.jsonParser = parser == null ? createJSONParser(resourceHub) : parser;
         this.restClient = restClient;
         this.config = config == null ? (new BoxConfigBuilder()).build() : config;
+
+        updateClientIdAndSecret(clientId, clientSecret);
+    }
+
+    @Deprecated
+    public BoxClient(final String clientId, final String clientSecret, final IBoxConfig config) {
+        this(clientId, clientSecret, null, null, config);
+    }
+
+    /**
+     * Updates the client id and secret and reinitializes the auth controller and related classes.
+     * Care should be taken when calling this method, as a refresh will fail if a task is in flight
+     * and the client id changes
+     *
+     * @param clientId client id to update the client to
+     * @param clientSecret client secret to update the client to
+     */
+    public void updateClientIdAndSecret(String clientId, String clientSecret) {
         authController = createAuthDataController(clientId, clientSecret);
         auth = createAuthorization(authController);
 
@@ -172,11 +189,6 @@ public class BoxClient extends BoxBase implements IAuthFlowListener {
         trashManager = new BoxTrashManagerImpl(getConfig(), getResourceHub(), getJSONParser(), getAuth(), getRestClient());
         collectionsManager = new BoxCollectionsManagerImpl(getConfig(), getResourceHub(), getJSONParser(), getAuth(), getRestClient());
         webLinksManager = new BoxWebLinksManagerImpl(getConfig(), getResourceHub(), getJSONParser(), getAuth(), getRestClient());
-    }
-
-    @Deprecated
-    public BoxClient(final String clientId, final String clientSecret, final IBoxConfig config) {
-        this(clientId, clientSecret, null, null, config);
     }
 
     /**
