@@ -97,7 +97,7 @@ public final class BoxUsersManagerImpl extends AbstractBoxResourceManager implem
     }
 
     @Override
-    public BoxUser updateUserInformaiton(final String userId, BoxUserRequestObject requestObject) throws BoxRestException, BoxServerException,
+    public BoxUser updateUserInformation(final String userId, BoxUserRequestObject requestObject) throws BoxRestException, BoxServerException,
         AuthFatalFailureException {
         UpdateUserRequest request = new UpdateUserRequest(getConfig(), getJSONParser(), userId, requestObject);
         return (BoxUser) getResponseAndParseAndTryCast(request, BoxResourceType.USER, getJSONParser());

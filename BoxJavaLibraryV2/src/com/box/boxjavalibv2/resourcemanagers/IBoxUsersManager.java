@@ -138,7 +138,7 @@ public interface IBoxUsersManager extends IBoxResourceManager {
      * @throws AuthFatalFailureException
      *             See {@link com.box.boxjavalibv2.exceptions.AuthFatalFailureException} for more info.
      */
-    public BoxUser updateUserInformaiton(String userId, BoxUserRequestObject requestObject) throws BoxRestException, BoxServerException,
+    public BoxUser updateUserInformation(String userId, BoxUserRequestObject requestObject) throws BoxRestException, BoxServerException,
         AuthFatalFailureException;
 
     /**
